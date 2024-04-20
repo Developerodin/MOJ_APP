@@ -1,8 +1,8 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar,IonButton } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
 
-const Home2: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -14,6 +14,7 @@ const Home2: React.FC = () => {
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Blank</IonTitle>
+            <IonButton routerLink="/Verifyphone">Go to Page 1</IonButton>
           </IonToolbar>
         </IonHeader>
         <ExploreContainer />
@@ -22,4 +23,4 @@ const Home2: React.FC = () => {
   );
 };
 
-export default Home2;
+export default Home;
