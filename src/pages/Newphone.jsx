@@ -12,15 +12,18 @@ import { useHistory } from "react-router";
 
 const Newphone = () => {
   const history = useHistory()
-
+ 
   const handelBtnClick= ()=>{
-    history.push("/homeTwo")
+    history.push("/info")
+  }
+  const handelBackClick = ()=>{
+    history.goBack()
   }
   return (
     <IonPage>
       <IonContent>
         <div style={{ padding: "20px" }}>
-          <IonButton slot="start">
+          <IonButton onClick={handelBackClick} slot="start">
             <IonIcon icon={arrowBack} />
           </IonButton>
           <h1

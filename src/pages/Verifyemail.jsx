@@ -2,8 +2,13 @@ import React from 'react';
 import { IonPage, IonContent,  IonButton, IonIcon, IonInput, IonItem, IonLabel } from '@ionic/react';
 import { arrowBack } from 'ionicons/icons';
 import { IonCheckbox } from '@ionic/react';
+import { useHistory } from 'react-router';
 
 const Verifyemail = () => {
+  const history = useHistory()
+  const handelBackClick = ()=>{
+    history.goBack()
+  }
   return (
     <IonPage>
       
@@ -11,7 +16,7 @@ const Verifyemail = () => {
       <IonContent>
       
         <div style={{ padding: '20px' }}>
-        <IonButton slot="start">
+        <IonButton onClick={handelBackClick} slot="start">
             <IonIcon icon={arrowBack} />
           
           </IonButton>

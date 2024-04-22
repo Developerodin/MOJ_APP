@@ -17,11 +17,14 @@ const  Workexperience = () => {
   const handelBtnClick= ()=>{
     history.push("/home")
   }
+  const handelBackClick = ()=>{
+    history.goBack()
+  }
   return (
     <IonPage>
       <IonContent>
         <div style={{ padding: "20px" }}>
-          <button style={{backgroundColor:'transparent'}} >
+          <button  onClick={handelBackClick} style={{backgroundColor:'transparent'}} >
           <img
             src={icon}
             style={{

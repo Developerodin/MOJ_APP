@@ -1,8 +1,9 @@
+
 import { IonCard, IonCardContent, IonIcon } from '@ionic/react'
 import { bookmark, locationOutline } from 'ionicons/icons'
 import React from 'react'
 import book from "/assets/book.png";
-export const JobCard = () => {
+export const AppliedJobCard = () => {
   return (
     <div style={{width:"100%"}}>
 <IonCard style={{padding:"0px",border:"1px solid #E4E4E4",borderRadius:"15px",background:"#f2f4fe",margin:0}} >
@@ -60,12 +61,14 @@ export const JobCard = () => {
         </div>
       </div>
         
-        <div style={{position:"absolute",top:20,right:20}}>
+        {/* <div style={{position:"absolute",top:20,right:20}}>
           <IonIcon style={{color:"#395CFF",fontSize:"24px"}} icon={bookmark} />
+        </div> */}
+
+
+        <div style={{textAlign:"center",position:"absolute",bottom:20,right:20,color:"green",padding:"3px",border:"1px solid green",borderRadius:"12px",width:"86px"}}>
+            <span style={{fontSize:"14px"}}>In touch</span>
         </div>
-
-
-     
      
     </IonCardContent>
   </IonCard>

@@ -76,7 +76,7 @@ const Continue = () => {
                   border: "1px solid #ffffff",
                 }}
               >
-                Hotelier
+               Employers
               </button>
               <button
                 onClick={handelBtnClick}

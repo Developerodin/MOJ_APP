@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react'
 import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline} from 'ionicons/icons';
 import './Home.css';
 import { JobCard } from '../../components/Cards/JobCard/JobCard';
-import card from "./card.png"
+
 import wm from "./wm.png"
 import frame from "./Frame1.png"
 export const Home = () => {
@@ -11,9 +11,10 @@ export const Home = () => {
     <IonPage>
         <IonContent >
 
-        <div style={{padding:"10px"}}>
+<div style={{padding:"20px"}}>
+        <div >
           <div>
-          <span style={{fontSize:"26px",fontWeight:"bold"}}>offers</span> 
+          <span style={{fontSize:"26px",fontWeight:"bold"}}>Offers</span> 
 
           <div style={{position:"relative"}}>
           <div style={{textAlign:"center",marginTop:"20px"}}>
@@ -41,79 +42,34 @@ export const Home = () => {
            
           </div>
 
-          <div style={{padding:"10px"}}>
+          <div style={{marginTop:"20px"}}>
             <span style={{fontSize:"26px",fontWeight:"bold"}}>Featured jobs</span> 
             <br/>
             <span style={{color:"grey",fontSize:"12px"}}>Showing results based on your added preference</span>
           </div>
           <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"20px",flexDirection:"column",gap:"20px"}}>
-          <img
-            src={card}
-            alt="Globe Icon"
-            style={{
-             
-            }}
-          />
+        
+            
+            <JobCard />
 
-<img
-            src={card}
-            alt="Globe Icon"
-            style={{
-             
-            }}
-          />
+            <JobCard />
 
-<img
-            src={card}
-            alt="Globe Icon"
-            style={{
-             
-            }}
-          />
+            <JobCard />
 
-<img
-            src={card}
-            alt="Globe Icon"
-            style={{
-             
-            }}
-          />
+            <JobCard />
 
-<img
-            src={card}
-            alt="Globe Icon"
-            style={{
-             
-            }}
-          />
+            <JobCard />
+
+
+
+
 
           
-<img
-            src={card}
-            alt="Globe Icon"
-            style={{
-             
-            }}
-          />
 
-          
-<img
-            src={card}
-            alt="Globe Icon"
-            style={{
-             
-            }}
-          />
-
-          
-<img
-            src={card}
-            alt="Globe Icon"
-            style={{
-             
-            }}
-          />
           </div>
+
+</div>
+      
           
        
         </IonContent>

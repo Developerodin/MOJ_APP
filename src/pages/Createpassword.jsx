@@ -8,13 +8,19 @@ import {
   IonLabel,
 } from "@ionic/react";
 import { arrowBack } from "ionicons/icons";
+import { useHistory } from "react-router";
 
 const Createpassword = () => {
+   const history = useHistory();
+
+   const handelBackClick = ()=>{
+    history.goBack()
+  }
   return (
     <IonPage>
       <IonContent>
         <div style={{ padding: "20px" }}>
-          <IonButton slot="start">
+          <IonButton onClick={handelBackClick} slot="start">
             <IonIcon icon={arrowBack} />
           </IonButton>
           <h1

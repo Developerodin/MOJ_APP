@@ -16,11 +16,14 @@ const VerifyPhoneTwo = () => {
   const handelBtnClick= ()=>{
     history.push("/Basicinfo")
   }
+  const handelBackClick = ()=>{
+    history.goBack()
+  }
   return (
     <IonPage>
       <IonContent>
         <div style={{ padding: "20px" }}>
-          <IonButton slot="start">
+          <IonButton onClick={handelBackClick} slot="start">
             <IonIcon icon={arrowBack} />
           </IonButton>
           <h1
