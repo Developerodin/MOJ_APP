@@ -1,0 +1,18 @@
+.native-input{
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+    height: 48px;
+}
+
+.sc-ion-input-md-h {
+    outline: none !important;
+    --highlight-color-focused:"none" !important;
+}
+
+.native-input.sc-ion-input-md {
+
+    font-size: 18px;
+    
+  
+}
+

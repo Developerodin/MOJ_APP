@@ -2,10 +2,10 @@ import { IonCard, IonCardContent, IonIcon } from '@ionic/react'
 import { bookmark, locationOutline } from 'ionicons/icons'
 import React from 'react'
 import book from "/assets/book.png";
-export const JobCard = () => {
+export const JobCard = ({fun}) => {
   return (
     <div style={{width:"100%"}}>
-<IonCard style={{padding:"0px",border:"1px solid #E4E4E4",borderRadius:"15px",background:"#f2f4fe",margin:0}} >
+<IonCard onClick={fun} style={{padding:"0px",border:"1px solid #E4E4E4",borderRadius:"15px",background:"#f2f4fe",margin:0}} >
     <IonCardContent style={{padding:"10px"}}>
       
       <div>

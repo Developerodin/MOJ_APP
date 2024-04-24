@@ -11,8 +11,8 @@ const Continue = () => {
   }
   return (
     <IonPage>
-      <IonContent style={{ backgroundColor: "#5356FF" }}>
-        <div style={{ backgroundColor: "#5356FF", position: "relative", height: "100vh" }}>
+      <IonContent style={{ backgroundColor: "#395cff" }}>
+        <div style={{ backgroundColor: "#395cff", position: "relative", height: "100vh" }}>
           <img
             src={globeicon}
             alt="Globe Icon"
@@ -22,7 +22,7 @@ const Continue = () => {
               right: "10px",
               width: "30px",
               height: "30px",
-              marginTop: "10px",
+              marginTop: "20px",
             }}
           />
           <div
@@ -36,7 +36,7 @@ const Continue = () => {
           >
             <h1
               style={{
-                fontSize: "40px",
+                fontSize: "35px",
                 fontWeight: "700",
                 fontFamily: "inter",
                 color: "#ffffff",
@@ -46,17 +46,17 @@ const Continue = () => {
               Continue as 
             </h1>
 
-            <div style={{ marginTop:'10px', width: "100%", height: "50px" }}>
+            <div style={{ marginTop:'30px', width: "100%", height: "50px" }}>
               <button
               onClick={handelBtnClick}
                 style={{
-                  backgroundColor: "#5356FF",
+                  backgroundColor: "#395cff",
                   borderRadius: "50px",
                   width: "100%",
                   height: "100%",
                   color: "#ffffff",
-                  fontSize: "20px",
-                  fontWeight: "bold",
+                  fontSize: "17px",
+                 
                   border: "1px solid #ffffff"
                 }}
               >
@@ -65,13 +65,13 @@ const Continue = () => {
               <button
                 onClick={handelBtnClick}
                 style={{
-                  backgroundColor: "#5356FF",
+                  backgroundColor: "#395cff",
                   borderRadius: "50px",
                   width: "100%",
                   height: "100%",
                   color: "#ffffff",
-                  fontSize: "20px",
-                  fontWeight: "bold",
+                  fontSize: "17px",
+                
                   marginTop: "15px",
                   border: "1px solid #ffffff",
                 }}
@@ -81,13 +81,13 @@ const Continue = () => {
               <button
                 onClick={handelBtnClick}
                 style={{
-                  backgroundColor: "#5356FF",
+                  backgroundColor: "#395cff",
                   borderRadius: "50px",
                   width: "100%",
                   height: "100%",
                   color: "#ffffff",
-                  fontSize: "20px",
-                  fontWeight: "bold",
+                  fontSize: "17px",
+                  
                   marginTop: "15px",
                   border: "1px solid #ffffff",
                 }}

@@ -7,14 +7,15 @@ import {
   IonInput,
   IonLabel,
 } from "@ionic/react";
-import { arrowBack } from "ionicons/icons";
+import { arrowBack, chevronBackOutline } from "ionicons/icons";
 import { useHistory } from "react-router";
+import { CustomBtn1 } from "../../components/Buttons/CustomBtn1";
 
 const Newphone = () => {
   const history = useHistory()
  
   const handelBtnClick= ()=>{
-    history.push("/info")
+    history.push("/verify-otp")
   }
   const handelBackClick = ()=>{
     history.goBack()
@@ -23,26 +24,26 @@ const Newphone = () => {
     <IonPage>
       <IonContent>
         <div style={{ padding: "20px" }}>
-          <IonButton onClick={handelBackClick} slot="start">
-            <IonIcon icon={arrowBack} />
-          </IonButton>
+        <div>
+            <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
+           </div>
+
           <h1
             style={{
               color: "#232323",
-              fontSize: "36px",
+              fontSize: "30px",
               fontFamily: "inter",
               fontWeight: "700",
             }}
           >
-            Enter your phone
-number
+            Enter your phone number
           </h1>
 
           <h5
             style={{
                 color: "#575757",
                 fontFamily: "inter",
-                fontSize: "20px",
+                fontSize: "16px",
                 fontWeight: "400",
                 lineHeight: "30px",
             }}
@@ -50,11 +51,13 @@ number
             Enter your phone number to receive OTP
           </h5>
 
-          <IonLabel
+<div style={{marginTop:"20px"}}>
+
+<IonLabel
             style={{
               color: "#575757",
               fontFamily: "inter",
-              fontSize: "20px",
+              fontSize: "15px",
               fontWeight: "400",
               lineHeight: "30px",
             }}
@@ -66,16 +69,21 @@ number
             type="tel"
             style={{
               borderRadius: "50px",
-              fontSize: "20px",
+             
               border: "1px solid #E2E8F0",
             }}
           />
+
+</div>
+      
+
+<div style={{marginTop:"20px"}}>
 
 <IonLabel
             style={{
               color: "#575757",
               fontFamily: "inter",
-              fontSize: "20px",
+              fontSize: "15px",
               fontWeight: "400",
               lineHeight: "30px",
               
@@ -93,14 +101,17 @@ number
             }}
           />
 
+</div>
+
+
           {/* </IonItem> */}
           
         </div>
-        <div style={{ position: "absolute", bottom: "20px", width: "100%",height:'50px',paddingLeft:'20px',paddingRight:'20px' }}>
-          <button onClick={handelBtnClick}  style={{ borderRadius: "50px",width:'100%',height:'100%', backgroundColor: "#5356FF",color:'#ffffff',fontSize:'20px'}}>
-            Continue
-          </button>
-        </div>
+       
+        <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
+
+<CustomBtn1 fun={handelBtnClick} title={"Continue"}/>
+</div>
       </IonContent>
     </IonPage>
   );

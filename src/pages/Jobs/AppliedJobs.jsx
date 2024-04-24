@@ -4,11 +4,11 @@ import React from 'react'
 import { chevronDownOutline, documentTextOutline } from 'ionicons/icons'
 
 import { AppliedJobCard } from '../../components/Cards/JobCard/AppliedJobCard'
-export const JobsDetails = () => {
+export const AppliedJobs = () => {
   return (
 <IonPage>
     <IonContent>
-          <div style={{padding:"15px"}}>
+          <div style={{padding:"20px"}}>
           <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
           <IonIcon icon={documentTextOutline} style={{fontSize:"30px"}} />
           <span style={{fontSize:"26px",fontWeight:"bold",marginLeft:"10px",marginTop:"3px"}}>Applied</span>

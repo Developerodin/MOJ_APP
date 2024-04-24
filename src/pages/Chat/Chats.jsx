@@ -1,6 +1,6 @@
 import { IonContent, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
 import React, { useContext, useState } from 'react'
-import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline} from 'ionicons/icons';
+import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline, documentTextOutline, chatboxEllipsesOutline} from 'ionicons/icons';
 import ContactsChat from '../../components/Chats/ContactsChat';
 import GroupsChat from '../../components/Chats/GroupsChat';
 import Threds from '../../components/Chats/Threds';
@@ -17,18 +17,7 @@ export const Chats = () => {
     
     setTabBarVisibility(path);
 
-    const renderComponent = () => {
-        switch (selectedTab) {
-          case 'Contacts':
-            return <ContactsChat />;
-          case 'Group':
-            return <GroupsChat />;
-          case 'Threads':
-            return <Threds />;
-          default:
-            return null;
-        }
-      };
+
 
       const handleBackButtonClick = () => {
         // Replace 'Tab2' with the appropriate route name for your tab
@@ -56,62 +45,29 @@ export const Chats = () => {
   return (
     <IonPage>
         <IonContent>
-            <div style={{width:"90%",margin:"auto"}}>
-
-              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-              <div style={{marginTop:"30px"}}>
-                <IonText style={{fontSize:"48px",color:"#2D3F65",fontWeight:"500"}}>Chats</IonText>
-               </div>
-               <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-            {/* <div>
-            <IonIcon onClick={handleBackButtonClick}  style={{margin:"5px 3px 0px"}} icon={closeOutline} size="large" color="dark"></IonIcon>
             
-            
-              </div> */}
-                
-               
-            </div>
            
-        
-        
-        </div>
-
-{/* search bar */}
-               <div>
-                <IonList style={{width:"95%"}}>
-                    <IonItem>
-                        <IonInput placeholder='search...'></IonInput>
-                        <IonIcon icon={searchOutline} size='small' slot='end'></IonIcon>
-                    </IonItem>
-                </IonList>
-               </div>
-            </div>
-
-
-
-            <div>
-            <IonToolbar>
-        <IonSegment  value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
-          <IonSegmentButton value="Contacts" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >CONTACTS</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="Group" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >GROUPS</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="Threads" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >THREADS</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
-      </IonToolbar>
-            </div>
-
-          <div style={{marginTop:"10px",width:"95%",margin:"auto"}}>
-
-            {
-                renderComponent()
-            }
-            
+          <div style={{padding:"20px"}}>
+          <div style={{display:"flex",justifyContent:"left",alignItems:"center",marginTop:"10px"}}>
+          <IonIcon icon={chatboxEllipsesOutline} style={{fontSize:"30px"}} />
+          <span style={{fontSize:"26px",fontWeight:"bold",marginLeft:"15px",marginTop:"0px"}}>Messages</span>
           </div>
+
+          <div style={{marginTop:"20px"}}>
+
+{
+    <ContactsChat />
+}
+
+</div>
+
+
+          </div>
+
+
+           
+
+         
 
 
 

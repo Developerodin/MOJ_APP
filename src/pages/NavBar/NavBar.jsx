@@ -8,10 +8,19 @@ import { Route, Redirect } from 'react-router';
 import { playCircle, radio, library, search,homeOutline ,searchOutline,addCircleOutline,heartOutline,personOutline, documentAttachOutline, documentTextOutline, chatboxEllipsesOutline} from 'ionicons/icons';
 import { Home } from '../Home/Home';
 import { Profile } from '../Profile/Profile';
-import { JobsDetails } from '../Jobs/JobsDetails';
+import { AppliedJobs } from '../Jobs/AppliedJobs';
 import { Chats } from '../Chat/Chats';
 import PersonalChat from '../../components/Chats/PersonalChat';
 import GroupChatting from '../../components/Chats/GroupChatting';
+import { JobDetails } from '../Jobs/JobDetails';
+import { ProfileWorkExperience } from '../Profile/ProfileTabs/WorkExperience';
+import { ProfileEduction } from '../Profile/ProfileTabs/Eduction';
+import { ProfilePersonalDetails } from '../Profile/ProfileTabs/PersonalDetails';
+import { ProfileContactDetails } from '../Profile/ProfileTabs/ContactDetails';
+import { ProfileJobPreference } from '../Profile/ProfileTabs/JobPreference';
+import { HelpAndSupport } from '../Profile/ProfileTabs/HelpAndSupport';
+import { UpdateProfilePhoto } from '../Profile/ProfileTabs/UpdateProfilePhoto';
+import { Reward } from '../Reward/Reward';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -51,11 +60,26 @@ const NavBar = () => {
          
          <Route path="/home" render={() => <Home/>} exact={true} />
          <Route path="/profile" render={() => <Profile/>} exact={true} />
-         <Route path="/job-details" render={() => <JobsDetails/>} exact={true} />
+         <Route path="/applied-jobs" render={() => <AppliedJobs/>} exact={true} />
          <Route path="/chat" render={() => <Chats/>} exact={true} />
          <Route path="/personal-chat/:id" render={() => <PersonalChat/>} exact={true} />
          <Route path="/group-chat" render={() => <GroupChatting/>} exact={true} />
-       
+         <Route path="/job-details/:id" render={() => <JobDetails/>} exact={true} />
+         {/* =================================================== */}
+
+         <Route  path="/profile-work-experience" component={ProfileWorkExperience} exact />
+    <Route  path="/profile-eduction" component={ProfileEduction} exact />
+    <Route  path="/profile-personal-details" component={ProfilePersonalDetails} exact />
+    <Route  path="/profile-contact-details" component={ProfileContactDetails} exact />
+    <Route  path="/profile-job-preference" component={ProfileJobPreference} exact />
+    <Route  path="/help-and-support" component={HelpAndSupport} exact />
+    <Route  path="/update-profile-photo" component={UpdateProfilePhoto} exact />
+    <Route  path="/rewards" component={Reward} exact />
+        
+
+         
+         
+         
           <Redirect exact path="/" to="/home" />
         </IonRouterOutlet>
 
@@ -71,7 +95,7 @@ const NavBar = () => {
            
           </IonTabButton> */}
 
-          <IonTabButton tab="addpost" href="/job-details" style={{backgroundColor:"#FFF",color:"grey"}}>
+          <IonTabButton tab="addpost" href="/applied-jobs" style={{backgroundColor:"#FFF",color:"grey"}}>
             <IonIcon icon={documentTextOutline} />
            
           </IonTabButton>

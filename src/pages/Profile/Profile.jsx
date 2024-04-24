@@ -5,15 +5,17 @@ import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbub
 import cs from "./th.jpg"
 import profileImg from "./profileImg2.png"
 import ProfileListItem from '../../components/ProfileItem/ProfileItem';
+import { useHistory } from 'react-router';
 export const Profile = () => {
+  const history = useHistory()
   const [completionPercentage, setCompletionPercentage] = useState(75);
   const ProfileTabs=[
     
-    {icon:lockClosedOutline,title:"Personal Details",link:"/",color:"#395CFF"},
-    {icon:callOutline,title:"Contact Details",link:"/",color:"#395CFF"},
-    {icon:bookOutline,title:"Education",link:"/",color:"#395CFF"},
-    {icon:gitPullRequestOutline,title:"Job preference",link:"/",color:"#395CFF"},
-    {icon:bagHandleOutline,title:"Work experience",link:"/",color:"#395CFF"},
+    {icon:lockClosedOutline,title:"Personal Details",link:"profile-personal-details",color:"#395CFF"},
+    {icon:callOutline,title:"Contact Details",link:"/profile-contact-details",color:"#395CFF"},
+    {icon:bookOutline,title:"Education",link:"/profile-eduction",color:"#395CFF"},
+    {icon:gitPullRequestOutline,title:"Job preference",link:"/profile-job-preference",color:"#395CFF"},
+    {icon:bagHandleOutline,title:"Work experience",link:"/profile-work-experience",color:"#395CFF"},
     {icon:cloudUploadOutline,title:"Resume",link:"/",color:"#395CFF"},
   ]
   useEffect(() => {
@@ -22,6 +24,14 @@ export const Profile = () => {
     // Replace this with your actual data fetching logic
     setCompletionPercentage(75);
   }, []);
+
+  const handelRewardClick = ()=>{
+    history.push("/rewards")
+  }
+
+  const handelProfilePhotoClick = ()=>{
+    history.push("/update-profile-photo")
+  }
 
   const width = 54; // Width of the SVG
   const height = 54; // Height of the SVG
@@ -49,14 +59,14 @@ export const Profile = () => {
             </div>
 
           <div>
-          <div>
+          <div onClick={handelProfilePhotoClick}>
                <div style={{textAlign:"center"}}>
                
                <div style={{position:"relative"}}>
                <img
             src={profileImg}
             alt="Globe Icon"
-            style={{border: "1px solid grey",height:"86px",width:"86px",borderRadius:"60px"}}
+            style={{boxShadow: "6px 14px 28px rgba(0, 0, 255, 0.2)",border: "1px solid grey",height:"86px",width:"86px",borderRadius:"60px"}}
           />
 
           <div style={{display:"flex",justifyContent:"center",alignItems:"center",position:"absolute",bottom:3,left: "58%", transform: "translateX(-50%)",background:"#395CFF",width:"28px",height:"28px",borderRadius:"20px"}}>
@@ -108,6 +118,7 @@ export const Profile = () => {
 
 
 <div 
+onClick={handelRewardClick}
   style={{
     marginTop: '20px',
     background: `url('/assets/rewardBG.png')`, // Add your image path here

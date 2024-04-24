@@ -36,7 +36,7 @@ const history=useHistory();
             alignItems: "center",
           }}
         >
-          <div style={{ width: "50px", height: "50px" }}>
+          <div style={{ width: "55px", height: "55px" }}>
             <img
               src={Data.userImg}
               alt="user Image"
@@ -49,7 +49,7 @@ const history=useHistory();
               <IonText
                onClick={handelClick}
                 style={{
-                  fontSize: "14px",
+                  fontSize: "18px",
                   fontWeight: "bold",
                   color: "#2D3F65",
                 }}
@@ -57,9 +57,9 @@ const history=useHistory();
                 {Data.name}
               </IonText>
             </div>
-            <div>
-              <IonText style={{ fontSize: "9px", color: "grey" }}>
-                {Data.discription}
+            <div style={{marginTop:"3px"}}>
+              <IonText style={{ fontSize: "14px", color: "grey" }}>
+              Hi, Here are the next...
               </IonText>
             </div>
           </div>
@@ -73,7 +73,7 @@ const history=useHistory();
           }}
         >
           <div>
-            <IonText style={{ fontSize: "12px" }}>14.39</IonText>
+            <IonText style={{ fontSize: "14px" }}>12:00</IonText>
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ const{itemData}=useContext(AppContext);
 
 
   return (
-    <div >
+    <div style={{marginTop:"20px"}} >
         {
             itemData.map((el,index)=>{
                 return (

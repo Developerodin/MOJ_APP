@@ -7,54 +7,51 @@ import {
   IonInput,
   IonLabel,
 } from "@ionic/react";
-import { arrowBack } from "ionicons/icons";
+import { arrowBack, chevronBackOutline } from "ionicons/icons";
 import icon from "/assets/left.png";
 import { useHistory } from "react-router";
+import { CustomBtn1 } from "../../components/Buttons/CustomBtn1";
 
-const Personalinfo = () => {
+const Personalinfo = ({handelContinue}) => {
   const history = useHistory()
 
   const handelBtnClick= ()=>{
-    history.push("/edu")
+    history.push("/home")
+    // handelContinue("/home")
   }
   const handelBackClick = ()=>{
     history.goBack()
   }
+
+  const handelButtonSelected = (value) =>{
+        history.push(value)
+                  
+  }
   return (
-    <IonPage>
-      <IonContent>
-        <div style={{ padding: "20px" }}>
-        <button onClick={handelBackClick} style={{backgroundColor:'transparent'}} >
-          <img
-
-            src={icon}
-            style={{
-              width: "30px",
-              height: "30px",
-
-              
-            }}
-            />
-          </button>
+   
+        <div>
+        <div >
+       
           <h1
             style={{
               color: "#232323",
-              fontSize: "36px",
+              fontSize: "30px",
               fontFamily: "inter",
               fontWeight: "700",
             }}
           >
             Tell us a bit about yourself
           </h1>
-          <div style={{ marginTop:'15px', width: "100%", height: "50px" }}>
+          <div style={{ marginTop:'30px', width: "100%", height: "50px" }}>
               <button
+              onClick={()=>{handelButtonSelected("/edu")}}
                 style={{
                   backgroundColor: "#ffffff",
                   borderRadius: "50px",
                   width: "100%",
                   height: "100%",
                   color: "black",
-                  fontSize: "18px",
+                  fontSize: "17px",
                   fontWeight: "bold",
                   border: "1px solid black"
                 }}
@@ -62,30 +59,32 @@ const Personalinfo = () => {
                 Education
               </button>
               <button
+              onClick={()=>{handelButtonSelected("/job-pref")}}
                 style={{
                   backgroundColor: "#ffffff",
                   borderRadius: "50px",
                   width: "100%",
                   height: "100%",
                   color: "black",
-                  fontSize: "18px",
+                  fontSize: "17px",
                   fontWeight: "bold",
-                  marginTop: "15px",
+                  marginTop: "20px",
                   border: "1px solid black",
                 }}
               >
                 Job Preference
               </button>
               <button
+              onClick={()=>{handelButtonSelected("/work")}}
                 style={{
                   backgroundColor: "#ffffff",
                   borderRadius: "50px",
                   width: "100%",
                   height: "100%",
                   color: "black",
-                  fontSize: "18px",
+                  fontSize: "17px",
                   fontWeight: "bold",
-                  marginTop: "15px",
+                  marginTop: "20px",
                   border: "1px solid black",
                 }}
               >
@@ -98,9 +97,9 @@ const Personalinfo = () => {
                   width: "100%",
                   height: "100%",
                   color: "black",
-                  fontSize: "18px",
+                  fontSize: "17px",
                   fontWeight: "bold",
-                  marginTop: "15px",
+                  marginTop: "20px",
                   border: "1px solid black",
                 }}
               >
@@ -111,18 +110,16 @@ const Personalinfo = () => {
           
           
         </div>
-        <div style={{ position: "absolute", bottom: "50px", width: "100%",height:'50px',paddingLeft:'20px',paddingRight:'20px' }}>
-          <button onClick={handelBtnClick}  style={{ borderRadius: "50px",width:'100%',height:'100%', backgroundColor: "#5356FF",color:'#ffffff',fontSize:'20px'}}>
-            Continue
-          </button>
-          <button onClick={handelBtnClick}  style={{ borderRadius: "50px",width:'100%',height:'100%', backgroundColor: "transparent",color:'black',fontSize:'20px',fontWeight:'700'}}>
-            Skip
-          </button>
+        <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+          <CustomBtn1 fun={handelBtnClick} title={"Finish"} />
+          <div style={{marginTop:"20px"}}>
+    <span style={{color:"black",fontSize:"16px",fontWeight:"bold"}}>Skip</span>
+</div>
           
         </div>
-        
-      </IonContent>
-    </IonPage>
+
+        </div>
+
   );
 };
 
