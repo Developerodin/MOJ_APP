@@ -4,6 +4,15 @@
     height: 48px;
 }
 
+input{
+    padding: 10px;
+    outline: none !important;
+    height: 48px;
+    width:100%;
+    border-radius: 50px;
+    border:1px solid #E2E8F0 !important;
+}
+
 .sc-ion-input-md-h {
     outline: none !important;
     --highlight-color-focused:"none" !important;
@@ -11,8 +20,15 @@
 
 .native-input.sc-ion-input-md {
 
-    font-size: 18px;
+    font-size: 17px;
     
   
 }
 
+#select-label {
+    padding-left: 20px !important;
+}
+
+.select-wrapper-inner {
+    padding-left: 20px;
+}

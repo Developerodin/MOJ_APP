@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonPage, IonContent,  IonButton, IonIcon, IonInput, IonItem, IonLabel } from '@ionic/react';
+import { IonPage, IonContent,  IonButton, IonIcon, IonItem, IonLabel } from '@ionic/react';
 import { arrowBack } from 'ionicons/icons';
 import { IonCheckbox } from '@ionic/react';
 import { useHistory } from 'react-router';
@@ -25,7 +25,7 @@ const Verifyemail = () => {
           
             <IonLabel style={{color:'#575757',fontFamily:'inter',fontSize:'20px',fontWeight:'400',lineHeight:'30px'}} >Email</IonLabel>
           {/* <IonItem> */}
-          <IonInput type="tel"   style={{  borderRadius: '50px', fontSize: '20px',border: '1px solid #E2E8F0' }} />
+          <input type="tel"  />
 
           {/* </IonItem> */}
           <div style={{marginTop:'20px',color:'#333333',fontFamily:'inter',fontWeight:'700',fontSize:'20px'}}>Already have an account? <span style={{color:'blue',fontFamily:'inter',fontWeight:'700',fontSize:'20px'}}>Sign In</span></div>

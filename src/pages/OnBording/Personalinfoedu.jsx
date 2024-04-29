@@ -1,14 +1,24 @@
 import React, { useState } from "react";
-import { IonPage, IonContent, IonInput, IonLabel, IonIcon } from "@ionic/react";
-import { calendarOutline, chevronBackOutline } from 'ionicons/icons';
+import { IonPage, IonContent, IonLabel, IonIcon, IonButton } from "@ionic/react";
+import { addOutline, calendarOutline, chevronBackOutline } from 'ionicons/icons';
 import icon from "/assets/left.png";
 import { useHistory } from "react-router";
 import { CustomBtn1 } from "../../components/Buttons/CustomBtn1";
+import { EducationCard } from "../../components/Cards/EducationCard/EducationCard";
+import EducationModel from "../../components/Models/EducationModel";
 
 const Personalinfoedu = () => {
   const history = useHistory()
   const [yearGraduated, setYearGraduated] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const handleOpenModal = () => {
+      setIsModalOpen(true);
+    };
+  
+    const handleCloseModal = () => {
+      setIsModalOpen(false);
+    };
   const handleYearChange = (event) => {
     setYearGraduated(event.target.value);
   };
@@ -39,112 +49,32 @@ const Personalinfoedu = () => {
             Education
           </h1>
 
-          <div style={{marginTop:"30px"}}>
-  
-  <div>
+          <div style={{padding:"5px"}}>
 
-  <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Degree
-            </label>
-            {/* <IonItem> */}
-            <IonInput
-              type="text"
-              placeholder="e.g fnb manager"
-              style={{
-                borderRadius: "0px",
-                padding:"10px",
-                border: "1px solid #E2E8F0",
-                height:"52px",
-                backgroundColor:"#F4F4F4"
-              }}
-            />
-  </div>
-  
-
-  <div style={{marginTop:"20px"}}>
-
-  <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              University
-            </label>
-            {/* <IonItem> */}
-            <IonInput
-              type="text"
-              placeholder="e.g fnb manager"
-              style={{
-                borderRadius: "0px",
-                padding:"10px",
-                border: "1px solid #E2E8F0",
-                height:"52px",
-                backgroundColor:"#F4F4F4"
-              }}
-            />
-  </div>
- 
-      
-      
-            
-  
-            {/* </IonItem> */}
-
-           
-           
+<div style={{marginTop:"30px"}} >
+      <EducationCard />
+</div>
 
 
-           
+<div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"30px"}}>
+  <IonButton onClick={handleOpenModal}>
+    <IonIcon icon={addOutline} />
+  </IonButton>
+</div>
 
-        
-           
-           <div style={{marginTop:"20px"}}>
-              
-           <IonLabel
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Year graduated
-            </IonLabel>
-            {/* <IonItem> */}
-            <IonInput
-              type="date"
-            
-              style={{
-                borderRadius: "0px",
-                padding:"10px",
-                border: "1px solid #E2E8F0",
-                height:"52px",
-                backgroundColor:"#F4F4F4"
-              }}
-            />
 
-           </div>
-           
-          </div>  
+
+
+
+
+</div> 
         </div>
         <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
-          <CustomBtn1 fun={handelBtnClick} title={"Proceed"} />
+          <CustomBtn1 fun={handelBackClick} title={"Proceed"} />
           
           
         </div>
+        <EducationModel isOpen={isModalOpen} onClose={handleCloseModal} />
       </IonContent>
     </IonPage>
   );

@@ -52,36 +52,61 @@ import { UpdateProfilePhoto } from './pages/Profile/ProfileTabs/UpdateProfilePho
 import { Reward } from './pages/Reward/Reward';
 import { PersonalDetails } from './pages/OnBording/PersonalDetails';
 import { JobPref } from './pages/OnBording/JobPref';
+import { JobDetails } from './pages/Jobs/JobDetails';
+import { SavedJobs } from './pages/Jobs/SavedJobs';
+import { ViewedJobs } from './pages/Jobs/ViewedJobs';
+import { Settings } from './pages/Profile/ProfileTabs/Settings';
+import PersonalChat from './components/Chats/PersonalChat';
+import GroupChatting from './components/Chats/GroupChatting';
+import SelectLang from './pages/OnBording/SelectLang';
+import { AppContext } from './Context/AppContext';
+import { useContext } from 'react';
+import Toast from './pages/Toast/Toast';
 
 setupIonicReact();
 
-const App = () => (
-  <IonApp>
+const App = () => {
+  const {toastStatus} = useContext(AppContext);
+  const Auth = localStorage.getItem("Auth") || false;
+    
+ return <IonApp>
+  <Toast props={toastStatus}/>
   <IonReactRouter>
     <IonRouterOutlet>
        
-    <Route  path="/home" component={NavBar} exact />
-    <Route  path="/Coninue" component={Continue} exact />
+    <Route  path="/app" component={NavBar}  />
+    <Route  path="/job-details/:id" component={JobDetails}  />
+    <Route  path="/Coninue" component={Continue}  />
+    <Route  path="/select-lang" component={SelectLang} exact />
     <Route  path="/verify-otp" component={VerifyPhoneTwo} exact />
-    <Route  path="/phone" component={Newphone} exact />
+    <Route  path="/phone" component={Newphone}  />
     <Route  path="/personal-details" component={PersonalDetails} exact />
 
-    <Route  path="/edu" component={Personalinfoedu} exact />
+    <Route  path="/edu" component={Personalinfoedu}  />
     <Route  path="/job-pref" component={JobPref} exact />
     <Route  path="/work" component={Workexperience} exact />
-    <Route  path="/profile-work-experience" component={ProfileWorkExperience} exact />
-    <Route  path="/profile-eduction" component={ProfileEduction} exact />
-    <Route  path="/profile-personal-details" component={ProfilePersonalDetails} exact />
-    <Route  path="/profile-contact-details" component={ProfileContactDetails} exact />
-    <Route  path="/profile-job-preference" component={ProfileJobPreference} exact />
-    <Route  path="/help-and-support" component={HelpAndSupport} exact />
-    <Route  path="/update-profile-photo" component={UpdateProfilePhoto} exact />
-    <Route  path="/rewards" component={Reward} exact />
+    <Route  path="/personal-chat/:id" component={PersonalChat}  />
+         <Route  path="/group-chat" component={GroupChatting}  />
+         {/* <Route exact path="/job-details/:id" component={JobDetails}  /> */}
+         {/* =================================================== */}
+         <Route  path="/job-details/:id" component={JobDetails}  />
+         <Route  path="/profile-work-experience" component={ProfileWorkExperience}  />
+    <Route  path="/profile-eduction" component={ProfileEduction}  />
+    <Route  path="/profile-personal-details" component={ProfilePersonalDetails}  />
+    <Route  path="/profile-contact-details" component={ProfileContactDetails}  />
+    <Route  path="/profile-job-preference" component={ProfileJobPreference}  />
+    <Route  path="/help-and-support" component={HelpAndSupport}  />
+    <Route  path="/update-profile-photo" component={UpdateProfilePhoto}  />
+    <Route  path="/rewards" component={Reward}  />
+    <Route  path="/saved-jobs" component={SavedJobs}  />
+    <Route  path="/viewed-jobs" component={ViewedJobs}  />
+    <Route  path="/settings" component={Settings}  />
     
-    <Redirect exact path="/" to="/Coninue" />
+    
+    <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>
     </IonRouterOutlet>
   </IonReactRouter>
 </IonApp>
-);
+};
 
 export default App;

@@ -1,13 +1,13 @@
-import { IonIcon } from '@ionic/react'
+import { IonIcon, useIonRouter } from '@ionic/react'
 import { bagHandleOutline, chevronBackOutline } from 'ionicons/icons'
 import React from 'react'
 import { useHistory } from 'react-router'
 
 export const ProfileHeaders = ({icon,title}) => {
-    const history = useHistory();
+    const history = useIonRouter();
 
     const handelBackClick= ()=>{
-      history.replace('/profile');
+      history.goBack();
         console.log("Back Presss")
     }
   return (

@@ -1,27 +1,22 @@
 import { IonContent, IonIcon, IonPage } from '@ionic/react'
 import React from 'react'
 
-import { chevronDownOutline, documentTextOutline } from 'ionicons/icons'
+import { bookmark, bookmarkOutline, chevronBackOutline, chevronDownOutline, documentTextOutline, filterOutline } from 'ionicons/icons'
 
 import { AppliedJobCard } from '../../components/Cards/JobCard/AppliedJobCard'
+import { useHistory } from 'react-router'
+import { ProfileHeaders } from '../../components/Headers/ProfileHeaders'
 import NoAppliedJobs from "/assets/appliedJobs.png";
-export const AppliedJobs = () => {
+export const SavedJobs = () => {
+  const history = useHistory()
+ 
   return (
 <IonPage>
     <IonContent>
           <div style={{padding:"20px"}}>
-          <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
-          <IonIcon icon={documentTextOutline} style={{fontSize:"30px"}} />
-          <span style={{fontSize:"26px",fontWeight:"bold",marginLeft:"10px",marginTop:"3px"}}>Applied</span>
-          </div>
           
-          {/* <div style={{height:"80vh",display:"flex",justifyContent:"center",alignItems:"center"}}>
-          <img
-            src={NoAppliedJobs}
-            alt="Globe Icon"
-          
-          />
-          </div> */}
+          <ProfileHeaders icon={<IonIcon icon={bookmark} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Saved jobs"}  />
+
           <div style={{marginTop:"20px"}}>
             <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
            
@@ -57,9 +52,15 @@ export const AppliedJobs = () => {
             <AppliedJobCard />
             </div>
           </div>
-          </div>
-
+{/* 
+<div style={{height:"80vh",display:"flex",justifyContent:"center",alignItems:"center"}}>
+          <img
+            src={NoAppliedJobs}
+            alt="Globe Icon"
           
+          />
+          </div> */}
+          </div>
     </IonContent>
 </IonPage>
   )

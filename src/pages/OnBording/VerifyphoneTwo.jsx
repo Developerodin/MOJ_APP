@@ -1,25 +1,84 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   IonPage,
   IonContent,
   IonButton,
   IonIcon,
-  IonInput,
+  useIonRouter,
   
 } from "@ionic/react";
 import { arrowBack, chevronBackOutline } from "ionicons/icons";
 import { useHistory } from "react-router";
 import { CustomBtn1 } from "../../components/Buttons/CustomBtn1";
 import OtpInput from "react-otp-input";
+import { AppContext } from "../../Context/AppContext";
+import { Base_url } from "../../Config/BaseUrl";
+import axios from "axios";
 const VerifyPhoneTwo = () => {
-  const history = useHistory()
+  const history = useIonRouter();
+  const { showToast } = useContext(AppContext);
   const [otp, setOtp] = useState("");
+  const [formData, setFormData] = useState({
+    phoneNumber: '',
+    referralCode: ''
+  });
   const handelBtnClick= ()=>{
-    history.push("/personal-details")
+       console.log("Otp",otp)
+       LoginUsingOtp();
+
+   
   }
   const handelBackClick = ()=>{
     history.goBack()
   }
+  
+  const LoginUsingOtp = async () => {
+    try {
+      const url = `${Base_url}auth/verify_otp/${otp}`;
+      const formData1 = new FormData();
+      formData1.append('mobile_number', formData.phoneNumber);
+
+      const response = await axios.post(url, formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          console.log("Response check mobile",data,response)
+          
+            if(data === "otp in valid"){
+              showToast("error", "wrong otp", "");
+              return;
+            }
+
+          if(data.status === "success"){
+            localStorage.setItem("Auth",true);
+           
+            localStorage.setItem("token",data.access_token);
+            localStorage.setItem("userDetails",JSON.stringify(data.user));
+            showToast("success", data.message, "");
+              history.push("/app", 'root','replace');
+              return
+          }
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      showToast("error", "Try After Some Time", "");
+    }
+  };
+  
+  useEffect(() => {
+    // Get form data from local storage
+    const storedFormData = localStorage.getItem('Mobile');
+    if (storedFormData) {
+      setFormData(JSON.parse(storedFormData));
+    }
+  }, []);
   return (
     <IonPage>
       <IonContent>
@@ -45,7 +104,7 @@ const VerifyPhoneTwo = () => {
               fontWeight: "400",
             }}
           >
-            Enter the security code we sent to <br /> +91 9876543210
+            Enter the security code we sent to <br /> +91 {formData && formData.phoneNumber}
           </p>
 
           {/* <IonItem> */}

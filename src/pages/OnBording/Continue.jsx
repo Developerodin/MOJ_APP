@@ -1,19 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IonContent, IonPage } from "@ionic/react";
 import globeicon from "/assets/globe.png";
 import { useHistory } from "react-router";
+import { AppContext } from "../../Context/AppContext";
 
 const Continue = () => {
   const history = useHistory()
+  const { showToast } = useContext(AppContext);
 
-  const handelBtnClick= ()=>{
-    history.push("/phone")
+  const handelBtnClick= (value)=>{
+    if(value === "Job Seeker"){
+      localStorage.setItem("role",value)
+      history.push("/phone");
+      return
+    }
+    console.log("Tost ")
+    showToast("success", "Comming Soon ", "");
+  }
+
+
+
+  const handelSelectLanguageCLick =() =>{
+      history.push("/select-lang")
   }
   return (
     <IonPage>
       <IonContent style={{ backgroundColor: "#395cff" }}>
         <div style={{ backgroundColor: "#395cff", position: "relative", height: "100vh" }}>
           <img
+          onClick={handelSelectLanguageCLick}
             src={globeicon}
             alt="Globe Icon"
             style={{
@@ -48,7 +63,7 @@ const Continue = () => {
 
             <div style={{ marginTop:'30px', width: "100%", height: "50px" }}>
               <button
-              onClick={handelBtnClick}
+              onClick={()=>handelBtnClick("Job Seeker")}
                 style={{
                   backgroundColor: "#395cff",
                   borderRadius: "50px",
@@ -63,7 +78,7 @@ const Continue = () => {
                 Job Seeker
               </button>
               <button
-                onClick={handelBtnClick}
+                    onClick={()=>handelBtnClick("Employers")}
                 style={{
                   backgroundColor: "#395cff",
                   borderRadius: "50px",
@@ -79,7 +94,7 @@ const Continue = () => {
                Employers
               </button>
               <button
-                onClick={handelBtnClick}
+                 onClick={()=>handelBtnClick("Agent")}
                 style={{
                   backgroundColor: "#395cff",
                   borderRadius: "50px",

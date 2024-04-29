@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   IonPage,
   IonContent,
@@ -7,15 +7,31 @@ import {
   IonInput,
   IonLabel,
 } from "@ionic/react";
-import { arrowBack, bagHandleOutline } from "ionicons/icons";
+import { addOutline, arrowBack, bagHandleOutline, createOutline, trash } from "ionicons/icons";
 import icon from "/assets/left.png";
 import { useHistory } from "react-router";
 import { ProfileHeaders } from "../../../components/Headers/ProfileHeaders";
 import { CustomBtn1 } from "../../../components/Buttons/CustomBtn1";
+import WorkExperienceModel from "../../../components/Models/WorkExperienceModel";
+import { WorkExperienceCard } from "../../../components/Cards/WorkExperienceCard/WorkExperienceCard";
+import { Base_url } from "../../../Config/BaseUrl";
+import { AppContext } from "../../../Context/AppContext";
+import axios from "axios";
 
 export const ProfileWorkExperience = () => {
     const history = useHistory()
+    const { showToast } = useContext(AppContext);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
+
+   
+    const handleOpenModal = () => {
+      setIsModalOpen(true);
+    };
+  
+    const handleCloseModal = () => {
+      setIsModalOpen(false);
+    };
     const handelSaveClick= ()=>{
     //   history.push("/home")
     }
@@ -25,188 +41,48 @@ export const ProfileWorkExperience = () => {
     return (
       <IonPage>
         <IonContent>
-
+        {/* <IonButton onClick={handleOpenModal}>Open Form Modal</IonButton> */}
           <div style={{ padding: "20px" }}>
 
                <ProfileHeaders icon={<IonIcon icon={bagHandleOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Work experience"} />
+                   
+                   <div style={{padding:"5px"}}>
 
-          
-     <div style={{marginTop:"30px",marginBottom:"100px"}}>
-  <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Designation
-            </label>
-            {/* <IonItem> */}
-            <IonInput
-              type="text"
-              placeholder="e.g fnb manager"
-              style={{
-                borderRadius: "0px",
-                padding:"10px",
-                border: "1px solid #E2E8F0",
-                height:"52px",
-                backgroundColor:"#F4F4F4"
-              }}
-            />
-      
-      <div style={{marginTop:"10px"}}>
-      <IonLabel
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Profile
-            </IonLabel>
-            {/* <IonItem> */}
-            <IonInput
-              type="text"
-              placeholder="e.g operations"
-              style={{
-                borderRadius: "0px",
-                padding:"10px",
-                border: "1px solid #E2E8F0",
-                height:"52px",
-                backgroundColor:"#F4F4F4"
-              }}
-            />
-      </div>
-            
-  
-            {/* </IonItem> */}
+                   <div style={{marginTop:"30px"}} >
+                   <WorkExperienceCard />
+                  </div>
 
-            <div style={{marginTop:"10px"}}>
+                  <div style={{marginTop:"30px"}} >
+                   <WorkExperienceCard />
+                  </div>
 
-            <IonLabel
-              
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Organisation
-            </IonLabel>
-            {/* <IonItem> */}
-            <IonInput
-              type="text"
-              placeholder="e.g Hotel xyz"
-              style={{
-                borderRadius: "0px",
-                padding:"10px",
-                border: "1px solid #E2E8F0",
-                height:"52px",
-                backgroundColor:"#F4F4F4"
-              }}
-            />
-            </div>
-           
+                  <div style={{marginTop:"30px"}} >
+                   <WorkExperienceCard />
+                  </div>
 
-<div style={{marginTop:"10px"}}>
+                
 
-<IonLabel
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Location
-            </IonLabel>
-            {/* <IonItem> */}
-            <IonInput
-             type="text"
-            
-             style={{
-               borderRadius: "0px",
-               padding:"10px",
-               border: "1px solid #E2E8F0",
-               height:"52px",
-               backgroundColor:"#F4F4F4"
-             }}
-            />
 
-</div>
-           
+                  
+                   </div>
 
-           <div style={{marginTop:"10px"}}>
-           <IonLabel
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Start Date
-            </IonLabel>
-            {/* <IonItem> */}
-            <IonInput
-             type="date"
-            
-             style={{
-               borderRadius: "0px",
-               padding:"10px",
-               border: "1px solid #E2E8F0",
-               height:"52px",
-               backgroundColor:"#F4F4F4"
-             }}
-            />
+                   <div style={{marginTop:"30px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
-           </div>
-           
-           <div style={{marginTop:"10px"}}>
-              
-           <IonLabel
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              End Date
-            </IonLabel>
-            {/* <IonItem> */}
-            <IonInput
-              type="date"
-            
-              style={{
-                borderRadius: "0px",
-                padding:"10px",
-                border: "1px solid #E2E8F0",
-                height:"52px",
-                backgroundColor:"#F4F4F4"
-              }}
-            />
+<CustomBtn1 fun={handleOpenModal} title={"Add"}/>
 
-           </div>
-           
-          </div>    
-         
+         </div>
 
-          <div style={{width:"100%",position:"absolute",bottom:10,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
+                   {/* <div style={{marginTop:"40px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    <IonButton onClick={handleOpenModal} style={{height:"50px",width:"50px"}}>
+                      <IonIcon icon={addOutline} style={{fontSize:"24px",fontWeight:"bold"}}/>
+                    </IonButton>
+                   </div> */}
+                 
 
-              <CustomBtn1 fun={handelSaveClick} title={"Save"}/>
-             </div>
            
           </div>
+
+          <WorkExperienceModel isOpen={isModalOpen} onClose={handleCloseModal} />
         </IonContent>
       </IonPage>
     );

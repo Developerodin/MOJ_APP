@@ -1,4 +1,4 @@
-import { IonContent, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
+import { IonContent, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonRouter, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
 import React, { useContext, useState } from 'react'
 import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline, chevronBackOutline} from 'ionicons/icons';
 import ContactsChat from '../../components/Chats/ContactsChat';
@@ -15,7 +15,7 @@ export const Reward = () => {
 
     const [selectedTab, setSelectedTab] = useState('MyPoints');
     const location = useLocation();
-    const history=useHistory()
+    const history=useIonRouter()
     const path=location.pathname;
     // console.log("path from chats",TabBarVisibility);
     
@@ -59,7 +59,7 @@ export const Reward = () => {
 
 
       const handelBackClick= ()=>{
-        history.replace('/profile');
+        history.goBack();
           console.log("Back Presss")
       }
   return (

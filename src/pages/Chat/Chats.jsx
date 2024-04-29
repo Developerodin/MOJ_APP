@@ -6,6 +6,7 @@ import GroupsChat from '../../components/Chats/GroupsChat';
 import Threds from '../../components/Chats/Threds';
 import { useHistory, useLocation } from 'react-router';
 import { AppContext } from '../../Context/AppContext';
+import Nochat from "/assets/noChat.png";
 export const Chats = () => {
   const{MarkerData,setTabBarVisibility,TabBarVisibility,itemData}=useContext(AppContext);
 
@@ -60,7 +61,13 @@ export const Chats = () => {
 }
 
 </div>
-
+ {/* <div style={{height:"80vh",display:"flex",justifyContent:"center",alignItems:"center"}}>
+          <img
+            src={Nochat}
+            alt="Globe Icon"
+          
+          />
+          </div> */}
 
           </div>
 

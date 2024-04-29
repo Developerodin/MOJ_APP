@@ -46,13 +46,9 @@ const Createpassword = () => {
             Choose a password
           </IonLabel>
           {/* <IonItem> */}
-          <IonInput
+          <input
             type="tel"
-            style={{
-              borderRadius: "50px",
-              fontSize: "20px",
-              border: "1px solid #E2E8F0",
-            }}
+           
           />
 
           {/* </IonItem> */}

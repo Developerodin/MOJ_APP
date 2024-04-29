@@ -22,7 +22,7 @@ export const JobCard = ({fun}) => {
 
           <div style={{marginLeft:"20px",display:"flex",justifyContent:"center",alignItems:"center"}}>
             <IonIcon icon={locationOutline}  style={{color:"crimson",fontSize:"18px",fontWeight:"bold"}} />
-           <sapn style={{fontSize:"13px",marginLeft:"2px",marginTop:"3px",color:"black"}}>Jaipur (Raj.)</sapn> 
+           <span style={{fontSize:"13px",marginLeft:"2px",marginTop:"3px",color:"black"}}>Jaipur (Raj.)</span> 
           </div>
         </div>
 

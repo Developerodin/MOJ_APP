@@ -1,22 +1,43 @@
 
-import { IonCol, IonContent, IonGrid, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRow, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
+import { IonCol, IonContent, IonGrid, IonIcon, IonItem, IonLabel, IonList, IonPage, IonRow, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
 import React, { useContext, useEffect, useState } from 'react'
-import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline, starOutline, colorFill, star, helpCircleOutline, settingsOutline, createOutline, bookmark, eye, lockClosedOutline, callOutline, bookOutline, gitPullRequestOutline, bagHandleOutline, cloudUploadOutline} from 'ionicons/icons';
+import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline, starOutline, colorFill, star, helpCircleOutline, settingsOutline, createOutline, bookmark, eye, lockClosedOutline, callOutline, bookOutline, gitPullRequestOutline, bagHandleOutline, cloudUploadOutline, shareOutline, chevronForwardOutline} from 'ionicons/icons';
 import cs from "./th.jpg"
 import profileImg from "./profileImg2.png"
 import ProfileListItem from '../../components/ProfileItem/ProfileItem';
 import { useHistory } from 'react-router';
+import { ResumeUplodeProfile } from '../../components/Models/ResumeUplodeProfile';
+
+import { Share } from '@capacitor/share';
+
+async function shareApp() {
+  const { value } = await Share.canShare();
+  if (value) {
+    await Share.share({
+      title: 'Check out this job platform!',
+      text:  'Join me on this awesome job platform!',
+      url: 'https://your-app-url.com',
+      dialogTitle: 'Share with buddies',
+    });
+  } else {
+    // Fallback if sharing is not supported
+    console.log("Sharing not supported on this platform.");
+    // You can provide alternative methods for sharing here
+  }
+}
+
 export const Profile = () => {
-  const history = useHistory()
+  const history = useHistory();
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [completionPercentage, setCompletionPercentage] = useState(75);
   const ProfileTabs=[
     
-    {icon:lockClosedOutline,title:"Personal Details",link:"profile-personal-details",color:"#395CFF"},
+    {icon:lockClosedOutline,title:"Personal Details",link:"/profile-personal-details",color:"#395CFF"},
     {icon:callOutline,title:"Contact Details",link:"/profile-contact-details",color:"#395CFF"},
     {icon:bookOutline,title:"Education",link:"/profile-eduction",color:"#395CFF"},
     {icon:gitPullRequestOutline,title:"Job preference",link:"/profile-job-preference",color:"#395CFF"},
     {icon:bagHandleOutline,title:"Work experience",link:"/profile-work-experience",color:"#395CFF"},
-    {icon:cloudUploadOutline,title:"Resume",link:"/",color:"#395CFF"},
+    // {icon:cloudUploadOutline,title:"Resume",link:"/",color:"#395CFF"},
   ]
   useEffect(() => {
     // Fetch completion percentage from your data source
@@ -31,6 +52,10 @@ export const Profile = () => {
 
   const handelProfilePhotoClick = ()=>{
     history.push("/update-profile-photo")
+  }
+
+  const handelTabClick = (value)=>{
+    history.push(value)
   }
 
   const width = 54; // Width of the SVG
@@ -51,8 +76,8 @@ export const Profile = () => {
               <div>
                
                <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-               <IonIcon icon={helpCircleOutline} style={{fontSize:"24px",marginRight:"10px"}} />
-               <IonIcon icon={settingsOutline} style={{fontSize:"21px"}} />
+               <IonIcon onClick={()=> handelTabClick("/help-and-support")} icon={helpCircleOutline} style={{fontSize:"24px",marginRight:"10px"}} />
+               <IonIcon onClick={()=> handelTabClick("/settings")} icon={settingsOutline} style={{fontSize:"21px"}} />
                </div>
                
               </div>
@@ -75,7 +100,7 @@ export const Profile = () => {
                </div>
             
           <div style={{marginTop:"10px"}}>
-          <span style={{fontSize:"20px",fontWeight:600}}>The Odin</span>
+          <span style={{fontSize:"20px",fontWeight:600}}>{userDetails && userDetails.name} { userDetails && userDetails.last_name}</span>
           </div>
                   
                </div>
@@ -146,7 +171,7 @@ onClick={handelRewardClick}
 
 
 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"20px"}}>
-  <div style={{borderRadius:"15px",padding:"15px",background:"#F3F5FE",display:"flex",justifyContent:"center",alignItems:"center"}}>
+  <div onClick={()=>handelTabClick("/saved-jobs")} style={{borderRadius:"15px",padding:"15px",background:"#F3F5FE",display:"flex",justifyContent:"center",alignItems:"center"}}>
      
      <div>
      <IonIcon icon={bookmark} style={{fontSize:"28px",color:"#395CFF"}}/>
@@ -158,7 +183,7 @@ onClick={handelRewardClick}
     
   </div>
 
-  <div style={{borderRadius:"15px",padding:"15px",background:"#F3F5FE",display:"flex",justifyContent:"center",alignItems:"center"}}>
+  <div onClick={()=>handelTabClick("/viewed-jobs")} style={{borderRadius:"15px",padding:"15px",background:"#F3F5FE",display:"flex",justifyContent:"center",alignItems:"center"}}>
      
      <div>
      <IonIcon icon={eye} style={{fontSize:"28px",color:"#395CFF"}}/>
@@ -187,13 +212,23 @@ onClick={handelRewardClick}
 
                 {
                   ProfileTabs.map((el,index)=>{
-                    return <div style={{marginTop:"20px"}}>
+                    return <div key={index} style={{marginTop:"20px"}}>
                       <ProfileListItem key={index} Data={el} />
                       </div>
                   })
                 }
 
-                
+               <div style={{marginTop:"20px"}}>
+               <IonItem onClick={shareApp}  button  style={{marginTop:"10px"}}>
+                  <IonIcon icon={shareOutline} style={{color:`#395CFF`}} slot="start"></IonIcon>
+                  <IonLabel style={{fontWeight:"bold"}}>Invite your friend</IonLabel>
+                  <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon>
+                </IonItem>
+                </div>
+
+                <div style={{marginTop:"20px"}}>
+                  <ResumeUplodeProfile />
+                </div>
 
                
         

@@ -1,4 +1,4 @@
-import { IonContent, IonIcon, IonInput, IonItem, IonList, IonPage, IonText, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
+import { IonContent, IonIcon, IonInput, IonItem, IonList, IonPage, IonText, useIonRouter, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
 import { heartOutline ,closeOutline,happyOutline,attachOutline,cameraOutline} from 'ionicons/icons'
 import React, { useContext } from 'react'
 
@@ -25,7 +25,7 @@ const SenderData =[
 
 const GroupChatting = (props) => {
 
-const history=useHistory()
+const history=useIonRouter()
 
 const{MarkerData,setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
   const location = useLocation();
@@ -41,7 +41,7 @@ const{MarkerData,setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
 
 const handleBackButtonClick = () => {
   // Replace 'Tab2' with the appropriate route name for your tab
-  history.push("/home");
+  history.goBack();
 };
 
 const handleHardwareBackButton = (event) => {

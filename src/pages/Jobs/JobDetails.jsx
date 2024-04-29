@@ -53,7 +53,7 @@ export const JobDetails = () => {
            
         <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
             <IonIcon icon={locationOutline}  style={{color:"crimson",fontSize:"18px",fontWeight:"bold"}} />
-           <sapn style={{fontSize:"13px",marginLeft:"2px",marginTop:"3px",color:"black"}}>Jaipur (Raj.)</sapn> 
+           <span style={{fontSize:"13px",marginLeft:"2px",marginTop:"3px",color:"black"}}>Jaipur (Raj.)</span> 
           </div>
         <div style={{display:"flex",justifyContent:"left",alignItems:"center",marginTop:"8px"}}>
             
@@ -139,7 +139,7 @@ export const JobDetails = () => {
 
              <div style={{width:"100%",position:"absolute",bottom:10,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
-              <CustomBtn1 fun={handelApplyClick} title={"Apply"}/>
+              <CustomBtn1 fun={handelBackClick} title={"Apply"}/>
              </div>
 
             </div>

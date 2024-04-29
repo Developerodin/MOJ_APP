@@ -23,9 +23,22 @@ const AppContextProvider = ({children}) => {
     const[TabBarVisibility,setTabBarVisibility] = useState(null);
    
      const [itemData,setItemData] = useState(InitialitemData);
-     
+     const [toastStatus,setToastStatus] = useState({
+      'type':'error',
+      'heading':'Invalid Data',
+      'msg':'Invalid Form Data',
+      'status':'hide'
+    });
+  
+    const showToast = (type,heading,msg) =>{
+      const info = {type,heading,msg,status:'show'};
+      setToastStatus(info);
+      setTimeout(function(){
+        setToastStatus({...info,status:'hide'})
+      },2500)
+    }
 
-  return <AppContext.Provider value={{userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData}}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{ showToast,toastStatus,userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData}}>{children}</AppContext.Provider>
 }
 
 export default AppContextProvider;

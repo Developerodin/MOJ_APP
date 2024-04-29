@@ -9,7 +9,7 @@ import { UplodeProfilePhoto } from './UplodeProfilePhoto'
 export const PersonalDetails = () => {
     const history = useHistory()
          
-      const [activeTab,setActiveTab] = useState("ProfilePic")
+      const [activeTab,setActiveTab] = useState("PersonalDetails")
 
     const handelBtnClick= ()=>{
       history.push("/info")
@@ -32,8 +32,9 @@ export const PersonalDetails = () => {
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
 
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-               <div style={{width:"21px",height:"7px",border:"1px solid #D9D9D9",borderRadius:"60px",background:`${activeTab === "ProfilePic" ? "blue" : "#D9D9D9"}`}}></div>
-               <div style={{marginLeft:"5px",width:"21px",height:"7px",border:"1px solid #D9D9D9",borderRadius:"60px",background:`${activeTab === "PersonalDetails" ? "blue" : "#D9D9D9"}`}}></div>
+            <div style={{width:"21px",height:"7px",border:"1px solid #D9D9D9",borderRadius:"60px",background:`${activeTab === "PersonalDetails" ? "blue" : "#D9D9D9"}`}}></div>
+               <div style={{marginLeft:"5px",width:"21px",height:"7px",border:"1px solid #D9D9D9",borderRadius:"60px",background:`${activeTab === "ProfilePic" ? "blue" : "#D9D9D9"}`}}></div>
+              
                <div style={{marginLeft:"5px",width:"21px",height:"7px",border:"1px solid #D9D9D9",borderRadius:"60px",background:`${activeTab === "Details" ? "blue" : "#D9D9D9"}`}}></div>
             </div>
 
@@ -42,27 +43,28 @@ export const PersonalDetails = () => {
 
 
             </div>
+            
            </div>
 
-
-{
-    activeTab === "ProfilePic" &&  <div style={{marginTop:"50px"}}>
-     <UplodeProfilePhoto  handelContinue={handelTabActive} />
-</div>
-}
-           
-{
+           {
     activeTab === "PersonalDetails" &&
     <div style={{marginTop:"50px"}}>
     <Basicinfo handelContinue={handelTabActive} />
 </div>
 
 }
+{
+    activeTab === "ProfilePic" &&  <div style={{marginTop:"50px"}}>
+     <UplodeProfilePhoto  handelContinue={handelTabActive} />
+</div>
+}
+           
+
           
           {
             activeTab === "Details" && 
             <div style={{marginTop:"50px"}}>
-               <Personalinfo handelContinue={handelTabActive} />
+               <Personalinfo handelContinue={handelTabActive} setActiveTab={setActiveTab} />
            </div>
           }
 
