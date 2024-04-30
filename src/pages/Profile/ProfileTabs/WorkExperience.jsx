@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   IonPage,
   IonContent,
@@ -20,10 +20,12 @@ import axios from "axios";
 
 export const ProfileWorkExperience = () => {
     const history = useHistory()
-    const { showToast } = useContext(AppContext);
+    const { showToast,editUpdate } = useContext(AppContext);
+    const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const token =localStorage.getItem("token");
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-
+    const [update,setUpdate] =  useState(0)
+    const [experienceData,setExperoenceData] = useState([])
    
     const handleOpenModal = () => {
       setIsModalOpen(true);
@@ -38,6 +40,70 @@ export const ProfileWorkExperience = () => {
     const handelBackClick = ()=>{
       history.goBack()
     }
+
+    const getUserWorkExperience = async () => {
+      try {
+        const url = `${Base_url}user_work_ex/By_userId/${userDetails.user_id}`;
+        
+      
+  
+        const response = await axios.get(url,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+            // "Authorization" :`Berear ${token}`,
+       
+          }
+        });
+        const data = response.data
+            // console.log("Response check work experience data",data,response)
+            
+              if(data){
+                console.log("work experience data",data.data)
+                setExperoenceData(data.data);
+              }
+  
+              
+           
+            
+      } catch (error) {
+        console.error('Error:', error);
+        showToast("error", "Try After Some Time", "");
+      }
+    };
+
+    const UserWorkExperienceDelete = async (id) => {
+      try {
+        const url = `${Base_url}user_work_ex/delete/${id}`;
+        
+         const formData = new FormData();
+  
+        const response = await axios.post(url,formData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+            // "Authorization" :`Berear ${token}`,
+       
+          }
+        });
+        const data = response.data
+            // console.log("Response check work experience data",data,response)
+            
+              if(data.status === "success"){
+                console.log("work experience delete",data.data)
+                setUpdate((pre)=>pre+1)
+              }
+  
+              
+           
+            
+      } catch (error) {
+        console.error('Error:', error);
+        showToast("error", "Try After Some Time", "");
+      }
+    };
+
+    useEffect(()=>{
+      getUserWorkExperience()
+    },[update,editUpdate])
     return (
       <IonPage>
         <IonContent>
@@ -48,18 +114,16 @@ export const ProfileWorkExperience = () => {
                    
                    <div style={{padding:"5px"}}>
 
-                   <div style={{marginTop:"30px"}} >
-                   <WorkExperienceCard />
-                  </div>
+{
+ experienceData && experienceData.map((el,index)=>{
+    return  <div key={index} style={{marginTop:"30px"}} >
+    <WorkExperienceCard  data={el} UserWorkExperienceDelete={UserWorkExperienceDelete}/>
+   </div>
+  })
+}
+                  
 
-                  <div style={{marginTop:"30px"}} >
-                   <WorkExperienceCard />
-                  </div>
-
-                  <div style={{marginTop:"30px"}} >
-                   <WorkExperienceCard />
-                  </div>
-
+                  
                 
 
 
@@ -82,7 +146,7 @@ export const ProfileWorkExperience = () => {
            
           </div>
 
-          <WorkExperienceModel isOpen={isModalOpen} onClose={handleCloseModal} />
+          <WorkExperienceModel isOpen={isModalOpen} onClose={handleCloseModal} setUpdate={setUpdate} />
         </IonContent>
       </IonPage>
     );

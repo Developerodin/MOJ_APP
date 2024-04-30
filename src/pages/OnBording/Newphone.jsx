@@ -136,6 +136,7 @@ const Newphone = () => {
         </IonLabel>
         <br/>
         <input
+        className="round-input"
           type="tel"
           name="phoneNumber"
           value={formData.phoneNumber}
@@ -157,6 +158,7 @@ const Newphone = () => {
           Referral Code (optional)
         </IonLabel>
         <input
+        className="round-input"
           type="tel"
           name="referralCode"
           value={formData.referralCode}

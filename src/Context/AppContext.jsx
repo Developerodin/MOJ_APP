@@ -21,7 +21,7 @@ const AppContextProvider = ({children}) => {
     const[userData,setUserData]=useState([{name:"Akshay"}]);
     const[MarkerData,setMarkerData]=useState(InitialMarkerData);
     const[TabBarVisibility,setTabBarVisibility] = useState(null);
-   
+    const [editUpdate,setEditUpdate] = useState(0)
      const [itemData,setItemData] = useState(InitialitemData);
      const [toastStatus,setToastStatus] = useState({
       'type':'error',
@@ -38,7 +38,7 @@ const AppContextProvider = ({children}) => {
       },2500)
     }
 
-  return <AppContext.Provider value={{ showToast,toastStatus,userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData}}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{editUpdate,setEditUpdate, showToast,toastStatus,userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData}}>{children}</AppContext.Provider>
 }
 
 export default AppContextProvider;

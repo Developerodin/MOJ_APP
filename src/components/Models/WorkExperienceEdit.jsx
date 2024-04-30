@@ -1,16 +1,19 @@
-import React, { useContext, useState } from 'react';
-import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonModal } from '@ionic/react';
+import React, { useContext, useEffect, useState } from 'react';
+import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonModal, IonPage, useIonRouter } from '@ionic/react';
 import { CustomBtn1 } from '../Buttons/CustomBtn1';
 import { ProfileHeaders } from '../Headers/ProfileHeaders';
 import { bagHandleOutline, chevronBackOutline } from 'ionicons/icons';
 import { AppContext } from '../../Context/AppContext';
 import { Base_url } from '../../Config/BaseUrl';
 import axios from 'axios';
+import { useParams } from 'react-router';
 
-const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
-  const { showToast } = useContext(AppContext);
+const WorkExperienceEdit = () => {
+  const { showToast,editUpdate,setEditUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const token =localStorage.getItem("token");
+  const history = useIonRouter()
+  const {id} = useParams()
   const [formData, setFormData] = useState({
     designation: '',
     profile: '',
@@ -33,7 +36,8 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
   const handleSubmit = () => {
     // Handle form submission logic here
     console.log('Form submitted with data:', formData);
-    AddWorkExperience()
+    UpdateWorkExperience();
+
     // You can add more validation or submission logic here
     // Close the modal after submission
     // onClose();
@@ -41,11 +45,17 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
 
   const handelSaveClick= ()=>{
     //   history.push("/home")
+  
     }
 
-    const AddWorkExperience = async () => {
+    const handelBackClick=()=>{
+        history.goBack()
+    }
+
+
+    const UpdateWorkExperience = async () => {
       try {
-        const url = `${Base_url}user_work_ex/store`;
+        const url = `${Base_url}user_work_ex/Update_ById/${id}`;
         const formData1 = new FormData();
         formData1.append('user_id', userDetails.user_id);
         formData1.append('organisation', formData.organisation);
@@ -73,7 +83,7 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
   
             if(data.status === "success"){
                 //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-                setUpdate((prev)=>prev+1);
+                // setUpdate((prev)=>prev+1);
                 setFormData({
                   designation: '',
                   profile: '',
@@ -82,29 +92,78 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
                   startDate: '',
                   endDate: '',
             })
-                onClose();
+            setEditUpdate((prev)=>prev+1)
+              handelBackClick();
                 return
             }
             showToast("error", "Try After Some Time", "");
-  
+            handelBackClick()
               
            
             
       } catch (error) {
         console.error('Error:', error);
         showToast("error", "Try After Some Time", "");
+        handelBackClick()
       }
     };
 
+    const getUserWorkExperienceByWorkId = async () => {
+        try {
+          const url = `${Base_url}user/work_ex_id/${id}`;
+          
+        
+    
+          const response = await axios.get(url,{
+            headers: {
+              "Content-Type": "multipart/form-data",
+              // "Authorization" :`Berear ${token}`,
+         
+            }
+          });
+          const data = response.data
+              console.log("Response check work experience data",data)
+              
+                if(data){
+                  console.log("work experience data",data.data)
+                //   setExperoenceData(data.data);
+                const formatedData = data.data.map(el => ({
+                  organisation:el.organisation,
+                  designation:el.designation,
+                  profile:el.profile,
+                  location:el.location,
+                  startDate:el.start_date,
+                  endDate:el.end_date,
+                  description:el.description
+                }));
+                setFormData(formatedData[0])
+                }
+    
+                
+             
+              
+        } catch (error) {
+          console.error('Error:', error);
+          showToast("error", "Try After Some Time", "");
+        }
+      };
+
+    useEffect(()=>{
+        if(id){
+            getUserWorkExperienceByWorkId();
+        }
+        
+    },[id])
+
   return (
-    <IonModal isOpen={isOpen} onDidDismiss={onClose}>
+    <IonPage >
       <IonContent>
       <div style={{ padding: "20px" }}>
 
 <div>
          
          <div>
-            <IonIcon onClick={onClose} icon={chevronBackOutline} style={{fontSize:"24px"}} />
+            <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
            </div>
          
          <div style={{marginTop:"30px",display:"flex",justifyContent:"left",alignItems:"center"}}>
@@ -114,7 +173,7 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
                </div>
 
                <div style={{marginLeft:"20px"}}>
-                <span style={{fontSize:"30px",fontWeight:"bold"}}>Work experience</span>
+                <span style={{fontSize:"30px",fontWeight:"bold"}}>Edit Work Experience</span>
                </div>
          </div>
 
@@ -314,8 +373,8 @@ style={{
       
       
       </IonContent>
-    </IonModal>
+    </IonPage>
   );
 };
 
-export default WorkExperienceModel;
+export default WorkExperienceEdit;

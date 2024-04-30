@@ -157,6 +157,7 @@ const Basicinfo = ({ handelContinue }) => {
           </label>
           {/* <IonItem> */}
           <input
+          className="round-input"
             type="text"
             name="firstName"
             value={formData.firstName}
@@ -179,6 +180,7 @@ const Basicinfo = ({ handelContinue }) => {
           </label>
           {/* <IonItem> */}
           <input
+          className="round-input"
             type="text"
             name="lastName"
             value={formData.lastName}
@@ -235,6 +237,7 @@ const Basicinfo = ({ handelContinue }) => {
           </label>
           {/* <IonItem> */}
           <input
+          className="round-input"
             type="text"
             name="email"
             value={formData.email}
@@ -309,6 +312,7 @@ const Basicinfo = ({ handelContinue }) => {
         </IonSelect>
         </div> */}
           <input
+          className="round-input"
             type="text"
             name="city"
             value={formData.city}

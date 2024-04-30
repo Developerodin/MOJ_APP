@@ -62,6 +62,8 @@ import SelectLang from './pages/OnBording/SelectLang';
 import { AppContext } from './Context/AppContext';
 import { useContext } from 'react';
 import Toast from './pages/Toast/Toast';
+import WorkExperienceEdit from './components/Models/WorkExperienceEdit';
+import EducationEdit from './components/Models/EducationEdit';
 
 setupIonicReact();
 
@@ -91,6 +93,8 @@ const App = () => {
          {/* =================================================== */}
          <Route  path="/job-details/:id" component={JobDetails}  />
          <Route  path="/profile-work-experience" component={ProfileWorkExperience}  />
+         <Route  path="/profile-work-experience-edit/:id" component={WorkExperienceEdit}  />
+         <Route  path="/profile-education-edit/:id" component={EducationEdit}  />
     <Route  path="/profile-eduction" component={ProfileEduction}  />
     <Route  path="/profile-personal-details" component={ProfilePersonalDetails}  />
     <Route  path="/profile-contact-details" component={ProfileContactDetails}  />

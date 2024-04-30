@@ -25,7 +25,7 @@ const Verifyemail = () => {
           
             <IonLabel style={{color:'#575757',fontFamily:'inter',fontSize:'20px',fontWeight:'400',lineHeight:'30px'}} >Email</IonLabel>
           {/* <IonItem> */}
-          <input type="tel"  />
+          <input className="round-input" type="tel"  />
 
           {/* </IonItem> */}
           <div style={{marginTop:'20px',color:'#333333',fontFamily:'inter',fontWeight:'700',fontSize:'20px'}}>Already have an account? <span style={{color:'blue',fontFamily:'inter',fontWeight:'700',fontSize:'20px'}}>Sign In</span></div>
