@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const EducationModel = ({ isOpen, onClose,setUpdate }) => {
   const { showToast } = useContext(AppContext);
-  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const userDetails = JSON.parse(localStorage.getItem("userDetails" )|| localStorage.getItem("userRegisterDetails"));
   const token =localStorage.getItem("token");
   const [formData, setFormData] = useState({
     degree:"",

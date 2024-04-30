@@ -1,11 +1,14 @@
 
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { CustomBtn1 } from '../Buttons/CustomBtn1'
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import { IonIcon, IonItem, IonLabel, IonModal } from '@ionic/react';
 import { chevronBack, chevronForward, chevronForwardOutline, cloudUploadOutline } from 'ionicons/icons';
+import { AppContext } from '../../Context/AppContext';
+import { Base_url } from '../../Config/BaseUrl';
+import axios from 'axios';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.js',
@@ -13,6 +16,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 export const ResumeUplodeProfile = () => {
+  const { showToast } = useContext(AppContext);
+  const userDetails = JSON.parse(localStorage.getItem("userDetails" )|| localStorage.getItem("userRegisterDetails"));
     const [selectedFile, setSelectedFile] = useState(null);
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
@@ -28,6 +33,8 @@ export const ResumeUplodeProfile = () => {
     }
     const handleFileChange = (event) => {
       const file = event.target.files[0];
+
+      console.log("File  ==>",file)
       setSelectedFile(file);
       setShowModal(true);
     };
@@ -37,11 +44,60 @@ export const ResumeUplodeProfile = () => {
     };
   
     const handleUpload = () => {
+      console.log("Selected File ==>",selectedFile)
       // Logic to upload the file to the server
       // You can add your upload logic here
       // After uploading, you may want to close the modal or show a success message
-      setShowModal(false);
+      AddResume();
+      // setShowModal(false);
     };
+      
+
+    
+    const AddResume = async () => {
+      try {
+        const url = `${Base_url}res_save/store`;
+        const formData1 = new FormData();
+        formData1.append('user_id', userDetails.user_id);
+        formData1.append('resume', selectedFile);
+
+      
+  
+        const response = await axios.post(url, formData1,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+            // "Authorization" :`Berear ${token}`,
+       
+          }
+        });
+        const data = response.data
+            console.log("Response check work experience",data,response)
+            
+              // if(data === "otp in valid"){
+              //   showToast("error", "wrong otp", "");
+              //   return;
+              // }
+  
+            if(data.status === "success"){
+                //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+                // setUpdate((prev)=>prev+1);
+               
+                return
+              
+            }
+            showToast("error", "Try After Some Time", "");
+  
+              
+           
+            
+      } catch (error) {
+        console.error('Error:', error);
+        showToast("error", "Try After Some Time", "");
+      }
+    };
+
+
+
   return (
     <>
        <input

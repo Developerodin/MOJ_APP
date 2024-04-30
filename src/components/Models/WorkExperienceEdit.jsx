@@ -10,7 +10,7 @@ import { useParams } from 'react-router';
 
 const WorkExperienceEdit = () => {
   const { showToast,editUpdate,setEditUpdate } = useContext(AppContext);
-  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const userDetails = JSON.parse(localStorage.getItem("userDetails") || localStorage.getItem("userRegisterDetails"));
   const token =localStorage.getItem("token");
   const history = useIonRouter()
   const {id} = useParams()
