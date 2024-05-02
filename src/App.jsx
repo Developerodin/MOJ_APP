@@ -64,6 +64,7 @@ import { useContext } from 'react';
 import Toast from './pages/Toast/Toast';
 import WorkExperienceEdit from './components/Models/WorkExperienceEdit';
 import EducationEdit from './components/Models/EducationEdit';
+import { ResumeView } from './pages/Resume/ResumeView';
 
 setupIonicReact();
 
@@ -96,6 +97,7 @@ const App = () => {
          <Route  path="/profile-work-experience-edit/:id" component={WorkExperienceEdit}  />
          <Route  path="/profile-education-edit/:id" component={EducationEdit}  />
     <Route  path="/profile-eduction" component={ProfileEduction}  />
+    <Route  path="/profile-resume" component={ResumeView}  />
     <Route  path="/profile-personal-details" component={ProfilePersonalDetails}  />
     <Route  path="/profile-contact-details" component={ProfileContactDetails}  />
     <Route  path="/profile-job-preference" component={ProfileJobPreference}  />

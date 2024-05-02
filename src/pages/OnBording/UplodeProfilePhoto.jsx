@@ -59,6 +59,7 @@ export const UplodeProfilePhoto = ({handelContinue}) => {
   
       var imageUrl = image.webPath;
       document.getElementById("dp-img").src = imageUrl;
+      localStorage.setItem("dp-img", imageUrl);
       console.log(imageUrl);
   
       const imgobj = new Image();
@@ -92,6 +93,7 @@ export const UplodeProfilePhoto = ({handelContinue}) => {
   
       var imageUrl = image.webPath;
       document.getElementById("dp-img").src = imageUrl;
+      localStorage.setItem("dp-img", imageUrl);
       console.log(imageUrl);
   
       const imgobj = new Image();

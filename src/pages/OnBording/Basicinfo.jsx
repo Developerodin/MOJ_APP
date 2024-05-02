@@ -210,6 +210,7 @@ const Basicinfo = ({ handelContinue }) => {
           >
             <IonSelect
               name="gender"
+              interface="popover"
               value={formData.gender}
               onIonChange={handleInputChange}
               placeholder="Gender"
@@ -267,6 +268,7 @@ const Basicinfo = ({ handelContinue }) => {
           >
             <IonSelect
               name="state"
+              interface="action-sheet"
               value={formData.state}
               onIonChange={handleInputChange}
               placeholder="State"

@@ -1,15 +1,20 @@
 import { IonContent, IonIcon, IonPage, useIonRouter } from '@ionic/react'
 import { alertCircleOutline, chevronBackOutline, colorFill } from 'ionicons/icons'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import pic from "./Ellipse 1.png"
 import { CustomBtn1 } from '../../../components/Buttons/CustomBtn1'
 import { useHistory } from 'react-router'
 import { Camera, CameraResultType,CameraSource } from "@capacitor/camera";
+import axios from 'axios'
+import { AppContext } from '../../../Context/AppContext'
+import { Base_url } from '../../../Config/BaseUrl'
 export const UpdateProfilePhoto = () => {
+  const { showToast } = useContext(AppContext);
   const [picture, setPicture] = useState();
  const history = useIonRouter()
+ const userDetails = JSON.parse(localStorage.getItem("userDetails" )|| localStorage.getItem("userRegisterDetails"));
     const handelSaveClick = ()=>{
-
+      history.goBack();
     }
 
     const handelBackClick= ()=>{
@@ -54,7 +59,7 @@ export const UpdateProfilePhoto = () => {
       var imageUrl = image.webPath;
       document.getElementById("dp-img").src = imageUrl;
       console.log(imageUrl);
-  
+       localStorage.setItem("dp-img", imageUrl);
       const imgobj = new Image();
       imgobj.style.width = "100px";
       imgobj.style.height = "auto";
@@ -86,6 +91,7 @@ export const UpdateProfilePhoto = () => {
   
       var imageUrl = image.webPath;
       document.getElementById("dp-img").src = imageUrl;
+      localStorage.setItem("dp-img", imageUrl);
       console.log(imageUrl);
   
       const imgobj = new Image();
@@ -104,6 +110,7 @@ export const UpdateProfilePhoto = () => {
       };
       /////////
     };
+
   return (
           <IonPage>
             <IonContent>
@@ -119,7 +126,7 @@ export const UpdateProfilePhoto = () => {
 
 
            <div style={{marginTop:"30px",display:"flex",justifyContent:"center",alignItems:"center"}}>
-           <img  alt="User DP"
+             <img  alt="User DP"
         src={picture || pic}
         data-src={pic}
         width={150}

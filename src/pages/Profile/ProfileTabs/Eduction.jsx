@@ -27,7 +27,7 @@ export const ProfileEduction = () => {
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 const token =localStorage.getItem("token");
 const [update,setUpdate] =  useState(0)
-    const [educationData,setEducationData] = useState([])
+    const [educationData,setEducationData] = useState(null)
 
     const handelBackClick = ()=>{
       history.goBack()
@@ -122,12 +122,19 @@ const [update,setUpdate] =  useState(0)
 
 
 {
- educationData && educationData.map((el,index)=>{
+educationData ? educationData && educationData.map((el,index)=>{
     return  <div key={index} style={{marginTop:"30px"}} >
     <EducationCard  data={el} UserWorkEducationDelete={UserWorkEducationDelete}/>
    </div>
   })
+  :
+  <div style={{marginTop:"30px"}}>
+
+  <span>No Education Records Available</span>
+ </div>
 }
+
+
 
 
 

@@ -111,12 +111,17 @@ const [update,setUpdate] =  useState(0)
                <div style={{padding:"5px"}}>
 
 
-{
- educationData && educationData.map((el,index)=>{
+               {
+educationData ? educationData && educationData.map((el,index)=>{
     return  <div key={index} style={{marginTop:"30px"}} >
     <EducationCard  data={el} UserWorkEducationDelete={UserWorkEducationDelete}/>
    </div>
   })
+  :
+  <div style={{marginTop:"30px"}}>
+
+  <span>Add  Education Records </span>
+ </div>
 }
 
 

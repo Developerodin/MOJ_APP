@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonModal } from '@ionic/react';
+import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonModal, IonSelect, IonSelectOption } from '@ionic/react';
 import { CustomBtn1 } from '../Buttons/CustomBtn1';
 import { ProfileHeaders } from '../Headers/ProfileHeaders';
 import { bagHandleOutline, bookOutline, chevronBackOutline } from 'ionicons/icons';
@@ -89,6 +89,86 @@ const EducationModel = ({ isOpen, onClose,setUpdate }) => {
       }
     };
 
+    const Degrees = [
+      "Bachelor of Technology (B.Tech)",
+      "Bachelor of Engineering (B.E.)",
+      "Bachelor of Science (B.Sc)",
+      "Bachelor of Arts (B.A.)",
+      "Bachelor of Commerce (B.Com)",
+      "Bachelor of Business Administration (BBA)",
+      "Bachelor of Fine Arts (BFA)",
+      "Bachelor of Design (B.Des)",
+      "Bachelor of Architecture (B.Arch)",
+      "Bachelor of Pharmacy (B.Pharm)",
+      "Bachelor of Medicine and Bachelor of Surgery (MBBS)",
+      "Bachelor of Dental Surgery (BDS)",
+      "Bachelor of Ayurvedic Medicine and Surgery (BAMS)",
+      "Bachelor of Homeopathic Medicine and Surgery (BHMS)",
+      "Bachelor of Veterinary Science & Animal Husbandry (B.VSc & AH)",
+      "Bachelor of Laws (LLB)",
+      "Bachelor of Education (B.Ed)",
+      "Bachelor of Physical Education (B.P.Ed)",
+      "Bachelor of Journalism and Mass Communication (BJMC)",
+      "Bachelor of Hotel Management (BHM)",
+      "Bachelor of Travel and Tourism Management (BTTM)",
+      "Bachelor of Computer Applications (BCA)",
+      "Bachelor of Science in Nursing (B.Sc Nursing)",
+      "Bachelor of Social Work (BSW)",
+      "Bachelor of Library and Information Science (BLIS)",
+      "Bachelor of Film and Television Production (BFTP)"
+    ]
+
+    const Universityes= [
+      "Indian Institutes of Technology (IITs)",
+      "Indian Institutes of Management (IIMs)",
+      "National Institutes of Technology (NITs)",
+      "University of Delhi",
+      "Jawaharlal Nehru University (JNU)",
+      "Banaras Hindu University (BHU)",
+      "University of Mumbai",
+      "University of Calcutta",
+      "Anna University",
+      "University of Madras",
+      "University of Pune",
+      "University of Hyderabad",
+      "University of Allahabad",
+      "Aligarh Muslim University (AMU)",
+      "Osmania University",
+      "University of Rajasthan",
+      "University of Kerala",
+      "University of Lucknow",
+      "Punjab University",
+      "University of Gujarat",
+      "University of Mysore",
+      "University of Kolkata",
+      "University of Bangalore",
+      "University of Chennai",
+      "University of Chandigarh",
+      "University of Nagpur",
+      "University of Ahmedabad",
+      "University of Jaipur",
+      "University of Bhopal",
+      "University of Coimbatore",
+      "University of Dehradun",
+      "University of Patna",
+      "University of Kanpur",
+      "University of Varanasi",
+      "University of Guwahati",
+      "University of Bhubaneswar",
+      "University of Jammu",
+      "University of Ranchi",
+      "University of Shimla",
+      "University of Srinagar",
+      "University of Trivandrum",
+      "University of Vijayawada",
+      "University of Visakhapatnam",
+      "University of Indore",
+      "University of Raipur",
+      "University of Kochi"
+    ]
+    
+    
+
   return (
     <IonModal isOpen={isOpen} onDidDismiss={onClose}>
       <IonContent>
@@ -129,7 +209,7 @@ const EducationModel = ({ isOpen, onClose,setUpdate }) => {
               Degree
             </label>
             {/* <IonItem> */}
-            <IonInput
+            {/* <IonInput
               type="text"
               placeholder="e.g fnb manager"
               name="degree" 
@@ -142,7 +222,26 @@ const EducationModel = ({ isOpen, onClose,setUpdate }) => {
                 height:"52px",
                 backgroundColor:"#F4F4F4"
               }}
-            />
+            /> */}
+            <IonSelect
+            name="degree" 
+              value={formData.degree}
+              onIonChange={handleChange}
+              interface="popover"
+              placeholder="Select Degree"
+              style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
+            >
+              {
+               Degrees && Degrees.map((el,index)=>{
+                  return <IonSelectOption key={index} value={el}>{el}</IonSelectOption>
+                })
+              }
+             
+           
+              
+
+              {/* Add more job types as needed */}
+            </IonSelect>
   </div>
   
 
@@ -160,7 +259,7 @@ const EducationModel = ({ isOpen, onClose,setUpdate }) => {
               University
             </label>
             {/* <IonItem> */}
-            <IonInput
+            {/* <IonInput
               type="text"
               placeholder="e.g fnb manager"
               name="university" 
@@ -173,7 +272,24 @@ const EducationModel = ({ isOpen, onClose,setUpdate }) => {
                 height:"52px",
                 backgroundColor:"#F4F4F4"
               }}
-            />
+            /> */}
+             <IonSelect
+            name="university" 
+            value={formData.university}
+              onIonChange={handleChange}
+              interface="popover"
+              placeholder="Select University"
+              style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
+            >
+              {Universityes && Universityes.map((el,index)=>{
+                return  <IonSelectOption key={index} value={el}>{el}</IonSelectOption>
+              })}
+             
+        
+              
+              
+              {/* Add more job types as needed */}
+            </IonSelect>
   </div>
  
       

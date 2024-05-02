@@ -24,6 +24,7 @@ import { Reward } from '../Reward/Reward';
 import { SavedJobs } from '../Jobs/SavedJobs';
 import { ViewedJobs } from '../Jobs/ViewedJobs';
 import { Settings } from '../Profile/ProfileTabs/Settings';
+import { ResumeView } from '../Resume/ResumeView';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -75,6 +76,7 @@ const NavBar = () => {
     <Route  path="/profile-personal-details" component={ProfilePersonalDetails}  />
     <Route  path="/profile-contact-details" component={ProfileContactDetails}  />
     <Route  path="/profile-job-preference" component={ProfileJobPreference}  />
+    <Route  path="/profile-resume" component={ResumeView}  />
     <Route  path="/help-and-support" component={HelpAndSupport}  />
     <Route  path="/update-profile-photo" component={UpdateProfilePhoto}  />
     <Route  path="/rewards" component={Reward}  />

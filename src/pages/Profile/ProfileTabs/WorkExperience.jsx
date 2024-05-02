@@ -115,11 +115,16 @@ export const ProfileWorkExperience = () => {
                    <div style={{padding:"5px"}}>
 
 {
- experienceData && experienceData.map((el,index)=>{
+experienceData ? experienceData && experienceData.map((el,index)=>{
     return  <div key={index} style={{marginTop:"30px"}} >
     <WorkExperienceCard  data={el} UserWorkExperienceDelete={UserWorkExperienceDelete}/>
    </div>
   })
+  :
+  <div style={{marginTop:"30px"}}>
+
+  <span>No Work Experience  Records Available</span>
+ </div>
 }
                   
 
@@ -130,7 +135,7 @@ export const ProfileWorkExperience = () => {
                   
                    </div>
 
-                   <div style={{marginTop:"30px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+                   <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
 <CustomBtn1 fun={handleOpenModal} title={"Add"}/>
 

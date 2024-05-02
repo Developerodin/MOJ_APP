@@ -29,6 +29,7 @@ async function shareApp() {
 export const Profile = () => {
   const history = useHistory();
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const [profilePic,setProfilePic] = useState(null);
   const [completionPercentage, setCompletionPercentage] = useState(75);
   const ProfileTabs=[
     
@@ -37,7 +38,7 @@ export const Profile = () => {
     {icon:bookOutline,title:"Education",link:"/profile-eduction",color:"#395CFF"},
     {icon:gitPullRequestOutline,title:"Job preference",link:"/profile-job-preference",color:"#395CFF"},
     {icon:bagHandleOutline,title:"Work experience",link:"/profile-work-experience",color:"#395CFF"},
-    // {icon:cloudUploadOutline,title:"Resume",link:"/",color:"#395CFF"},
+    {icon:cloudUploadOutline,title:"Resume",link:"/profile-resume",color:"#395CFF"},
   ]
   useEffect(() => {
     // Fetch completion percentage from your data source
@@ -63,6 +64,17 @@ export const Profile = () => {
   const radius = 20; // Radius of the circle
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - completionPercentage / 100);
+
+
+  useEffect(()=>{
+      let image = localStorage.getItem("dp-img") || null
+      if(image){
+        setProfilePic(image);
+      }
+      // else{
+      //   setProfilePic(image);
+      // }
+  },[])
   return (
    <IonPage>
     <IonContent>
@@ -89,7 +101,7 @@ export const Profile = () => {
                
                <div style={{position:"relative"}}>
                <img
-            src={profileImg}
+            src={profilePic || profileImg}
             alt="Globe Icon"
             style={{boxShadow: "6px 14px 28px rgba(0, 0, 255, 0.2)",border: "1px solid grey",height:"86px",width:"86px",borderRadius:"60px"}}
           />
@@ -226,9 +238,7 @@ onClick={handelRewardClick}
                 </IonItem>
                 </div>
 
-                <div style={{marginTop:"20px"}}>
-                  <ResumeUplodeProfile />
-                </div>
+              
 
                
         

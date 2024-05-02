@@ -85,14 +85,14 @@ const EducationEdit = () => {
                 return
             }
             showToast("error", "Try After Some Time", "");
-            handelBackClick()
+            // handelBackClick()
               
            
             
       } catch (error) {
         console.error('Error:', error);
         showToast("error", "Try After Some Time", "");
-        handelBackClick()
+        // handelBackClick()
       }
     };
 

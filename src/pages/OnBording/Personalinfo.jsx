@@ -53,8 +53,8 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
     setShowModal(false);
   };
   const handelBtnClick= ()=>{
-    localStorage.setItem("Auth",true);
-    history.push("/app", 'root','replace');
+    // localStorage.setItem("Auth",true);
+    history.push("/phone",'replace');
 
     // window.location.reload();
     // handelContinue("/home")
@@ -135,10 +135,27 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
               >
                 Work Experience
               </button>
+
+              <button
+              onClick={()=>{handelButtonSelected("/profile-resume")}}
+                style={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: "50px",
+                  width: "100%",
+                  height: "100%",
+                  color: "black",
+                  fontSize: "17px",
+                  fontWeight: "bold",
+                  marginTop: "20px",
+                  border: "1px solid black",
+                }}
+              >
+                Resume
+              </button>
               <div>
  
 
-         <ResumeModel />
+         {/* <ResumeModel /> */}
  
     </div>
             </div>

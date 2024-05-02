@@ -11,11 +11,13 @@ import NoJobs from "/assets/home1.png";
 import equilizer from "./equalizer.png"
 import { useHistory } from 'react-router';
 import { App as MainApp } from "@capacitor/app";
+import profileImg from "./profileImg2.png"
 // import { StatusBar } from '@capacitor/status-bar';
 export const Home = () => {
   const history = useIonRouter();
 
   const [backPressCount, setBackPressCount] = useState(0);
+  const [profilePic,setProfilePic] = useState(null);
   const handelJobCardClick = (id)=>{
     history.push(`/job-details/${id}`)
   }
@@ -23,7 +25,15 @@ export const Home = () => {
   const outerRout = ()=>{
     history.push('/job-details/1')
   }
-
+  useEffect(()=>{
+    let image = localStorage.getItem("dp-img") || null
+    if(image){
+      setProfilePic(image);
+    }
+    // else{
+    //   setProfilePic(image);
+    // }
+},[])
   useEffect(() => {
     const backButtonHandler = async () => {
       console.log("Back Press ==>")
@@ -62,7 +72,8 @@ export const Home = () => {
   <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
      <div style={{position:"relative"}} >
            <div>
-              <img src='https://s3-alpha-sig.figma.com/img/9902/5026/ef545fce7a758188585b742e3d5aba25?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ehI78-byz55LVw0BFfbrWn~0hzVwmuo3Rt5Whglc~mK04GqzoZHVrQMFKiiwq1-I7w60clHAc-XVlxc12tbgWSh7p~obspDTtqf8B7oAOEApa52NBeFLGv1wVGhMtlH4Cz6~mQFqJ0ybDr8VT~GutxATnw2rqbqqQ~0Yqj-TD1E2QBesXAwNBT9ZEXxfZMkoaovCxtZ6b4-T1Ohta9ll1pbZow792We4w17eqFh4lpL9oJc~nD0NYqsQuJM8VJKNKlK9cLR4r7OdMllEtTImSiWrJkWYUNJx27ZW1K-gYVXiG~8qrW~0VVxqvXX7cmQEHUqnltUnDvzryL2u89rjsQ__'
+              <img 
+              src={profilePic || profileImg}
               style={{width:"62px",height:"62px",border:"2px solid #F0F3FF",borderRadius:"40px"}}
               />
            </div>
