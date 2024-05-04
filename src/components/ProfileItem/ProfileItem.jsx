@@ -11,7 +11,7 @@ const ProfileListItem = ({Data}) => {
        if(Data.link === "/logout"){
        console.log("Logout clicked")
        localStorage.clear();
-        history.push("/Coninue", 'root','replace');
+        history.push("/Coninue");
         
          return
          
@@ -27,7 +27,7 @@ const ProfileListItem = ({Data}) => {
                   <IonIcon icon={Data.icon} style={{color:`${Data.color}`}} slot="start"></IonIcon>
                   <IonLabel style={{fontWeight:"bold"}}>{Data.title}</IonLabel>
                   <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon>
-                </IonItem>
+      </IonItem>
   )
 }
 

@@ -6,6 +6,8 @@ import {
   IonIcon,
   IonInput,
   IonLabel,
+  IonSelect,
+  IonSelectOption,
 } from "@ionic/react";
 import { addOutline, arrowBack, bagHandleOutline, createOutline, trash } from "ionicons/icons";
 import icon from "/assets/left.png";
@@ -26,7 +28,7 @@ export const ProfileWorkExperience = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [update,setUpdate] =  useState(0)
     const [experienceData,setExperoenceData] = useState([])
-   
+    const [userWorkExperience,setuserWorkExperience] =  useState("fresher");
     const handleOpenModal = () => {
       setIsModalOpen(true);
     };
@@ -111,7 +113,37 @@ export const ProfileWorkExperience = () => {
           <div style={{ padding: "20px" }}>
 
                <ProfileHeaders icon={<IonIcon icon={bagHandleOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Work experience"} />
-                   
+                    
+               
+               <div>
+               <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              Do you have work experience or are you a fresher?
+            </label>
+            <IonSelect
+              value={userWorkExperience}
+              onIonChange={(e) => setuserWorkExperience(e.detail.value)}
+              interface="popover"
+              placeholder="Select Job Type"
+              style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
+            >
+              <IonSelectOption value="fresher">I am a fresher</IonSelectOption>
+              <IonSelectOption value="experienced">I have work experience</IonSelectOption>
+              {/* Add more job types as needed */}
+            </IonSelect>
+          </div>
+               </div>
+
+
+
                    <div style={{padding:"5px"}}>
 
 {
@@ -135,11 +167,15 @@ experienceData ? experienceData && experienceData.map((el,index)=>{
                   
                    </div>
 
-                   <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+{
+
+userWorkExperience === "experienced"  &&    <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
 <CustomBtn1 fun={handleOpenModal} title={"Add"}/>
 
          </div>
+}
+                
 
                    {/* <div style={{marginTop:"40px",display:"flex",justifyContent:"center",alignItems:"center"}}>
                     <IonButton onClick={handleOpenModal} style={{height:"50px",width:"50px"}}>

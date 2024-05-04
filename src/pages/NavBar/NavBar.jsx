@@ -92,7 +92,7 @@ const NavBar = () => {
     <Route  path="/term-services" component={TermAndServices}  />
     <Route  path="/privacy-policy" component={PrivacyAndPolicy}  />
     <Route  path="/select-lang" component={SelectLang}  />
-    <Route  path="/Coninue" component={Continue}  />
+    {/* <Route  path="/Coninue" component={Continue}  /> */}
          
          
           <Redirect exact  to="/app/home" />
