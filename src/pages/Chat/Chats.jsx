@@ -6,7 +6,7 @@ import GroupsChat from '../../components/Chats/GroupsChat';
 import Threds from '../../components/Chats/Threds';
 import { useHistory, useLocation } from 'react-router';
 import { AppContext } from '../../Context/AppContext';
-import Nochat from "/assets/noChat.png";
+import Nochat from "/assets/coming-soon.png";
 export const Chats = () => {
   const{MarkerData,setTabBarVisibility,TabBarVisibility,itemData}=useContext(AppContext);
 
@@ -53,21 +53,21 @@ export const Chats = () => {
           <IonIcon icon={chatboxEllipsesOutline} style={{fontSize:"30px"}} />
           <span style={{fontSize:"26px",fontWeight:"bold",marginLeft:"15px",marginTop:"0px"}}>Messages</span>
           </div>
-
+{/* 
           <div style={{marginTop:"20px"}}>
 
 {
     <ContactsChat />
 }
 
-</div>
- {/* <div style={{height:"80vh",display:"flex",justifyContent:"center",alignItems:"center"}}>
+</div> */}
+ <div style={{height:"80vh",display:"flex",justifyContent:"center",alignItems:"center"}}>
           <img
             src={Nochat}
             alt="Globe Icon"
           
           />
-          </div> */}
+          </div>
 
           </div>
 

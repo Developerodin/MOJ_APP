@@ -9,11 +9,12 @@ import axios from 'axios'
 import { AppContext } from '../../../Context/AppContext'
 import { Base_url } from '../../../Config/BaseUrl'
 export const UpdateProfilePhoto = () => {
-  const { showToast } = useContext(AppContext);
+  const { showToast ,setEditUpdate} = useContext(AppContext);
   const [picture, setPicture] = useState();
  const history = useIonRouter()
  const userDetails = JSON.parse(localStorage.getItem("userDetails" )|| localStorage.getItem("userRegisterDetails"));
     const handelSaveClick = ()=>{
+      setEditUpdate((prev)=>prev+1)
       history.goBack();
     }
 
@@ -60,6 +61,7 @@ export const UpdateProfilePhoto = () => {
       document.getElementById("dp-img").src = imageUrl;
       console.log(imageUrl);
        localStorage.setItem("dp-img", imageUrl);
+      //  setPicture(imageUrl);
       const imgobj = new Image();
       imgobj.style.width = "100px";
       imgobj.style.height = "auto";
@@ -92,6 +94,7 @@ export const UpdateProfilePhoto = () => {
       var imageUrl = image.webPath;
       document.getElementById("dp-img").src = imageUrl;
       localStorage.setItem("dp-img", imageUrl);
+      // setPicture(imageUrl);
       console.log(imageUrl);
   
       const imgobj = new Image();

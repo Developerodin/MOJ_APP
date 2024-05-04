@@ -6,6 +6,7 @@ import {
   IonIcon,
   IonInput,
   IonLabel,
+  IonSearchbar,
 } from "@ionic/react";
 import { arrowBack, chevronBackOutline } from "ionicons/icons";
 import icon from "/assets/left.png";
@@ -35,9 +36,12 @@ const Basicinfo = ({ handelContinue }) => {
     email: "",
     state: "",
     city: "",
+    pincode:"",
+    address:"",
+    dob:""
   });
   const [formValid, setFormValid] = useState(false);
-
+ const [loading,setLoading] = useState(false);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -48,17 +52,20 @@ const Basicinfo = ({ handelContinue }) => {
  
   const handelBtnClick = () => {
     console.log("Form Data ==>", formData);
-    RegisterUser()
+  
     // handelContinue("ProfilePic")
-    // if(formValid === false){
-    //   showToast("error", "fill the required fields", "");
-    //   return
-    // }
+    if(formValid === false){
+      showToast("error", "fill the required fields", "");
+      return
+    }
+    console.log("Data",formData)
+    RegisterUser()
    
   };
 
   const RegisterUser = async () => {
     try {
+      setLoading(true)
       const url = `${Base_url}auth/register`;
       const formData1 = new FormData();
       formData1.append('role', Role);
@@ -66,7 +73,7 @@ const Basicinfo = ({ handelContinue }) => {
       formData1.append('name', formData.firstName);
       formData1.append('last_name', formData.lastName);
       formData1.append('gender', formData.gender);
-      formData1.append('email', formData.email);
+      formData1.append('email', formData.email || "no email");
       formData1.append('state', formData.state);
       formData1.append('city', formData.city);
       formData1.append('country', "India");
@@ -87,18 +94,20 @@ const Basicinfo = ({ handelContinue }) => {
             // }
 
           if(data.status === "success"){
+            setLoading(false);
                localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
                handelContinue("ProfilePic")
               return
           }
-          showToast("error", "Try After Some Time", "");
-
+          // showToast("error", "Try After Some Time", "");
+          setLoading(false);
             
          
           
     } catch (error) {
       console.error('Error:', error);
       showToast("error", "Try After Some Time", "");
+      setLoading(false);
     }
   };
  
@@ -106,6 +115,7 @@ const Basicinfo = ({ handelContinue }) => {
     const isValid =
       formData.firstName !== "" &&
       formData.lastName !== "" &&
+      // formData.email !== "" &&
       formData.gender !== "" &&
       formData.state !== "" &&
       formData.city !== "";
@@ -118,14 +128,14 @@ const Basicinfo = ({ handelContinue }) => {
   }, []);
 
   // useEffect(()=>{
-  //   console.log("In City Data  ===>",selectedState)
-  //   if(selectedState !== ""){
-  //     const cityData= City.getCitiesOfState('IN', selectedState);
+  //   console.log("In City Data  ===>",formData.state)
+  //   if(formData.state !== ""){
+  //     const cityData= City.getCitiesOfState('IN', formData.state);
   //     console.log("City Data  ==>",cityData)
   //     setCitys(cityData);
   //   }
 
-  // },[])
+  // },[formData.state])
   return (
     <div>
       {/* <div>
@@ -199,6 +209,29 @@ const Basicinfo = ({ handelContinue }) => {
               lineHeight: "30px",
             }}
           >
+            Date of Birth
+          </label>
+          {/* <IonItem> */}
+          <input
+          className="round-input"
+            type="date"
+            name="dob"
+            value={formData.dob}
+            onChange={handleInputChange}
+         
+          />
+        </div>
+
+        <div style={{ marginTop: "20px" }}>
+          <label
+            style={{
+              color: "#575757",
+              fontFamily: "inter",
+              fontSize: "14px",
+              fontWeight: "400",
+              lineHeight: "30px",
+            }}
+          >
             Gender
           </label>
           <div
@@ -234,7 +267,7 @@ const Basicinfo = ({ handelContinue }) => {
               lineHeight: "30px",
             }}
           >
-            Email Address (optional)
+            Email (optional)
           </label>
           {/* <IonItem> */}
           <input
@@ -246,6 +279,8 @@ const Basicinfo = ({ handelContinue }) => {
            
           />
         </div>
+
+       
 
         <div style={{ marginTop: "20px" }}>
           <label
@@ -260,13 +295,13 @@ const Basicinfo = ({ handelContinue }) => {
             State
           </label>
           <div
-            style={{
-              border: "1px solid #E2E8F0",
-              borderRadius: "50px",
-              paddingLeft: "10px",
-            }}
+            // style={{
+            //   border: "1px solid #E2E8F0",
+            //   borderRadius: "50px",
+            //   paddingLeft: "10px",
+            // }}
           >
-            <IonSelect
+            {/* <IonSelect
               name="state"
               interface="action-sheet"
               value={formData.state}
@@ -281,7 +316,22 @@ const Basicinfo = ({ handelContinue }) => {
                   {state.name}
                 </IonSelectOption>
               ))}
-            </IonSelect>
+            </IonSelect> */}
+                <div>
+      <input
+       className="round-input"
+       name="state"
+        list="states"
+        value={formData.state}
+        onChange={handleInputChange}
+        placeholder="Type to search"
+      />
+      <datalist id="states" >
+        {States.map((state) => (
+          <option  key={state.isoCode} value={state.isoCode}>{state.name}</option>
+        ))}
+      </datalist>
+    </div>
           </div>
         </div>
 
@@ -321,21 +371,85 @@ const Basicinfo = ({ handelContinue }) => {
             onChange={handleInputChange}
           
           />
+     {/* {formData.state !== ""    &&  <div>
+      <input
+       className="round-input"
+       name="city"
+        list="city"
+        value={formData.city}
+        onChange={handleInputChange}
+        placeholder="Type to search"
+      />
+      <datalist id="city" >
+        {Citys.map((city) => (
+          <option  key={city.name} value={city.name} />
+        ))}
+      </datalist>
+    </div>
+} */}
+        </div>
+
+        <div style={{ marginTop: "20px" }}>
+          <label
+            style={{
+              color: "#575757",
+              fontFamily: "inter",
+              fontSize: "14px",
+              fontWeight: "400",
+              lineHeight: "30px",
+            }}
+          >
+            Address
+          </label>
+          {/* <IonItem> */}
+          <input
+          className="round-input"
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleInputChange}
+           
+          />
+        </div>
+
+        <div style={{ marginTop: "20px" }}>
+          <label
+            style={{
+              color: "#575757",
+              fontFamily: "inter",
+              fontSize: "14px",
+              fontWeight: "400",
+              lineHeight: "30px",
+            }}
+          >
+            Pincode
+          </label>
+          {/* <IonItem> */}
+          <input
+          className="round-input"
+            type="text"
+            name="pincode"
+            value={formData.pincode}
+            onChange={handleInputChange}
+           
+          />
         </div>
 
         {/* </IonItem> */}
       </div>
-
-      <div
-        style={{
-          marginTop: "30px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CustomBtn1 fun={handelBtnClick} title={"Continue"} />
-      </div>
+ {
+  !loading && <div
+  style={{
+    marginTop: "30px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }}
+>
+  <CustomBtn1 fun={handelBtnClick} title={"Continue"} />
+</div>
+ }
+      
     </div>
   );
 };

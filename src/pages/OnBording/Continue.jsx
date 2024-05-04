@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IonContent, IonPage } from "@ionic/react";
 import globeicon from "/assets/globe.png";
 import { useHistory } from "react-router";
@@ -6,7 +6,19 @@ import { AppContext } from "../../Context/AppContext";
 
 const Continue = () => {
   const history = useHistory()
-  const { showToast } = useContext(AppContext);
+  const { showToast ,languageUpdate,setLanguageUpdate} = useContext(AppContext);
+
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
   const handelBtnClick= (value)=>{
     if(value === "Job Seeker"){
@@ -58,7 +70,8 @@ const Continue = () => {
                 marginTop: "30%", 
               }}
             >
-              Continue as 
+              {selectedLanguage === "English" ? "Continue as" : "जारी रखें"}
+               
             </h1>
 
             <div style={{ marginTop:'30px', width: "100%", height: "50px" }}>
@@ -75,7 +88,8 @@ const Continue = () => {
                   border: "1px solid #ffffff"
                 }}
               >
-                Job Seeker
+                 {selectedLanguage === "English" ? "Job Seeker" : "रोजगार चाहने वाला"}
+                
               </button>
               <button
                     onClick={()=>handelBtnClick("Employers")}
@@ -91,7 +105,8 @@ const Continue = () => {
                   border: "1px solid #ffffff",
                 }}
               >
-               Employers
+                {selectedLanguage === "English" ? "Employers" : "नियोक्ता"}
+             
               </button>
               <button
                  onClick={()=>handelBtnClick("Agent")}
@@ -107,7 +122,8 @@ const Continue = () => {
                   border: "1px solid #ffffff",
                 }}
               >
-                Agent
+                 {selectedLanguage === "English" ? "Agent" : "एजेंट"}
+                
               </button>
             </div>
           </div>

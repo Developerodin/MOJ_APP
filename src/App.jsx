@@ -65,13 +65,16 @@ import Toast from './pages/Toast/Toast';
 import WorkExperienceEdit from './components/Models/WorkExperienceEdit';
 import EducationEdit from './components/Models/EducationEdit';
 import { ResumeView } from './pages/Resume/ResumeView';
+import { PrivacyAndPolicy } from './pages/Profile/ProfileTabs/PrivacyAndPolicy';
+import { TermAndServices } from './pages/Profile/ProfileTabs/TermAndServices';
+import { AccountsAndNotifications } from './pages/Profile/ProfileTabs/AccountsAndNotifications';
 
 setupIonicReact();
 
 const App = () => {
   const {toastStatus} = useContext(AppContext);
   const Auth = localStorage.getItem("Auth") || false;
-    
+  const selectedLanguage = localStorage.getItem("selectedLanguage") || "English";
  return <IonApp>
   <Toast props={toastStatus}/>
   <IonReactRouter>
@@ -80,7 +83,7 @@ const App = () => {
     <Route  path="/app" component={NavBar}  />
     <Route  path="/job-details/:id" component={JobDetails}  />
     <Route  path="/Coninue" component={Continue}  />
-    <Route  path="/select-lang" component={SelectLang} exact />
+    <Route  path="/select-lang" component={SelectLang}  />
     <Route  path="/verify-otp" component={VerifyPhoneTwo} exact />
     <Route  path="/phone" component={Newphone}  />
     <Route  path="/personal-details" component={PersonalDetails} exact />
@@ -107,6 +110,10 @@ const App = () => {
     <Route  path="/saved-jobs" component={SavedJobs}  />
     <Route  path="/viewed-jobs" component={ViewedJobs}  />
     <Route  path="/settings" component={Settings}  />
+    <Route  path="/accounts-notification" component={AccountsAndNotifications}  />
+    <Route  path="/term-services" component={TermAndServices}  />
+    <Route  path="/privacy-policy" component={PrivacyAndPolicy}  />
+
     
     
     <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>

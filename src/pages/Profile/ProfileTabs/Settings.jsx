@@ -31,11 +31,11 @@ export const Settings = () => {
 
     const ProfileTabs=[
     
-        {icon:personOutline,title:"Accounts & Notifications",link:"/",color:"#395CFF"},
-        {icon:globeOutline,title:"Change language",link:"/",color:"#395CFF"},
+        {icon:personOutline,title:"Accounts & Notifications",link:"/accounts-notification",color:"#395CFF"},
+        {icon:globeOutline,title:"Change language",link:"/select-lang",color:"#395CFF"},
         // {icon:shareOutline,title:"Invite your friend",link:"/",color:"#395CFF"},
-        {icon:clipboardOutline,title:"Term & Services",link:"/",color:"#395CFF"},
-        {icon:eyeOffOutline,title:"Privacy Policy",link:"/",color:"#395CFF"},
+        {icon:clipboardOutline,title:"Term & Services",link:"/term-services",color:"#395CFF"},
+        {icon:eyeOffOutline,title:"Privacy Policy",link:"/privacy-policy",color:"#395CFF"},
         {icon:logOutOutline,title:"Logout",link:"/logout",color:"#395CFF"},
       ]
     return (
@@ -60,7 +60,7 @@ export const Settings = () => {
 
       {
         ProfileTabs.map((el,index)=>{
-          return <div style={{marginTop:"20px"}}>
+          return <div key={index} style={{marginTop:"20px"}}>
             <ProfileListItem key={index} Data={el} />
             </div>
         })

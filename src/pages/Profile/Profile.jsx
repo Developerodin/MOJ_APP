@@ -1,7 +1,7 @@
 
 import { IonCol, IonContent, IonGrid, IonIcon, IonItem, IonLabel, IonList, IonPage, IonRow, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
 import React, { useContext, useEffect, useState } from 'react'
-import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline, starOutline, colorFill, star, helpCircleOutline, settingsOutline, createOutline, bookmark, eye, lockClosedOutline, callOutline, bookOutline, gitPullRequestOutline, bagHandleOutline, cloudUploadOutline, shareOutline, chevronForwardOutline} from 'ionicons/icons';
+import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline, starOutline, colorFill, star, helpCircleOutline, settingsOutline, createOutline, bookmark, eye, lockClosedOutline, callOutline, bookOutline, gitPullRequestOutline, bagHandleOutline, cloudUploadOutline, shareOutline, chevronForwardOutline, headsetOutline} from 'ionicons/icons';
 import cs from "./th.jpg"
 import profileImg from "./profileImg2.png"
 import ProfileListItem from '../../components/ProfileItem/ProfileItem';
@@ -9,6 +9,8 @@ import { useHistory } from 'react-router';
 import { ResumeUplodeProfile } from '../../components/Models/ResumeUplodeProfile';
 
 import { Share } from '@capacitor/share';
+import { AppContext } from '../../Context/AppContext';
+import { ContactUsModel } from '../../components/Models/ContactUsModel';
 
 async function shareApp() {
   const { value } = await Share.canShare();
@@ -28,9 +30,11 @@ async function shareApp() {
 
 export const Profile = () => {
   const history = useHistory();
+  const {editUpdate,setEditUpdate} = useContext(AppContext)
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [profilePic,setProfilePic] = useState(null);
   const [completionPercentage, setCompletionPercentage] = useState(75);
+  const [contactUsModel,setContatUsModel] = useState(false)
   const ProfileTabs=[
     
     {icon:lockClosedOutline,title:"Personal Details",link:"/profile-personal-details",color:"#395CFF"},
@@ -59,6 +63,11 @@ export const Profile = () => {
     history.push(value)
   }
 
+  const handelContactUs = () =>{
+    setContatUsModel(true);
+   
+  }
+
   const width = 54; // Width of the SVG
   const height = 54; // Height of the SVG
   const radius = 20; // Radius of the circle
@@ -74,7 +83,7 @@ export const Profile = () => {
       // else{
       //   setProfilePic(image);
       // }
-  },[])
+  },[editUpdate])
   return (
    <IonPage>
     <IonContent>
@@ -220,7 +229,13 @@ onClick={handelRewardClick}
             <IonRow>
             <IonCol size='12'>
         <IonList>
-
+        <div style={{marginTop:"20px"}}>
+               <IonItem onClick={handelContactUs}  button  style={{marginTop:"10px"}}>
+                  <IonIcon icon={headsetOutline} style={{color:`#395CFF`}} slot="start"></IonIcon>
+                  <IonLabel style={{fontWeight:"bold"}}>Contact us</IonLabel>
+                  <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon>
+                </IonItem>
+                </div>
 
                 {
                   ProfileTabs.map((el,index)=>{
@@ -251,7 +266,7 @@ onClick={handelRewardClick}
           
 
 
-           
+           <ContactUsModel  showModal={contactUsModel} setShowModal={setContatUsModel}/>
         </div>
     </IonContent>
    </IonPage>

@@ -29,6 +29,8 @@ const AppContextProvider = ({children}) => {
       'msg':'Invalid Form Data',
       'status':'hide'
     });
+
+    const [languageUpdate,setLanguageUpdate] = useState(0)
   
     const showToast = (type,heading,msg) =>{
       const info = {type,heading,msg,status:'show'};
@@ -38,7 +40,7 @@ const AppContextProvider = ({children}) => {
       },2500)
     }
 
-  return <AppContext.Provider value={{editUpdate,setEditUpdate, showToast,toastStatus,userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData}}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{languageUpdate,setLanguageUpdate,editUpdate,setEditUpdate, showToast,toastStatus,userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData}}>{children}</AppContext.Provider>
 }
 
 export default AppContextProvider;

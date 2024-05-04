@@ -78,14 +78,14 @@ const EducationModel = ({ isOpen, onClose,setUpdate }) => {
                 return
               
             }
-            showToast("error", "Try After Some Time", "");
+            // showToast("error", "Try After Some Time", "");
   
               
            
             
       } catch (error) {
         console.error('Error:', error);
-        showToast("error", "Try After Some Time", "");
+        // showToast("error", "Try After Some Time", "");
       }
     };
 
@@ -321,7 +321,7 @@ const EducationModel = ({ isOpen, onClose,setUpdate }) => {
             </IonLabel>
             {/* <IonItem> */}
             <IonInput
-              type="date"
+              type="number"
               name="yearGraduated" 
               value={formData.yearGraduated} 
                 onIonChange={handleChange}

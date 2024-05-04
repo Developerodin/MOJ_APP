@@ -84,14 +84,14 @@ const EducationEdit = () => {
               handelBackClick()
                 return
             }
-            showToast("error", "Try After Some Time", "");
+            // showToast("error", "Try After Some Time", "");
             // handelBackClick()
               
            
             
       } catch (error) {
         console.error('Error:', error);
-        showToast("error", "Try After Some Time", "");
+        // showToast("error", "Try After Some Time", "");
         // handelBackClick()
       }
     };
@@ -128,7 +128,7 @@ const EducationEdit = () => {
               
         } catch (error) {
           console.error('Error:', error);
-          showToast("error", "Try After Some Time", "");
+          // showToast("error", "Try After Some Time", "");
         }
       };
 
@@ -255,7 +255,7 @@ const EducationEdit = () => {
             </IonLabel>
             {/* <IonItem> */}
             <IonInput
-              type="date"
+              type="number"
               name="yearGraduated" 
               value={formData.yearGraduated} 
                 onIonChange={handleChange}

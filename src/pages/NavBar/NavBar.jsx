@@ -25,6 +25,11 @@ import { SavedJobs } from '../Jobs/SavedJobs';
 import { ViewedJobs } from '../Jobs/ViewedJobs';
 import { Settings } from '../Profile/ProfileTabs/Settings';
 import { ResumeView } from '../Resume/ResumeView';
+import { AccountsAndNotifications } from '../Profile/ProfileTabs/AccountsAndNotifications';
+import { TermAndServices } from '../Profile/ProfileTabs/TermAndServices';
+import { PrivacyAndPolicy } from '../Profile/ProfileTabs/PrivacyAndPolicy';
+import SelectLang from '../OnBording/SelectLang';
+import Continue from '../OnBording/Continue';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -83,8 +88,11 @@ const NavBar = () => {
     <Route  path="/saved-jobs" component={SavedJobs}  />
     <Route  path="/viewed-jobs" component={ViewedJobs}  />
     <Route  path="/settings" component={Settings}  />
-
-         
+    <Route  path="/accounts-notification" component={AccountsAndNotifications}  />
+    <Route  path="/term-services" component={TermAndServices}  />
+    <Route  path="/privacy-policy" component={PrivacyAndPolicy}  />
+    <Route  path="/select-lang" component={SelectLang}  />
+    <Route  path="/Coninue" component={Continue}  />
          
          
           <Redirect exact  to="/app/home" />

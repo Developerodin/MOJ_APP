@@ -101,7 +101,7 @@ export const ResumeView = () => {
           <ProfileHeaders icon={<IonIcon icon={cloudUploadOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Resume"}  />
            
          {
-          selectedFile ?
+          resumeUrl ?
            <div style={{marginTop:"30px",border:"1px solid grey",borderRadius:"10px",padding:"20px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
              
              <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>

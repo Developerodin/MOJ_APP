@@ -22,6 +22,10 @@ export const Home = () => {
     history.push(`/job-details/${id}`)
   }
 
+  const handelProfileClick= () =>{
+    history.push("/app/profile")
+  }
+
   const outerRout = ()=>{
     history.push('/job-details/1')
   }
@@ -70,8 +74,8 @@ export const Home = () => {
   Go job details
 </IonButton> */}
   <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-     <div style={{position:"relative"}} >
-           <div>
+     <div onClick={handelProfileClick} style={{position:"relative"}} >
+           <div >
               <img 
               src={profilePic || profileImg}
               style={{width:"62px",height:"62px",border:"2px solid #F0F3FF",borderRadius:"40px"}}

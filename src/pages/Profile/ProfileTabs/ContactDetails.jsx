@@ -16,7 +16,8 @@ import { CustomBtn1 } from "../../../components/Buttons/CustomBtn1";
 
 export const ProfileContactDetails = () => {
     const history = useHistory()
-
+    const userDetails = JSON.parse( localStorage.getItem("userDetails"));
+    const details = JSON.parse( localStorage.getItem("Mobile"));
     const handelSaveClick= ()=>{
     //   history.push("/home")
     }
@@ -48,17 +49,22 @@ export const ProfileContactDetails = () => {
              Phone number
             </label>
             {/* <IonItem> */}
-            <IonInput
-              type="text"
-             
+            <div
+           
+           
               style={{
+                display:"flex",
+                justifyContent:"left",
+                alignItems: "center",
                 borderRadius: "0px",
                 padding:"10px",
                 border: "1px solid #E2E8F0",
                 height:"52px",
                 backgroundColor:"#F4F4F4"
               }}
-            />
+            > 
+            <span>{details && details.phoneNumber}</span>
+            </div>
   </div>
   
 
@@ -76,9 +82,9 @@ export const ProfileContactDetails = () => {
               Email address
             </label>
             {/* <IonItem> */}
-            <IonInput
+            {/* <IonInput
               type="text"
-              
+              value={userDetails && userDetails.email}
               style={{
                 borderRadius: "0px",
                 padding:"10px",
@@ -86,7 +92,23 @@ export const ProfileContactDetails = () => {
                 height:"52px",
                 backgroundColor:"#F4F4F4"
               }}
-            />
+            /> */}
+            <div
+           
+           
+           style={{
+             display:"flex",
+             justifyContent:"left",
+             alignItems: "center",
+             borderRadius: "0px",
+             padding:"10px",
+             border: "1px solid #E2E8F0",
+             height:"52px",
+             backgroundColor:"#F4F4F4"
+           }}
+         > 
+         <span>{userDetails && userDetails.email}</span>
+         </div>
   </div>
 
  
@@ -104,11 +126,11 @@ export const ProfileContactDetails = () => {
            
           </div>    
          
-
+{/* 
           <div style={{width:"100%",position:"absolute",bottom:10,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
               <CustomBtn1 fun={handelSaveClick} title={"Save"}/>
-             </div>
+             </div> */}
            
           </div>
         </IonContent>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CustomBtn1 } from "../Buttons/CustomBtn1";
 import { Document, Page } from "react-pdf";
 import { pdfjs } from "react-pdf";
@@ -61,6 +61,7 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
     // You can add your upload logic here
     // After uploading, you may want to close the modal or show a success message
     AddResume();
+    setUpdate((prev)=>prev+1);
     // setShowModal(false);
   };
 
@@ -87,18 +88,22 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
 
       if (data.status === "success") {
         //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-        setUpdate((prev)=>prev+1);
+        setUpdate(prev=>prev+1);
         setShowModal(false);
 
         return;
       }
-      showToast("error", "Try After Some Time", "");
+      setUpdate((prev)=>prev+1);
+      // showToast("error", "Try After Some Time", "");
     } catch (error) {
       console.error("Error:", error);
-      showToast("error", "Try After Some Time", "");
+      // showToast("error", "Try After Some Time", "");
     }
   };
 
+  useEffect(()=>{
+    setUpdate(prev=>prev+1)
+  },[showModal])
   return (
     <>
       <input

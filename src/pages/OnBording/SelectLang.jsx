@@ -1,18 +1,27 @@
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { IonContent, IonIcon, IonPage, useIonRouter } from "@ionic/react";
 import globeicon from "/assets/globe.png";
 import { useHistory } from "react-router";
 import { chevronBackOutline } from "ionicons/icons";
 import { CustomBtn1 } from "../../components/Buttons/CustomBtn1";
+import { AppContext } from "../../Context/AppContext";
 
 const SelectLang = () => {
   const history = useIonRouter()
   const [selectedLanguage, setSelectedLanguage] = useState(null);
-
+  const { showToast ,languageUpdate,setLanguageUpdate} = useContext(AppContext);
   const handleBtnClick = (language) => {
     setSelectedLanguage(language);
   };
+
+  const handelSave=()=>{
+      if(selectedLanguage){
+        localStorage.setItem("selectedLanguage", selectedLanguage)
+      }
+      setLanguageUpdate((prev)=>prev+1);
+      handelBackClick()
+  }
 
   const handelBackClick = ()=>{
     history.goBack()
@@ -44,7 +53,7 @@ const SelectLang = () => {
                 marginTop: "30px",
               }}
             >
-              Continue your Language
+              Select your Language
             </h1>
 
             <div style={{ marginTop: '30px', width: "100%", height: "50px" }}>
@@ -111,7 +120,7 @@ const SelectLang = () => {
             </div>
           </div>
           <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
-          <div onClick={handelBackClick} 
+          <div onClick={handelSave} 
       style={{
         background:"#fff",
         padding: "20px",

@@ -67,7 +67,7 @@ export const ProfileWorkExperience = () => {
             
       } catch (error) {
         console.error('Error:', error);
-        showToast("error", "Try After Some Time", "");
+        // showToast("error", "Try After Some Time", "");
       }
     };
 
@@ -97,7 +97,7 @@ export const ProfileWorkExperience = () => {
             
       } catch (error) {
         console.error('Error:', error);
-        showToast("error", "Try After Some Time", "");
+        // showToast("error", "Try After Some Time", "");
       }
     };
 

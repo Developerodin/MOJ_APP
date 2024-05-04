@@ -18,6 +18,8 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
     location: '',
     startDate: '',
     endDate: '',
+    refmobile:'',
+    refemail:''
   });
 
   const handleChange = (e) => {
@@ -85,14 +87,14 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
                 onClose();
                 return
             }
-            showToast("error", "Try After Some Time", "");
+            // showToast("error", "Try After Some Time", "");
   
               
            
             
       } catch (error) {
         console.error('Error:', error);
-        showToast("error", "Try After Some Time", "");
+        // showToast("error", "Try After Some Time", "");
       }
     };
 
@@ -119,8 +121,37 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
          </div>
 
     </div>
+    <div style={{marginTop:"30px"}}>
 
-<div style={{marginTop:"30px"}}>
+<IonLabel
+
+style={{
+ color: "#575757",
+ fontFamily: "inter",
+ fontSize: "14px",
+ fontWeight: "400",
+ lineHeight: "30px",
+}}
+>
+Hotel name
+</IonLabel>
+{/* <IonItem> */}
+<IonInput
+type="text"
+name="organisation" 
+value={formData.organisation} 
+onIonChange={handleChange}
+placeholder="e.g Hotel xyz"
+style={{
+ borderRadius: "0px",
+ padding:"10px",
+ border: "1px solid #E2E8F0",
+ height:"52px",
+ backgroundColor:"#F4F4F4"
+}}
+/>
+</div>
+<div style={{marginTop:"10px"}}>
 <label
 style={{
  color: "#575757",
@@ -130,7 +161,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Designation
+Department
 </label>
 {/* <IonItem> */}
 <IonInput
@@ -158,7 +189,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Profile
+Work responsibility
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -180,10 +211,12 @@ style={{
 
 {/* </IonItem> */}
 
+
+
+
 <div style={{marginTop:"10px"}}>
 
 <IonLabel
-
 style={{
  color: "#575757",
  fontFamily: "inter",
@@ -192,24 +225,60 @@ style={{
  lineHeight: "30px",
 }}
 >
-Organisation
+Reference  Mobile
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
 type="text"
-name="organisation" 
-value={formData.organisation} 
+placeholder="e.g 9090909090"
+name="refmobile" 
+value={formData.refmobile} 
 onIonChange={handleChange}
-placeholder="e.g Hotel xyz"
 style={{
- borderRadius: "0px",
- padding:"10px",
- border: "1px solid #E2E8F0",
- height:"52px",
- backgroundColor:"#F4F4F4"
+borderRadius: "0px",
+padding:"10px",
+border: "1px solid #E2E8F0",
+height:"52px",
+backgroundColor:"#F4F4F4"
 }}
 />
+
 </div>
+
+
+<div style={{marginTop:"10px"}}>
+
+<IonLabel
+style={{
+ color: "#575757",
+ fontFamily: "inter",
+ fontSize: "14px",
+ fontWeight: "400",
+ lineHeight: "30px",
+}}
+>
+Reference  Email
+</IonLabel>
+{/* <IonItem> */}
+<IonInput
+type="text"
+placeholder="e.g @gmail.com"
+name="refemail" 
+value={formData.refemail} 
+onIonChange={handleChange}
+style={{
+borderRadius: "0px",
+padding:"10px",
+border: "1px solid #E2E8F0",
+height:"52px",
+backgroundColor:"#F4F4F4"
+}}
+/>
+
+</div>
+
+
+
 
 
 <div style={{marginTop:"10px"}}>
@@ -228,6 +297,7 @@ Location
 {/* <IonItem> */}
 <IonInput
 type="text"
+placeholder="eg jaipur"
 name="location" 
 value={formData.location} 
 onIonChange={handleChange}
