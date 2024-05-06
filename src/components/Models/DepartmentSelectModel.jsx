@@ -102,12 +102,12 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
   
   const SubDepartmentComponent = ({ subDepartments, onSelect }) => {
     const isSubDepartmentSelected = subDepartment => {
-        return selectedSubDepartments.some(selectedSubDept => selectedSubDept.name === subDepartment.name);
+        return selectedSubDepartments.some(selectedSubDept => selectedSubDept.sub_department === subDepartment.sub_department);
       };
     
      
       return subDepartments.map(subDepartment => (
-        <IonCol size="6" key={subDepartment.name}>
+        <IonCol size="6" key={subDepartment.sub_department}>
           <div
             onClick={() => handleSubDepartmentSelect(subDepartment)}
             style={{
@@ -122,7 +122,7 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
               borderRadius:"8px",
             }}
           >
-            <span style={{fontSize:"14px"}}>{subDepartment.name}</span>
+            <span style={{fontSize:"14px"}}>{subDepartment.sub_department}</span>
           </div>
         </IonCol>
       ));
@@ -167,7 +167,7 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
 // Step 2: Construct array of objects with unique department names
                const departmentsArray = uniqueDepartments.map(department => ({ name: department }));
                setdepartmentdata(departmentsArray);
-           
+               setSubDepartmentData(Data);
               return
             
           }
