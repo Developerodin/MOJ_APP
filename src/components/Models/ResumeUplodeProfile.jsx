@@ -92,11 +92,10 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
 
       if (data.status === "success") {
         //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-        setUpdate(prev=>prev+1);
+       
         setShowGif(false);
-
         setShowModal(false);
-
+        setUpdate(prev=>prev+1);
         return;
       }
       setUpdate((prev)=>prev+1);

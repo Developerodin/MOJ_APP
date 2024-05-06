@@ -91,6 +91,7 @@ export const ResumeView = () => {
   };
 
   useEffect(()=>{
+    console.log("Calling update",update)
     getResume();
   },[update])
   const fileObject = { url: 'https://dashboard.masterofjobs.in/writable/uploads/27-resume/1714633073_f3e413dd32aef5679dde.pdf' };

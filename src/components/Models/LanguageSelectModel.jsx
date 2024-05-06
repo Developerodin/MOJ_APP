@@ -19,7 +19,7 @@ export const LanguageSelectModel = ({showModal, setShowModal}) => {
   }
   return (
     <IonModal
-    initialBreakpoint={0.45} breakpoints={[0, 0.45]}
+    initialBreakpoint={0.85} breakpoints={[0, 0.45]}
     isOpen={showModal}
  // Change 'root' to the ID of your root element
     swipeToClose={true}

@@ -33,6 +33,9 @@ export const WorkExperienceCard = ({data,UserWorkExperienceDelete}) => {
                     <div style={{marginTop:"3px"}}>
                       <span style={{fontSize:"15px",fontWeight:500}}>Full Time . {data && data.start_date} - {data && data.end_date} </span>
                     </div>
+                    <div style={{marginTop:"3px"}}>
+                      <span style={{fontSize:"15px",fontWeight:500}}>Reference . {data && data.ref_mobile} - {data && data.ref_email} </span>
+                    </div>
 
  <div style={{marginTop:"20px",display:"flex",justifyContent:"center",alignItems:"center"}}>
     <div  onClick={handelEditWorkExp}  style={{background:"#0054e9",borderRadius:"10px",width:"30%",padding:"10px",display:"flex",justifyContent:"center",alignItems:"center"}}>

@@ -66,6 +66,7 @@ const SelectMulipalCityModel = ({ isOpen, onClose, setPreferredCity, preferredCi
     }
 
   useEffect(()=>{
+    setSelectedCitiesL([])
     if(preferredCity !== ""){
        
         const selectedC = preferredCity.split(',').map(city => city.trim());

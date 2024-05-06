@@ -7,6 +7,7 @@ import {
   IonLabel,
   IonSelect,
   IonSelectOption,
+  useIonRouter,
 } from "@ionic/react";
 import { addOutline, arrowBack, bagHandleOutline, chevronBackOutline } from "ionicons/icons";
 import icon from "/assets/left.png";
@@ -20,15 +21,16 @@ import { AppContext } from "../../Context/AppContext";
 import { ProfileHeaders } from "../../components/Headers/ProfileHeaders";
 
 const  Workexperience = () => {
-  const history = useHistory()
+  const history = useIonRouter()
   const { showToast,editUpdate } = useContext(AppContext);
-  const userDetails = JSON.parse(localStorage.getItem("userRegisterDetails"));
+  const userDetails = JSON.parse(localStorage.getItem("userDetails")) || JSON.parse(localStorage.getItem("userRegisterDetails"));
 const token =localStorage.getItem("token");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [update,setUpdate] =  useState(0)
   const [experienceData,setExperoenceData] = useState([])
+  const [userData,setUserData] = useState(null);
   const [userWorkExperience,setuserWorkExperience] =  useState("fresher");
- 
+  
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -69,7 +71,39 @@ const token =localStorage.getItem("token");
           
     } catch (error) {
       console.error('Error:', error);
-      showToast("error", "Try After Some Time", "");
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
+
+  const getUser = async () => {
+    try {
+      const url = `${Base_url}get_user/${userDetails.user_id}`;
+      
+    
+
+      const response = await axios.get(url,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          // console.log("Response check work experience data",data,response)
+          
+            if(data){
+              console.log("user  data ==>",data.data)
+              const Data = data.data
+              setUserData(Data);
+              setuserWorkExperience(Data.work_ex)
+            }
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
     }
   };
 
@@ -99,94 +133,145 @@ const token =localStorage.getItem("token");
           
     } catch (error) {
       console.error('Error:', error);
-      showToast("error", "Try After Some Time", "");
+      // showToast("error", "Try After Some Time", "");
     }
   };
 
+  const UpdateWorkExp = async (value) => {
+    try {
+      const url = `${Base_url}auth/work_up/${userDetails.user_id}`;
+      const formData1 = new FormData();
+      // formData1.append('role', Role);
+      formData1.append('work_ex',value);
+      // formData1.append('mobile_number', details.phoneNumber);
+      const response = await axios.post(url, formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          console.log("Response check mobile",data,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data.status === "success"){
+              
+              //  handelContinue("ProfilePic")
+              setUpdate((prev)=>prev+1)
+              getUser();
+                showToast("success", "updated", "");
+              return
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
+
+  const handelWorkexpChange=(e)=>{
+    setuserWorkExperience(e.detail.value);
+    UpdateWorkExp(e.detail.value);
+  }
+
   useEffect(()=>{
+    getUser()
     getUserWorkExperience()
   },[update,editUpdate])
+
   return (
     <IonPage>
-      <IonContent>
-      {/* <IonButton onClick={handleOpenModal}>Open Form Modal</IonButton> */}
-        <div style={{ padding: "20px" }}>
+    <IonContent>
+    {/* <IonButton onClick={handleOpenModal}>Open Form Modal</IonButton> */}
+      <div style={{ padding: "20px" }}>
 
-             <ProfileHeaders icon={<IonIcon icon={bagHandleOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Work experience"} />
-                 
-             <div>
-               <div style={{ marginTop: "20px" }}>
-            <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Do you have work experience or are you a fresher?
-            </label>
-            <IonSelect
-              value={userWorkExperience}
-              onIonChange={(e) => setuserWorkExperience(e.detail.value)}
-              interface="popover"
-              placeholder="Select Job Type"
-              style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
-            >
-              <IonSelectOption value="fresher">I am a fresher</IonSelectOption>
-              <IonSelectOption value="experienced">I have work experience</IonSelectOption>
-              {/* Add more job types as needed */}
-            </IonSelect>
-          </div>
-               </div>
-                 <div style={{padding:"5px"}}>
+           <ProfileHeaders icon={<IonIcon icon={bagHandleOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Work experience"} />
+                
+           
+           <div>
+           <div style={{ marginTop: "20px" }}>
+        <label
+          style={{
+            color: "#575757",
+            fontFamily: "inter",
+            fontSize: "14px",
+            fontWeight: "400",
+            lineHeight: "30px",
+          }}
+        >
+          Do you have work experience or are you a fresher?
+        </label>
+        <IonSelect
+          value={userWorkExperience}
+          onIonChange={(e) => handelWorkexpChange(e)}
+          interface="popover"
+          placeholder="Select Job Type"
+          style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
+        >
+          <IonSelectOption value="fresher">I am a fresher</IonSelectOption>
+          <IonSelectOption value="experienced">I have work experience</IonSelectOption>
+          {/* Add more job types as needed */}
+        </IonSelect>
+      </div>
+           </div>
 
-                 {
-experienceData ? experienceData && experienceData.map((el,index)=>{
-    return  <div key={index} style={{marginTop:"30px"}} >
-    <WorkExperienceCard  data={el} UserWorkExperienceDelete={UserWorkExperienceDelete}/>
-   </div>
-  })
-  :
-  <div style={{marginTop:"30px"}}>
 
-  <span>Add Work Experience</span>
- </div>
+
+               <div style={{padding:"5px"}}>
+
+{
+userWorkExperience !== "fresher" && experienceData ? experienceData && experienceData.map((el,index)=>{
+return  <div key={index} style={{marginTop:"30px"}} >
+<WorkExperienceCard  data={el} UserWorkExperienceDelete={UserWorkExperienceDelete}/>
+</div>
+})
+:
+<div style={{marginTop:"30px"}}>
+
+<span>No Work Experience  Records Available</span>
+</div>
 }
-                
-
-                
               
 
+              
+            
 
-                
-                 </div>
 
-                 {
+              
+               </div>
 
-userWorkExperience === "experienced"  &&   <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+{
+
+userWorkExperience === "experienced"  &&    <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
 <CustomBtn1 fun={handleOpenModal} title={"Add"}/>
 
-       </div>
+     </div>
+}
+            
 
-                 }
-                
+               {/* <div style={{marginTop:"40px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+                <IonButton onClick={handleOpenModal} style={{height:"50px",width:"50px"}}>
+                  <IonIcon icon={addOutline} style={{fontSize:"24px",fontWeight:"bold"}}/>
+                </IonButton>
+               </div> */}
+             
 
-                 {/* <div style={{marginTop:"40px",display:"flex",justifyContent:"center",alignItems:"center"}}>
-                  <IonButton onClick={handleOpenModal} style={{height:"50px",width:"50px"}}>
-                    <IonIcon icon={addOutline} style={{fontSize:"24px",fontWeight:"bold"}}/>
-                  </IonButton>
-                 </div> */}
-               
+       
+      </div>
 
-         
-        </div>
-
-        <WorkExperienceModel isOpen={isModalOpen} onClose={handleCloseModal} setUpdate={setUpdate} />
-      </IonContent>
-    </IonPage>
+      <WorkExperienceModel isOpen={isModalOpen} onClose={handleCloseModal} setUpdate={setUpdate} />
+    </IonContent>
+  </IonPage>
   )
 };
 

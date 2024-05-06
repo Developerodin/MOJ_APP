@@ -24,6 +24,7 @@ import DepartmentSelectModel from "../../../components/Models/DepartmentSelectMo
 import { State, City } from "country-state-city";
 import SelectStateModel from "../../../components/Models/SelectStateModel";
 import SelectMulipalCityModel from "../../../components/Models/SelectMulipalCityModel";
+import { Base_url } from "../../../Config/BaseUrl";
 export const ProfileJobPreference = () => {
   const history = useIonRouter();
 
@@ -64,7 +65,7 @@ export const ProfileJobPreference = () => {
   const handelSelectedDepartment=(selectedDepartment,subDepartments)=>{
     handelDepartmentModelClose();
     console.log("Data of Department",selectedDepartment,subDepartments);
-    const namesString = subDepartments.map(subDepartment => subDepartment.name).join(', ');
+    const namesString = subDepartments.map(subDepartment => subDepartment.sub_department).join(', ');
     // console.log("Names String:", namesString);
     setDepartment(selectedDepartment);
     setDepartmentValue(namesString);
@@ -88,8 +89,8 @@ export const ProfileJobPreference = () => {
   const handleSaveClick = () => {
     // Save logic here
     console.log("DAta ==>",department,preferredCity,preferredState,jobType,salaryRange,startTime,endTime);
-
-    handelBackClick()
+    AddJobPref()
+    // handelBackClick()
   };
 
   const handleBackClick = () => {
@@ -98,20 +99,24 @@ export const ProfileJobPreference = () => {
 
   const AddJobPref = async () => {
     try {
-      const url = `${Base_url}auth/user_work_ex/store`;
+      const url = `${Base_url}user_job_prf/store`;
       const formData1 = new FormData();
       formData1.append('user_id', userDetails.user_id);
-      formData1.append('organisation', department);
-      formData1.append('designation', preferredCity);
-      formData1.append('profile', jobType);
-      formData1.append('location', salaryRange);
+      formData1.append('department', department || "");
+      formData1.append('sub_dep', departmentValue || "");
+      formData1.append('job_type', jobType|| "");
+      formData1.append('pref_state', preferredState || "");
+      formData1.append('pref_city', preferredCity || "");
+      formData1.append('salery', salaryRange || "");
+      formData1.append('start_time', startTime || "");
+      formData1.append('end_time', endTime || "");
 
     
 
       const response = await axios.post(url, formData1,{
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization" :`Berear ${token}`,
+          // "Authorization" :`Berear ${token}`,
      
         }
       });
@@ -140,11 +145,69 @@ export const ProfileJobPreference = () => {
   };
 
 
+  const getJobPrefDetails = async() =>{
+    try {
+      const url = `${Base_url}user_job_pref_userid/${userDetails.user_id}`;
+     
+
+    
+
+      const response = await axios.get(url,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          console.log("Response check work experience",data,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data.status === "success"){
+              //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+                console.log("Data get from job pref ==>",data);
+                const Data = data.post[0];
+                setJobType(Data.job_type)
+                setDepartment(Data.department);
+                setSalaryRange(Data.salery);
+                setPreferredState(Data.pref_state);
+                setPreferredCity(Data.pref_city)
+                setStartTime(Data.start_time)
+                setEndTime(Data.end_time)
+                setDepartmentValue(Data.sub_dep)
+              return
+          }
+          showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      showToast("error", "Try After Some Time", "");
+    }
+  }
+
+
   useEffect(() => {
-    const statesOfIndia = State.getStatesOfCountry("IN");
-    setStates(statesOfIndia);
-    // console.log("States:", statesOfIndia)
-  }, []);
+    setPreferredCity("");
+  }, [preferredState]);
+
+  useEffect(()=>{
+    if(jobType === "Full Time"){
+      setStartTime("");
+      setEndTime("");
+    }
+    
+  },[jobType])
+
+  useEffect(()=>{
+    getJobPrefDetails()
+  },[])
   return (
     <IonPage>
       <IonContent>

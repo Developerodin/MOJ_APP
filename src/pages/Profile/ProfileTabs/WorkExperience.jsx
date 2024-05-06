@@ -8,6 +8,7 @@ import {
   IonLabel,
   IonSelect,
   IonSelectOption,
+  useIonRouter,
 } from "@ionic/react";
 import { addOutline, arrowBack, bagHandleOutline, createOutline, trash } from "ionicons/icons";
 import icon from "/assets/left.png";
@@ -21,14 +22,16 @@ import { AppContext } from "../../../Context/AppContext";
 import axios from "axios";
 
 export const ProfileWorkExperience = () => {
-    const history = useHistory()
+    const history = useIonRouter()
     const { showToast,editUpdate } = useContext(AppContext);
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const token =localStorage.getItem("token");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [update,setUpdate] =  useState(0)
     const [experienceData,setExperoenceData] = useState([])
+    const [userData,setUserData] = useState(null);
     const [userWorkExperience,setuserWorkExperience] =  useState("fresher");
+    
     const handleOpenModal = () => {
       setIsModalOpen(true);
     };
@@ -73,6 +76,38 @@ export const ProfileWorkExperience = () => {
       }
     };
 
+    const getUser = async () => {
+      try {
+        const url = `${Base_url}get_user/${userDetails.user_id}`;
+        
+      
+  
+        const response = await axios.get(url,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+            // "Authorization" :`Berear ${token}`,
+       
+          }
+        });
+        const data = response.data
+            // console.log("Response check work experience data",data,response)
+            
+              if(data){
+                console.log("user  data ==>",data.data)
+                const Data = data.data
+                setUserData(Data);
+                setuserWorkExperience(Data.work_ex)
+              }
+  
+              
+           
+            
+      } catch (error) {
+        console.error('Error:', error);
+        // showToast("error", "Try After Some Time", "");
+      }
+    };
+
     const UserWorkExperienceDelete = async (id) => {
       try {
         const url = `${Base_url}user_work_ex/delete/${id}`;
@@ -103,9 +138,58 @@ export const ProfileWorkExperience = () => {
       }
     };
 
+    const UpdateWorkExp = async (value) => {
+      try {
+        const url = `${Base_url}auth/work_up/${userDetails.user_id}`;
+        const formData1 = new FormData();
+        // formData1.append('role', Role);
+        formData1.append('work_ex',value);
+        // formData1.append('mobile_number', details.phoneNumber);
+        const response = await axios.post(url, formData1,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+            // "Authorization" :`Berear ${token}`,
+       
+          }
+        });
+        const data = response.data
+            console.log("Response check mobile",data,response)
+            
+              // if(data === "otp in valid"){
+              //   showToast("error", "wrong otp", "");
+              //   return;
+              // }
+  
+            if(data.status === "success"){
+                
+                //  handelContinue("ProfilePic")
+                setUpdate((prev)=>prev+1)
+                getUser();
+                  showToast("success", "updated", "");
+                return
+            }
+            // showToast("error", "Try After Some Time", "");
+  
+              
+           
+            
+      } catch (error) {
+        console.error('Error:', error);
+        // showToast("error", "Try After Some Time", "");
+      }
+    };
+
+    const handelWorkexpChange=(e)=>{
+      setuserWorkExperience(e.detail.value);
+      UpdateWorkExp(e.detail.value);
+    }
+
     useEffect(()=>{
+      getUser()
       getUserWorkExperience()
     },[update,editUpdate])
+
+    
     return (
       <IonPage>
         <IonContent>
@@ -130,7 +214,7 @@ export const ProfileWorkExperience = () => {
             </label>
             <IonSelect
               value={userWorkExperience}
-              onIonChange={(e) => setuserWorkExperience(e.detail.value)}
+              onIonChange={(e) => handelWorkexpChange(e)}
               interface="popover"
               placeholder="Select Job Type"
               style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
@@ -147,7 +231,7 @@ export const ProfileWorkExperience = () => {
                    <div style={{padding:"5px"}}>
 
 {
-experienceData ? experienceData && experienceData.map((el,index)=>{
+ userWorkExperience !== "fresher" && experienceData ? experienceData && experienceData.map((el,index)=>{
     return  <div key={index} style={{marginTop:"30px"}} >
     <WorkExperienceCard  data={el} UserWorkExperienceDelete={UserWorkExperienceDelete}/>
    </div>
