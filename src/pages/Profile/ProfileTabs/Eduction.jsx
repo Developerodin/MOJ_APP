@@ -161,12 +161,325 @@ export const ProfileEduction = () => {
            <div style={{marginTop:"10px"}}>
             <span>Please fill in your highest educaion details</span>
            </div>
+
+           <div style={{marginTop:"60px"}}>
+              
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+           <div>
+            <span style={{fontSize:"16px"}}>10th pass</span>
+           </div>
+           <div>
+           <IonCheckbox slot="end" checked={isSchoolChecked} onIonChange={handleSchoolCheckboxChange} />
+           </div>
+          
+        </div>
+  
+        {showSchoolField && (
+          <>
+            <div lines="none">
+            <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              School name
+            </label>
+            {/* <IonItem> */}
+            <input
+            className="round-input"
+              type="text"
+              name="email"
+            
+             
+            />
+          </div>
+            
+            </div>
+            <div>
+            <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              Year
+            </label>
+            {/* <IonItem> */}
+            <input
+            className="round-input"
+              type="text"
+              name="email"
+            
+             
+            />
+          </div>
+            
+            </div>
+          </>
+        )}
+  
+              </div>
+
+
+              <div style={{marginTop:"30px"}}>
+              
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+           <div>
+            <span style={{fontSize:"16px"}}>12th pass</span>
+           </div>
+           <div>
+           <IonCheckbox slot="end" checked={isHigherSecondaryChecked} onIonChange={handleHigherSecondaryCheckboxChange} />
+           </div>
+          
+        </div>
+  
+        {showHigherSecondaryField && (
+          <>
+            <div lines="none">
+            <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              School name
+            </label>
+            {/* <IonItem> */}
+            <input
+            className="round-input"
+              type="text"
+              name="email"
+            
+             
+            />
+          </div>
+            
+            </div>
+            <div>
+        
+            <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              Year
+            </label>
+            {/* <IonItem> */}
+            <input
+            className="round-input"
+              type="text"
+              name="email"
+            
+             
+            />
+          </div>
+            
+            </div>
+          </>
+        )}
+  
+              </div>
+
+              <div style={{marginTop:"30px"}}>
+              
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+           <div>
+            <span style={{fontSize:"16px"}}>Graduation / diploma</span>
+           </div>
+           <div>
+           <IonCheckbox slot="end" checked={isGraduationChecked} onIonChange={handleGraduationCheckboxChange} />
+           </div>
+          
+        </div>
+  
+        {showGraduationField && (
+          <>
+            <div lines="none">
+            <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              Collage name
+            </label>
+            {/* <IonItem> */}
+            <input
+            className="round-input"
+              type="text"
+              name="email"
+            
+             
+            />
+          </div>
+            
+            </div>
+            <div>
+            <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              Degree
+            </label>
+            {/* <IonItem> */}
+            <input
+            className="round-input"
+              type="text"
+              name="degree"
+            
+             
+            />
+          </div>
+            <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              Year
+            </label>
+            {/* <IonItem> */}
+            <input
+            className="round-input"
+              type="text"
+              name="email"
+            
+             
+            />
+          </div>
+            
+            </div>
+          </>
+        )}
+  
+              </div>
+
+              <div style={{marginTop:"30px"}}>
+              
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+           <div>
+            <span style={{fontSize:"16px"}}>Post graduation</span>
+           </div>
+           <div>
+           <IonCheckbox slot="end" checked={isPostGChecked} onIonChange={handlePostGCheckboxChange} />
+           </div>
+          
+        </div>
+  
+        {showPostGField && (
+          <>
+            <div lines="none">
+            <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              Collage name
+            </label>
+            {/* <IonItem> */}
+            <input
+            className="round-input"
+              type="text"
+              name="email"
+            
+             
+            />
+          </div>
+            
+            </div>
+            <div>
+            <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              Degree
+            </label>
+            {/* <IonItem> */}
+            <input
+            className="round-input"
+              type="text"
+              name="degree"
+            
+             
+            />
+          </div>
+            <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              Year
+            </label>
+            {/* <IonItem> */}
+            <input
+            className="round-input"
+              type="text"
+              name="email"
+            
+             
+            />
+          </div>
+            
+            </div>
+          </>
+        )}
+  
+              </div>
+
            
-            <div style={{marginTop:"60px"}}>
+            <div style={{marginTop:"30px"}}>
               
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
          <div>
-          <span style={{fontSize:"18px"}}>Doctorate</span>
+          <span style={{fontSize:"16px"}}>Doctorate</span>
          </div>
          <div>
          <IonCheckbox slot="end" checked={isDoctorateChecked} onIonChange={handleDoctorateCheckboxChange} />
@@ -187,7 +500,7 @@ export const ProfileEduction = () => {
               lineHeight: "30px",
             }}
           >
-            University Name
+            Collage name
           </label>
           {/* <IonItem> */}
           <input
@@ -199,6 +512,27 @@ export const ProfileEduction = () => {
           />
         </div>
           
+          </div>
+          <div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              Degree
+            </label>
+            {/* <IonItem> */}
+            <input
+            className="round-input"
+              type="text"
+              name="degree"
+            
+             
+            />
           </div>
           <div>
           <div style={{ marginTop: "20px" }}>
@@ -230,277 +564,17 @@ export const ProfileEduction = () => {
             </div>
 
 
-            <div style={{marginTop:"30px"}}>
-              
-              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-           <div>
-            <span style={{fontSize:"18px"}}>Post graduation</span>
-           </div>
-           <div>
-           <IonCheckbox slot="end" checked={isPostGChecked} onIonChange={handlePostGCheckboxChange} />
-           </div>
           
-        </div>
-  
-        {showPostGField && (
-          <>
-            <div lines="none">
-            <div style={{ marginTop: "20px" }}>
-            <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              University Name
-            </label>
-            {/* <IonItem> */}
-            <input
-            className="round-input"
-              type="text"
-              name="email"
-            
+
+
+
              
-            />
-          </div>
-            
-            </div>
-            <div>
-            <div style={{ marginTop: "20px" }}>
-            <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Year
-            </label>
-            {/* <IonItem> */}
-            <input
-            className="round-input"
-              type="text"
-              name="email"
-            
-             
-            />
-          </div>
-            
-            </div>
-          </>
-        )}
-  
-              </div>
 
 
+            
 
-              <div style={{marginTop:"30px"}}>
+
               
-              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-           <div>
-            <span style={{fontSize:"18px"}}>Graduation / diploma</span>
-           </div>
-           <div>
-           <IonCheckbox slot="end" checked={isGraduationChecked} onIonChange={handleGraduationCheckboxChange} />
-           </div>
-          
-        </div>
-  
-        {showGraduationField && (
-          <>
-            <div lines="none">
-            <div style={{ marginTop: "20px" }}>
-            <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              University Name
-            </label>
-            {/* <IonItem> */}
-            <input
-            className="round-input"
-              type="text"
-              name="email"
-            
-             
-            />
-          </div>
-            
-            </div>
-            <div>
-            <div style={{ marginTop: "20px" }}>
-            <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Year
-            </label>
-            {/* <IonItem> */}
-            <input
-            className="round-input"
-              type="text"
-              name="email"
-            
-             
-            />
-          </div>
-            
-            </div>
-          </>
-        )}
-  
-              </div>
-
-
-              <div style={{marginTop:"30px"}}>
-              
-              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-           <div>
-            <span style={{fontSize:"18px"}}>Higher secondary</span>
-           </div>
-           <div>
-           <IonCheckbox slot="end" checked={isHigherSecondaryChecked} onIonChange={handleHigherSecondaryCheckboxChange} />
-           </div>
-          
-        </div>
-  
-        {showHigherSecondaryField && (
-          <>
-            <div lines="none">
-            <div style={{ marginTop: "20px" }}>
-            <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              University Name
-            </label>
-            {/* <IonItem> */}
-            <input
-            className="round-input"
-              type="text"
-              name="email"
-            
-             
-            />
-          </div>
-            
-            </div>
-            <div>
-            <div style={{ marginTop: "20px" }}>
-            <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Year
-            </label>
-            {/* <IonItem> */}
-            <input
-            className="round-input"
-              type="text"
-              name="email"
-            
-             
-            />
-          </div>
-            
-            </div>
-          </>
-        )}
-  
-              </div>
-
-
-              <div style={{marginTop:"30px"}}>
-              
-              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-           <div>
-            <span style={{fontSize:"18px"}}>School</span>
-           </div>
-           <div>
-           <IonCheckbox slot="end" checked={isSchoolChecked} onIonChange={handleSchoolCheckboxChange} />
-           </div>
-          
-        </div>
-  
-        {showSchoolField && (
-          <>
-            <div lines="none">
-            <div style={{ marginTop: "20px" }}>
-            <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              University Name
-            </label>
-            {/* <IonItem> */}
-            <input
-            className="round-input"
-              type="text"
-              name="email"
-            
-             
-            />
-          </div>
-            
-            </div>
-            <div>
-            <div style={{ marginTop: "20px" }}>
-            <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Year
-            </label>
-            {/* <IonItem> */}
-            <input
-            className="round-input"
-              type="text"
-              name="email"
-            
-             
-            />
-          </div>
-            
-            </div>
-          </>
-        )}
-  
-              </div>
 
               <div style={{marginTop:"30px",marginBottom:"90px"}}>
               
@@ -527,7 +601,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              University Name
+              Collage name
             </label>
             {/* <IonItem> */}
             <input

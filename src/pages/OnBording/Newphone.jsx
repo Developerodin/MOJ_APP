@@ -13,6 +13,7 @@ import { CustomBtn1 } from "../../components/Buttons/CustomBtn1";
 import { Base_url } from "../../Config/BaseUrl";
 import axios from 'axios';
 import { AppContext } from "../../Context/AppContext";
+import logo from "/assets/moj.png";
 const Newphone = () => {
   const history = useHistory()
   const { showToast } = useContext(AppContext);
@@ -21,7 +22,7 @@ const Newphone = () => {
     referralCode: ''
   });
   const [response, setResponse] = useState('');
-
+  const [loading,setLoading] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -50,6 +51,7 @@ const Newphone = () => {
   
     const checkMobile = async () => {
       try {
+        setLoading(true)
         const url = `${Base_url}auth/number_check`;
         const formData1 = new FormData();
         formData1.append('mobile_number', formData.phoneNumber);
@@ -64,6 +66,7 @@ const Newphone = () => {
             console.log("Response check mobile",response.data)
 
             if(response.data.status === "success"){
+              setLoading(false)
               history.push("/verify-otp");
               setFormData({
                 phoneNumber: '',
@@ -71,21 +74,16 @@ const Newphone = () => {
               })
               return;
             }
-            if(response.data === "user not found"){
-              history.push("/personal-details");
-              setFormData({
-                phoneNumber: '',
-                referralCode: ''
-              })
-              return;
-            }
+            
             else{
               showToast("error", "Try After Some Time", "");
+              setLoading(false)
             }
             
       } catch (error) {
         console.error('Error:', error);
         showToast("error", "Try After Some Time", "");
+        setLoading(false);
       }
     };
 
@@ -94,8 +92,10 @@ const Newphone = () => {
     <IonPage>
       <IonContent>
         <div style={{ padding: "20px" }}>
-        <div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
+
+            <img src={logo} style={{height:"48px",width:"72px"}}/>
            </div>
 
           <h1
@@ -177,7 +177,7 @@ const Newphone = () => {
        
         <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
-<CustomBtn1 fun={handelBtnClick} title={"Continue"}/>
+<CustomBtn1 fun={handelBtnClick} title={"Continue"} loading={loading}/>
 </div>
       </IonContent>
     </IonPage>

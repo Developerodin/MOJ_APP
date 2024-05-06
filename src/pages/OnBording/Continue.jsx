@@ -3,11 +3,12 @@ import { IonContent, IonPage } from "@ionic/react";
 import globeicon from "/assets/globe.png";
 import { useHistory } from "react-router";
 import { AppContext } from "../../Context/AppContext";
-
+import { LanguageSelectModel } from "../../components/Models/LanguageSelectModel";
+import logo from "/assets/moj.png";
 const Continue = () => {
   const history = useHistory()
   const { showToast ,languageUpdate,setLanguageUpdate} = useContext(AppContext);
-
+  const[languageModelOpen,setLanguageModelOpen]=useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
@@ -30,28 +31,35 @@ const Continue = () => {
     showToast("success", "Comming Soon ", "");
   }
 
-
-
   const handelSelectLanguageCLick =() =>{
       history.push("/select-lang")
   }
+
+  useState(()=>{
+    setLanguageModelOpen(true);
+  },[])
   return (
     <IonPage>
       <IonContent style={{ backgroundColor: "#395cff" }}>
         <div style={{ backgroundColor: "#395cff", position: "relative", height: "100vh" }}>
-          <img
+
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"20px"}}>
+           
+
+            <img src={logo} style={{height:"48px",width:"72px"}}/>
+
+            <img
           onClick={handelSelectLanguageCLick}
             src={globeicon}
             alt="Globe Icon"
             style={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
               width: "30px",
               height: "30px",
-              marginTop: "20px",
+             
             }}
           />
+           </div>
+         
           <div
             style={{
               display: "flex",
@@ -127,6 +135,7 @@ const Continue = () => {
               </button>
             </div>
           </div>
+          <LanguageSelectModel showModal={languageModelOpen} setShowModal={setLanguageModelOpen} />
         </div>
       </IonContent>
     </IonPage>

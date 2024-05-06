@@ -18,6 +18,8 @@ import "./BasicInfo.css";
 import { AppContext } from "../../Context/AppContext";
 import { Base_url } from "../../Config/BaseUrl";
 import axios from "axios";
+import SelectStateModel from "../../components/Models/SelectStateModel";
+import SelectCityModel from "../../components/Models/SelectCityModel";
 
 const Basicinfo = ({ handelContinue }) => {
   const history = useHistory();
@@ -27,6 +29,11 @@ const Basicinfo = ({ handelContinue }) => {
   const [Citys, setCitys] = useState([]);
   const [States, setStates] = useState([]);
   const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [pincode,setPincode] = useState("")
+  const [isStateModelOpen,setIsStateModelOpen] = useState(false);
+  const [isCityModelOpen,setIsCityModelOpen] = useState(false);
+  const [AddressData,setAddressData] = useState([]);
   // const [selectedCity, setSelectedCity] = useState('');
   // const [selectedGender, setSelectedGender] = useState('');
   const [formData, setFormData] = useState({
@@ -42,6 +49,41 @@ const Basicinfo = ({ handelContinue }) => {
   });
   const [formValid, setFormValid] = useState(false);
  const [loading,setLoading] = useState(false);
+  
+ 
+ const handelStateModelOpen =() =>{
+  setIsStateModelOpen(true);
+ }
+
+ const handelCityModelOpen =() =>{
+  setIsCityModelOpen(true);
+ }
+
+ const handlePincodeChange = (e) => {
+  const newPincode = e.target.value;
+  setPincode(newPincode);
+  console.log("Enter Pin code ==>",newPincode)
+  // Search for the pincode in the data array
+  const pinData = AddressData.find(item => item.pincode === newPincode);
+
+  console.log("Pincode Data",pinData);
+  if (pinData) {
+    setSelectedCity(pinData.city_name);
+    setSelectedState(pinData.state_name);
+  } else {
+    setSelectedCity('');
+    setSelectedState('');
+  }
+};
+
+ const handelStateModleClose = () =>{
+  setIsStateModelOpen(false)
+ }
+
+ 
+ const handelCityModleClose = () =>{
+  setIsCityModelOpen(false)
+ }
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -62,6 +104,56 @@ const Basicinfo = ({ handelContinue }) => {
     RegisterUser()
    
   };
+  const AddAddressData = async () => {
+    try {
+      const url = `${Base_url}basic/all_city`;
+      // const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      // formData1.append('degree', formData.degree);
+      // formData1.append('university', formData.university);
+      // formData1.append('year', formData.yearGraduated);
+
+    
+
+      const response = await axios.get(url,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          console.log("Response check work experience",data,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data.status === "success"){
+              //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+          
+             console.log("Data main ==>",data.post)
+             const Data = data.post
+            
+             // Set the unique states in the state variable
+             setAddressData(Data);
+           
+           
+              return
+            
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
+
 
   const RegisterUser = async () => {
     try {
@@ -70,12 +162,15 @@ const Basicinfo = ({ handelContinue }) => {
       const formData1 = new FormData();
       formData1.append('role', Role);
       formData1.append('mobile_number', details.phoneNumber);
-      formData1.append('name', formData.firstName);
-      formData1.append('last_name', formData.lastName);
-      formData1.append('gender', formData.gender);
-      formData1.append('email', formData.email || "no email");
-      formData1.append('state', formData.state);
-      formData1.append('city', formData.city);
+      formData1.append('name', formData.firstName );
+      formData1.append('last_name', formData.lastName || "");
+      formData1.append('gender', formData.gender || "");
+      formData1.append('email', formData.email || "");
+      formData1.append('state', selectedState || "");
+      formData1.append('city', selectedCity || "");
+      formData1.append('address', formData.address || "");
+      formData1.append('dob', formData.dob || "");
+      formData1.append('pin_code', pincode || "");
       formData1.append('country', "India");
 
       const response = await axios.post(url, formData1,{
@@ -113,17 +208,11 @@ const Basicinfo = ({ handelContinue }) => {
  
   useEffect(() => {
     const isValid =
-      formData.firstName !== "" &&
-      formData.lastName !== "" &&
-      // formData.email !== "" &&
-      formData.gender !== "" &&
-      formData.state !== "" &&
-      formData.city !== "";
+      formData.firstName !== ""
     setFormValid(isValid);
   }, [formData]);
   useEffect(() => {
-    const statesOfIndia = State.getStatesOfCountry("IN");
-    setStates(statesOfIndia);
+    AddAddressData()
     // console.log("States:", statesOfIndia)
   }, []);
 
@@ -280,115 +369,6 @@ const Basicinfo = ({ handelContinue }) => {
           />
         </div>
 
-       
-
-        <div style={{ marginTop: "20px" }}>
-          <label
-            style={{
-              color: "#575757",
-              fontFamily: "inter",
-              fontSize: "14px",
-              fontWeight: "400",
-              lineHeight: "30px",
-            }}
-          >
-            State
-          </label>
-          <div
-            // style={{
-            //   border: "1px solid #E2E8F0",
-            //   borderRadius: "50px",
-            //   paddingLeft: "10px",
-            // }}
-          >
-            {/* <IonSelect
-              name="state"
-              interface="action-sheet"
-              value={formData.state}
-              onIonChange={handleInputChange}
-              placeholder="State"
-            >
-              <IonSelectOption defaultChecked value={""}>
-                Select State
-              </IonSelectOption>
-              {States.map((state) => (
-                <IonSelectOption key={state.isoCode} value={state.name}>
-                  {state.name}
-                </IonSelectOption>
-              ))}
-            </IonSelect> */}
-                <div>
-      <input
-       className="round-input"
-       name="state"
-        list="states"
-        value={formData.state}
-        onChange={handleInputChange}
-        placeholder="Type to search"
-      />
-      <datalist id="states" >
-        {States.map((state) => (
-          <option  key={state.isoCode} value={state.isoCode}>{state.name}</option>
-        ))}
-      </datalist>
-    </div>
-          </div>
-        </div>
-
-        <div style={{ marginTop: "20px" }}>
-          <label
-            style={{
-              color: "#575757",
-              fontFamily: "inter",
-              fontSize: "14px",
-              fontWeight: "400",
-              lineHeight: "30px",
-            }}
-          >
-            City
-          </label>
-
-          {/* <div  style={{
-              
-               
-              border: "1px solid #E2E8F0",
-              borderRadius: "50px",
-              paddingLeft:"10px"
-            }}>
-        <IonSelect   value={selectedCity} onIonChange={handleCityChange}>
-       
-          <IonSelectOption defaultChecked value={""}>Select City</IonSelectOption>
-          {selectedState && Citys.map(city => (
-            <IonSelectOption key={city.name} value={city.name}>{city.name}</IonSelectOption>
-          ))}
-        </IonSelect>
-        </div> */}
-          <input
-          className="round-input"
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleInputChange}
-          
-          />
-     {/* {formData.state !== ""    &&  <div>
-      <input
-       className="round-input"
-       name="city"
-        list="city"
-        value={formData.city}
-        onChange={handleInputChange}
-        placeholder="Type to search"
-      />
-      <datalist id="city" >
-        {Citys.map((city) => (
-          <option  key={city.name} value={city.name} />
-        ))}
-      </datalist>
-    </div>
-} */}
-        </div>
-
         <div style={{ marginTop: "20px" }}>
           <label
             style={{
@@ -429,16 +409,99 @@ const Basicinfo = ({ handelContinue }) => {
           className="round-input"
             type="text"
             name="pincode"
-            value={formData.pincode}
-            onChange={handleInputChange}
+            value={pincode} onChange={handlePincodeChange}
            
           />
         </div>
+       
+
+        <div style={{ marginTop: "20px" }}>
+          <label
+            style={{
+              color: "#575757",
+              fontFamily: "inter",
+              fontSize: "14px",
+              fontWeight: "400",
+              lineHeight: "30px",
+            }}
+          >
+            State
+          </label>
+          <div
+            // style={{
+            //   border: "1px solid #E2E8F0",
+            //   borderRadius: "50px",
+            //   paddingLeft: "10px",
+            // }}
+          >
+            {/* <IonSelect
+              name="state"
+              interface="action-sheet"
+              value={formData.state}
+              onIonChange={handleInputChange}
+              placeholder="State"
+            >
+              <IonSelectOption defaultChecked value={""}>
+                Select State
+              </IonSelectOption>
+              {States.map((state) => (
+                <IonSelectOption key={state.isoCode} value={state.name}>
+                  {state.name}
+                </IonSelectOption>
+              ))}
+            </IonSelect> */}
+                <div onClick={handelStateModelOpen}>
+                   <div style={{padding:"10px",
+    
+    height:"48px",
+    width:"100%",
+    borderRadius:"50px",
+    border:"1px solid #E2E8F0 ",
+    display:"flex",justifyContent:"left",alignItems:"center"
+  }}>
+                  <span>{selectedState && selectedState}</span>
+                   </div>
+             </div>
+          </div>
+        </div>
+
+       {
+        selectedState !== "" &&  <div style={{ marginTop: "20px" }}>
+        <label
+          style={{
+            color: "#575757",
+            fontFamily: "inter",
+            fontSize: "14px",
+            fontWeight: "400",
+            lineHeight: "30px",
+          }}
+        >
+          City
+        </label>
+
+        <div onClick={handelCityModelOpen}>
+                 <div style={{padding:"10px",
+  
+  height:"48px",
+  width:"100%",
+  borderRadius:"50px",
+  border:"1px solid #E2E8F0 ",
+  display:"flex",justifyContent:"left",alignItems:"center"
+}}>
+                <span>{selectedCity && selectedCity}</span>
+                 </div>
+           </div>
+        
+  
+      </div>
+       }
+
+       
 
         {/* </IonItem> */}
       </div>
  {
-  !loading && <div
+   <div
   style={{
     marginTop: "30px",
     display: "flex",
@@ -446,10 +509,12 @@ const Basicinfo = ({ handelContinue }) => {
     alignItems: "center",
   }}
 >
-  <CustomBtn1 fun={handelBtnClick} title={"Continue"} />
+  <CustomBtn1 fun={handelBtnClick} title={"Continue"}  loading={loading}/>
 </div>
  }
-      
+      <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={selectedState} setSelectedState={setSelectedState}  />
+      <SelectCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} selectedCity={selectedCity} setSelectedCity={setSelectedCity} selectedState={selectedState}/>
+    
     </div>
   );
 };

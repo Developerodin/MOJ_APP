@@ -22,6 +22,8 @@ import { AppContext } from "../../../Context/AppContext";
 import axios from "axios";
 import DepartmentSelectModel from "../../../components/Models/DepartmentSelectModel";
 import { State, City } from "country-state-city";
+import SelectStateModel from "../../../components/Models/SelectStateModel";
+import SelectMulipalCityModel from "../../../components/Models/SelectMulipalCityModel";
 export const ProfileJobPreference = () => {
   const history = useIonRouter();
 
@@ -42,6 +44,22 @@ export const ProfileJobPreference = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [States, setStates] = useState([]);
+  const [isStateModelOpen,setisStateModelOpen] = useState(false);
+  const [isCityModelOpen,setIsCityModelOpen] = useState(false);
+  const handelStateModleOpen = () =>{
+    setisStateModelOpen(true);
+  }
+  const handelStateModleClose = () =>{
+    setisStateModelOpen(false);
+  }
+
+  const handelCityModelOpen =() =>{
+    setIsCityModelOpen(true);
+   }
+
+   const handelCityModleClose = () =>{
+    setIsCityModelOpen(false)
+   }
 
   const handelSelectedDepartment=(selectedDepartment,subDepartments)=>{
     handelDepartmentModelClose();
@@ -69,7 +87,7 @@ export const ProfileJobPreference = () => {
   };
   const handleSaveClick = () => {
     // Save logic here
-    console.log("DAta ==>",department,preferredCity,preferredState,jobType,salaryRange);
+    console.log("DAta ==>",department,preferredCity,preferredState,jobType,salaryRange,startTime,endTime);
 
     handelBackClick()
   };
@@ -78,7 +96,7 @@ export const ProfileJobPreference = () => {
     history.goBack();
   };
 
-  const AddWorkExperience = async () => {
+  const AddJobPref = async () => {
     try {
       const url = `${Base_url}auth/user_work_ex/store`;
       const formData1 = new FormData();
@@ -251,69 +269,65 @@ export const ProfileJobPreference = () => {
             >
               Preferred State
             </label>
-            <div  style={{
-            display:"flex",
-            justifyContent:"left",
-            alignItems: "center",
-            borderRadius: "0px",
+            <div
            
-            border: "1px solid #E2E8F0",
-            height:"52px",
-            backgroundColor:"#F4F4F4",
-            
-          }}>
-      <input
-        
-         style={{
-          padding:"10px",
-          outline:"none !important",
-          height:"52px",
-          width:"100%",
-          border:"none",
-          backgroundColor:"#F4F4F4",
-         }}
-        
-       name="state"
-        list="states"
-        value={preferredState}
-        onChange={(e)=>setPreferredState(e.target.value)}
-        placeholder="Select Preferred State"
-      />
-      <datalist id="states" >
-        {States.map((state) => (
-          <option  key={state.isoCode} value={state.name}>{state.name}</option>
-        ))}
-      </datalist>
-    </div>
+           onClick={handelStateModleOpen}
+           
+           style={{
+             display:"flex",
+             justifyContent:"left",
+             alignItems: "center",
+             borderRadius: "0px",
+             padding:"10px",
+             border: "1px solid #E2E8F0",
+             height:"52px",
+             backgroundColor:"#F4F4F4"
+           }}
+         > 
+         {
+          preferredState !== "" ? <span>{preferredState}</span>:<span style={{color:"grey"}}>Select Preferred State</span>
+         }
+         
+         </div>
           </div>
 
 
+{
+  preferredState !== "" && <div style={{ marginTop: "20px" }}>
+  <label
+    style={{
+      color: "#575757",
+      fontFamily: "inter",
+      fontSize: "14px",
+      fontWeight: "400",
+      lineHeight: "30px",
+    }}
+  >
+    Preferred City
+  </label>
+  <div
+ 
+ onClick={handelCityModelOpen}
+ 
+ style={{
+   display:"flex",
+   justifyContent:"left",
+   alignItems: "center",
+   borderRadius: "0px",
+   padding:"10px",
+   border: "1px solid #E2E8F0",
+   height:"52px",
+   backgroundColor:"#F4F4F4"
+ }}
+> 
+{
+preferredCity !== "" ? <span>{preferredCity}</span>:<span style={{color:"grey"}}>Select Preferred City</span>
+}
 
-          <div style={{ marginTop: "20px" }}>
-            <label
-              style={{
-                color: "#575757",
-                fontFamily: "inter",
-                fontSize: "14px",
-                fontWeight: "400",
-                lineHeight: "30px",
-              }}
-            >
-              Preferred City
-            </label>
-            <IonSelect
-             multiple
-              value={preferredCity}
-              onIonChange={(e) => setPreferredCity(e.detail.value)}
-              interface="popover"
-              placeholder="Select Preferred City"
-              style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
-            >
-              <IonSelectOption value="Jaipur">Jaipur</IonSelectOption>
-              <IonSelectOption value="Rajkot">Rajkot</IonSelectOption>
-              {/* Add more preferred cities as needed */}
-            </IonSelect>
-          </div>
+</div>
+</div>
+}
+          
 
           <div style={{ marginTop: "20px" }}>
             <label
@@ -359,8 +373,9 @@ export const ProfileJobPreference = () => {
           <div style={{ marginTop:"70px", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <CustomBtn1 fun={handleSaveClick} title={"Save"} />
           </div>
-
+          <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={preferredState} setSelectedState={setPreferredState}  />
           <DepartmentSelectModel isOpen={departmentModel} onClose={handelDepartmentModelClose} onSubmit={handelSelectedDepartment} />
+          <SelectMulipalCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} preferredCity={preferredCity} setPreferredCity={setPreferredCity} selectedState={preferredState}/>
         </div>
       </IonContent>
     </IonPage>

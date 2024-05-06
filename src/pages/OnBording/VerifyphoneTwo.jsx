@@ -14,6 +14,7 @@ import OtpInput from "react-otp-input";
 import { AppContext } from "../../Context/AppContext";
 import { Base_url } from "../../Config/BaseUrl";
 import axios from "axios";
+import logo from "/assets/moj.png";
 const VerifyPhoneTwo = () => {
   const history = useIonRouter();
   const { showToast } = useContext(AppContext);
@@ -22,6 +23,7 @@ const VerifyPhoneTwo = () => {
     phoneNumber: '',
     referralCode: ''
   });
+  const [loading,setLoading] = useState(false);
   const handelBtnClick= ()=>{
        console.log("Otp",otp)
        LoginUsingOtp();
@@ -34,6 +36,7 @@ const VerifyPhoneTwo = () => {
   
   const LoginUsingOtp = async () => {
     try {
+      setLoading(true)
       const url = `${Base_url}auth/verify_otp/${otp}`;
       const formData1 = new FormData();
       formData1.append('mobile_number', formData.phoneNumber);
@@ -50,6 +53,7 @@ const VerifyPhoneTwo = () => {
           
             if(data === "otp in valid"){
               showToast("error", "wrong otp", "");
+              setLoading(false)
               return;
             }
 
@@ -59,8 +63,16 @@ const VerifyPhoneTwo = () => {
             localStorage.setItem("token",data.access_token);
             localStorage.setItem("userDetails",JSON.stringify(data.user));
             showToast("success", data.message, "");
+            setLoading(false)
               history.push("/app", 'root','replace');
               return
+          }
+
+          if(response.data === "user not found"){
+            history.push("/personal-details");
+            setOtp("");
+            setLoading(false)
+            return;
           }
 
             
@@ -69,6 +81,7 @@ const VerifyPhoneTwo = () => {
     } catch (error) {
       console.error('Error:', error);
       showToast("error", "Try After Some Time", "");
+      setLoading(false)
     }
   };
   
@@ -83,8 +96,10 @@ const VerifyPhoneTwo = () => {
     <IonPage>
       <IonContent>
         <div style={{ padding: "20px" }}>
-        <div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
+
+            <img src={logo} style={{height:"48px",width:"72px"}}/>
            </div>
           <h1
             style={{
@@ -151,7 +166,7 @@ const VerifyPhoneTwo = () => {
            
         <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
-<CustomBtn1 fun={handelBtnClick} title={"Submit"}/>
+<CustomBtn1 fun={handelBtnClick} title={"Submit"} loading={loading}/>
 </div>
 
         

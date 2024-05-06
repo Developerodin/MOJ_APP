@@ -1,15 +1,10 @@
+import { IonBackdrop, IonIcon, IonModal } from '@ionic/react'
+import { callOutline, logoWhatsapp, mailOutline, phoneLandscape } from 'ionicons/icons'
+import React, { useContext, useState } from 'react'
+import { AppContext } from '../../Context/AppContext';
 
-import React, { useContext, useState } from "react";
-import { IonContent, IonIcon, IonPage, useIonRouter } from "@ionic/react";
-import globeicon from "/assets/globe.png";
-import { useHistory } from "react-router";
-import { chevronBackOutline } from "ionicons/icons";
-import { CustomBtn1 } from "../../components/Buttons/CustomBtn1";
-import { AppContext } from "../../Context/AppContext";
-
-const SelectLang = () => {
-  const history = useIonRouter()
-  const [selectedLanguage, setSelectedLanguage] = useState(null);
+export const LanguageSelectModel = ({showModal, setShowModal}) => {
+    const [selectedLanguage, setSelectedLanguage] = useState(null);
   const { showToast ,languageUpdate,setLanguageUpdate} = useContext(AppContext);
   const handleBtnClick = (language) => {
     setSelectedLanguage(language);
@@ -20,43 +15,20 @@ const SelectLang = () => {
         localStorage.setItem("selectedLanguage", selectedLanguage)
       }
       setLanguageUpdate((prev)=>prev+1);
-      handelBackClick()
+      setShowModal(false);
   }
-
-  const handelBackClick = ()=>{
-    history.goBack()
-  }
-
   return (
-    <IonPage>
-      <IonContent style={{ backgroundColor: "#395cff", height: "100vh" }}>
-        <div style={{ backgroundColor: "#395cff", position: "relative", height: "100vh",padding:"20px" }}>
-        
-        <div >
-            <IonIcon  onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px",marginTop:"20px",color:"#fff"}} />
-           </div>
-        
-           <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
-              padding: "10px",
-            }}
-          >
-            <h1
-              style={{
-                fontSize: "35px",
-                fontWeight: "700",
-                fontFamily: "inter",
-                color: "#ffffff",
-                marginTop: "30px",
-              }}
-            >
-              Select your Language
-            </h1>
-
-            <div style={{ marginTop: '30px', width: "100%", height: "50px" }}>
+    <IonModal
+    initialBreakpoint={0.45} breakpoints={[0, 0.45]}
+    isOpen={showModal}
+ // Change 'root' to the ID of your root element
+    swipeToClose={true}
+    onDidDismiss={() => setShowModal(false)}
+    
+  >
+    <div className="modal-content" style={{backgroundColor: "#395cff",height:"100%"}} >
+      <div style={{ padding: "30px" }}>
+      <div style={{ marginTop: '30px', width: "100%", height: "50px" }}>
               <button
                 onClick={() => handleBtnClick("Hindi")}
                 style={{
@@ -69,7 +41,7 @@ const SelectLang = () => {
                   border: "1px solid #ffffff"
                 }}
               >
-                हिन्दी
+               हिन्दी
               </button>
               <button
                 onClick={() => handleBtnClick("English")}
@@ -117,15 +89,14 @@ const SelectLang = () => {
               >
                 Nepali
               </button>
-            </div>
-          </div>
-          <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
+
+              <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"30px"}}>
           <div onClick={handelSave} 
       style={{
         background:"#fff",
         padding: "20px",
         border: "1px solid #E4E4E4",
-        width: "90%",
+        width: "40%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -134,13 +105,20 @@ const SelectLang = () => {
         transition: "background-color 0.3s, box-shadow 0.3s" // Add transition effect
       }}
       >
-    <span style={{fontWeight:"bold"}}>Continue</span>
+    <span style={{fontWeight:"bold"}}>Save</span>
  </div>
 </div>
-        </div>
-      </IonContent>
-    </IonPage>
-  );
-};
+            </div>
 
-export default SelectLang;
+
+      
+      </div>
+    
+    </div>
+    {/* <IonBackdrop
+      onClick={() => setShowModal(false)}
+      style={{ zIndex: '0' }}
+    /> */}
+  </IonModal>
+  )
+}

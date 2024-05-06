@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonRow, IonSelect, IonSelectOption, IonToggle } from '@ionic/react';
 import { CustomBtn1 } from '../Buttons/CustomBtn1';
 import { ProfileHeaders } from '../Headers/ProfileHeaders';
@@ -18,7 +18,8 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
   const [selectedSubDepartments, setSelectedSubDepartments] = useState([]);
 
   const [skillLength, setSkillLength] = useState(1); // Default to single skill
-
+  const [departmentdata,setdepartmentdata] = useState([]);
+  const [SubDepartmentData,setSubDepartmentData] = useState([]);
   const handleSingleSkillToggle = () => {
     setSkillLength(1);
     setSelectedSubDepartments([])
@@ -60,25 +61,25 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
   };
 
 
-  const departmentdata = [
-    {name:"Front Office"},
-    {name:"Bacnquet & food Service"},
-    {name:"Kitchen"},
-    {name:"House Keeping"},
+  // const departmentdata = [
+  //   {name:"Front Office"},
+  //   {name:"Bacnquet & food Service"},
+  //   {name:"Kitchen"},
+  //   {name:"House Keeping"},
 
-  ]
+  // ]
 
-  const SubDepartmentData = [
-    {department:"Front Office",name:"Manager"},
-    {department:"Bacnquet & food Service",name:"Banquet Manager"},
-    {department:"Bacnquet & food Service",name:"Cashier"},
-    {department:"Kitchen",name:"Juice Maker"},
-    {department:"Kitchen",name:"Line Cook"},
-    {department:"Kitchen",name:"Pastry Chef"},
-    {department:"House Keeping",name:"House Keeping Manager"},
-    {department:"House Keeping",name:"Room boy (room cleaner)"},
-    {department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},
-  ]
+  // const SubDepartmentData = [
+  //   {department:"Front Office",name:"Manager"},
+  //   {department:"Bacnquet & food Service",name:"Banquet Manager"},
+  //   {department:"Bacnquet & food Service",name:"Cashier"},
+  //   {department:"Kitchen",name:"Juice Maker"},
+  //   {department:"Kitchen",name:"Line Cook"},
+  //   {department:"Kitchen",name:"Pastry Chef"},
+  //   {department:"House Keeping",name:"House Keeping Manager"},
+  //   {department:"House Keeping",name:"Room boy (room cleaner)"},
+  //   {department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},{department:"House Keeping",name:"Room boy (room cleaner)"},
+  // ]
 
   const DepartmentComponent = ({ department, onSelect }) => {
     const isDepartmentSelected = department => {
@@ -129,6 +130,62 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
 
  
 
+  const getDepartmentData = async () => {
+    try {
+      const url = `${Base_url}user/job_pref`;
+      // const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      // formData1.append('degree', formData.degree);
+      // formData1.append('university', formData.university);
+      // formData1.append('year', formData.yearGraduated);
+
+    
+
+      const response = await axios.get(url,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          console.log("Response check work experience",data,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data.status === "success"){
+              //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+          
+             console.log("Data ==>",data.post)
+
+             const Data = data.post;
+             const uniqueDepartments = Array.from(new Set(Data.map(item => item.department)));
+
+// Step 2: Construct array of objects with unique department names
+               const departmentsArray = uniqueDepartments.map(department => ({ name: department }));
+               setdepartmentdata(departmentsArray);
+           
+              return
+            
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
+
+
+  useEffect(()=>{
+    getDepartmentData()
+  },[isOpen])
 
   return (
     <IonModal isOpen={isOpen} onDidDismiss={onClose}>
@@ -141,7 +198,8 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
             <IonIcon onClick={onClose} icon={chevronBackOutline} style={{fontSize:"24px"}} />
            </div>
          
-         <div style={{marginTop:"30px",display:"flex",justifyContent:"left",alignItems:"center"}}>
+         <div style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+         <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
                
                <div>
                <IonIcon icon={bookOutline} style={{fontSize:"24px",color:"#395CFF"}} />
@@ -151,6 +209,13 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
                 <span style={{fontSize:"30px",fontWeight:"bold"}}>Department</span>
                </div>
          </div>
+
+         <div tyle={{display:"flex",justifyContent:"left",alignItems:"center"}}>
+           <span style={{fontSize:"20px"}}>{selectedSubDepartments && selectedSubDepartments.length}/{skillLength}</span>
+         </div>
+
+         </div>
+         
 
     </div>
 

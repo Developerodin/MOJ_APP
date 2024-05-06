@@ -5,7 +5,7 @@ import { useHistory } from 'react-router'
 import Basicinfo from './Basicinfo'
 import Personalinfo from './Personalinfo'
 import { UplodeProfilePhoto } from './UplodeProfilePhoto'
-
+import logo from "/assets/moj.png";
 export const PersonalDetails = () => {
     const history = useHistory()
          
@@ -39,8 +39,8 @@ export const PersonalDetails = () => {
             </div>
 
             <div >
-
-
+            
+            <img src={logo} style={{height:"48px",width:"72px"}}/>
 
             </div>
             

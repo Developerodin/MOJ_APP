@@ -56,7 +56,8 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
         formData1.append('location', formData.location);
         formData1.append('start_date', formData.startDate);
         formData1.append('end_date', formData.endDate);
-      
+        formData1.append('ref_mob', formData.refmobile);
+        formData1.append('ref_email', formData.refemail);
   
         const response = await axios.post(url, formData1,{
           headers: {

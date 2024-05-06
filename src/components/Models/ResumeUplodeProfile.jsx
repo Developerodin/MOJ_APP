@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { CustomBtn1 } from "../Buttons/CustomBtn1";
 import { Document, Page } from "react-pdf";
 import { pdfjs } from "react-pdf";
-import { IonIcon, IonItem, IonLabel, IonModal } from "@ionic/react";
+import { IonIcon, IonItem, IonLabel, IonModal, IonSpinner } from "@ionic/react";
 import {
   chevronBack,
   chevronForward,
@@ -17,7 +17,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
   import.meta.url
 ).toString();
-
+import up from "/assets/uplode.gif";
 export const ResumeUplodeProfile = ({setUpdate}) => {
   const { showToast } = useContext(AppContext);
   const userDetails = JSON.parse(
@@ -28,7 +28,7 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [showModal, setShowModal] = useState(false);
-
+  const [showgif,setShowGif] = useState(false);
   function goToPreviousPage() {
     setPageNumber((prevPageNumber) =>
       prevPageNumber === 1 ? prevPageNumber : prevPageNumber - 1
@@ -60,8 +60,12 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
     // Logic to upload the file to the server
     // You can add your upload logic here
     // After uploading, you may want to close the modal or show a success message
-    AddResume();
-    setUpdate((prev)=>prev+1);
+    if(selectedFile){
+      setShowGif(true);
+      AddResume();
+      setUpdate((prev)=>prev+1);
+    }
+   
     // setShowModal(false);
   };
 
@@ -89,6 +93,8 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
       if (data.status === "success") {
         //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
         setUpdate(prev=>prev+1);
+        setShowGif(false);
+
         setShowModal(false);
 
         return;
@@ -97,7 +103,8 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
       // showToast("error", "Try After Some Time", "");
     } catch (error) {
       console.error("Error:", error);
-      // showToast("error", "Try After Some Time", "");
+      setShowGif(false);
+      showToast("error", "Try After Some Time", "");
     }
   };
 
@@ -180,7 +187,17 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
                   flexDirection: "column",
                 }}
               >
-                <div
+
+                {
+                   showgif ?
+                  <div >
+
+                    <img src={up} />
+                    
+                     </div>
+                     :
+                     <>
+                         <div
                   style={{
                     width: "100%",
                     height: "400px",
@@ -238,6 +255,13 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
                     </button>
                   </div>
                 </div>
+
+                     </>
+                  
+                }
+                
+
+               
               </div>
               {/* <Document file={selectedFile} onLoadSuccess={onDocumentLoadSuccess}>
             <Page pageNumber={pageNumber} />

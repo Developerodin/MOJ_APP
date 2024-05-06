@@ -2,7 +2,7 @@ import { IonBackdrop, IonIcon, IonModal } from '@ionic/react'
 import { callOutline, logoWhatsapp, mailOutline, phoneLandscape } from 'ionicons/icons'
 import React, { useState } from 'react'
 
-export const ContactUsModel = ({showModal, setShowModal}) => {
+export const ContactUsModel = ({showModal, setShowModal,data}) => {
    
   return (
     <IonModal
@@ -18,19 +18,19 @@ export const ContactUsModel = ({showModal, setShowModal}) => {
        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <IonIcon icon={logoWhatsapp}  style={{fontSize:"24px"}} color='success'/>
 
-              <span>+91 8290918154</span>
+              <span>+91 {data && data.whatsapp}</span>
        </div>
 
        <div style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <IonIcon icon={callOutline} color='primary'  style={{fontSize:"24px"}}/>
 
-              <span>+91 8290918154</span>
+              <span>+91 {data && data.mobile}</span>
        </div>
 
        <div style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <IonIcon icon={mailOutline} color='danger' style={{fontSize:"24px"}}/>
 
-              <span>moj@gmail.com</span>
+              <span>{data && data.email}</span>
        </div>
       </div>
     </div>

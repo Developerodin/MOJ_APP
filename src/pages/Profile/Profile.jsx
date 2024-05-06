@@ -11,6 +11,8 @@ import { ResumeUplodeProfile } from '../../components/Models/ResumeUplodeProfile
 import { Share } from '@capacitor/share';
 import { AppContext } from '../../Context/AppContext';
 import { ContactUsModel } from '../../components/Models/ContactUsModel';
+import { Base_url } from '../../Config/BaseUrl';
+import axios from 'axios';
 
 async function shareApp() {
   const { value } = await Share.canShare();
@@ -33,7 +35,8 @@ export const Profile = () => {
   const {editUpdate,setEditUpdate} = useContext(AppContext)
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [profilePic,setProfilePic] = useState(null);
-  const [completionPercentage, setCompletionPercentage] = useState(75);
+  const [completionPercentage, setCompletionPercentage] = useState(0);
+  const [basicData,setBasicData] = useState(null);
   const [contactUsModel,setContatUsModel] = useState(false)
   const ProfileTabs=[
     
@@ -68,11 +71,60 @@ export const Profile = () => {
    
   }
 
-  const width = 54; // Width of the SVG
-  const height = 54; // Height of the SVG
-  const radius = 20; // Radius of the circle
+  const getWebBasic = async () => {
+    try {
+      const url = `${Base_url}basic/web`;
+      
+    
+
+      const response = await axios.get(url,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          // console.log("Response check work experience data",data,response)
+          
+            if(data){
+              console.log("Basic data",data.post)
+              setBasicData(data.post[0]);
+            }
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
+
+
+  useEffect(()=>{
+    getWebBasic();
+  },[])
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (completionPercentage < 75) {
+        setCompletionPercentage(completionPercentage + 1);
+      } else {
+        clearInterval(interval);
+      }
+    }, 20);
+
+    return () => clearInterval(interval);
+  }, [completionPercentage]);
+
+  const width = 100;
+  const height = 100;
+  const radius = 40;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference * (1 - completionPercentage / 100);
+  const strokeWidth = 6;
+  const offset = ((100 - completionPercentage) / 100) * circumference;
 
 
   useEffect(()=>{
@@ -131,23 +183,31 @@ export const Profile = () => {
 <div style={{background:"#ffffff",padding:"10px",border:"1px solid #E2E8F0",borderRadius:"16px",display:"flex",justifyContent:"left",alignItems:"center"}}>
        <div>
        <div className="profile-progress">
-          <svg width={width} height={height}>
-            <circle
-              r={radius}
-              cx={width / 2}
-              cy={height / 2}
-              fill="none"
-              stroke="#51B248" // Change the color as needed
-              strokeWidth="6"
-              strokeLinecap="round"
-              strokeDasharray={circumference}
-              strokeDashoffset={offset}
-            />
-            <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="13" fill="#000">
-              {completionPercentage}%
-            </text>
-          </svg>
-        </div>
+      <svg width={width} height={height}>
+        <circle
+          r={radius}
+          cx={width / 2}
+          cy={height / 2}
+          fill="none"
+          stroke="#e6e6e6"
+          strokeWidth={strokeWidth}
+        />
+        <circle
+          r={radius}
+          cx={width / 2}
+          cy={height / 2}
+          fill="none"
+          stroke="#51B248"
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+        />
+        <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="13" fill="#000">
+          {completionPercentage}%
+        </text>
+      </svg>
+    </div>
 
        </div>
 
@@ -266,7 +326,7 @@ onClick={handelRewardClick}
           
 
 
-           <ContactUsModel  showModal={contactUsModel} setShowModal={setContatUsModel}/>
+           <ContactUsModel  showModal={contactUsModel} setShowModal={setContatUsModel} data={basicData}/>
         </div>
     </IonContent>
    </IonPage>
