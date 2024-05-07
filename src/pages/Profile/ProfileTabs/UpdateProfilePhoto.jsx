@@ -252,6 +252,52 @@ export const UpdateProfilePhoto = () => {
       }
     };
 
+    const RemoveProfileImg = async () => {
+      try {
+        const url = `${Base_url}profile_img_save/delete/${userDetails.user_id}`;
+        const formData1 = new FormData();
+        // formData1.append('user_id', userDetails.user_id);
+        // formData1.append('resume', selectedFile);
+  
+      
+  
+        const response = await axios.post(url,formData1,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+            // "Authorization" :`Berear ${token}`,
+       
+          }
+        });
+        const data = response.data
+            console.log("Response check work experience",data,response)
+            
+              // if(data === "otp in valid"){
+              //   showToast("error", "wrong otp", "");
+              //   return;
+              // }
+  
+            if(data.status === "success"){
+                //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+                // setUpdate((prev)=>prev+1);
+               const Data = data.img;
+               setUpdate((prev)=>prev+1);
+                setEditUpdate((prev)=>prev+1)
+               showToast("success", "Profile image removed", "");
+             
+                return
+              
+            }
+            // showToast("error", "Try After Some Time", "");
+  
+              
+           
+            
+      } catch (error) {
+        console.error('Error:', error);
+        // showToast("error", "Try After Some Time", "");
+      }
+    };
+
   
 
 
@@ -340,7 +386,7 @@ export const UpdateProfilePhoto = () => {
 
 <CustomBtn1 fun={handelSaveClick} title={"save"}/>
 <div style={{marginTop:"20px"}}>
-    <span style={{color:"crimson",fontSize:"16px",fontWeight:"bold"}}>Remove photo</span>
+    <span onClick={RemoveProfileImg} style={{color:"crimson",fontSize:"16px",fontWeight:"bold"}}>Remove photo</span>
 </div>
          </div>
 
