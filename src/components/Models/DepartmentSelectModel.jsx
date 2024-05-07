@@ -36,12 +36,13 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
   };
 
   const handleSubDepartmentSelect = subDepartment => {
-      
+      console.log("Sub dep name ==>",subDepartment)
       const isAlreadySelected = selectedSubDepartments.some(
-        selectedSubDept => selectedSubDept.name === subDepartment.name
+        selectedSubDept => selectedSubDept.sub_department === subDepartment.sub_department
       );
     
       if (!isAlreadySelected) {
+        console.log("Not selected ==>",skillLength)
         if (selectedSubDepartments.length < skillLength) {
           setSelectedSubDepartments([...selectedSubDepartments, subDepartment]);
         } else {
@@ -54,7 +55,7 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
             selectedSubDept => selectedSubDept.name !== subDepartment.name
           );
           setSelectedSubDepartments(updatedSelectedSubDepartments);
-        // alert('This sub-department is already selected');
+        alert('This sub-department is already selected');
       }
 
       console.log("selectedSubDepartments",selectedSubDepartments)

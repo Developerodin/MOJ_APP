@@ -188,7 +188,7 @@ export const ProfileJobPreference = () => {
           
     } catch (error) {
       console.error('Error:', error);
-      showToast("error", "Try After Some Time", "");
+      // showToast("error", "Try After Some Time", "");
     }
   }
 
