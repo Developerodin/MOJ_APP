@@ -1,7 +1,7 @@
-import { IonContent, IonIcon, IonPage } from '@ionic/react'
+import { IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow } from '@ionic/react'
 import React, { useEffect, useState } from 'react'
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders'
-import { bagHandleOutline, medkitOutline } from 'ionicons/icons'
+import { bagHandleOutline, checkmarkCircleOutline, closeCircleOutline, medkitOutline } from 'ionicons/icons'
 
 export const ProfileHealth = () => {
 
@@ -74,11 +74,34 @@ export const ProfileHealth = () => {
 
 
 
-         <div>
-            
-            <div style={{}}>
+         <div style={{marginTop:"60px"}}>
+             
+             <IonGrid>
+                <IonRow >
+                    <IonCol size="6">
+                        
+                    <div style={{position:"relative",border:"1px solid #E4E4E4",height:"120px",borderRadius:"20px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+                            <IonIcon icon={checkmarkCircleOutline}  style={{fontSize:"40px",color:"#51B248"}}/>
+                            <span style={{marginTop:"10px",fontSize:"13px",fontWeight:"bold"}}>Resume</span>
+                            <span style={{fontSize:"13px",fontWeight:"bold"}}>Completed</span>
 
-            </div>
+                            
+                      </div>
+                    </IonCol>
+
+                    <IonCol size="6">
+                        
+                        <div style={{position:"relative",border:"1px solid #E4E4E4",height:"120px",borderRadius:"20px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+                                <IonIcon icon={closeCircleOutline}  style={{fontSize:"40px",color:"crimson"}}/>
+                                <span style={{marginTop:"10px",fontSize:"13px",fontWeight:"bold"}}>Education</span>
+                                <span style={{fontSize:"13px",fontWeight:"bold"}}>Pending</span>
+    
+                                
+                          </div>
+                        </IonCol>
+                </IonRow>
+             </IonGrid>
+            
 
          </div>
        
