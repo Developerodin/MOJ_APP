@@ -52,10 +52,10 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
       } else {
         // Optionally, you can provide feedback that the sub-department is already selected
         const updatedSelectedSubDepartments = selectedSubDepartments.filter(
-            selectedSubDept => selectedSubDept.name !== subDepartment.name
+            selectedSubDept => selectedSubDept.sub_department !== subDepartment.sub_department
           );
           setSelectedSubDepartments(updatedSelectedSubDepartments);
-        alert('This sub-department is already selected');
+        // alert('This sub-department is already selected');
       }
 
       console.log("selectedSubDepartments",selectedSubDepartments)
@@ -93,7 +93,7 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
       padding:"10px",
       marginTop:"20px",
       width:"100%",
-      borderRadius:"8px",
+      borderRadius:"8px"
       
       }} button onClick={() => onSelect(department.name)}>
         <span style={{fontSize:"14px"}}>{department.name}</span>
@@ -121,6 +121,9 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
               justifyContent: "center",
               alignItems: "center",
               borderRadius:"8px",
+              height:"80px",
+              overflow:"auto",
+              
             }}
           >
             <span style={{fontSize:"14px"}}>{subDepartment.sub_department}</span>
@@ -129,6 +132,14 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
       ));
   };
 
+  const handelSubmit = ()=>{
+    if(selectedDepartment && selectedSubDepartments.length > 0){
+      onSubmit(selectedDepartment,selectedSubDepartments);
+      return
+    }
+     showToast("error", "Select at least one skill", "");
+
+  }
  
 
   const getDepartmentData = async () => {
@@ -272,7 +283,7 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
     </div>
     <div style={{background:"#fff",padding:"10px",width:"100%",position:"fixed",bottom:0,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
-<CustomBtn1 fun={()=>onSubmit(selectedDepartment,selectedSubDepartments)} title={"Submit"}/>
+<CustomBtn1 fun={handelSubmit} title={"Submit"}/>
 
         </div>
         </div>
