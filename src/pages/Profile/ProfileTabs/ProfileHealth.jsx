@@ -1,15 +1,87 @@
-import { IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow } from '@ionic/react'
+import { IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow, useIonRouter } from '@ionic/react'
 import React, { useEffect, useState } from 'react'
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders'
 import { bagHandleOutline, checkmarkCircleOutline, closeCircleOutline, medkitOutline } from 'ionicons/icons'
+import { Base_url } from '../../../Config/BaseUrl'
+import axios from 'axios'
 
 export const ProfileHealth = () => {
-
+       const history = useIonRouter();
     const [completionPercentage, setCompletionPercentage] = useState(0);
+    const [phHeathPercentage,setPhHeathPercentage] = useState(0);
+    const [userProfileHealthData,setUserProfileHealthData] = useState(null);
+    const Data =[
+        {name:"user_Job_pref",value:0,route:"/profile-job-preference",name2:"Job Preference"},
+        {name:"user_edu",value:0,route:"/profile-eduction",name2:"Eduction"},
+        {name:"user_img",value:0,route:"/update-profile-photo",name2:"Profile Photo"},
+        {name:"user_pro",value:0,route:"/profile-personal-details",name2:"Personal Details"},
+        {name:"user_resume",value:0,route:"/profile-resume",name2:"Resume"},
+        {name:"user_work",value:0,route:"/profile-work-experience",name2:"Work Experience"},
+        {name:"users",value:0,route:"/profile-contact-details",name2:"Contact Details"},
+    ]
+    const [dataPh,setDataPh] = useState(Data)
+    const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+ 
+ const handelRouteClick = (route) =>{
+    history.push(route)
+ }
+    
+
+    const getProfileHealth = async () => {
+        try {
+
+            const formData = new FormData()
+          const url = `${Base_url}basic/profile_health_userid/${userDetails.user_id}`;
+          
+        
+    
+          const response = await axios.post(url,formData,{
+            headers: {
+              "Content-Type": "multipart/form-data",
+              // "Authorization" :`Berear ${token}`,
+         
+            }
+          });
+          const data = response.data
+              // console.log("Response check work experience data",data,response)
+              
+                if(data){
+                  console.log("Basic data",data.post)
+                  const Data = data.post;
+                  setUserProfileHealthData(Data);
+                  const updatedData = dataPh.map(item => {
+                    if (Data.hasOwnProperty(item.name)) {
+                        return {...item, value: Data[item.name]};
+                    }
+                    return item;
+                });
+
+                setDataPh(updatedData);
+
+                const totalCount = updatedData.length;
+                const pendingCount = updatedData.filter(item => item.value === 1).length;
+                const healthPercentage = ((totalCount - pendingCount) / totalCount) * 100;
+                const formattedPercentage = healthPercentage.toFixed(2);
+                setPhHeathPercentage(formattedPercentage);
+                  
+                }
+    
+                
+             
+              
+        } catch (error) {
+          console.error('Error:', error);
+          // showToast("error", "Try After Some Time", "");
+        }
+      };
+
+      useEffect(()=>{
+        getProfileHealth()
+      },[])
 
     useEffect(() => {
         const interval = setInterval(() => {
-          if (completionPercentage < 75) {
+          if (completionPercentage < parseInt(phHeathPercentage)) {
             setCompletionPercentage(completionPercentage + 1);
           } else {
             clearInterval(interval);
@@ -17,7 +89,7 @@ export const ProfileHealth = () => {
         }, 20);
     
         return () => clearInterval(interval);
-      }, [completionPercentage]);
+      }, [phHeathPercentage,completionPercentage]);
     
       const width = 300;
       const height = 300;
@@ -61,7 +133,7 @@ export const ProfileHealth = () => {
           strokeDashoffset={offset}
         />
         <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="22"  fontWeight="bold" fill="#000">
-          {completionPercentage}%
+          {phHeathPercentage}%
         </text>
       </svg>
     </div>
@@ -78,27 +150,35 @@ export const ProfileHealth = () => {
              
              <IonGrid>
                 <IonRow >
-                    <IonCol size="6">
+                    {
+                        dataPh.map((el,index)=>{
+                            return  <IonCol size="6">
                         
-                    <div style={{position:"relative",border:"1px solid #E4E4E4",height:"120px",borderRadius:"20px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
-                            <IonIcon icon={checkmarkCircleOutline}  style={{fontSize:"40px",color:"#51B248"}}/>
-                            <span style={{marginTop:"10px",fontSize:"13px",fontWeight:"bold"}}>Resume</span>
-                            <span style={{fontSize:"13px",fontWeight:"bold"}}>Completed</span>
+                            <div onClick={()=>handelRouteClick(el.route)} style={{position:"relative",border:"1px solid #E4E4E4",height:"120px",borderRadius:"20px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+                                    {
+                                        el.value === 0 ?  <IonIcon icon={checkmarkCircleOutline}  style={{fontSize:"40px",color:"#51B248"}}/>
+                                        :
+                                        <IonIcon icon={closeCircleOutline}  style={{fontSize:"40px",color:"crimson"}}/>
+                                    }
+                                   
+                                    <span style={{marginTop:"10px",fontSize:"13px",fontWeight:"bold"}}>{el.name2}</span>
 
-                            
-                      </div>
-                    </IonCol>
+                                    {
+                                        el.value === 0 ?
+                                        <span style={{fontSize:"13px",fontWeight:"bold"}}>Completed</span>
+                                        :
+                                       <span style={{fontSize:"13px",fontWeight:"bold"}}>Pending</span>
+                                    }
+                                   
+        
+                                    
+                              </div>
+                            </IonCol>
+                        })
+                    }
+                   
 
-                    <IonCol size="6">
-                        
-                        <div style={{position:"relative",border:"1px solid #E4E4E4",height:"120px",borderRadius:"20px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
-                                <IonIcon icon={closeCircleOutline}  style={{fontSize:"40px",color:"crimson"}}/>
-                                <span style={{marginTop:"10px",fontSize:"13px",fontWeight:"bold"}}>Education</span>
-                                <span style={{fontSize:"13px",fontWeight:"bold"}}>Pending</span>
-    
-                                
-                          </div>
-                        </IonCol>
+                    
                 </IonRow>
              </IonGrid>
             

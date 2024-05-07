@@ -35,9 +35,22 @@ export const Profile = () => {
   const {editUpdate,setEditUpdate} = useContext(AppContext)
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [profilePic,setProfilePic] = useState(null);
-  const [completionPercentage, setCompletionPercentage] = useState(0);
+  
   const [basicData,setBasicData] = useState(null);
   const [contactUsModel,setContatUsModel] = useState(false)
+  const [completionPercentage, setCompletionPercentage] = useState(0);
+  const [phHeathPercentage,setPhHeathPercentage] = useState(0);
+  const [userProfileHealthData,setUserProfileHealthData] = useState(null);
+  const Data =[
+      {name:"user_Job_pref",value:0,route:"/profile-job-preference",name2:"Job Preference"},
+      {name:"user_edu",value:0,route:"/profile-eduction",name2:"Eduction"},
+      {name:"user_img",value:0,route:"/update-profile-photo",name2:"Profile Photo"},
+      {name:"user_pro",value:0,route:"/profile-personal-details",name2:"Personal Details"},
+      {name:"user_resume",value:0,route:"/profile-resume",name2:"Resume"},
+      {name:"user_work",value:0,route:"/profile-work-experience",name2:"Work Experience"},
+      {name:"users",value:0,route:"/profile-contact-details",name2:"Contact Details"},
+  ]
+  const [dataPh,setDataPh] = useState(Data)
   const ProfileTabs=[
     
     {icon:lockClosedOutline,title:"Personal Details",link:"/profile-personal-details",color:"#395CFF"},
@@ -105,6 +118,54 @@ export const Profile = () => {
     }
   };
 
+  const getProfileHealth = async () => {
+    try {
+
+        const formData = new FormData()
+      const url = `${Base_url}basic/profile_health_userid/${userDetails.user_id}`;
+      
+    
+
+      const response = await axios.post(url,formData,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          // console.log("Response check work experience data",data,response)
+          
+            if(data){
+              console.log("Basic data",data.post)
+              const Data = data.post;
+              setUserProfileHealthData(Data);
+              const updatedData = dataPh.map(item => {
+                if (Data.hasOwnProperty(item.name)) {
+                    return {...item, value: Data[item.name]};
+                }
+                return item;
+            });
+
+            setDataPh(updatedData);
+
+            const totalCount = updatedData.length;
+            const pendingCount = updatedData.filter(item => item.value === 1).length;
+            const healthPercentage = ((totalCount - pendingCount) / totalCount) * 100;
+            const formattedPercentage = healthPercentage.toFixed(2);
+            setPhHeathPercentage(formattedPercentage);
+              
+            }
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
+
   const getProfileImg = async () => {
     try {
       const url = `${Base_url}profile_img_saved/Byuserid/${userDetails.user_id}`;
@@ -151,12 +212,13 @@ export const Profile = () => {
 
   useEffect(()=>{
     getWebBasic();
+    getProfileHealth()
   },[])
 
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (completionPercentage < 75) {
+      if (completionPercentage < parseInt(phHeathPercentage)) {
         setCompletionPercentage(completionPercentage + 1);
       } else {
         clearInterval(interval);
@@ -164,7 +226,7 @@ export const Profile = () => {
     }, 20);
 
     return () => clearInterval(interval);
-  }, [completionPercentage]);
+  }, [phHeathPercentage,completionPercentage]);
 
   const width = 100;
   const height = 100;
@@ -245,7 +307,7 @@ export const Profile = () => {
           strokeDashoffset={offset}
         />
         <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="13" fill="#000">
-          {completionPercentage}%
+        {phHeathPercentage}%
         </text>
       </svg>
     </div>
