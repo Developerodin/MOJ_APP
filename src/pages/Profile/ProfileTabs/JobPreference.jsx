@@ -181,7 +181,7 @@ export const ProfileJobPreference = () => {
                 setDepartmentValue(Data.sub_dep)
               return
           }
-          showToast("error", "Try After Some Time", "");
+          // showToast("error", "Try After Some Time", "");
 
             
          

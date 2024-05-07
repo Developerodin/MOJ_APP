@@ -30,6 +30,7 @@ import { TermAndServices } from '../Profile/ProfileTabs/TermAndServices';
 import { PrivacyAndPolicy } from '../Profile/ProfileTabs/PrivacyAndPolicy';
 import SelectLang from '../OnBording/SelectLang';
 import Continue from '../OnBording/Continue';
+import { ProfileHealth } from '../Profile/ProfileTabs/ProfileHealth';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -92,6 +93,7 @@ const NavBar = () => {
     <Route  path="/term-services" component={TermAndServices}  />
     <Route  path="/privacy-policy" component={PrivacyAndPolicy}  />
     <Route  path="/select-lang" component={SelectLang}  />
+    <Route  path="/profile-health" component={ProfileHealth}  />
     {/* <Route  path="/Coninue" component={Continue}  /> */}
          
          

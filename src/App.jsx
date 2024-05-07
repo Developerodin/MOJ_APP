@@ -68,6 +68,7 @@ import { ResumeView } from './pages/Resume/ResumeView';
 import { PrivacyAndPolicy } from './pages/Profile/ProfileTabs/PrivacyAndPolicy';
 import { TermAndServices } from './pages/Profile/ProfileTabs/TermAndServices';
 import { AccountsAndNotifications } from './pages/Profile/ProfileTabs/AccountsAndNotifications';
+import { ProfileHealth } from './pages/Profile/ProfileTabs/ProfileHealth';
 
 setupIonicReact();
 
@@ -113,6 +114,7 @@ const App = () => {
     <Route  path="/accounts-notification" component={AccountsAndNotifications}  />
     <Route  path="/term-services" component={TermAndServices}  />
     <Route  path="/privacy-policy" component={PrivacyAndPolicy}  />
+    <Route  path="/profile-health" component={ProfileHealth}  />
 
     
     

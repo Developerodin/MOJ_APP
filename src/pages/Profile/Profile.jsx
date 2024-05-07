@@ -58,6 +58,10 @@ export const Profile = () => {
     history.push("/rewards")
   }
 
+  const handelProfileHealthClick = ()=>{
+    history.push("/profile-health")
+  }
+
   const handelProfilePhotoClick = ()=>{
     history.push("/update-profile-photo")
   }
@@ -216,7 +220,7 @@ export const Profile = () => {
                </div>
             </div>
 
-<div style={{marginTop:"30px"}}>
+<div onClick={handelProfileHealthClick} style={{marginTop:"30px"}}>
 <div style={{background:"#ffffff",padding:"10px",border:"1px solid #E2E8F0",borderRadius:"16px",display:"flex",justifyContent:"left",alignItems:"center"}}>
        <div>
        <div className="profile-progress">
