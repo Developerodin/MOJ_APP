@@ -12,10 +12,14 @@ import equilizer from "./equalizer.png"
 import { useHistory } from 'react-router';
 import { App as MainApp } from "@capacitor/app";
 import profileImg from "./profileImg2.png"
+import { Base_url } from '../../Config/BaseUrl';
+import axios from 'axios';
+import { AppContext } from '../../Context/AppContext';
 // import { StatusBar } from '@capacitor/status-bar';
 export const Home = () => {
   const history = useIonRouter();
-
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const {editUpdate} = useContext(AppContext)
   const [backPressCount, setBackPressCount] = useState(0);
   const [profilePic,setProfilePic] = useState(null);
   const handelJobCardClick = (id)=>{
@@ -29,15 +33,54 @@ export const Home = () => {
   const outerRout = ()=>{
     history.push('/job-details/1')
   }
-  useEffect(()=>{
-    let image = localStorage.getItem("dp-img") || null
-    if(image){
-      setProfilePic(image);
+
+  const getProfileImg = async () => {
+    try {
+      const url = `${Base_url}profile_img_saved/Byuserid/${userDetails.user_id}`;
+      const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      // formData1.append('resume', selectedFile);
+
+    
+
+      const response = await axios.post(url,formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          console.log("Response check work experience",data,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data.status === "success"){
+              //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+              // setUpdate((prev)=>prev+1);
+             const Data = data.img;
+             setProfilePic(Data.image_path)
+           
+              return
+            
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
     }
-    // else{
-    //   setProfilePic(image);
-    // }
-},[])
+  };
+
+  useEffect(()=>{
+    getProfileImg()
+},[editUpdate])
   useEffect(() => {
     const backButtonHandler = async () => {
       console.log("Back Press ==>")
