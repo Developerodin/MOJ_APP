@@ -85,12 +85,6 @@ export const ProfileEduction = () => {
     year:"",
   })
 
-
-
-
-
-
-
   const handleDoctorateCheckboxChange = (event) => {
     setisDoctorateChecked(event.detail.checked);
     setshowDoctorateField(event.detail.checked);
