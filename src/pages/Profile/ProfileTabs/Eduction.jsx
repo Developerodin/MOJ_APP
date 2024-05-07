@@ -52,6 +52,45 @@ export const ProfileEduction = () => {
   const [showHdegreeField, setshowHdegreeField] = useState(false);
   const [isHdegreeChecked, setisHdegreeChecked] = useState(false);
 
+  const [formDataTenth,setformDataTenth] = useState({
+    schoolName:"",
+    year:""
+  })
+
+  const [formDataTwelvth,setformDataTwelvth] = useState({
+    schoolName:"",
+    year:""
+  })
+
+  const [formDataGraduation,setformDataGraduation] = useState({
+    collegeName:"",
+    degree:"",
+    year:"",
+  })
+
+  const [formDataPostGraduation,setformDataPostGraduation] = useState({
+    collegeName:"",
+    degree:"",
+    year:"",
+  })
+
+  const [formDataDoctorate,setformDataDoctorate] = useState({
+    collegeName:"",
+    degree:"",
+    year:"",
+  })
+
+  const [formDataHotelManagment,setformDataHotelManagment] = useState({
+    collegeName:"",
+    year:"",
+  })
+
+
+
+
+
+
+
   const handleDoctorateCheckboxChange = (event) => {
     setisDoctorateChecked(event.detail.checked);
     setshowDoctorateField(event.detail.checked);
@@ -82,7 +121,6 @@ export const ProfileEduction = () => {
     setshowHdegreeField(event.detail.checked);
   };
   
-
    
     const getUserEduaction = async () => {
       try {
@@ -101,8 +139,78 @@ export const ProfileEduction = () => {
             // console.log("Response check work experience data",data,response)
             
               if(data){
-                console.log("Education data",data.data)
-                setEducationData(data.data);
+                
+                const Data=data.data[0];
+                console.log("Education data",Data)
+                setformDataTenth({
+                  schoolName:Data.ten_school,
+                  year:Data.year
+                });
+
+                setformDataTwelvth({
+                  schoolName:Data.to_th_school,
+                  year:Data.to_th_year
+                })
+
+                setformDataGraduation({
+                  collegeName:Data.gr_university,
+                  degree:Data.gr_degree,
+                  year:Data.gr_year,
+                })
+
+                setformDataPostGraduation({
+                  collegeName:Data.pg_university,
+                  degree:Data.pg_degree,
+                  year:Data.pg_year,
+                })
+
+                setformDataDoctorate({
+                  collegeName:Data.doc_university,
+                  degree:Data.doc_degree,
+                  year:Data.doc_year,
+                })
+                  
+                setformDataHotelManagment({
+                  collegeName:Data.h_college,
+                  year:Data.h_year,
+                })
+
+                if(Data.ten_th === "true"){
+                  setshowSchoolField(true)
+                  setisSchoolChecked(true)
+                }
+               
+
+                if(Data.to_th === "true"){
+                  setisHigherSecondaryChecked(true)
+                  setshowHigherSecondaryField(true)
+                }
+
+
+                if(Data.gra_dip === "true"){
+                  setisGraduationChecked(true)
+                  setshowGraduationField(true)
+                }
+
+                
+
+                if(Data.post_gra === "true"){
+                  setisPostGChecked(true)
+                  setshowPostGField(true) 
+                }
+
+              if(Data.doc === "true"){
+                setisDoctorateChecked(true)
+                setshowDoctorateField(true)
+              } 
+
+                
+               if(Data.hotel_de === "true"){
+                setisHdegreeChecked(true)
+                setshowHdegreeField(true)
+               }
+                
+
               }
   
               
@@ -144,8 +252,77 @@ export const ProfileEduction = () => {
       }
     };
 
+    const AddEducation = async () => {
+      try {
+        const url = `${Base_url}user_education/store`;
+        const formData1 = new FormData();
+        formData1.append('user_id', userDetails.user_id);
+
+        formData1.append('ten_th', isSchoolChecked || false);
+        formData1.append('ten_school', formDataTenth.schoolName || "");
+        formData1.append('ten_year', formDataTenth.year|| "");
+
+        formData1.append('to_th', isHigherSecondaryChecked || false);
+        formData1.append('to_th_school', formDataTwelvth.schoolName || "");
+        formData1.append('to_th_year', formDataTwelvth.year || "");
+
+        formData1.append('gra_dip', isGraduationChecked || false);
+        formData1.append('gr_degree', formDataGraduation.degree || "");
+        formData1.append('gr_university', formDataGraduation.collegeName || "");
+        formData1.append('gr_year', formDataGraduation.year || "");
+
+        formData1.append('post_gra', isPostGChecked || false);
+        formData1.append('pg_degree', formDataPostGraduation.degree || "");
+        formData1.append('pg_university', formDataPostGraduation.collegeName || "");
+        formData1.append('pg_year', formDataPostGraduation.year || "");
+
+        formData1.append('doc', isDoctorateChecked || false);
+        formData1.append('doc_degree', formDataDoctorate.degree || "");
+        formData1.append('doc_university', formDataDoctorate.collegeName || "");
+        formData1.append('doc_year', formDataDoctorate.year || "");
+       
+        formData1.append('hotel_de', isHdegreeChecked || false);
+        formData1.append('h_college', formDataHotelManagment.collegeName || "");
+        formData1.append('h_year', formDataHotelManagment.year || "");
+        
+      
+  
+        const response = await axios.post(url, formData1,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+            // "Authorization" :`Berear ${token}`,
+       
+          }
+        });
+        const data = response.data
+            console.log("Response check work experience",data,response)
+            
+              // if(data === "otp in valid"){
+              //   showToast("error", "wrong otp", "");
+              //   return;
+              // }
+  
+            if(data.status === "success"){
+                //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+                showToast("success", "Updated", "");
+                return
+            }
+            // showToast("error", "Try After Some Time", "");
+  
+              
+           
+            
+      } catch (error) {
+        console.error('Error:', error);
+        showToast("error", "Try After Some Time", "");
+      }
+    };
+
     const handelSubmit=()=>{
-      history.goBack()
+         
+      console.log("DAta==>",formDataTenth,formDataTwelvth,formDataGraduation,formDataPostGraduation,formDataDoctorate,formDataHotelManagment)
+      AddEducation()
+      // history.goBack()
     }
 
     useEffect(()=>{
@@ -193,10 +370,11 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="email"
-            
              
+              value={formDataTenth.schoolName} 
+              onChange={(e) => setformDataTenth({...formDataTenth, schoolName: e.target.value})}
             />
+           
           </div>
             
             </div>
@@ -217,7 +395,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="email"
+              value={formDataTenth.year} 
+              onChange={(e) => setformDataTenth({...formDataTenth, year: e.target.value})}
             
              
             />
@@ -261,7 +440,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="email"
+              value={formDataTwelvth.schoolName} 
+              onChange={(e) => setformDataTwelvth({...formDataTwelvth, schoolName: e.target.value})}
             
              
             />
@@ -286,7 +466,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="email"
+              value={formDataTwelvth.year} 
+              onChange={(e) => setformDataTwelvth({...formDataTwelvth, year: e.target.value})}
             
              
             />
@@ -329,7 +510,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="email"
+              value={formDataGraduation.collegeName} 
+             onChange={(e) => setformDataGraduation({...formDataGraduation, collegeName: e.target.value})}
             
              
             />
@@ -353,7 +535,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="degree"
+              value={formDataGraduation.degree} 
+              onChange={(e) => setformDataGraduation({...formDataGraduation, degree: e.target.value})}
             
              
             />
@@ -374,7 +557,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="email"
+              value={formDataGraduation.year} 
+             onChange={(e) => setformDataGraduation({...formDataGraduation, year: e.target.value})}
             
              
             />
@@ -417,7 +601,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="email"
+              value={formDataPostGraduation.collegeName} 
+             onChange={(e) => setformDataPostGraduation({...formDataPostGraduation, collegeName: e.target.value})}
             
              
             />
@@ -441,7 +626,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="degree"
+              value={formDataPostGraduation.degree} 
+              onChange={(e) => setformDataPostGraduation({...formDataPostGraduation, degree: e.target.value})}
             
              
             />
@@ -462,7 +648,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="email"
+              value={formDataPostGraduation.year} 
+             onChange={(e) => setformDataPostGraduation({...formDataPostGraduation, year: e.target.value})}
             
              
             />
@@ -506,7 +693,8 @@ export const ProfileEduction = () => {
           <input
           className="round-input"
             type="text"
-            name="email"
+            value={formDataDoctorate.collegeName} 
+             onChange={(e) => setformDataDoctorate({...formDataDoctorate, collegeName: e.target.value})}
           
            
           />
@@ -529,7 +717,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="degree"
+              value={formDataDoctorate.degree} 
+              onChange={(e) => setformDataDoctorate({...formDataDoctorate, degree: e.target.value})}
             
              
             />
@@ -551,7 +740,8 @@ export const ProfileEduction = () => {
           <input
           className="round-input"
             type="text"
-            name="email"
+            value={formDataDoctorate.year} 
+             onChange={(e) => setformDataDoctorate({...formDataDoctorate, year: e.target.value})}
           
            
           />
@@ -607,7 +797,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="email"
+              value={formDataHotelManagment.collegeName} 
+             onChange={(e) => setformDataHotelManagment({...formDataHotelManagment, collegeName: e.target.value})}
             
              
             />
@@ -631,7 +822,8 @@ export const ProfileEduction = () => {
             <input
             className="round-input"
               type="text"
-              name="email"
+              value={formDataHotelManagment.year} 
+              onChange={(e) => setformDataHotelManagment({...formDataHotelManagment, year: e.target.value})}
             
              
             />
