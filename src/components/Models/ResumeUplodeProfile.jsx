@@ -19,7 +19,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 import up from "/assets/uplode.gif";
 export const ResumeUplodeProfile = ({setUpdate}) => {
-  const { showToast } = useContext(AppContext);
+  const { showToast ,setProfileHealthUpdate} = useContext(AppContext);
   const userDetails = JSON.parse(
     localStorage.getItem("userDetails") ||
       localStorage.getItem("userRegisterDetails")
@@ -95,7 +95,9 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
        
         setShowGif(false);
         setShowModal(false);
+        setProfileHealthUpdate((prev)=>prev+1)
         setUpdate(prev=>prev+1);
+        showToast("success", "updated", "");
         return;
       }
       setUpdate((prev)=>prev+1);

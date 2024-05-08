@@ -1,12 +1,14 @@
 import { IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow, useIonRouter } from '@ionic/react'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders'
 import { bagHandleOutline, checkmarkCircleOutline, closeCircleOutline, medkitOutline } from 'ionicons/icons'
 import { Base_url } from '../../../Config/BaseUrl'
 import axios from 'axios'
+import { AppContext } from '../../../Context/AppContext'
 
 export const ProfileHealth = () => {
        const history = useIonRouter();
+       const {profileHealthUpdate } = useContext(AppContext);
     const [completionPercentage, setCompletionPercentage] = useState(0);
     const [phHeathPercentage,setPhHeathPercentage] = useState(0);
     const [userProfileHealthData,setUserProfileHealthData] = useState(null);
@@ -77,7 +79,7 @@ export const ProfileHealth = () => {
 
       useEffect(()=>{
         getProfileHealth()
-      },[])
+      },[profileHealthUpdate])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -126,7 +128,7 @@ export const ProfileHealth = () => {
           cx={width / 2}
           cy={height / 2}
           fill="none"
-          stroke="#51B248"
+          stroke={phHeathPercentage < 30 ? "crimson" : "#51B248" }
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -138,7 +140,7 @@ export const ProfileHealth = () => {
       </svg>
     </div>
     <div style={{textAlign:"center",marginTop:"-30px"}}>
-                     <span style={{fontSize:"30px",color:"#51B248",fontWeight:"bold"}}>Good !</span>
+                     <span style={{fontSize:"30px",color:`${phHeathPercentage < 30 ? "crimson" : "#51B248" }`,fontWeight:"bold"}}>{phHeathPercentage < 30 ? "Poor !" : "Good !" }</span>
                 </div>
      
 

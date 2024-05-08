@@ -60,7 +60,7 @@ import PersonalChat from './components/Chats/PersonalChat';
 import GroupChatting from './components/Chats/GroupChatting';
 import SelectLang from './pages/OnBording/SelectLang';
 import { AppContext } from './Context/AppContext';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Toast from './pages/Toast/Toast';
 import WorkExperienceEdit from './components/Models/WorkExperienceEdit';
 import EducationEdit from './components/Models/EducationEdit';
@@ -69,13 +69,55 @@ import { PrivacyAndPolicy } from './pages/Profile/ProfileTabs/PrivacyAndPolicy';
 import { TermAndServices } from './pages/Profile/ProfileTabs/TermAndServices';
 import { AccountsAndNotifications } from './pages/Profile/ProfileTabs/AccountsAndNotifications';
 import { ProfileHealth } from './pages/Profile/ProfileTabs/ProfileHealth';
+import { Base_url } from './Config/BaseUrl';
+import axios from 'axios';
 
 setupIonicReact();
 
 const App = () => {
+  
   const {toastStatus} = useContext(AppContext);
-  const Auth = localStorage.getItem("Auth") || false;
+  
+  let Auth = localStorage.getItem("Auth") || false;
+  const Mobile = JSON.parse(localStorage.getItem("Mobile")) || false;
   const selectedLanguage = localStorage.getItem("selectedLanguage") || "English";
+ 
+  const checkUser = async () => {
+    try {
+      
+      const url = `${Base_url}get_user_mobile/${Mobile.phoneNumber}`;
+      // const formData1 = new FormData();
+      // formData1.append('mobile_number', Mobile.phoneNumber);
+
+      const response = await axios.get(url,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+          console.log("Response check mobile",response.data)
+
+          if(response.data.status === "success"){
+            localStorage.setItem("Auth",true)
+            return;
+          }
+            else{
+              Auth = false;
+              localStorage.clear();
+              window.location.replace("/")
+            }
+          
+    } catch (error) {
+      console.error('Error:', error);
+
+    }
+  };
+  useEffect(()=>{
+     if(Mobile){
+      checkUser();
+     }
+  },[])
  return <IonApp>
   <Toast props={toastStatus}/>
   <IonReactRouter>

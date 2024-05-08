@@ -166,6 +166,7 @@ export const ProfileWorkExperience = () => {
                 setUpdate((prev)=>prev+1)
                 getUser();
                   showToast("success", "updated", "");
+                  setProfileHealthUpdate((prev)=>prev+1)
                 return
             }
             // showToast("error", "Try After Some Time", "");

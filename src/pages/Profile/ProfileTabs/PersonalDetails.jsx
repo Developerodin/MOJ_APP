@@ -32,7 +32,7 @@ export const ProfilePersonalDetails = () => {
   const details = JSON.parse( localStorage.getItem("Mobile"));
   
   const [userDetails,setUserdetails] = useState(JSON.parse( localStorage.getItem("userDetails")));
-  const { showToast } = useContext(AppContext);
+  const { showToast ,setProfileHealthUpdate} = useContext(AppContext);
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [pincode,setPincode] = useState("")
@@ -151,6 +151,7 @@ export const ProfilePersonalDetails = () => {
               //  handelContinue("ProfilePic")
               setupdate((prev)=>prev+1)
                 showToast("success", "updated", "");
+                setProfileHealthUpdate((prev)=>prev+1)
                 history.goBack()
               return
           }

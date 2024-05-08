@@ -9,7 +9,7 @@ import axios from 'axios';
 
 
 
-const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
+const DepartmentSelectModel = ({ isOpen, onClose,onSubmit,departmentValue,department }) => {
   const { showToast } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails" )|| localStorage.getItem("userRegisterDetails"));
   const token =localStorage.getItem("token");
@@ -196,7 +196,21 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit }) => {
 
 
   useEffect(()=>{
-    getDepartmentData()
+    getDepartmentData();
+
+    if(department !== ""){
+      setSelectedDepartment(department);
+    }
+    if(departmentValue !== ""){
+    
+      const departmentArray = departmentValue.split(", ");
+       if(departmentArray.length > 1){
+        setSkillLength(5);
+       }
+      const matchingDepartments = SubDepartmentData.filter(item => departmentArray.includes(item.sub_department));
+      console.log("VAlues of department ==>",matchingDepartments)
+       setSelectedSubDepartments(matchingDepartments);
+    }
   },[isOpen])
 
   return (

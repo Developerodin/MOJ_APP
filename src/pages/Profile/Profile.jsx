@@ -32,7 +32,7 @@ async function shareApp() {
 
 export const Profile = () => {
   const history = useHistory();
-  const {editUpdate,setEditUpdate} = useContext(AppContext)
+  const {editUpdate,setEditUpdate,profileHealthUpdate} = useContext(AppContext)
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [profilePic,setProfilePic] = useState(null);
   
@@ -60,12 +60,7 @@ export const Profile = () => {
     {icon:bagHandleOutline,title:"Work experience",link:"/profile-work-experience",color:"#395CFF"},
     {icon:cloudUploadOutline,title:"Resume",link:"/profile-resume",color:"#395CFF"},
   ]
-  useEffect(() => {
-    // Fetch completion percentage from your data source
-    // For demonstration purposes, setting it statically here
-    // Replace this with your actual data fetching logic
-    setCompletionPercentage(75);
-  }, []);
+ 
 
   const handelRewardClick = ()=>{
     history.push("/rewards")
@@ -118,6 +113,53 @@ export const Profile = () => {
     }
   };
 
+ 
+
+  const getProfileImg = async () => {
+    try {
+      const url = `${Base_url}profile_img_saved/Byuserid/${userDetails.user_id}`;
+      const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      // formData1.append('resume', selectedFile);
+
+    
+
+      const response = await axios.post(url,formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          console.log("Response check work experience",data,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data.status === "success"){
+              //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+              // setUpdate((prev)=>prev+1);
+             const Data = data.img;
+             setProfilePic(Data.image_path)
+           
+              return
+            
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
+
+
   const getProfileHealth = async () => {
     try {
 
@@ -166,57 +208,13 @@ export const Profile = () => {
     }
   };
 
-  const getProfileImg = async () => {
-    try {
-      const url = `${Base_url}profile_img_saved/Byuserid/${userDetails.user_id}`;
-      const formData1 = new FormData();
-      // formData1.append('user_id', userDetails.user_id);
-      // formData1.append('resume', selectedFile);
-
-    
-
-      const response = await axios.post(url,formData1,{
-        headers: {
-          "Content-Type": "multipart/form-data",
-          // "Authorization" :`Berear ${token}`,
-     
-        }
-      });
-      const data = response.data
-          console.log("Response check work experience",data,response)
-          
-            // if(data === "otp in valid"){
-            //   showToast("error", "wrong otp", "");
-            //   return;
-            // }
-
-          if(data.status === "success"){
-              //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-              // setUpdate((prev)=>prev+1);
-             const Data = data.img;
-             setProfilePic(Data.image_path)
-           
-              return
-            
-          }
-          // showToast("error", "Try After Some Time", "");
-
-            
-         
-          
-    } catch (error) {
-      console.error('Error:', error);
-      // showToast("error", "Try After Some Time", "");
-    }
-  };
 
   useEffect(()=>{
     getWebBasic();
     getProfileHealth()
-  },[])
+  },[profileHealthUpdate])
 
-
-  useEffect(() => {
+useEffect(() => {
     const interval = setInterval(() => {
       if (completionPercentage < parseInt(phHeathPercentage)) {
         setCompletionPercentage(completionPercentage + 1);
@@ -226,11 +224,11 @@ export const Profile = () => {
     }, 20);
 
     return () => clearInterval(interval);
-  }, [phHeathPercentage,completionPercentage]);
+  }, [phHeathPercentage,completionPercentage,profileHealthUpdate]);
 
   const width = 100;
   const height = 100;
-  const radius = 40;
+  const radius = 35;
   const circumference = 2 * Math.PI * radius;
   const strokeWidth = 6;
   const offset = ((100 - completionPercentage) / 100) * circumference;
@@ -300,7 +298,7 @@ export const Profile = () => {
           cx={width / 2}
           cy={height / 2}
           fill="none"
-          stroke="#51B248"
+          stroke={phHeathPercentage < 30 ? "crimson" : "#51B248" }
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -319,7 +317,7 @@ export const Profile = () => {
         <span style={{fontSize:"16px",fontWeight:"bold"}}>Profile health</span>
         </div>
         <div style={{marginTop:"10px"}}>
-        <span style={{color:"#575757"}}>Complete your profile</span>
+        <span style={{color:"#575757",fontSize:"14px"}}>{phHeathPercentage > 99 ? "Completed" : "Complete your profile  !"}</span>
         </div>
       
        </div>

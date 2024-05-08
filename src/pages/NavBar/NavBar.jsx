@@ -31,6 +31,7 @@ import { PrivacyAndPolicy } from '../Profile/ProfileTabs/PrivacyAndPolicy';
 import SelectLang from '../OnBording/SelectLang';
 import Continue from '../OnBording/Continue';
 import { ProfileHealth } from '../Profile/ProfileTabs/ProfileHealth';
+import WorkExperienceEdit from '../../components/Models/WorkExperienceEdit';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -78,6 +79,7 @@ const NavBar = () => {
          {/* =================================================== */}
          <Route  path="/job-details/:id" component={JobDetails}  />
          <Route  path="/profile-work-experience" component={ProfileWorkExperience}  />
+         <Route  path="/profile-work-experience-edit/:id" component={WorkExperienceEdit}  />
     <Route  path="/profile-eduction" component={ProfileEduction}  />
     <Route  path="/profile-personal-details" component={ProfilePersonalDetails}  />
     <Route  path="/profile-contact-details" component={ProfileContactDetails}  />

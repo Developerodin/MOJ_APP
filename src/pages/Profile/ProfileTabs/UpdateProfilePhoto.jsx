@@ -9,7 +9,7 @@ import axios from 'axios'
 import { AppContext } from '../../../Context/AppContext'
 import { Base_url } from '../../../Config/BaseUrl'
 export const UpdateProfilePhoto = () => {
-  const { showToast ,setEditUpdate} = useContext(AppContext);
+  const { showToast ,setEditUpdate,setProfileHealthUpdate} = useContext(AppContext);
   const [picture, setPicture] = useState();
   const [selectedFile, setSelectedFile] = useState(null);
   const [ImgUrl,setImgUrl] = useState("");
@@ -39,7 +39,8 @@ export const UpdateProfilePhoto = () => {
       if (file) {
         // Check if the file type is an image
         if (file.type.startsWith('image/')) {
-          console.log("File  ==>", file);
+          
+          console.log("File handelinput change  ==>", file);
           setSelectedFile(file);
           
     
@@ -100,7 +101,7 @@ export const UpdateProfilePhoto = () => {
         // Now you have a File object similar to the one you get from selecting a file
         console.log("Camera file in file formate ==>",file);
         if (file.type.startsWith('image/')) {
-          console.log("File  ==>", file);
+          console.log("File take picture  ==>", file);
           setSelectedFile(file);
           
     
@@ -136,40 +137,42 @@ export const UpdateProfilePhoto = () => {
       /////////
     };
 
-    // const takePicture2 = async () => {
-    //   const image = await Camera.getPhoto({
-    //     quality: 70,
-    //     allowEditing: false,
-    //     resultType: CameraResultType.Uri,
-    //     source: CameraSource.Photos,
-    //     preserveAspectRatio: true,
-    //     width: 300,
-    //     height: 300,
-    //     correctOrientation: true,
-    //   });
-    //   setSelectedFile(image);
-    //   var imageUrl = image.webPath;
-    //   document.getElementById("dp-img").src = imageUrl;
-    //   localStorage.setItem("dp-img", imageUrl);
-    //   // setPicture(imageUrl);
-    //   console.log(imageUrl);
+    const takePicture2 = async () => {
+      const image = await Camera.getPhoto({
+        quality: 70,
+        allowEditing: false,
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Photos,
+        preserveAspectRatio: true,
+        width: 300,
+        height: 300,
+        correctOrientation: true,
+      });
+      axios.get(image.webPath, { responseType: 'blob' })
+      .then(response => {
+          // Create a File object
+          const file = new File([response.data], `image.${image.format}`, { type: `image/${image.format}` });
   
-    //   const imgobj = new Image();
-    //   imgobj.style.width = "100px";
-    //   imgobj.style.height = "auto";
-    //   imgobj.src = imageUrl;
-    //   imgobj.onload = () => {
-    //     var c = document.getElementById("myCanvas");
-    //     var ctx = c.getContext("2d");
-    //     drawImageScaled(imgobj, ctx);
-    //     // ctx.drawImage(imgobj, 0, 0, 500, 500);
-    //     console.log(c.toDataURL());
-    //     const formData = new FormData();
-    //     formData.append("dp", c.toDataURL());
+          // Now you have a File object similar to the one you get from selecting a file
+          console.log("Camera file in file formate ==>",file);
+          if (file.type.startsWith('image/')) {
+            console.log("File take picture  ==>", file);
+            setSelectedFile(file);
+            
+      
+            // Read the file and display it in the img tag
+            const imageUrl = URL.createObjectURL(file);
+            setImgUrl(imageUrl);
+          }
+          
+      })
+      .catch(error => {
+          console.error('Error fetching camera file:', error);
+      });
        
-    //   };
-    //   /////////
-    // };
+      };
+     
+    
 
     const AddProfilePhoto = async () => {
       try {
@@ -197,6 +200,7 @@ export const UpdateProfilePhoto = () => {
           showToast("success", "updated", "");
           setUpdate((prev)=>prev+1);
           setEditUpdate((prev)=>prev+1)
+          setProfileHealthUpdate((prev)=>prev+1)
           return;
         }
       
@@ -337,41 +341,10 @@ export const UpdateProfilePhoto = () => {
     <span style={{fontWeight:"bold"}}>Take photo</span>
  </div>
 
-<div>
-<input
-        type="file"
-        accept="image/"
-        onChange={handleFileChange}
-        style={{ display: "none" }}
-        id="ImgInput"
-      />
-
-      <input
-        id="ImgInput"
-        type="file"
-        style={{ display: "none" }}
-        onChange={handleFileChange}
-      />
-     
-
-      {/* <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
-        <CustomBtn1
-          fun={() => document.getElementById("resumeInput").click()}
-          title={"Uplode"}
-        />
-      </div> */}
-
-</div>
 
 
- <div onClick={() => document.getElementById("ImgInput").click()} style={{marginTop:"20px",padding:"20px",border:"1px solid black",width:"100%",display:"flex",justifyContent:"center",alignItems:"center",borderRadius:"30px"}}>
+
+ <div onClick={takePicture2} style={{marginTop:"20px",padding:"20px",border:"1px solid black",width:"100%",display:"flex",justifyContent:"center",alignItems:"center",borderRadius:"30px"}}>
     <span style={{fontWeight:"bold"}}>Uplode from photos</span>
  </div>
            </div>

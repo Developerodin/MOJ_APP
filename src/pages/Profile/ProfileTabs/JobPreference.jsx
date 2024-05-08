@@ -32,7 +32,7 @@ export const ProfileJobPreference = () => {
     history.goBack();
       console.log("Back Presss")
   }
-  const { showToast } = useContext(AppContext);
+  const { showToast,setProfileHealthUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const token =localStorage.getItem("token");
   const [departmentModel,setDepartmentModel] = useState(false)
@@ -89,7 +89,7 @@ export const ProfileJobPreference = () => {
   const handleSaveClick = () => {
     // Save logic here
     console.log("DAta ==>",department,preferredCity,preferredState,jobType,salaryRange,startTime,endTime);
-    AddJobPref()
+    AddJobPref();
     // handelBackClick()
   };
 
@@ -130,7 +130,8 @@ export const ProfileJobPreference = () => {
 
           if(data.status === "success"){
               //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-             
+              showToast("success", "updated", "");
+              setProfileHealthUpdate((prev)=>prev+1)
               return
           }
           showToast("error", "Try After Some Time", "");
@@ -437,7 +438,7 @@ preferredCity !== "" ? <span>{preferredCity}</span>:<span style={{color:"grey"}}
             <CustomBtn1 fun={handleSaveClick} title={"Save"} />
           </div>
           <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={preferredState} setSelectedState={setPreferredState}  />
-          <DepartmentSelectModel isOpen={departmentModel} onClose={handelDepartmentModelClose} onSubmit={handelSelectedDepartment} />
+          <DepartmentSelectModel isOpen={departmentModel} onClose={handelDepartmentModelClose} onSubmit={handelSelectedDepartment} department={department} departmentValue={departmentValue}  />
           <SelectMulipalCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} preferredCity={preferredCity} setPreferredCity={setPreferredCity} selectedState={preferredState}/>
         </div>
       </IonContent>

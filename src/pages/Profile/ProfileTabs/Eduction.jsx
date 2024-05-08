@@ -28,7 +28,7 @@ import { Base_url } from "../../../Config/BaseUrl";
 
 export const ProfileEduction = () => {
   const history = useIonRouter()
-  const { showToast,editUpdate } = useContext(AppContext);
+  const { showToast,editUpdate,setProfileHealthUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const token =localStorage.getItem("token");
    const [update,setUpdate] =  useState(0)
@@ -299,6 +299,7 @@ export const ProfileEduction = () => {
             if(data.status === "success"){
                 //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
                 showToast("success", "Updated", "");
+                setProfileHealthUpdate((prev)=>prev+1)
                 return
             }
             // showToast("error", "Try After Some Time", "");
@@ -315,7 +316,56 @@ export const ProfileEduction = () => {
     const handelSubmit=()=>{
          
       console.log("DAta==>",formDataTenth,formDataTwelvth,formDataGraduation,formDataPostGraduation,formDataDoctorate,formDataHotelManagment)
-      AddEducation()
+      if(isSchoolChecked || isHigherSecondaryChecked || isGraduationChecked || isPostGChecked || isDoctorateChecked || isHdegreeChecked ){
+        
+        if(isSchoolChecked){
+          if(formDataTenth.schoolName === "" && formDataTenth.year === ""){
+                showToast("error", "Fill 10th Details", "");
+            return
+          }
+         }
+  
+         if(isHigherSecondaryChecked){
+          if(formDataTwelvth.schoolName === "" && formDataTwelvth.year === ""){
+                showToast("error", "Fill 12th Details", "");
+            return
+          }
+         }
+  
+         if(isGraduationChecked){
+          if(formDataGraduation.collegeName === "" && formDataGraduation.degree === "" && formDataGraduation.year === ""){
+                showToast("error", "Fill Graduation Details", "");
+            return
+          }
+         }
+  
+         if(isPostGChecked){
+          if(formDataPostGraduation.collegeName === "" && formDataPostGraduation.degree === "" && formDataPostGraduation.year === ""){
+                showToast("error", "Fill Post Graduation Details", "");
+            return
+          }
+         }
+  
+         if(isDoctorateChecked){
+          if(formDataDoctorate.collegeName === "" && formDataDoctorate.degree === "" && formDataDoctorate.year === ""){
+                showToast("error", "Fill Doctorate Details", "");
+            return
+          }
+         }
+  
+         if(isHdegreeChecked){
+          if(formDataHotelManagment.collegeName === ""  && formDataHotelManagment.year === ""){
+                showToast("error", "Fill Hotel Degree Details", "");
+            return
+          }
+         }
+  
+         console.log("Add Education ")
+        AddEducation();
+      return
+       }
+     
+       showToast("error", "Select a field ", "");
       // history.goBack()
     }
 

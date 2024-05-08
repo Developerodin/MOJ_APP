@@ -14,7 +14,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 export const ResumeView = () => {
-  const { showToast } = useContext(AppContext);
+  const { showToast,profileHealthUpdate,setProfileHealthUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails" )|| localStorage.getItem("userRegisterDetails"));
   const [selectedFile, setSelectedFile] = useState(null);
   const [numPages, setNumPages] = useState(null);
@@ -93,7 +93,7 @@ export const ResumeView = () => {
   useEffect(()=>{
     console.log("Calling update",update)
     getResume();
-  },[update])
+  },[update,profileHealthUpdate]);
   const fileObject = { url: 'https://dashboard.masterofjobs.in/writable/uploads/27-resume/1714633073_f3e413dd32aef5679dde.pdf' };
   return (
     <IonPage>
