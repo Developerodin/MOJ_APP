@@ -1,13 +1,52 @@
-import { IonButton, IonContent, IonIcon, IonPage, IonToggle } from '@ionic/react'
+import { IonButton, IonContent, IonIcon, IonPage, IonToggle, useIonRouter } from '@ionic/react'
 import { bagHandleOutline } from 'ionicons/icons'
-import React from 'react'
+import React, { useState } from 'react'
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders'
 import { CustomBtn1 } from '../../../components/Buttons/CustomBtn1'
-
+import { useIonActionSheet } from '@ionic/react';
+import { Base_url } from '../../../Config/BaseUrl'
+import axios from 'axios'
 export const AccountsAndNotifications = () => {
-
+  const history =  useIonRouter()
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+   const [deleteModel,setDeleteModel] = useState(false);
+   const [present] = useIonActionSheet();
   const handelSave = () =>{
     console.log("save")
+  }
+ 
+  const handleDeleteClick =async()=>{
+    try {
+
+      const formData = new FormData()
+    const url = `${Base_url}user_delete/${userDetails.user_id}`;
+    
+  
+
+    const response = await axios.get(url,{
+      headers: {
+        "Content-Type": "multipart/form-data",
+        // "Authorization" :`Berear ${token}`,
+   
+      }
+    });
+    const data = response.data
+     
+        if(data){
+          localStorage.clear();
+        history.push("/Coninue");
+        
+         return
+        }
+        
+
+          
+       
+        
+  } catch (error) {
+    console.error('Error:', error);
+    // showToast("error", "Try After Some Time", "");
+  }
   }
   return (
     <IonPage>
@@ -60,7 +99,35 @@ export const AccountsAndNotifications = () => {
                   </div>
 
                   <div style={{display:"flex",justifyContent:"right",alignItems:"center"}}>
-                    <IonButton color={"danger"}>Delete Account</IonButton>
+                    {/* <IonButton color={"danger"}>Delete Account</IonButton> */}
+                    <IonButton
+                    color={"danger"}
+      onClick={() =>
+        present({
+          // header: 'Confirmation',
+          header:'Are you sure you want to delete your account? This action cannot be undone.',
+          buttons: [
+            {
+              text: 'Delete',
+              role: 'destructive',
+              handler: handleDeleteClick, // Call handleDeleteClick when Delete button is clicked
+              data: {
+                action: 'delete',
+              },
+            },
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              data: {
+                action: 'cancel',
+              },
+            },
+          ],
+        })
+      }
+    >
+      Delete Account
+    </IonButton>
                   </div>
             </div>
            </div>

@@ -99,13 +99,15 @@ const App = () => {
           console.log("Response check mobile",response.data)
 
           if(response.data.status === "success"){
+            console.log("In if user  =====================>")
             localStorage.setItem("Auth",true)
             return;
           }
             else{
-              Auth = false;
-              localStorage.clear();
-              window.location.replace("/")
+              // Auth = false;
+              // localStorage.clear();
+              // window.location.replace("/")
+              console.log("In else  =====================>")
             }
           
     } catch (error) {
@@ -115,8 +117,12 @@ const App = () => {
   };
   useEffect(()=>{
      if(Mobile){
+      console.log("Mobile",Mobile)
       checkUser();
+   
      }
+   
+   
   },[])
  return <IonApp>
   <Toast props={toastStatus}/>
