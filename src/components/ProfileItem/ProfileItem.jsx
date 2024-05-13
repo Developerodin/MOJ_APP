@@ -12,12 +12,12 @@ const ProfileListItem = ({Data}) => {
        console.log("Logout clicked")
        localStorage.clear();
         history.push("/Coninue");
-        
+        window.location.reload()
          return
          
        }
       if(Data.link ==="/"){
-        return history.replace('/app');
+        return 
       }
         history.push(Data.link)
     }

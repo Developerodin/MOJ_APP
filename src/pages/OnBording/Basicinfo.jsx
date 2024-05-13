@@ -7,6 +7,7 @@ import {
   IonInput,
   IonLabel,
   IonSearchbar,
+  useIonRouter,
 } from "@ionic/react";
 import { arrowBack, chevronBackOutline } from "ionicons/icons";
 import icon from "/assets/left.png";
@@ -22,7 +23,7 @@ import SelectStateModel from "../../components/Models/SelectStateModel";
 import SelectCityModel from "../../components/Models/SelectCityModel";
 
 const Basicinfo = ({ handelContinue }) => {
-  const history = useHistory();
+  const history = useIonRouter();
   const Role = localStorage.getItem("role") || "";
   const details = JSON.parse( localStorage.getItem("Mobile"));
   const { showToast } = useContext(AppContext);
@@ -205,6 +206,11 @@ const Basicinfo = ({ handelContinue }) => {
       setLoading(false);
     }
   };
+
+
+  const handelEmployersBtnClick = ()=>{
+    history.push("/app", 'root','replace')
+  }
  
   useEffect(() => {
     const isValid =
@@ -241,265 +247,571 @@ const Basicinfo = ({ handelContinue }) => {
         Add your personal information
       </h1>
 
-      <div style={{ marginTop: "30px" }}>
-        <div>
-          <label
-            style={{
-              color: "#575757",
-              fontFamily: "inter",
-              fontSize: "14px",
-              fontWeight: "400",
-              lineHeight: "30px",
-            }}
-          >
-            First name
-          </label>
-          {/* <IonItem> */}
-          <input
-          className="round-input"
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-           
-          />
-        </div>
+{
+  Role === "Job Seeker" &&  
+  <div style={{ marginTop: "30px" }}>
+  <div>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      First name
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      name="firstName"
+      value={formData.firstName}
+      onChange={handleInputChange}
+     
+    />
+  </div>
 
-        <div style={{ marginTop: "20px" }}>
-          <label
-            style={{
-              color: "#575757",
-              fontFamily: "inter",
-              fontSize: "14px",
-              fontWeight: "400",
-              lineHeight: "30px",
-            }}
-          >
-            Last name
-          </label>
-          {/* <IonItem> */}
-          <input
-          className="round-input"
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-         
-          />
-        </div>
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Last name
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      name="lastName"
+      value={formData.lastName}
+      onChange={handleInputChange}
+   
+    />
+  </div>
 
-        <div style={{ marginTop: "20px" }}>
-          <label
-            style={{
-              color: "#575757",
-              fontFamily: "inter",
-              fontSize: "14px",
-              fontWeight: "400",
-              lineHeight: "30px",
-            }}
-          >
-            Date of Birth
-          </label>
-          {/* <IonItem> */}
-          <input
-          className="round-input"
-            type="date"
-            name="dob"
-            value={formData.dob}
-            onChange={handleInputChange}
-         
-          />
-        </div>
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Date of Birth
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="date"
+      name="dob"
+      value={formData.dob}
+      onChange={handleInputChange}
+   
+    />
+  </div>
 
-        <div style={{ marginTop: "20px" }}>
-          <label
-            style={{
-              color: "#575757",
-              fontFamily: "inter",
-              fontSize: "14px",
-              fontWeight: "400",
-              lineHeight: "30px",
-            }}
-          >
-            Gender
-          </label>
-          <div
-            style={{
-              border: "1px solid #E2E8F0",
-              borderRadius: "50px",
-              paddingLeft: "10px",
-            }}
-          >
-            <IonSelect
-              name="gender"
-              interface="popover"
-              value={formData.gender}
-              onIonChange={handleInputChange}
-              placeholder="Gender"
-            >
-              <IonSelectOption defaultChecked value={""}>
-                Select Gender
-              </IonSelectOption>
-              <IonSelectOption value="male">Male</IonSelectOption>
-              <IonSelectOption value="female">Female</IonSelectOption>
-              <IonSelectOption value="other">Other</IonSelectOption>
-            </IonSelect>
-          </div>
-        </div>
-        <div style={{ marginTop: "20px" }}>
-          <label
-            style={{
-              color: "#575757",
-              fontFamily: "inter",
-              fontSize: "14px",
-              fontWeight: "400",
-              lineHeight: "30px",
-            }}
-          >
-            Email (optional)
-          </label>
-          {/* <IonItem> */}
-          <input
-          className="round-input"
-            type="text"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-           
-          />
-        </div>
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Gender
+    </label>
+    <div
+      style={{
+        border: "1px solid #E2E8F0",
+        borderRadius: "50px",
+        paddingLeft: "10px",
+      }}
+    >
+      <IonSelect
+        name="gender"
+        interface="popover"
+        value={formData.gender}
+        onIonChange={handleInputChange}
+        placeholder="Gender"
+      >
+        <IonSelectOption defaultChecked value={""}>
+          Select Gender
+        </IonSelectOption>
+        <IonSelectOption value="male">Male</IonSelectOption>
+        <IonSelectOption value="female">Female</IonSelectOption>
+        <IonSelectOption value="other">Other</IonSelectOption>
+      </IonSelect>
+    </div>
+  </div>
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Email (optional)
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      name="email"
+      value={formData.email}
+      onChange={handleInputChange}
+     
+    />
+  </div>
 
-        <div style={{ marginTop: "20px" }}>
-          <label
-            style={{
-              color: "#575757",
-              fontFamily: "inter",
-              fontSize: "14px",
-              fontWeight: "400",
-              lineHeight: "30px",
-            }}
-          >
-            Address
-          </label>
-          {/* <IonItem> */}
-          <input
-          className="round-input"
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleInputChange}
-           
-          />
-        </div>
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Address
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      name="address"
+      value={formData.address}
+      onChange={handleInputChange}
+     
+    />
+  </div>
 
-        <div style={{ marginTop: "20px" }}>
-          <label
-            style={{
-              color: "#575757",
-              fontFamily: "inter",
-              fontSize: "14px",
-              fontWeight: "400",
-              lineHeight: "30px",
-            }}
-          >
-            Pincode
-          </label>
-          {/* <IonItem> */}
-          <input
-          className="round-input"
-            type="text"
-            name="pincode"
-            value={pincode} onChange={handlePincodeChange}
-           
-          />
-        </div>
-       
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Pincode
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      name="pincode"
+      value={pincode} onChange={handlePincodeChange}
+     
+    />
+  </div>
+ 
 
-        <div style={{ marginTop: "20px" }}>
-          <label
-            style={{
-              color: "#575757",
-              fontFamily: "inter",
-              fontSize: "14px",
-              fontWeight: "400",
-              lineHeight: "30px",
-            }}
-          >
-            State
-          </label>
-          <div
-            // style={{
-            //   border: "1px solid #E2E8F0",
-            //   borderRadius: "50px",
-            //   paddingLeft: "10px",
-            // }}
-          >
-            {/* <IonSelect
-              name="state"
-              interface="action-sheet"
-              value={formData.state}
-              onIonChange={handleInputChange}
-              placeholder="State"
-            >
-              <IonSelectOption defaultChecked value={""}>
-                Select State
-              </IonSelectOption>
-              {States.map((state) => (
-                <IonSelectOption key={state.isoCode} value={state.name}>
-                  {state.name}
-                </IonSelectOption>
-              ))}
-            </IonSelect> */}
-                <div onClick={handelStateModelOpen}>
-                   <div style={{padding:"10px",
-    
-    height:"48px",
-    width:"100%",
-    borderRadius:"50px",
-    border:"1px solid #E2E8F0 ",
-    display:"flex",justifyContent:"left",alignItems:"center"
-  }}>
-                  <span>{selectedState && selectedState}</span>
-                   </div>
-             </div>
-          </div>
-        </div>
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      State
+    </label>
+    <div
+      // style={{
+      //   border: "1px solid #E2E8F0",
+      //   borderRadius: "50px",
+      //   paddingLeft: "10px",
+      // }}
+    >
+      {/* <IonSelect
+        name="state"
+        interface="action-sheet"
+        value={formData.state}
+        onIonChange={handleInputChange}
+        placeholder="State"
+      >
+        <IonSelectOption defaultChecked value={""}>
+          Select State
+        </IonSelectOption>
+        {States.map((state) => (
+          <IonSelectOption key={state.isoCode} value={state.name}>
+            {state.name}
+          </IonSelectOption>
+        ))}
+      </IonSelect> */}
+          <div onClick={handelStateModelOpen}>
+             <div style={{padding:"10px",
 
-       {
-        selectedState !== "" &&  <div style={{ marginTop: "20px" }}>
-        <label
-          style={{
-            color: "#575757",
-            fontFamily: "inter",
-            fontSize: "14px",
-            fontWeight: "400",
-            lineHeight: "30px",
-          }}
-        >
-          City
-        </label>
-
-        <div onClick={handelCityModelOpen}>
-                 <div style={{padding:"10px",
-  
-  height:"48px",
-  width:"100%",
-  borderRadius:"50px",
-  border:"1px solid #E2E8F0 ",
-  display:"flex",justifyContent:"left",alignItems:"center"
+height:"48px",
+width:"100%",
+borderRadius:"50px",
+border:"1px solid #E2E8F0 ",
+display:"flex",justifyContent:"left",alignItems:"center"
 }}>
-                <span>{selectedCity && selectedCity}</span>
-                 </div>
+            <span>{selectedState && selectedState}</span>
+             </div>
+       </div>
+    </div>
+  </div>
+
+ {
+  selectedState !== "" &&  <div style={{ marginTop: "20px" }}>
+  <label
+    style={{
+      color: "#575757",
+      fontFamily: "inter",
+      fontSize: "14px",
+      fontWeight: "400",
+      lineHeight: "30px",
+    }}
+  >
+    City
+  </label>
+
+  <div onClick={handelCityModelOpen}>
+           <div style={{padding:"10px",
+
+height:"48px",
+width:"100%",
+borderRadius:"50px",
+border:"1px solid #E2E8F0 ",
+display:"flex",justifyContent:"left",alignItems:"center"
+}}>
+          <span>{selectedCity && selectedCity}</span>
            </div>
-        
+     </div>
   
-      </div>
-       }
 
-       
+</div>
+ }
 
-        {/* </IonItem> */}
-      </div>
+ 
+
+  {/* </IonItem> */}
+</div>
+}
+
+{
+  Role === "Employers" &&  
+  <div style={{ marginTop: "30px" }}>
+  <div>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Hotel Name
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      // name="firstName"
+      // value={formData.firstName}
+      // onChange={handleInputChange}
+     
+    />
+  </div>
+
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Hotel Location
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      // name="lastName"
+      // value={formData.lastName}
+      // onChange={handleInputChange}
+   
+    />
+  </div>
+
+
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Email (optional)
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      // name="email"
+      // value={formData.email}
+      // onChange={handleInputChange}
+     
+    />
+  </div>
+
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Address
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      name="address"
+      value={formData.address}
+      onChange={handleInputChange}
+     
+    />
+  </div>
+
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Pincode
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      name="pincode"
+      value={pincode} onChange={handlePincodeChange}
+     
+    />
+  </div>
+ 
+
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      State
+    </label>
+    <div
+      // style={{
+      //   border: "1px solid #E2E8F0",
+      //   borderRadius: "50px",
+      //   paddingLeft: "10px",
+      // }}
+    >
+      {/* <IonSelect
+        name="state"
+        interface="action-sheet"
+        value={formData.state}
+        onIonChange={handleInputChange}
+        placeholder="State"
+      >
+        <IonSelectOption defaultChecked value={""}>
+          Select State
+        </IonSelectOption>
+        {States.map((state) => (
+          <IonSelectOption key={state.isoCode} value={state.name}>
+            {state.name}
+          </IonSelectOption>
+        ))}
+      </IonSelect> */}
+          <div onClick={handelStateModelOpen}>
+             <div style={{padding:"10px",
+
+height:"48px",
+width:"100%",
+borderRadius:"50px",
+border:"1px solid #E2E8F0 ",
+display:"flex",justifyContent:"left",alignItems:"center"
+}}>
+            <span>{selectedState && selectedState}</span>
+             </div>
+       </div>
+    </div>
+  </div>
+
+ {
+  selectedState !== "" &&  <div style={{ marginTop: "20px" }}>
+  <label
+    style={{
+      color: "#575757",
+      fontFamily: "inter",
+      fontSize: "14px",
+      fontWeight: "400",
+      lineHeight: "30px",
+    }}
+  >
+    City
+  </label>
+
+  <div onClick={handelCityModelOpen}>
+           <div style={{padding:"10px",
+
+height:"48px",
+width:"100%",
+borderRadius:"50px",
+border:"1px solid #E2E8F0 ",
+display:"flex",justifyContent:"left",alignItems:"center"
+}}>
+          <span>{selectedCity && selectedCity}</span>
+           </div>
+     </div>
+  
+
+</div>
+ }
+
+<div style={{marginTop: "40px",textAlign:"center" }}>
+     <span style={{fontWeight:"bold"}}>GST Details</span>
+  </div>
+
+
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      GSTIN
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      // name="lastName"
+      // value={formData.lastName}
+      // onChange={handleInputChange}
+   
+    />
+  </div>
+
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Registered email address
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      // name="lastName"
+      // value={formData.lastName}
+      // onChange={handleInputChange}
+   
+    />
+  </div>
+
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Registered hotel name under GST 
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      // name="lastName"
+      // value={formData.lastName}
+      // onChange={handleInputChange}
+   
+    />
+  </div>
+
+  <div style={{ marginTop: "20px" }}>
+    <label
+      style={{
+        color: "#575757",
+        fontFamily: "inter",
+        fontSize: "14px",
+        fontWeight: "400",
+        lineHeight: "30px",
+      }}
+    >
+      Registered hotel address  
+    </label>
+    {/* <IonItem> */}
+    <input
+    className="round-input"
+      type="text"
+      // name="lastName"
+      // value={formData.lastName}
+      // onChange={handleInputChange}
+   
+    />
+  </div>
+ 
+
+  {/* </IonItem> */}
+</div>
+}
+      
  {
    <div
   style={{
@@ -509,7 +821,14 @@ const Basicinfo = ({ handelContinue }) => {
     alignItems: "center",
   }}
 >
-  <CustomBtn1 fun={handelBtnClick} title={"Continue"}  loading={loading}/>
+  {
+    Role === "Job Seeker" &&   <CustomBtn1 fun={handelBtnClick} title={"Continue"}  loading={loading}/>
+  }
+
+{
+    Role === "Employers" &&   <CustomBtn1 fun={handelEmployersBtnClick} title={"Continue"}  loading={loading}/>
+  }
+ 
 </div>
  }
       <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={selectedState} setSelectedState={setSelectedState}  />

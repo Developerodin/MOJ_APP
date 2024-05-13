@@ -35,7 +35,7 @@ export const AccountsAndNotifications = () => {
         if(data){
           localStorage.clear();
         history.push("/Coninue");
-        
+        window.location.reload()
          return
         }
         
