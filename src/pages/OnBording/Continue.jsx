@@ -46,7 +46,7 @@ const Continue = () => {
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"20px"}}>
            
 
-            <img src={logo} style={{height:"48px",width:"72px"}}/>
+            <img src={logo} style={{height:"58px",width:"82px"}}/>
 
             <img
           onClick={handelSelectLanguageCLick}

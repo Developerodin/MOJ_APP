@@ -99,7 +99,7 @@ const VerifyPhoneTwo = () => {
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
 
-            <img src={logo} style={{height:"48px",width:"72px"}}/>
+            <img src={logo} style={{height:"58px",width:"82px"}}/>
            </div>
           <h1
             style={{

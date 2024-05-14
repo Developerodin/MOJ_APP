@@ -40,7 +40,7 @@ export const PersonalDetails = () => {
 
             <div >
             
-            <img src={logo} style={{height:"48px",width:"72px"}}/>
+            <img src={logo} style={{height:"58px",width:"82px"}}/>
 
             </div>
             
