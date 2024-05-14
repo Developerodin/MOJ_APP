@@ -37,6 +37,7 @@ import { HotelierProfile } from '../Hotelier/Profile/Profile';
 import { HotelierAppliedJobs } from '../Hotelier/Jobs/AppliedJobs';
 import { HotelierMessages } from '../Hotelier/Chat/Messages';
 import { HotelierJobPost } from '../Hotelier/Jobs/JobPost';
+import { HotelierPostJob } from '../Hotelier/Jobs/PostAJob';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -136,7 +137,7 @@ const NavBar = () => {
            <Route  path="/app/applied-jobs" component={HotelierAppliedJobs}  />
            <Route  path="/app/chat" component={HotelierMessages}  />
          
-     
+           <Route  path="/post-job" component={HotelierPostJob}  />
            
            
             <Redirect exact  to="/app/home" />

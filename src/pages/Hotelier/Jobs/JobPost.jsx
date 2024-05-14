@@ -1,8 +1,13 @@
-import { IonButton, IonContent, IonPage } from '@ionic/react'
+import { IonButton, IonContent, IonPage, useIonRouter } from '@ionic/react'
 import React from 'react'
 import { JobCard } from '../../../components/Cards/JobCard/JobCard'
+import { PostJobCard } from '../../../components/Cards/JobCard/PostJobCard';
 
 export const HotelierJobPost = () => {
+  const history = useIonRouter();
+  const handelPostJob=()=>{
+    history.push("/post-job")
+  }
   return (
      <IonPage>
         <IonContent>
@@ -11,17 +16,17 @@ export const HotelierJobPost = () => {
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                 <span style={{fontSize:"24px",fontWeight:"bold"}}>Jobs posted by you</span>
 
-                <IonButton>Post a job</IonButton>
+                <IonButton onClick={handelPostJob}>Post a job</IonButton>
             </div>
 
 
             <div style={{marginTop:"40px"}}>
-             <JobCard fun={()=>console.log("click on post job")} />
-
+            
+              <PostJobCard fun={()=>console.log("click on post job")}/>
             </div>
 
             <div style={{marginTop:"20px"}}>
-             <JobCard fun={()=>console.log("click on post job")} />
+            <PostJobCard fun={()=>console.log("click on post job")}/>
 
             </div>
             </div>

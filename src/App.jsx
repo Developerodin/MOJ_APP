@@ -71,6 +71,7 @@ import { AccountsAndNotifications } from './pages/Profile/ProfileTabs/AccountsAn
 import { ProfileHealth } from './pages/Profile/ProfileTabs/ProfileHealth';
 import { Base_url } from './Config/BaseUrl';
 import axios from 'axios';
+import { HotelierPostJob } from './pages/Hotelier/Jobs/PostAJob';
 
 setupIonicReact();
 
@@ -163,7 +164,7 @@ const App = () => {
     <Route  path="/term-services" component={TermAndServices}  />
     <Route  path="/privacy-policy" component={PrivacyAndPolicy}  />
     <Route  path="/profile-health" component={ProfileHealth}  />
-
+    <Route  path="/post-job" component={HotelierPostJob}  />
     
     
     <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>
