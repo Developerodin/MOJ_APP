@@ -38,6 +38,11 @@ import { HotelierAppliedJobs } from '../Hotelier/Jobs/AppliedJobs';
 import { HotelierMessages } from '../Hotelier/Chat/Messages';
 import { HotelierJobPost } from '../Hotelier/Jobs/JobPost';
 import { HotelierPostJob } from '../Hotelier/Jobs/PostAJob';
+import { ActiveJobs } from '../Hotelier/DashboardPages/ActiveJobs';
+import { InActiveJobs } from '../Hotelier/DashboardPages/InActiveJobs';
+import { CandidateAppliedJobs } from '../Hotelier/DashboardPages/CandidateAppliedJobs';
+import { InterestedCandidates } from '../Hotelier/DashboardPages/InterestedCandidates';
+import { CandidateSearch } from '../Hotelier/DashboardPages/CandidateSearch';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -138,6 +143,11 @@ const NavBar = () => {
            <Route  path="/app/chat" component={HotelierMessages}  />
          
            <Route  path="/post-job" component={HotelierPostJob}  />
+           <Route  path="/active-jobs" component={ActiveJobs}  />
+    <Route  path="/inactive-jobs" component={InActiveJobs}  /> 
+    <Route  path="/candidate-applied-jobs" component={CandidateAppliedJobs}  />
+    <Route  path="/interested-candidates" component={InterestedCandidates}  />
+    <Route  path="/candidate-search" component={CandidateSearch}  />
            
            
             <Redirect exact  to="/app/home" />

@@ -99,7 +99,7 @@ const VerifyPhoneTwo = () => {
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
 
-            <img src={logo} style={{height:"58px",width:"82px"}}/>
+            <img src={logo} style={{height:"68px",width:"92px"}}/>
            </div>
           <h1
             style={{
@@ -132,7 +132,7 @@ const VerifyPhoneTwo = () => {
                 renderSeparator={<span style={{ margin: "10px" }}></span>}
                 inputStyle={{
                   background: "transparent",
-                  border: "1px solid #E2E8F0",
+                  border: "1px solid grey",
                   width: "44px",
                   height: "48px",
                   borderRadius:"8px"

@@ -61,7 +61,7 @@ export const PostJobCard = ({fun}) => {
       </div>
         
         <div style={{position:"absolute",top:20,right:20}}>
-        <IonToggle />
+        <IonToggle checked={true} />
         </div>
 
 

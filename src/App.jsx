@@ -72,6 +72,11 @@ import { ProfileHealth } from './pages/Profile/ProfileTabs/ProfileHealth';
 import { Base_url } from './Config/BaseUrl';
 import axios from 'axios';
 import { HotelierPostJob } from './pages/Hotelier/Jobs/PostAJob';
+import { ActiveJobs } from './pages/Hotelier/DashboardPages/ActiveJobs';
+import { InActiveJobs } from './pages/Hotelier/DashboardPages/InActiveJobs';
+import { CandidateAppliedJobs } from './pages/Hotelier/DashboardPages/CandidateAppliedJobs';
+import { InterestedCandidates } from './pages/Hotelier/DashboardPages/InterestedCandidates';
+import { CandidateSearch } from './pages/Hotelier/DashboardPages/CandidateSearch';
 
 setupIonicReact();
 
@@ -165,6 +170,11 @@ const App = () => {
     <Route  path="/privacy-policy" component={PrivacyAndPolicy}  />
     <Route  path="/profile-health" component={ProfileHealth}  />
     <Route  path="/post-job" component={HotelierPostJob}  />
+    <Route  path="/active-jobs" component={ActiveJobs}  />
+    <Route  path="/inactive-jobs" component={InActiveJobs}  /> 
+    <Route  path="/candidate-applied-jobs" component={CandidateAppliedJobs}  />
+    <Route  path="/interested-candidates" component={InterestedCandidates}  />
+    <Route  path="/candidate-search" component={CandidateSearch}  />
     
     
     <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>

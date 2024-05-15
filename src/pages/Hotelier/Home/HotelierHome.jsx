@@ -1,22 +1,42 @@
-import { IonCard, IonCardContent, IonContent, IonPage } from '@ionic/react'
+import { IonCard, IonCardContent, IonContent, IonPage, useIonRouter } from '@ionic/react'
 import React from 'react'
 import ban1 from "/assets/HAJ.png";
 import ban2 from "/assets/HAPJ.png";
 import ban3 from "/assets/HCAAPJ.png";
 import ban4 from "/assets/HIAJ.webp";
 import ban5 from "/assets/HIC.webp";
-
+import equalizer from "./equalizer.png";
+import profileImg from "./profileImg2.png"
 export const HotelierHome = () => {
+  const history = useIonRouter();
+
+  const handelCardClick = (route)=>{
+       history.push(route);
+  }
   return (
    <IonPage>
     <IonContent>
        <div style={{padding:"20px"}}>
             
-          <div>
-             <span>Hello, <strong>Aman</strong></span>
-          </div>
+       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+     <div style={{position:"relative"}} >
+           <div >
+              <img 
+              src={profileImg}
+              style={{width:"52px",height:"52px",border:"2px solid #F0F3FF",borderRadius:"40px"}}
+              />
+           </div>
+           <div style={{position:"absolute",bottom:-5,left:"50%", transform: "translateX(-50%)"}}>
+            <span style={{fontSize:"12px",color:"#fff",fontWeight:"bold",padding:"5px 10px",background:"#51B248",borderRadius:"17px"}}>Aman</span>
+           </div>
+     </div>
 
-          <div style={{marginTop:"30px"}}>
+     <div>
+          <img src={equalizer} />
+     </div>
+  </div>
+
+          <div onClick={()=>handelCardClick("/active-jobs")}   style={{marginTop:"30px"}}>
              
              <IonCard style={{
            padding: "10px",
@@ -52,7 +72,7 @@ export const HotelierHome = () => {
            </IonCard>
              </div>
 
-          <div style={{marginTop:"30px"}}>
+          <div onClick={()=>handelCardClick("/inactive-jobs")} style={{marginTop:"30px"}}>
              
           <IonCard style={{
         padding: "10px",
@@ -86,7 +106,7 @@ export const HotelierHome = () => {
         </IonCard>
           </div>
 
-          <div style={{marginTop:"20px"}}>
+          <div onClick={()=>handelCardClick("/candidate-applied-jobs")} style={{marginTop:"20px"}}>
              
           <IonCard style={{
         padding: "10px",
@@ -121,7 +141,7 @@ export const HotelierHome = () => {
           </div>
 
 
-          <div style={{marginTop:"20px"}}>
+          <div onClick={()=>handelCardClick("/interested-candidates")} style={{marginTop:"20px"}}>
              
           <IonCard style={{
         padding: "10px",
@@ -155,7 +175,7 @@ export const HotelierHome = () => {
         </IonCard>
           </div>
 
-          <div style={{marginTop:"20px"}}>
+          <div onClick={()=>handelCardClick("/candidate-search")} style={{marginTop:"20px"}}>
              
           <IonCard style={{
         padding: "10px",
