@@ -8,7 +8,7 @@ export const HotelierAppliedJobs = () => {
         <IonContent>
            <div style={{padding:"20px"}}> 
                <div>
-                <span style={{fontSize:"24px"}}>Candidates Applied</span>
+                <span style={{fontSize:"30px",fontWeight:"bold"}}>Candidates Applied</span>
                </div>
 
                <div style={{marginTop:"60px"}}>

@@ -159,28 +159,29 @@ const NavBar = () => {
            role === "Employers" && <IonTabBar slot="bottom" style={{border:"none",marginBottam:"20px",display: "flex"}}>
            <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
              <IonIcon icon={laptopOutline} />
-             
+             <span>Dashboard</span>
            </IonTabButton>
  
            
  
            <IonTabButton tab="addjob" href="/app/post-job" style={{backgroundColor:"#FFF",color:"grey"}}>
              <IonIcon icon={bagOutline} />
-            
+             <span>Post Job</span>
            </IonTabButton>
 
            <IonTabButton tab="addpost" href="/app/applied-jobs" style={{backgroundColor:"#FFF",color:"grey"}}>
              <IonIcon icon={documentTextOutline} />
-            
+            <span>Applied</span>
            </IonTabButton>
  
            <IonTabButton tab="activity" href="/app/chat" style={{backgroundColor:"#FFF",color:"grey"}}>
              <IonIcon icon={chatboxEllipsesOutline} />
-            
+            <span>Messages</span>
            </IonTabButton>
  
            <IonTabButton tab="user" href="/app/profile" style={{backgroundColor:"#FFF",color:"grey"}}>
              <IonIcon icon={personOutline} />
+             <span>Profile</span>
            </IonTabButton>
          </IonTabBar>
 

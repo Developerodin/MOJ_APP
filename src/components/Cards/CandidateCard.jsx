@@ -6,65 +6,77 @@ import book from "/assets/reward1.png";
 export const CandidateCard = () => {
   return (
     <div style={{width:"100%"}}>
-    <IonCard  style={{padding:"0px",border:"1px solid #E4E4E4",borderRadius:"15px",background:"#f2f4fe",margin:0}} >
-        <IonCardContent style={{padding:"10px"}}>
+    <IonCard  style={{padding:"0px",borderRadius:"10px",background:"#F3F5FE",margin:0,boxShadow:"rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"}} >
+        <IonCardContent style={{padding:"20px"}}>
           
           <div>
             
     
-            <div>
-              <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>Dayal Jat</span>
+            <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
+            <div >
+            <img src={book} style={{width:"50px",height:"50px",borderRadius:"100px",border:"1px solid grey"}} />
+            </div>
+            <div style={{marginLeft:"20px"}}>
+            <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>Dayal Jat</span><br/>
+            <span style={{color:"#395CFF"}}>3 days ago</span>
+            </div>
+             
             </div>
     
-            <div style={{marginTop:"20px"}}>
+            <div style={{marginTop:"10px"}}>
               <div>
-                <span style={{fontSize:"16px",color:"black"}}>Department</span>
+                <span style={{fontSize:"15px",color:"black",fontWeight:"bold"}}>Department</span>
               </div>
               <div style={{display:"flex",justifyContent:"left",alignItems:"center",flexWrap:"wrap",marginTop:"10px",marginBottom:"10px",gap:"10px"}}>
-                <div style={{padding:"5px",border:"1px solid blue",borderRadius:"10px"}}>
-                    <span style={{fontSize:"12px"}}>Front Office Executive</span>
+                <div style={{padding:"6px",border:"1px solid #395CFF",borderRadius:"18px"}}>
+                    <span style={{fontSize:"13px",color:"#395CFF"}}>Front Office Executive</span>
                 </div>
 
-                <div style={{padding:"5px",border:"1px solid blue",borderRadius:"10px"}}>
-                    <span style={{fontSize:"12px"}}>Receptionist</span>
+                <div style={{padding:"6px",border:"1px solid #395CFF",borderRadius:"18px"}}>
+                    <span style={{fontSize:"13px",color:"#395CFF"}}>Receptionist</span>
                 </div>
 
+               
 
-                <div style={{padding:"5px",border:"1px solid blue",borderRadius:"10px"}}>
-                    <span style={{fontSize:"12px"}}>Purchase Incharge</span>
+
+                <div style={{padding:"5px"}}>
+                    <span style={{fontSize:"13px",color:"#395CFF"}}>+4</span>
                 </div>
               </div>
              
             </div>
     
-            <div style={{marginTop:"20px"}}>
+            <div style={{marginTop:"12px"}}>
               <div>
-                <span style={{fontSize:"16px",color:"black"}}>City</span>
+                <span style={{fontSize:"15px",color:"black",fontWeight:"bold"}}>City</span>
               </div>
               <div style={{display:"flex",justifyContent:"left",alignItems:"center",flexWrap:"wrap",marginTop:"10px",marginBottom:"10px",gap:"10px"}}>
-                <div style={{padding:"5px",border:"1px solid blue",borderRadius:"10px"}}>
-                    <span style={{fontSize:"12px"}}>Rajkot</span>
+               
+
+                <div style={{padding:"6px",border:"1px solid #395CFF",borderRadius:"18px"}}>
+                    <span style={{fontSize:"13px",color:"#395CFF"}}>Rajkot</span>
                 </div>
 
-                <div style={{padding:"5px",border:"1px solid blue",borderRadius:"10px"}}>
-                    <span style={{fontSize:"12px"}}>Jaipur</span>
+                <div style={{padding:"6px",border:"1px solid #395CFF",borderRadius:"18px"}}>
+                    <span style={{fontSize:"13px",color:"#395CFF"}}>Jaipur</span>
                 </div>
 
-
-                <div style={{padding:"5px",border:"1px solid blue",borderRadius:"10px"}}>
-                    <span style={{fontSize:"12px"}}>Ajmer</span>
+                <div style={{padding:"6px",border:"1px solid #395CFF",borderRadius:"18px"}}>
+                    <span style={{fontSize:"13px",color:"#395CFF"}}>Ajmer</span>
                 </div>
+
               </div>
              
             </div>
 
-            <div style={{marginTop:"20px"}}>
+            <div style={{marginTop:"12px"}}>
               <div>
-                <span style={{fontSize:"16px",color:"black"}}>Experience</span>
+                <span style={{fontSize:"15px",color:"black",fontWeight:"bold"}}>Experience</span>
               </div>
               <div style={{display:"flex",justifyContent:"left",alignItems:"center",flexWrap:"wrap",marginTop:"10px",marginBottom:"10px",gap:"10px"}}>
-                <div style={{padding:"5px",border:"1px solid blue",borderRadius:"10px"}}>
-                    <span style={{fontSize:"12px"}}>experienced</span>
+              
+                <div style={{padding:"6px",border:"1px solid #395CFF",borderRadius:"18px"}}>
+                    <span style={{fontSize:"13px",color:"#395CFF"}}>Experienced</span>
                 </div>
 
                 
@@ -73,9 +85,7 @@ export const CandidateCard = () => {
             </div>
           </div>
             
-            <div style={{position:"absolute",top:20,right:20}}>
-            <img src={book} style={{width:"50px",height:"50px",borderRadius:"100px",border:"1px solid grey"}} />
-            </div>
+            
     
     
          

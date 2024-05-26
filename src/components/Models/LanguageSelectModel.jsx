@@ -7,16 +7,18 @@ export const LanguageSelectModel = ({showModal, setShowModal}) => {
     const [selectedLanguage, setSelectedLanguage] = useState(null);
   const { showToast ,languageUpdate,setLanguageUpdate} = useContext(AppContext);
   const handleBtnClick = (language) => {
+    console.log(language)
     setSelectedLanguage(language);
+    if(language){
+      localStorage.setItem("selectedLanguage", language)
+    }
+    setLanguageUpdate((prev)=>prev+1);
+    setShowModal(false);
   };
 
-  const handelSave=()=>{
-      if(selectedLanguage){
-        localStorage.setItem("selectedLanguage", selectedLanguage)
-      }
-      setLanguageUpdate((prev)=>prev+1);
-      setShowModal(false);
-  }
+  // const handelSave=()=>{
+     
+  // }
   return (
     <IonModal
     initialBreakpoint={0.85} breakpoints={[0, 0.45]}
@@ -52,13 +54,13 @@ export const LanguageSelectModel = ({showModal, setShowModal}) => {
                   height: "100%",
                   color: selectedLanguage === "English" ? "#395cff" : "#ffffff",
                   fontSize: "17px",
-                  marginTop: "15px",
+                  marginTop: "35px",
                   border: "1px solid #ffffff",
                 }}
               >
                 English
               </button>
-              <button
+              {/* <button
                 onClick={() => handleBtnClick("Gujarati")}
                 style={{
                   backgroundColor: selectedLanguage === "Gujarati" ? "#fff" : "#395cff",
@@ -72,9 +74,9 @@ export const LanguageSelectModel = ({showModal, setShowModal}) => {
                 }}
               >
                 Gujarati
-              </button>
+              </button> */}
 
-              <button
+              {/* <button
                 onClick={() => handleBtnClick("Nepali")}
                 style={{
                   backgroundColor: selectedLanguage === "Nepali" ? "#fff" : "#395cff",
@@ -88,9 +90,9 @@ export const LanguageSelectModel = ({showModal, setShowModal}) => {
                 }}
               >
                 Nepali
-              </button>
+              </button> */}
 
-              <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"30px"}}>
+              {/* <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"30px"}}>
           <div onClick={handelSave} 
       style={{
         background:"#fff",
@@ -101,13 +103,13 @@ export const LanguageSelectModel = ({showModal, setShowModal}) => {
         justifyContent: "center",
         alignItems: "center",
         borderRadius: "30px",
-        cursor: "pointer", // Change cursor to pointer when hovered
-        transition: "background-color 0.3s, box-shadow 0.3s" // Add transition effect
+        cursor: "pointer",
+        transition: "background-color 0.3s, box-shadow 0.3s"
       }}
       >
     <span style={{fontWeight:"bold"}}>Save</span>
  </div>
-</div>
+</div> */}
             </div>
 
 

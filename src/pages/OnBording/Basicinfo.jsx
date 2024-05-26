@@ -32,6 +32,7 @@ const Basicinfo = ({ handelContinue }) => {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [pincode,setPincode] = useState("")
+  const [pincode2,setPincode2] = useState("")
   const [isStateModelOpen,setIsStateModelOpen] = useState(false);
   const [isCityModelOpen,setIsCityModelOpen] = useState(false);
   const [AddressData,setAddressData] = useState([]);
@@ -48,9 +49,29 @@ const Basicinfo = ({ handelContinue }) => {
     address:"",
     dob:""
   });
+  const [formData2, setFormData2] = useState({
+    hotelName: "",
+    location: "",
+    email: "",
+    address: "",
+    pincode: "",
+    state: "",
+    city:"",
+    gstin:"",
+    gstemail:"",
+    gstHotelName:"",
+    gstAddress:""
+  });
   const [formValid, setFormValid] = useState(false);
  const [loading,setLoading] = useState(false);
   
+ const handleInputChange2 = (e) => {
+  const { name, value } = e.target;
+  setFormData2({
+    ...formData,
+    [name]: value,
+  });
+};
  
  const handelStateModelOpen =() =>{
   setIsStateModelOpen(true);
@@ -73,6 +94,24 @@ const Basicinfo = ({ handelContinue }) => {
     setSelectedState(pinData.state_name);
   } else {
     setSelectedCity('');
+    setSelectedState('');
+  }
+};
+
+
+const handlePincodeChange2 = (e) => {
+  const newPincode = e.target.value;
+  setPincode(newPincode);
+  console.log("Enter Pin code ==>",newPincode)
+  // Search for the pincode in the data array
+  const pinData = AddressData.find(item => item.pincode === newPincode);
+
+  console.log("Pincode Data",pinData);
+  if (pinData) {
+    setSelectedCity2(pinData.city_name);
+    setSelectedState2(pinData.state_name);
+  } else {
+    setSelectedCity2('');
     setSelectedState('');
   }
 };
@@ -211,6 +250,57 @@ const Basicinfo = ({ handelContinue }) => {
   const handelEmployersBtnClick = ()=>{
     history.push("/app", 'root','replace')
   }
+
+  const RegisterHotelier = async () => {
+    try {
+      setLoading(true)
+      const url = `${Base_url}auth/register`;
+      const formData1 = new FormData();
+      formData1.append('role', Role);
+      formData1.append('mobile_number', details.phoneNumber);
+      formData1.append('name', formData.firstName );
+      formData1.append('last_name', formData.lastName || "");
+      formData1.append('gender', formData.gender || "");
+      formData1.append('email', formData.email || "");
+      formData1.append('state', selectedState || "");
+      formData1.append('city', selectedCity || "");
+      formData1.append('address', formData.address || "");
+      formData1.append('dob', formData.dob || "");
+      formData1.append('pin_code', pincode || "");
+      formData1.append('country', "India");
+
+      const response = await axios.post(url, formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          console.log("Response check mobile",data,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data.status === "success"){
+            setLoading(false);
+               localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+               handelContinue("ProfilePic")
+              return
+          }
+          // showToast("error", "Try After Some Time", "");
+          setLoading(false);
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      showToast("error", "Try After Some Time", "");
+      setLoading(false);
+    }
+  };
  
   useEffect(() => {
     const isValid =
@@ -529,9 +619,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
     <input
     className="round-input"
       type="text"
-      // name="firstName"
-      // value={formData.firstName}
-      // onChange={handleInputChange}
+      name="hotelName"
+      value={formData2.hotelName}
+      onChange={handleInputChange2}
      
     />
   </div>
@@ -552,9 +642,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
     <input
     className="round-input"
       type="text"
-      // name="lastName"
-      // value={formData.lastName}
-      // onChange={handleInputChange}
+      name="location"
+      value={formData2.location}
+      onChange={handleInputChange2}
    
     />
   </div>
@@ -576,9 +666,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
     <input
     className="round-input"
       type="text"
-      // name="email"
-      // value={formData.email}
-      // onChange={handleInputChange}
+      name="email"
+      value={formData2.email}
+      onChange={handleInputChange2}
      
     />
   </div>
@@ -600,8 +690,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
     className="round-input"
       type="text"
       name="address"
-      value={formData.address}
-      onChange={handleInputChange}
+      value={formData2.address}
+      onChange={handleInputChange2}
      
     />
   </div>
@@ -623,7 +713,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
     className="round-input"
       type="text"
       name="pincode"
-      value={pincode} onChange={handlePincodeChange}
+      value={pincode2} 
+      onChange={handlePincodeChange2}
      
     />
   </div>

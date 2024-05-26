@@ -86,7 +86,7 @@ const SelectLang = () => {
               >
                 English
               </button>
-              <button
+              {/* <button
                 onClick={() => handleBtnClick("Gujarati")}
                 style={{
                   backgroundColor: selectedLanguage === "Gujarati" ? "#fff" : "#395cff",
@@ -100,9 +100,9 @@ const SelectLang = () => {
                 }}
               >
                 Gujarati
-              </button>
+              </button> */}
 
-              <button
+              {/* <button
                 onClick={() => handleBtnClick("Nepali")}
                 style={{
                   backgroundColor: selectedLanguage === "Nepali" ? "#fff" : "#395cff",
@@ -116,7 +116,7 @@ const SelectLang = () => {
                 }}
               >
                 Nepali
-              </button>
+              </button> */}
             </div>
           </div>
           <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>

@@ -22,7 +22,8 @@ const Continue = () => {
   }, [languageUpdate]);
 
   const handelBtnClick= (value)=>{
-    if(value === "Job Seeker" || value === "Employers" ){
+    // || value === "Employers"
+    if(value === "Job Seeker"  ){
       localStorage.setItem("role",value)
       history.push("/phone");
       return
