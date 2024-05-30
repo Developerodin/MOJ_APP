@@ -248,8 +248,58 @@ const handlePincodeChange2 = (e) => {
   };
 
 
-  const handelEmployersBtnClick = ()=>{
-    history.push("/app", 'root','replace')
+  const handelEmployersBtnClick = async()=>{
+    try {
+      setLoading(true)
+      const url = `${Base_url}auth/register`;
+      const formData1 = new FormData();
+      formData1.append('role', Role);
+      formData1.append('mobile_number', details.phoneNumber);
+      formData1.append('name', formData2.hotelName );
+      formData1.append('location', formData2.location || "");
+      formData1.append('email', formData2.email || "");
+      formData1.append('gst_number', formData2.gstin || "");
+      formData1.append('reg_email', formData2.gstemail || "");
+      formData1.append('gst_name', formData2.gstHotelName || "");
+      formData1.append('reg_hadd', formData2.gstAddress || "");
+      formData1.append('state', selectedState || "");
+      formData1.append('city', selectedCity || "");
+      formData1.append('address', formData2.address || "");
+      formData1.append('pin_code', pincode || "");
+      formData1.append('country', "India");
+
+      const response = await axios.post(url, formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          console.log("Response check mobile",data,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data.status === "success"){
+            setLoading(false);
+               localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+               history.push("/app", 'root','replace')
+              return
+          }
+          // showToast("error", "Try After Some Time", "");
+          setLoading(false);
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      showToast("error", "Try After Some Time", "");
+      setLoading(false);
+    }
+   
   }
 
   const RegisterHotelier = async () => {
@@ -714,7 +764,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
     className="round-input"
       type="text"
       name="pincode"
-      value={pincode2} 
+      value={pincode} 
       onChange={handlePincodeChange2}
      
     />
@@ -762,7 +812,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
 height:"48px",
 width:"100%",
 borderRadius:"50px",
-border:"1px solid #E2E8F0 ",
+border:"1px solid #31363F ",
 display:"flex",justifyContent:"left",alignItems:"center"
 }}>
             <span>{selectedState && selectedState}</span>
@@ -791,7 +841,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
 height:"48px",
 width:"100%",
 borderRadius:"50px",
-border:"1px solid #E2E8F0 ",
+border:"1px solid #31363F ",
 display:"flex",justifyContent:"left",alignItems:"center"
 }}>
           <span>{selectedCity && selectedCity}</span>
@@ -823,9 +873,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
     <input
     className="round-input"
       type="text"
-      // name="lastName"
-      // value={formData.lastName}
-      // onChange={handleInputChange}
+      name="gstin"
+      value={formData2.gstin}
+      onChange={handleInputChange2}
    
     />
   </div>
@@ -846,9 +896,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
     <input
     className="round-input"
       type="text"
-      // name="lastName"
-      // value={formData.lastName}
-      // onChange={handleInputChange}
+      name="gstemail"
+      value={formData2.gstemail}
+      onChange={handleInputChange2}
    
     />
   </div>
@@ -869,9 +919,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
     <input
     className="round-input"
       type="text"
-      // name="lastName"
-      // value={formData.lastName}
-      // onChange={handleInputChange}
+      name="gstHotelName"
+      value={formData2.gstHotelName}
+      onChange={handleInputChange2}
    
     />
   </div>
@@ -892,9 +942,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
     <input
     className="round-input"
       type="text"
-      // name="lastName"
-      // value={formData.lastName}
-      // onChange={handleInputChange}
+      name="gstAddress"
+      value={formData2.gstAddress}
+      onChange={handleInputChange2}
    
     />
   </div>
