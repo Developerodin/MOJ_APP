@@ -21,6 +21,7 @@ import { Base_url } from "../../Config/BaseUrl";
 import axios from "axios";
 import SelectStateModel from "../../components/Models/SelectStateModel";
 import SelectCityModel from "../../components/Models/SelectCityModel";
+import { isMobile } from "../../IsMobile/IsMobile";
 
 const Basicinfo = ({ handelContinue }) => {
   const history = useIonRouter();
@@ -322,7 +323,7 @@ const handlePincodeChange2 = (e) => {
 
   // },[formData.state])
   return (
-    <div>
+    <div  className={isMobile ? "" : 'sw'}  style={{display:`${isMobile ? "block" : "flex"}`,justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
       {/* <div>
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
            </div> */}
@@ -423,7 +424,7 @@ const handlePincodeChange2 = (e) => {
     </label>
     <div
       style={{
-        border: "1px solid #E2E8F0",
+        border: "1px solid #31363F",
         borderRadius: "50px",
         paddingLeft: "10px",
       }}
@@ -554,7 +555,7 @@ const handlePincodeChange2 = (e) => {
 height:"48px",
 width:"100%",
 borderRadius:"50px",
-border:"1px solid #E2E8F0 ",
+border:"1px solid #31363F ",
 display:"flex",justifyContent:"left",alignItems:"center"
 }}>
             <span>{selectedState && selectedState}</span>

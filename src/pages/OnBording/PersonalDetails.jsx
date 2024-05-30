@@ -9,7 +9,7 @@ import logo from "/assets/moj.png";
 export const PersonalDetails = () => {
     const history = useHistory()
          
-      const [activeTab,setActiveTab] = useState("PersonalDetails")
+      const [activeTab,setActiveTab] = useState("ProfilePic")
 
     const handelBtnClick= ()=>{
       history.push("/info")

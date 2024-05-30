@@ -15,6 +15,7 @@ import { AppContext } from "../../Context/AppContext";
 import { Base_url } from "../../Config/BaseUrl";
 import axios from "axios";
 import logo from "/assets/moj.png";
+import { isMobile } from "../../IsMobile/IsMobile";
 const VerifyPhoneTwo = () => {
   const history = useIonRouter();
   const { showToast } = useContext(AppContext);
@@ -101,7 +102,10 @@ const VerifyPhoneTwo = () => {
 
             <img src={logo} style={{height:"68px",width:"92px"}}/>
            </div>
-          <h1
+
+           <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+            <div>
+            <h1
             style={{
               color: "#232323",
               fontSize: "30px",
@@ -121,6 +125,8 @@ const VerifyPhoneTwo = () => {
           >
             Enter the security code we sent to <br /> +91 {formData && formData.phoneNumber}
           </p>
+            </div>
+          
 
           {/* <IonItem> */}
           <div style={{display:"flex",justifyContent:"center", alignItems:"center"}}>
@@ -162,12 +168,26 @@ const VerifyPhoneTwo = () => {
               Resend it
             </span>
           </div>
+
+{
+  !isMobile &&    <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"50px"}}>
+
+  <CustomBtn1 fun={handelBtnClick} title={"Submit"} loading={loading}/>
+  </div>
+}
+       
+
+           </div>
+        
         </div>
-           
+
+        {
+  isMobile && 
         <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
 <CustomBtn1 fun={handelBtnClick} title={"Submit"} loading={loading}/>
 </div>
+}
 
         
       </IonContent>

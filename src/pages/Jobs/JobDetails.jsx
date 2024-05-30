@@ -4,6 +4,7 @@ import React from 'react'
 import book from "/assets/book.png";
 import { CustomBtn1 } from '../../components/Buttons/CustomBtn1';
 import { useHistory } from 'react-router';
+import { isMobile } from '../../IsMobile/IsMobile';
 export const JobDetails = () => {
   const history = useHistory()
     const handelApplyClick =()=>{
@@ -16,7 +17,7 @@ export const JobDetails = () => {
   return (
     <IonPage>
         <IonContent>
-            <div style={{padding:"20px"}}>
+            <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
            <div>
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
            </div>

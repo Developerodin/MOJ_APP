@@ -6,11 +6,12 @@ import { chevronDownOutline, documentTextOutline, eyeOutline } from 'ionicons/ic
 import { AppliedJobCard } from '../../components/Cards/JobCard/AppliedJobCard'
 import { ProfileHeaders } from '../../components/Headers/ProfileHeaders'
 import NoAppliedJobs from "/assets/appliedJobs.png";
+import { isMobile } from '../../IsMobile/IsMobile'
 export const ViewedJobs = () => {
   return (
 <IonPage>
     <IonContent>
-          <div style={{padding:"20px"}}>
+          <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
         
           <ProfileHeaders icon={<IonIcon icon={eyeOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Viewed jobs"}  />
 

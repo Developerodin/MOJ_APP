@@ -7,13 +7,14 @@ import { AppliedJobCard } from '../../components/Cards/JobCard/AppliedJobCard'
 import { useHistory } from 'react-router'
 import { ProfileHeaders } from '../../components/Headers/ProfileHeaders'
 import NoAppliedJobs from "/assets/appliedJobs.png";
+import { isMobile } from '../../IsMobile/IsMobile'
 export const SavedJobs = () => {
   const history = useHistory()
  
   return (
 <IonPage>
     <IonContent>
-          <div style={{padding:"20px"}}>
+          <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
           
           <ProfileHeaders icon={<IonIcon icon={bookmark} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Saved jobs"}  />
 

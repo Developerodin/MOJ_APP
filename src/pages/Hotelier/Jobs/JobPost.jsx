@@ -2,6 +2,7 @@ import { IonButton, IonContent, IonPage, useIonRouter } from '@ionic/react'
 import React from 'react'
 import { JobCard } from '../../../components/Cards/JobCard/JobCard'
 import { PostJobCard } from '../../../components/Cards/JobCard/PostJobCard';
+import { isMobile } from '../../../IsMobile/IsMobile';
 
 export const HotelierJobPost = () => {
   const history = useIonRouter();
@@ -12,7 +13,7 @@ export const HotelierJobPost = () => {
      <IonPage>
         <IonContent>
            
-            <div style={{padding:"20px"}}>
+            <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                 <span style={{fontSize:"24px",fontWeight:"bold"}}>Jobs posted by you</span>
 

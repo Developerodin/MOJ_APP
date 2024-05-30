@@ -25,6 +25,7 @@ import { State, City } from "country-state-city";
 import SelectStateModel from "../../../components/Models/SelectStateModel";
 import SelectMulipalCityModel from "../../../components/Models/SelectMulipalCityModel";
 import { Base_url } from "../../../Config/BaseUrl";
+import { isMobile } from "../../../IsMobile/IsMobile";
 export const ProfileJobPreference = () => {
   const history = useIonRouter();
 
@@ -212,7 +213,7 @@ export const ProfileJobPreference = () => {
   return (
     <IonPage>
       <IonContent>
-        <div style={{ padding: "20px" }}>
+        <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
           
 
         <ProfileHeaders icon={<IonIcon icon={filterOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Job preference"}  />

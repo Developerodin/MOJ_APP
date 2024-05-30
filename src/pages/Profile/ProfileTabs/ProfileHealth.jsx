@@ -5,6 +5,7 @@ import { bagHandleOutline, checkmarkCircleOutline, closeCircleOutline, medkitOut
 import { Base_url } from '../../../Config/BaseUrl'
 import axios from 'axios'
 import { AppContext } from '../../../Context/AppContext'
+import { isMobile } from '../../../IsMobile/IsMobile'
 
 export const ProfileHealth = () => {
        const history = useIonRouter();
@@ -102,7 +103,7 @@ export const ProfileHealth = () => {
   return (
    <IonPage>
     <IonContent>
-        <div style={{padding:"20px"}}>
+        <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
         <ProfileHeaders icon={<IonIcon icon={medkitOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Profile Health"} />
          
 

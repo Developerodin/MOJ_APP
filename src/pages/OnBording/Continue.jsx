@@ -23,11 +23,12 @@ const Continue = () => {
 
   const handelBtnClick= (value)=>{
     // || value === "Employers"
-    if(value === "Job Seeker"  ){
+    if(value === "Job Seeker" || value === "Employers" ){
       localStorage.setItem("role",value)
       history.push("/phone");
       return
     }
+   
     console.log("Tost ")
     showToast("success", "Comming Soon ", "");
   }

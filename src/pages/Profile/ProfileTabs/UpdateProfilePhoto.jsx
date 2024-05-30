@@ -8,6 +8,7 @@ import { Camera, CameraResultType,CameraSource } from "@capacitor/camera";
 import axios from 'axios'
 import { AppContext } from '../../../Context/AppContext'
 import { Base_url } from '../../../Config/BaseUrl'
+import { isMobile } from '../../../IsMobile/IsMobile'
 export const UpdateProfilePhoto = () => {
   const { showToast ,setEditUpdate,setProfileHealthUpdate} = useContext(AppContext);
   const [picture, setPicture] = useState();
@@ -313,7 +314,7 @@ export const UpdateProfilePhoto = () => {
   return (
           <IonPage>
             <IonContent>
-                <div style={{padding:"20px"}}>
+                <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
                 <div>
             <IonIcon onClick={handelBackClick}  icon={chevronBackOutline} style={{fontSize:"24px"}} />
            </div>

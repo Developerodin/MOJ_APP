@@ -9,6 +9,7 @@ import { Camera, CameraResultType,CameraSource } from "@capacitor/camera";
 import { AppContext } from '../../Context/AppContext'
 import { Base_url } from '../../Config/BaseUrl'
 import axios from 'axios'
+import { isMobile } from '../../IsMobile/IsMobile'
 export const UplodeProfilePhoto = ({handelContinue}) => {
   const { showToast ,setEditUpdate} = useContext(AppContext);
   const [picture, setPicture] = useState();
@@ -213,7 +214,7 @@ export const UplodeProfilePhoto = ({handelContinue}) => {
         
     <div>
     <div>
-        <div >
+        <div style={{display:`${isMobile ? "block" : "flex"}`,justifyContent:"center",alignItems:"center",flexDirection:"column"}} >
      
 
    <div style={{marginTop:"20px"}}>

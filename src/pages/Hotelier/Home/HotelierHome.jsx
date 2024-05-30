@@ -7,6 +7,7 @@ import ban4 from "/assets/HIAJ.webp";
 import ban5 from "/assets/HIC.webp";
 import equalizer from "./equalizer.png";
 import profileImg from "./profileImg2.png"
+import { isMobile } from '../../../IsMobile/IsMobile';
 export const HotelierHome = () => {
   const history = useIonRouter();
 
@@ -16,7 +17,7 @@ export const HotelierHome = () => {
   return (
    <IonPage>
     <IonContent>
-       <div style={{padding:"20px"}}>
+       <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
             
        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
      <div style={{position:"relative"}} >

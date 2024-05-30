@@ -9,6 +9,7 @@ import { Base_url } from '../../../Config/BaseUrl';
 import { AppContext } from '../../../Context/AppContext';
 import profileImg from "./profileImg2.png"
 import { ContactUsModel } from '../../../components/Models/ContactUsModel';
+import { isMobile } from '../../../IsMobile/IsMobile';
 
 
 async function shareApp() {
@@ -237,7 +238,7 @@ useEffect(() => {
   return (
    <IonPage>
     <IonContent>
-        <div style={{padding:"23px"}}>
+        <div className={isMobile ? "" : 'sw'} style={{padding:"23px"}}>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <IonIcon icon={star} style={{fontSize:"22px",color:"#ffdc64"}} />

@@ -13,6 +13,7 @@ import icon from "/assets/left.png";
 import { useHistory } from "react-router";
 import { ProfileHeaders } from "../../../components/Headers/ProfileHeaders";
 import { CustomBtn1 } from "../../../components/Buttons/CustomBtn1";
+import { isMobile } from "../../../IsMobile/IsMobile";
 
 export const HelpAndSupport = () => {
     const history = useHistory()
@@ -27,7 +28,7 @@ export const HelpAndSupport = () => {
       <IonPage>
         <IonContent>
 
-          <div style={{ padding: "20px" }}>
+          <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
 
                <ProfileHeaders icon={<IonIcon icon={clipboardOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Help & support"}  />
 

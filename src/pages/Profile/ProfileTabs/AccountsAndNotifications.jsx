@@ -6,6 +6,7 @@ import { CustomBtn1 } from '../../../components/Buttons/CustomBtn1'
 import { useIonActionSheet } from '@ionic/react';
 import { Base_url } from '../../../Config/BaseUrl'
 import axios from 'axios'
+import { isMobile } from '../../../IsMobile/IsMobile'
 export const AccountsAndNotifications = () => {
   const history =  useIonRouter()
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -51,7 +52,7 @@ export const AccountsAndNotifications = () => {
   return (
     <IonPage>
         <IonContent>
-        <div style={{padding:"20px"}}>
+        <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
           <ProfileHeaders icon={<IonIcon icon={bagHandleOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Accounts And Notifications"} />
           
            <div style={{marginTop:"50px"}}>

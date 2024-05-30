@@ -20,6 +20,7 @@ import { WorkExperienceCard } from "../../../components/Cards/WorkExperienceCard
 import { Base_url } from "../../../Config/BaseUrl";
 import { AppContext } from "../../../Context/AppContext";
 import axios from "axios";
+import { isMobile } from "../../../IsMobile/IsMobile";
 
 export const ProfileWorkExperience = () => {
     const history = useIonRouter()
@@ -195,7 +196,7 @@ export const ProfileWorkExperience = () => {
       <IonPage>
         <IonContent>
         {/* <IonButton onClick={handleOpenModal}>Open Form Modal</IonButton> */}
-          <div style={{ padding: "20px" }}>
+          <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
 
                <ProfileHeaders icon={<IonIcon icon={bagHandleOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Work experience"} />
                     

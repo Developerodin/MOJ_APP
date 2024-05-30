@@ -13,6 +13,10 @@ import {
   IonInput,
   IonLabel,
   useIonRouter,
+  IonGrid,
+  IonRadio,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
 import { arrowBack, bookOutline, bookSharp } from "ionicons/icons";
 import icon from "/assets/left.png";
@@ -26,6 +30,7 @@ import axios from "axios";
 import { AppContext } from "../../../Context/AppContext";
 import SelectStateModel from "../../../components/Models/SelectStateModel";
 import SelectCityModel from "../../../components/Models/SelectCityModel";
+import { isMobile } from "../../../IsMobile/IsMobile";
 export const ProfilePersonalDetails = () => {
   const history = useIonRouter();
   const Role = localStorage.getItem("role") || "";
@@ -256,13 +261,17 @@ export const ProfilePersonalDetails = () => {
       <IonPage>
         <IonContent>
 
-          <div style={{ padding: "20px" }}>
+          <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
 
                <ProfileHeaders icon={<IonIcon icon={bookSharp} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Personal Details"}  />
 
           
                <div style={{ marginTop: "30px" }}>
-        <div>
+
+                <IonGrid>
+                  <IonRow>
+                    <IonCol size="12" size-md="6">
+                    <div>
           <label
             style={{
               color: "#575757",
@@ -284,8 +293,10 @@ export const ProfilePersonalDetails = () => {
            
           />
         </div>
+                    </IonCol>
 
-        <div style={{ marginTop: "20px" }}>
+                    <IonCol size="12" size-md="6">
+                    <div >
           <label
             style={{
               color: "#575757",
@@ -302,13 +313,16 @@ export const ProfilePersonalDetails = () => {
           className="round-input"
             type="text"
             name="lastName"
+
             value={formData.lastName}
             onChange={handleInputChange}
          
           />
         </div>
+                    </IonCol>
 
-        <div style={{ marginTop: "20px" }}>
+                    <IonCol size="12" size-md="6">
+                    <div >
           <label
             style={{
               color: "#575757",
@@ -330,8 +344,10 @@ export const ProfilePersonalDetails = () => {
          
           />
         </div>
+                    </IonCol>
 
-        <div style={{ marginTop: "20px" }}>
+                    <IonCol size="12" size-md="6">
+                    <div >
           <label
             style={{
               color: "#575757",
@@ -345,7 +361,7 @@ export const ProfilePersonalDetails = () => {
           </label>
           <div
             style={{
-              border: "1px solid #E2E8F0",
+              border: "1px solid #31363F",
               borderRadius: "50px",
               paddingLeft: "10px",
             }}
@@ -366,7 +382,10 @@ export const ProfilePersonalDetails = () => {
             </IonSelect>
           </div>
         </div>
-        <div style={{ marginTop: "20px" }}>
+                    </IonCol>
+
+                    <IonCol size="12" size-md="6">
+                    <div >
           <label
             style={{
               color: "#575757",
@@ -388,8 +407,10 @@ export const ProfilePersonalDetails = () => {
            
           />
         </div>
+                    </IonCol>
 
-        <div style={{ marginTop: "20px" }}>
+                    <IonCol size="12" size-md="6">
+                    <div >
           <label
             style={{
               color: "#575757",
@@ -411,8 +432,10 @@ export const ProfilePersonalDetails = () => {
            
           />
         </div>
+                    </IonCol>
 
-        <div style={{ marginTop: "20px" }}>
+                    <IonCol size="12" size-md="6">
+                    <div >
           <label
             style={{
               color: "#575757",
@@ -433,9 +456,10 @@ export const ProfilePersonalDetails = () => {
            
           />
         </div>
-       
+                    </IonCol>
 
-        <div style={{ marginTop: "20px" }}>
+                    <IonCol size="12" size-md="6">
+                    <div >
           <label
             style={{
               color: "#575757",
@@ -476,7 +500,7 @@ export const ProfilePersonalDetails = () => {
     height:"48px",
     width:"100%",
     borderRadius:"50px",
-    border:"1px solid #E2E8F0 ",
+    border:"1px solid #31363F",
     display:"flex",justifyContent:"left",alignItems:"center"
   }}>
                   <span>{selectedState && selectedState}</span>
@@ -484,9 +508,11 @@ export const ProfilePersonalDetails = () => {
              </div>
           </div>
         </div>
+                    </IonCol>
 
-       {
-        selectedState !== "" &&  <div style={{ marginTop: "20px" }}>
+                    <IonCol size="12" size-md="6">
+                    {
+        selectedState !== "" &&  <div>
         <label
           style={{
             color: "#575757",
@@ -505,7 +531,7 @@ export const ProfilePersonalDetails = () => {
   height:"48px",
   width:"100%",
   borderRadius:"50px",
-  border:"1px solid #E2E8F0 ",
+  border:"1px solid #31363F",
   display:"flex",justifyContent:"left",alignItems:"center"
 }}>
                 <span>{selectedCity && selectedCity}</span>
@@ -515,6 +541,26 @@ export const ProfilePersonalDetails = () => {
   
       </div>
        }
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+       
+
+     
+
+      
+
+       
+        
+
+       
+
+        
+       
+
+      
+
+    
 
        
 

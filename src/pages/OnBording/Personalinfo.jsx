@@ -16,6 +16,7 @@ import { CustomBtn1 } from "../../components/Buttons/CustomBtn1";
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import { ResumeModel } from "../../components/Models/ResumeModel";
+import { isMobile } from "../../IsMobile/IsMobile";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.js',
@@ -75,7 +76,7 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
   return (
    
         <div>
-        <div >
+        <div style={{display:`${isMobile ? "block" : "flex"}`,justifyContent:"center",alignItems:"center",flexDirection:"column"}} >
        
           <h1
             style={{

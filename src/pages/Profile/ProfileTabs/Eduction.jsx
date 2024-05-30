@@ -23,6 +23,7 @@ import { EducationCard } from "../../../components/Cards/EducationCard/Education
 import { AppContext } from "../../../Context/AppContext";
 import axios from "axios";
 import { Base_url } from "../../../Config/BaseUrl";
+import { isMobile } from "../../../IsMobile/IsMobile";
 
 
 
@@ -377,7 +378,7 @@ export const ProfileEduction = () => {
       <IonPage>
         <IonContent>
  
-           <div style={{padding:"20px"}}>
+           <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
            <ProfileHeaders icon={<IonIcon icon={bookOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Education"}  />
            <div style={{marginTop:"10px"}}>
             <span>Please fill in your highest educaion details</span>

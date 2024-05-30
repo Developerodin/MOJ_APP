@@ -43,6 +43,7 @@ import { InActiveJobs } from '../Hotelier/DashboardPages/InActiveJobs';
 import { CandidateAppliedJobs } from '../Hotelier/DashboardPages/CandidateAppliedJobs';
 import { InterestedCandidates } from '../Hotelier/DashboardPages/InterestedCandidates';
 import { CandidateSearch } from '../Hotelier/DashboardPages/CandidateSearch';
+import { isMobile } from '../../IsMobile/IsMobile';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -62,6 +63,7 @@ const NavBar = () => {
    
        
       <IonTabs>
+        
         {
            role === "Job Seeker" && <IonRouterOutlet>
           
@@ -100,31 +102,50 @@ const NavBar = () => {
 
         }
         
+     
         {
-           role === "Job Seeker" && <IonTabBar slot="bottom" style={{border:"none",marginBottam:"20px",display: "flex"}}>
-           <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
-             <IonIcon icon={homeOutline} />
+           role === "Job Seeker" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",marginBottam:"20px",display:"flex"}}>
+           
+           {/* <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
              
+             {
+              isMobile ? <IonIcon icon={homeOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Home</span>
+             }
+           </IonTabButton> */}
+           <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
+             
+             {
+              isMobile ? <IonIcon icon={homeOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Home</span>
+             }
            </IonTabButton>
  
            
  
            <IonTabButton tab="addpost" href="/app/applied-jobs" style={{backgroundColor:"#FFF",color:"grey"}}>
-             <IonIcon icon={documentTextOutline} />
-            
+             
+             {
+              isMobile ? <IonIcon icon={documentTextOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Applied Jobs</span>
+             }
            </IonTabButton>
  
            <IonTabButton tab="activity" href="/app/chat" style={{backgroundColor:"#FFF",color:"grey"}}>
-             <IonIcon icon={chatboxEllipsesOutline} />
-            
+             
+             {
+              isMobile ? <IonIcon icon={chatboxEllipsesOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Messages</span>
+             }
            </IonTabButton>
  
            <IonTabButton tab="user" href="/app/profile" style={{backgroundColor:"#FFF",color:"grey"}}>
-             <IonIcon icon={personOutline} />
+            
+             {
+              isMobile ?  <IonIcon icon={personOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Profile</span>
+             }
            </IonTabButton>
          </IonTabBar>
 
         }
+      
+       
 
         
 

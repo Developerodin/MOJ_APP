@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonSearchbar, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonRouter, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
+import { IonButton, IonCol, IonContent, IonGrid, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRow, IonSearchbar, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonRouter, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
 import React, { useContext, useEffect, useState } from 'react'
 import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline} from 'ionicons/icons';
 import './Home.css';
@@ -15,6 +15,7 @@ import profileImg from "./profileImg2.png"
 import { Base_url } from '../../Config/BaseUrl';
 import axios from 'axios';
 import { AppContext } from '../../Context/AppContext';
+import { isMobile } from '../../IsMobile/IsMobile';
 // import { StatusBar } from '@capacitor/status-bar';
 export const Home = () => {
   const history = useIonRouter();
@@ -109,10 +110,10 @@ export const Home = () => {
   //   StatusBar.setStyle({ style: 'dark' });
   // },[])
   return (
-    <IonPage>
+    <IonPage >
         <IonContent >
 
-<div style={{padding:"20px"}}>
+<div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
 {/* <IonButton onClick={outerRout}  expand='full'>
   Go job details
 </IonButton> */}
@@ -151,11 +152,14 @@ export const Home = () => {
 
   </div>
         <div  style={{marginTop:"20px"}}>
-          <div>
+          <div >
           <span style={{fontSize:"26px",fontWeight:"bold"}}>Offers</span> 
-
-          <div style={{position:"relative"}}>
-          <div style={{textAlign:"center",marginTop:"20px"}}>
+             
+             <IonGrid>
+              <IonRow>
+                <IonCol size="12" size-md="6" >
+                <div style={{width:`100%`}}>
+          <div style={{position:"relative",textAlign:"center",marginTop:"20px"}}>
                <img
             src={frame}
             alt="Globe Icon"
@@ -163,29 +167,84 @@ export const Home = () => {
              width:"100%"
             }}
           />
-           <div style={{position:"absolute",left:0,top:-10}}>
+           <div style={{ 
+  display: "flex", 
+  justifyContent: "center", 
+  alignItems: "center", 
+  position: "absolute", 
+  top: 0, 
+  left: 0, 
+  // right: 0, 
+  bottom: 0 
+}}>
                <img
             src={wm}
             alt="Globe Icon"
             style={{
-             
+              height:"100%",
+              width:"100%"
             }}
           />
                </div>
                </div>
               
           </div>
+                </IonCol>
+
+{
+  
+  !isMobile &&  <IonCol size="12" size-md="6" >
+  <div style={{width:`100%`}}>
+<div style={{position:"relative",textAlign:"center",marginTop:"20px"}}>
+ <img
+src={frame}
+alt="Globe Icon"
+style={{
+width:"100%"
+}}
+/>
+<div style={{ 
+display: "flex", 
+justifyContent: "center", 
+alignItems: "center", 
+position: "absolute", 
+top: 0, 
+left: 0, 
+// right: 0, 
+bottom: 0 
+}}>
+ <img
+src={wm}
+alt="Globe Icon"
+style={{
+height:"100%",
+width:"100%"
+}}
+/>
+ </div>
+ </div>
+
+</div>
+  </IonCol>
+}
+               
+              </IonRow>
+             </IonGrid>
+          
+
+
+        
                
           </div>
            
           </div>
 
-          <div style={{marginTop:"20px"}}>
+          <div style={{display:`${isMobile ? "block" : "flex"}`,justifyContent:"left",alignItems:"flex-start",flexDirection:"column",marginTop:"20px"}}>
             <span style={{fontSize:"26px",fontWeight:"bold"}}>Featured jobs</span> 
             <br/>
             {/* <span style={{color:"grey",fontSize:"12px"}}>Showing results based on your added preference</span> */}
           </div>
-          <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"20px",flexDirection:"column",gap:"20px"}}>
+          <div >
                
                {/* <div>
                <img
@@ -200,16 +259,39 @@ export const Home = () => {
             <span style={{fontSize:"14px"}}>No Jobs available at the moment</span>
           </div>
                </div> */}
+
+<IonGrid style={{padding:0,margin:0}} >
+  <IonRow >
+    <IonCol  size="12" size-md="6">
+    <JobCard  fun={handelJobCardClick}/>
+    </IonCol>
+
+    <IonCol  size="12" size-md="6">
+    <JobCard  fun={handelJobCardClick}/>
+    </IonCol>
+
+
+    <IonCol  size="12" size-md="6">
+    <JobCard  fun={handelJobCardClick}/>
+    </IonCol>
+
+    <IonCol  size="12" size-md="6">
+    <JobCard  fun={handelJobCardClick}/>
+    </IonCol>
+
+    <IonCol  size="12" size-md="6">
+    <JobCard  fun={handelJobCardClick}/>
+    </IonCol>
+
+    <IonCol  size="12" size-md="6">
+    <JobCard  fun={handelJobCardClick}/>
+    </IonCol>
+  </IonRow>
+</IonGrid>
+
             
-            <JobCard  fun={handelJobCardClick}/>
+         
 
-            <JobCard fun={handelJobCardClick} />
-
-            <JobCard fun={handelJobCardClick} />
-
-            <JobCard  fun={handelJobCardClick}/>
-
-            <JobCard fun={handelJobCardClick} />
 
 
 

@@ -25,6 +25,7 @@ import SelectStateModel from "../../../components/Models/SelectStateModel";
 import DepartmentSelectModel from "../../../components/Models/DepartmentSelectModel";
 import SelectMulipalCityModel from "../../../components/Models/SelectMulipalCityModel";
 import { CustomBtn1 } from "../../../components/Buttons/CustomBtn1";
+import { isMobile } from "../../../IsMobile/IsMobile";
 
 export const HotelierPostJob = () => {
   const history = useIonRouter();
@@ -215,7 +216,7 @@ export const HotelierPostJob = () => {
   return (
     <IonPage>
       <IonContent>
-        <div style={{ padding: "20px" }}>
+        <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
           
 
         <ProfileHeaders icon={<IonIcon icon={filterOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Post new job"}  />

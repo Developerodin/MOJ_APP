@@ -18,6 +18,7 @@ import { useHistory } from "react-router";
 import { ProfileHeaders } from "../../../components/Headers/ProfileHeaders";
 import { CustomBtn1 } from "../../../components/Buttons/CustomBtn1";
 import ProfileListItem from "../../../components/ProfileItem/ProfileItem";
+import { isMobile } from "../../../IsMobile/IsMobile";
 
 export const Settings = () => {
     const history = useHistory()
@@ -42,7 +43,7 @@ export const Settings = () => {
       <IonPage>
         <IonContent>
 
-          <div style={{ padding: "10px" }}>
+          <div className={isMobile ? "" : 'sw'} style={{ padding: "10px" }}>
 
                <ProfileHeaders icon={<IonIcon icon={settingsOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Settings"}  />
 

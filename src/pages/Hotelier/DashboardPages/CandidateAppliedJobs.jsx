@@ -3,12 +3,13 @@ import React from 'react'
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders'
 import { bagOutline } from 'ionicons/icons'
 import { CandidateCard } from '../../../components/Cards/CandidateCard'
+import { isMobile } from '../../../IsMobile/IsMobile'
 
 export const CandidateAppliedJobs = () => {
   return (
     <IonPage>
         <IonContent>
-        <div style={{padding:"20px"}}>
+        <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
             <ProfileHeaders icon={<IonIcon icon={bagOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Candidate Applied Jobs"}  />
            
             <div style={{marginTop:"30px"}}>

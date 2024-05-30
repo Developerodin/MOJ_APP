@@ -2,12 +2,13 @@ import { IonContent, IonIcon, IonPage } from '@ionic/react'
 import React from 'react'
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders'
 import { bagHandleOutline } from 'ionicons/icons'
+import { isMobile } from '../../../IsMobile/IsMobile'
 
 export const TermAndServices = () => {
   return (
     <IonPage>
         <IonContent>
-          <div style={{padding:"20px"}}>
+          <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
           <ProfileHeaders icon={<IonIcon icon={bagHandleOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Term And Services"} />
            
           <div style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>

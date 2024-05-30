@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   IonPage,
   IonContent,
@@ -14,8 +14,10 @@ import { Base_url } from "../../Config/BaseUrl";
 import axios from 'axios';
 import { AppContext } from "../../Context/AppContext";
 import logo from "/assets/moj.png";
+import { isMobile } from "../../IsMobile/IsMobile";
 const Newphone = () => {
   const history = useHistory()
+  
   const { showToast } = useContext(AppContext);
   const [formData, setFormData] = useState({
     phoneNumber: '',
@@ -88,6 +90,11 @@ const Newphone = () => {
     };
 
 
+    useEffect(()=>{
+           console.log("Is Mobile ==>",isMobile)
+    },[])
+
+
   return (
     <IonPage>
       <IonContent>
@@ -98,7 +105,11 @@ const Newphone = () => {
             <img src={logo} style={{height:"68px",width:"92px"}}/>
            </div>
 
-          <h1
+
+           <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+
+            <div>
+            <h1
             style={{
               color: "#232323",
               fontSize: "30px",
@@ -120,6 +131,8 @@ const Newphone = () => {
           >
             Enter your phone number to receive OTP
           </h5>
+            </div>
+        
 
           <div>
       <div style={{ marginTop: "20px" }}>
@@ -170,15 +183,34 @@ const Newphone = () => {
      
     </div>
 
+{
+  !isMobile &&  <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"50px"}}>
+
+  <CustomBtn1 fun={handelBtnClick} title={"Continue"} loading={loading}/>
+  
+  
+  </div>
+}
+   
+
+           </div>
+
+        
+
 
           {/* </IonItem> */}
           
         </div>
-       
-        <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
+        {
+  isMobile &&   <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
-<CustomBtn1 fun={handelBtnClick} title={"Continue"} loading={loading}/>
-</div>
+  <CustomBtn1 fun={handelBtnClick} title={"Continue"} loading={loading}/>
+  
+  
+  </div>
+  
+  }
+      
       </IonContent>
     </IonPage>
   );
