@@ -44,6 +44,8 @@ import { CandidateAppliedJobs } from '../Hotelier/DashboardPages/CandidateApplie
 import { InterestedCandidates } from '../Hotelier/DashboardPages/InterestedCandidates';
 import { CandidateSearch } from '../Hotelier/DashboardPages/CandidateSearch';
 import { isMobile } from '../../IsMobile/IsMobile';
+import { HotelerContactDetails } from '../Hotelier/Profile/ProfileTabs/HotelerContactDetails';
+import { HotelierPersonalDetails } from '../Hotelier/Profile/ProfileTabs/HotelierPersonalDetails';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -162,15 +164,22 @@ const NavBar = () => {
            <Route  path="/app/post-job" component={HotelierJobPost}  />
            <Route  path="/app/applied-jobs" component={HotelierAppliedJobs}  />
            <Route  path="/app/chat" component={HotelierMessages}  />
-         
            <Route  path="/post-job" component={HotelierPostJob}  />
            <Route  path="/active-jobs" component={ActiveJobs}  />
     <Route  path="/inactive-jobs" component={InActiveJobs}  /> 
     <Route  path="/candidate-applied-jobs" component={CandidateAppliedJobs}  />
     <Route  path="/interested-candidates" component={InterestedCandidates}  />
     <Route  path="/candidate-search" component={CandidateSearch}  />
-           
-           
+   
+      <Route  path="/employers-contact-details" component={HotelerContactDetails}  />
+    <Route  path="/employers-personal-details" component={HotelierPersonalDetails}  />
+    <Route  path="/settings" component={Settings}  />
+      <Route  path="/accounts-notification" component={AccountsAndNotifications}  />
+      <Route  path="/term-services" component={TermAndServices}  />
+      <Route  path="/privacy-policy" component={PrivacyAndPolicy}  />
+      <Route  path="/select-lang" component={SelectLang}  />
+      <Route  path="/help-and-support" component={HelpAndSupport}  />
+      <Route  path="/update-profile-photo" component={UpdateProfilePhoto}  />
             <Redirect exact  to="/app/home" />
           </IonRouterOutlet>
 

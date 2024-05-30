@@ -69,7 +69,7 @@ const Basicinfo = ({ handelContinue }) => {
  const handleInputChange2 = (e) => {
   const { name, value } = e.target;
   setFormData2({
-    ...formData,
+    ...formData2,
     [name]: value,
   });
 };

@@ -1,6 +1,6 @@
 import { IonContent, IonIcon, IonPage } from '@ionic/react'
 import { chatboxEllipsesOutline } from 'ionicons/icons'
-import Nochat from "/assets/coming-soon.png";
+import Nochat from "/assets/noChat.png";
 import React from 'react'
 import { isMobile } from '../../../IsMobile/IsMobile';
 

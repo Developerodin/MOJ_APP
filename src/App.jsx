@@ -77,6 +77,8 @@ import { InActiveJobs } from './pages/Hotelier/DashboardPages/InActiveJobs';
 import { CandidateAppliedJobs } from './pages/Hotelier/DashboardPages/CandidateAppliedJobs';
 import { InterestedCandidates } from './pages/Hotelier/DashboardPages/InterestedCandidates';
 import { CandidateSearch } from './pages/Hotelier/DashboardPages/CandidateSearch';
+import { HotelerContactDetails } from './pages/Hotelier/Profile/ProfileTabs/HotelerContactDetails';
+import { HotelierPersonalDetails } from './pages/Hotelier/Profile/ProfileTabs/HotelierPersonalDetails';
 
 setupIonicReact();
 
@@ -159,6 +161,13 @@ const App = () => {
     <Route  path="/profile-personal-details" component={ProfilePersonalDetails}  />
     <Route  path="/profile-contact-details" component={ProfileContactDetails}  />
     <Route  path="/profile-job-preference" component={ProfileJobPreference}  />
+
+
+    <Route  path="/employers-contact-details" component={HotelerContactDetails}  />
+    <Route  path="/employers-personal-details" component={HotelierPersonalDetails}  />
+     
+
+
     <Route  path="/help-and-support" component={HelpAndSupport}  />
     <Route  path="/update-profile-photo" component={UpdateProfilePhoto}  />
     <Route  path="/rewards" component={Reward}  />

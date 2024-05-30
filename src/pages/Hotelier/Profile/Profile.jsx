@@ -51,11 +51,11 @@ export const HotelierProfile = () => {
   const [dataPh,setDataPh] = useState(Data)
   const ProfileTabs=[
     
-    {icon:lockClosedOutline,title:"Personal Details",link:"/",color:"#395CFF"},
-    {icon:callOutline,title:"Contact Details",link:"/",color:"#395CFF"},
+    {icon:lockClosedOutline,title:"Personal Details",link:"/employers-personal-details",color:"#395CFF"},
+    {icon:callOutline,title:"Contact Details",link:"/employers-contact-details",color:"#395CFF"},
     {icon:bookOutline,title:"Your current selected package",link:"/",color:"#395CFF"},
-    {icon:gitPullRequestOutline,title:"Term and services",link:"/",color:"#395CFF"},
-    {icon:bagHandleOutline,title:"Privacy policy",link:"/",color:"#395CFF"},
+    {icon:gitPullRequestOutline,title:"Term and services",link:"/term-services",color:"#395CFF"},
+    {icon:bagHandleOutline,title:"Privacy policy",link:"/privacy-policy",color:"#395CFF"},
     
   ]
  
@@ -73,7 +73,7 @@ export const HotelierProfile = () => {
   }
 
   const handelTabClick = (value)=>{
-    // history.push(value)
+    history.push(value)
   }
 
   const handelContactUs = () =>{
@@ -207,10 +207,10 @@ export const HotelierProfile = () => {
   };
 
 
-  useEffect(()=>{
-    getWebBasic();
-    getProfileHealth()
-  },[profileHealthUpdate])
+  // useEffect(()=>{
+  //   getWebBasic();
+  //   getProfileHealth()
+  // },[profileHealthUpdate])
 
 useEffect(() => {
     const interval = setInterval(() => {
@@ -392,7 +392,7 @@ onClick={handelRewardClick}
                <IonItem onClick={handelContactUs}  button  style={{marginTop:"10px"}}>
                   <IonIcon icon={headsetOutline} style={{color:`#395CFF`}} slot="start"></IonIcon>
                   <IonLabel style={{fontWeight:"bold"}}>Contact us</IonLabel>
-                  <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon>
+                 
                 </IonItem>
                 </div>
 
@@ -408,7 +408,7 @@ onClick={handelRewardClick}
                <IonItem onClick={shareApp}  button  style={{marginTop:"10px"}}>
                   <IonIcon icon={shareOutline} style={{color:`#395CFF`}} slot="start"></IonIcon>
                   <IonLabel style={{fontWeight:"bold"}}>Invite your friend</IonLabel>
-                  <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon>
+               
                 </IonItem>
                 </div>
 
