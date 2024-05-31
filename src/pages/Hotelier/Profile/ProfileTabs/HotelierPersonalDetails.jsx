@@ -1,14 +1,19 @@
 import { IonContent, IonIcon, IonPage, IonProgressBar } from '@ionic/react'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CustomBtn1 } from '../../../../components/Buttons/CustomBtn1'
 import { ProfileHeaders } from '../../../../components/Headers/ProfileHeaders';
 import { bookSharp } from 'ionicons/icons';
 import { isMobile } from '../../../../IsMobile/IsMobile';
 import SelectStateModel from '../../../../components/Models/SelectStateModel';
 import SelectCityModel from '../../../../components/Models/SelectCityModel';
+import { AppContext } from '../../../../Context/AppContext';
+import { Base_url } from '../../../../Config/BaseUrl';
+import axios from 'axios';
+import { useHistory } from 'react-router';
 
 export const HotelierPersonalDetails = () => {
-
+  const history = useHistory()
+  const Role = localStorage.getItem("role") || "";
     const [formData2, setFormData2] = useState({
         hotelName: "",
         location: "",
@@ -22,7 +27,8 @@ export const HotelierPersonalDetails = () => {
         gstHotelName:"",
         gstAddress:""
       });
-     
+      const [userDetails,setUserdetails] = useState(JSON.parse( localStorage.getItem("userDetails")));
+  const { showToast ,setProfileHealthUpdate} = useContext(AppContext);
       const [selectedState, setSelectedState] = useState("");
       const [selectedCity, setSelectedCity] = useState("");
       const [pincode,setPincode] = useState("")
@@ -31,6 +37,7 @@ export const HotelierPersonalDetails = () => {
       const [isStateModelOpen,setIsStateModelOpen] = useState(false);
       const [isCityModelOpen,setIsCityModelOpen] = useState(false);
       const [AddressData,setAddressData] = useState([]);
+      const [update,setupdate] = useState(0)
  const handleInputChange2 = (e) => {
   const { name, value } = e.target;
   setFormData2({
@@ -41,17 +48,17 @@ export const HotelierPersonalDetails = () => {
 
 const handlePincodeChange2 = (e) => {
     const newPincode = e.target.value;
-    setPincode(newPincode);
+    setPincode2(newPincode);
     console.log("Enter Pin code ==>",newPincode)
     // Search for the pincode in the data array
     const pinData = AddressData.find(item => item.pincode === newPincode);
   
     console.log("Pincode Data",pinData);
     if (pinData) {
-      setSelectedCity2(pinData.city_name);
-      setSelectedState2(pinData.state_name);
+      setSelectedCity(pinData.city_name);
+      setSelectedState(pinData.state_name);
     } else {
-      setSelectedCity2('');
+      setSelectedCity('');
       setSelectedState('');
     }
   };
@@ -71,6 +78,86 @@ const handlePincodeChange2 = (e) => {
    const handelCityModleClose = () =>{
     setIsCityModelOpen(false)
    }
+   const handelSaveClick = ()=>{
+    UpdateUser();
+  }
+
+   const UpdateUser = async () => {
+    try {
+      const url = `${Base_url}auth/hotelior_update`;
+      const formData1 = new FormData();
+      formData1.append('role', Role);
+      formData1.append('user_id', userDetails.user_id);
+      formData1.append('name', formData2.hotelName );
+      formData1.append('location', formData2.location || "");
+      formData1.append('email', formData2.email || "");
+      formData1.append('gst_number', formData2.gstin || "");
+      formData1.append('reg_email', formData2.gstemail || "");
+      formData1.append('gst_name', formData2.gstHotelName || "");
+      formData1.append('reg_hadd', formData2.gstAddress || "");
+      formData1.append('state', selectedState || "");
+      formData1.append('city', selectedCity || "");
+      formData1.append('address', formData2.address || "");
+      formData1.append('pin_code', pincode2 || "");
+      formData1.append('country', "India");
+      formData1.append('created_at', userDetails.created_at);
+      const response = await axios.post(url, formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          console.log("Response check mobile",data,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data.status === "success"){
+               localStorage.setItem("userDetails", JSON.stringify(data.user));
+              //  handelContinue("ProfilePic")
+              setupdate((prev)=>prev+1)
+                showToast("success", "updated", "");
+                setProfileHealthUpdate((prev)=>prev+1)
+                history.goBack()
+              return
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
+
+
+   useEffect(()=>{
+    console.log("Personal detailsss =>",userDetails)
+   let profileDetails ={
+    hotelName: userDetails.name,
+    location:userDetails.location,
+     email: userDetails.email,
+     state: userDetails.state,
+     city: userDetails.city,
+     pincode:userDetails.pin_code,
+     address:userDetails.address,
+     gstin:userDetails.gst_number,
+     gstemail:userDetails.reg_email,
+     gstHotelName:userDetails.gst_name,
+     gstAddress:userDetails.reg_hadd
+   }
+   setPincode2(userDetails.pin_code);
+   setSelectedState(userDetails.state);
+   setSelectedCity(userDetails.city);
+    console.log("Data profile ===>",profileDetails)
+   setFormData2(profileDetails);
+ },[update])
 
   return (
    <IonPage>
@@ -285,6 +372,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
   </div>
 
 
+
+
   <div style={{ marginTop: "20px" }}>
     <label
       style={{
@@ -301,9 +390,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
     <input
     className="round-input"
       type="text"
-      // name="lastName"
-      // value={formData.lastName}
-      // onChange={handleInputChange}
+      name="gstin"
+      value={formData2.gstin}
+      onChange={handleInputChange2}
    
     />
   </div>
@@ -324,9 +413,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
     <input
     className="round-input"
       type="text"
-      // name="lastName"
-      // value={formData.lastName}
-      // onChange={handleInputChange}
+      name="gstemail"
+      value={formData2.gstemail}
+      onChange={handleInputChange2}
    
     />
   </div>
@@ -347,9 +436,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
     <input
     className="round-input"
       type="text"
-      // name="lastName"
-      // value={formData.lastName}
-      // onChange={handleInputChange}
+      name="gstHotelName"
+      value={formData2.gstHotelName}
+      onChange={handleInputChange2}
    
     />
   </div>
@@ -370,9 +459,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
     <input
     className="round-input"
       type="text"
-      // name="lastName"
-      // value={formData.lastName}
-      // onChange={handleInputChange}
+      name="gstAddress"
+      value={formData2.gstAddress}
+      onChange={handleInputChange2}
    
     />
   </div>
@@ -389,7 +478,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
     alignItems: "center",
   }}
 >
-  <CustomBtn1  title={"Continue"}  loading={loading}/>
+  <CustomBtn1  title={"Save"}  loading={loading} fun={handelSaveClick}/>
   
  
 </div>

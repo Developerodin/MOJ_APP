@@ -34,7 +34,7 @@ export const HotelierPostJob = () => {
     history.goBack();
       console.log("Back Presss")
   }
-  const { showToast,setProfileHealthUpdate } = useContext(AppContext);
+  const { showToast,jobUpdate,setJobUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const token =localStorage.getItem("token");
   const [departmentModel,setDepartmentModel] = useState(false)
@@ -51,6 +51,11 @@ export const HotelierPostJob = () => {
   const [isStateModelOpen,setisStateModelOpen] = useState(false);
   const [isCityModelOpen,setIsCityModelOpen] = useState(false);
   const [Education,setEducation] = useState("")
+   const [jobDescription,setJobDescription] = useState("");
+   const [numberOfEmployeRequired,setnumberOfEmployeRequired] = useState("");
+   const [jobTitle,setJobTitle] = useState("")
+   const [address,setAddress] = useState("")
+   const [hotelName,setHotelName] = useState("")
   const handelStateModleOpen = () =>{
     setisStateModelOpen(true);
   }
@@ -87,34 +92,42 @@ export const HotelierPostJob = () => {
     setStartTime(event.target.value);
   };
 
+
   const handleEndTimeChange = (event) => {
     setEndTime(event.target.value);
   };
   const handleSaveClick = () => {
     // Save logic here
-    console.log("DAta ==>",department,preferredCity,preferredState,jobType,salaryRange,startTime,endTime);
-    // AddJobPref();
-    // handelBackClick()
+    console.log("DAta ==>",hotelName,jobTitle,address,numberOfEmployeRequired,jobDescription,experience,Education,department,preferredCity,preferredState,jobType,salaryRange,startTime,endTime);
+    AddJob();
+    handelBackClick()
   };
 
   const handleBackClick = () => {
     history.goBack();
   };
 
-  const AddJobPref = async () => {
+  const AddJob = async () => {
     try {
-      const url = `${Base_url}user_job_prf/store`;
+      const url = `${Base_url}job/store`;
       const formData1 = new FormData();
       formData1.append('user_id', userDetails.user_id);
-      formData1.append('department', department || "");
-      formData1.append('sub_dep', departmentValue || "");
+      formData1.append('Hotel_name', hotelName || "");
+      formData1.append('job_title', jobTitle || "");
+      formData1.append('job_description', jobDescription || "");
       formData1.append('job_type', jobType|| "");
-      formData1.append('pref_state', preferredState || "");
-      formData1.append('pref_city', preferredCity || "");
-      formData1.append('salery', salaryRange || "");
+      formData1.append('location', address|| "");
+      formData1.append('department', department || "");
+      formData1.append('sub_department', departmentValue || "");
+      formData1.append('education', Education || "");
+      formData1.append('experience', experience || "");
+      formData1.append('number_employees', numberOfEmployeRequired || "");
+      formData1.append('state', preferredState || "");
+      formData1.append('city', preferredCity || "");
+      formData1.append('off_salery', salaryRange || "");
       formData1.append('start_time', startTime || "");
       formData1.append('end_time', endTime || "");
-
+      
     
 
       const response = await axios.post(url, formData1,{
@@ -135,7 +148,7 @@ export const HotelierPostJob = () => {
           if(data.status === "success"){
               //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
               showToast("success", "updated", "");
-              setProfileHealthUpdate((prev)=>prev+1)
+              setJobUpdate((prev)=>prev+1)
               return
           }
           showToast("error", "Try After Some Time", "");
@@ -288,6 +301,69 @@ export const HotelierPostJob = () => {
            </div>
           </div>
           }
+
+<div style={{marginTop:"20px"}}>
+
+<IonLabel
+
+style={{
+ color: "#575757",
+ fontFamily: "inter",
+ fontSize: "14px",
+ fontWeight: "400",
+ lineHeight: "30px",
+}}
+>
+Hotel Name
+</IonLabel>
+{/* <IonItem> */}
+<IonInput
+type="text"
+value={hotelName}
+
+onIonChange={(e) => setHotelName(e.detail.value)}
+placeholder="Enter Hotel Name"
+style={{
+ borderRadius: "0px",
+ padding:"10px",
+ border: "1px solid #E2E8F0",
+ height:"52px",
+ backgroundColor:"#F4F4F4"
+}}
+/>
+</div>
+
+             <div style={{marginTop:"20px"}}>
+
+<IonLabel
+
+style={{
+ color: "#575757",
+ fontFamily: "inter",
+ fontSize: "14px",
+ fontWeight: "400",
+ lineHeight: "30px",
+}}
+>
+Job Title
+</IonLabel>
+{/* <IonItem> */}
+<IonInput
+type="text"
+value={jobTitle}
+
+onIonChange={(e) => setJobTitle(e.detail.value)}
+placeholder="Enter a job title"
+style={{
+ borderRadius: "0px",
+ padding:"10px",
+ border: "1px solid #E2E8F0",
+ height:"52px",
+ backgroundColor:"#F4F4F4"
+}}
+/>
+</div>
+
           <div style={{marginTop:"20px"}}>
 
 <IonLabel
@@ -305,8 +381,9 @@ Job description
 {/* <IonItem> */}
 <IonInput
 type="text"
-name="organisation" 
+value={jobDescription}
 
+onIonChange={(e) => setJobDescription(e.detail.value)}
 placeholder="Enter a job description"
 style={{
  borderRadius: "0px",
@@ -407,6 +484,37 @@ style={{
             </IonSelect>
           </div>
 
+          <div style={{marginTop:"20px"}}>
+
+<IonLabel
+
+style={{
+ color: "#575757",
+ fontFamily: "inter",
+ fontSize: "14px",
+ fontWeight: "400",
+ lineHeight: "30px",
+}}
+>
+  Address
+</IonLabel>
+{/* <IonItem> */}
+<IonInput
+type="text"
+value={address}
+
+onIonChange={(e) => setAddress(e.detail.value)}
+placeholder="Enter a  Address"
+style={{
+ borderRadius: "0px",
+ padding:"10px",
+ border: "1px solid #E2E8F0",
+ height:"52px",
+ backgroundColor:"#F4F4F4"
+}}
+/>
+</div>
+
 
           <div style={{ marginTop: "20px" }}>
             <label
@@ -496,7 +604,8 @@ Please enter number of employee(s) required*
 <IonInput
 type="number"
 name="organisation" 
-
+ value={numberOfEmployeRequired}
+ onIonChange={(e) => setnumberOfEmployeRequired(e.detail.value)}
 placeholder=""
 style={{
  borderRadius: "0px",

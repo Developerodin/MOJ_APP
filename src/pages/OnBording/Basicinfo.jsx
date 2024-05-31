@@ -102,17 +102,17 @@ const Basicinfo = ({ handelContinue }) => {
 
 const handlePincodeChange2 = (e) => {
   const newPincode = e.target.value;
-  setPincode(newPincode);
+  setPincode2(newPincode);
   console.log("Enter Pin code ==>",newPincode)
   // Search for the pincode in the data array
   const pinData = AddressData.find(item => item.pincode === newPincode);
 
   console.log("Pincode Data",pinData);
   if (pinData) {
-    setSelectedCity2(pinData.city_name);
-    setSelectedState2(pinData.state_name);
+    setSelectedCity(pinData.city_name);
+    setSelectedState(pinData.state_name);
   } else {
-    setSelectedCity2('');
+    setSelectedCity('');
     setSelectedState('');
   }
 };
@@ -265,7 +265,7 @@ const handlePincodeChange2 = (e) => {
       formData1.append('state', selectedState || "");
       formData1.append('city', selectedCity || "");
       formData1.append('address', formData2.address || "");
-      formData1.append('pin_code', pincode || "");
+      formData1.append('pin_code', pincode2 || "");
       formData1.append('country', "India");
 
       const response = await axios.post(url, formData1,{
@@ -286,7 +286,7 @@ const handlePincodeChange2 = (e) => {
           if(data.status === "success"){
             setLoading(false);
                localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-               history.push("/app", 'root','replace')
+               history.push("/phone", 'root','replace')
               return
           }
           // showToast("error", "Try After Some Time", "");
@@ -764,7 +764,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
     className="round-input"
       type="text"
       name="pincode"
-      value={pincode} 
+      value={pincode2} 
       onChange={handlePincodeChange2}
      
     />

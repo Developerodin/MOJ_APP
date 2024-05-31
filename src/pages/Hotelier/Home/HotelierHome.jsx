@@ -1,5 +1,5 @@
 import { IonCard, IonCardContent, IonContent, IonPage, useIonRouter } from '@ionic/react'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ban1 from "/assets/HAJ.png";
 import ban2 from "/assets/HAPJ.png";
 import ban3 from "/assets/HCAAPJ.png";
@@ -8,12 +8,60 @@ import ban5 from "/assets/HIC.webp";
 import equalizer from "./equalizer.png";
 import profileImg from "./profileImg2.png"
 import { isMobile } from '../../../IsMobile/IsMobile';
+import { Base_url } from '../../../Config/BaseUrl';
+import axios from 'axios';
+import { AppContext } from '../../../Context/AppContext';
 export const HotelierHome = () => {
   const history = useIonRouter();
+  const { showToast,jobUpdate,setJobUpdate } = useContext(AppContext);
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const [activeJobs,setActiveJobs] = useState(0);
+  const [InactiveJobs,setInActiveJobs] = useState(0);
+  const getJobs = async () => {
+    try {
+      const url = `${Base_url}job/Byuserid/${userDetails.user_id}`;
+      const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      // formData1.append('resume', selectedFile);
 
+      const response = await axios.post(url, formData1, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+        },
+      });
+      const data = response.data;
+      console.log("Response check work experience", data, response);
+
+      // if(data === "otp in valid"){
+      //   showToast("error", "wrong otp", "");
+      //   return;
+      // }
+
+      if (data.status === "success") {
+        //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+        // setUpdate((prev)=>prev+1);
+        console.log("Job DAta ==>",data.Job)
+        const filterData1 = data.Job.filter((el,index)=>el.status === "1")
+        const filterData2 = data.Job.filter((el,index)=>el.status === "0")
+        // const Data = data.img;
+        setActiveJobs(filterData1);
+        setInActiveJobs(filterData2)
+        return;
+      }
+      // showToast("error", "Try After Some Time", "");
+    } catch (error) {
+      console.error("Error:", error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
   const handelCardClick = (route)=>{
        history.push(route);
   }
+
+  useEffect(()=>{
+    getJobs()
+  },[jobUpdate])
   return (
    <IonPage>
     <IonContent>
@@ -56,7 +104,7 @@ export const HotelierHome = () => {
                    <div>
                      
                      <p style={{fontWeight:"bold",fontSize:"18px",color:"#395CFF"}}>Active Jobs</p>
-                     <span style={{fontSize:"40px",fontWeight:"bold",color:"black"}}>2</span>
+                     <span style={{fontSize:"40px",fontWeight:"bold",color:"black"}}>{activeJobs && activeJobs.length}</span>
                    </div>
    
                    {/* <div>
@@ -100,7 +148,7 @@ export const HotelierHome = () => {
                    <div>
                      
                      <p style={{fontWeight:"bold",fontSize:"18px",color:"#395CFF"}}>Inactive Jobs</p>
-                     <span style={{fontSize:"40px",fontWeight:"bold",color:"black"}}>0</span>
+                     <span style={{fontSize:"40px",fontWeight:"bold",color:"black"}}>{InactiveJobs && InactiveJobs.length}</span>
                    </div>
    
                    {/* <div>

@@ -30,6 +30,7 @@ const AppContextProvider = ({children}) => {
       'msg':'Invalid Form Data',
       'status':'hide'
     });
+    const [jobUpdate,setJobUpdate] = useState(0)
 
     const [languageUpdate,setLanguageUpdate] = useState(0)
   
@@ -41,7 +42,7 @@ const AppContextProvider = ({children}) => {
       },2500)
     }
 
-  return <AppContext.Provider value={{profileHealthUpdate,setProfileHealthUpdate,languageUpdate,setLanguageUpdate,editUpdate,setEditUpdate, showToast,toastStatus,userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData}}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{jobUpdate,setJobUpdate,profileHealthUpdate,setProfileHealthUpdate,languageUpdate,setLanguageUpdate,editUpdate,setEditUpdate, showToast,toastStatus,userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData}}>{children}</AppContext.Provider>
 }
 
 export default AppContextProvider;
