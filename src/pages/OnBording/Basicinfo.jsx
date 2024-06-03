@@ -249,6 +249,10 @@ const handlePincodeChange2 = (e) => {
 
 
   const handelEmployersBtnClick = async()=>{
+    if(formData2.hotelName === "" || formData2.email === ""){
+      showToast("error", "Hotel name and email is required", "");
+      return  ;
+    }
     try {
       setLoading(true)
       const url = `${Base_url}auth/register`;

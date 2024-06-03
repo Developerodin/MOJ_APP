@@ -69,7 +69,7 @@ export const HotelierProfile = () => {
   }
 
   const handelProfilePhotoClick = ()=>{
-    // history.push("/update-profile-photo")
+    history.push("/update-profile-photo")
   }
 
   const handelTabClick = (value)=>{
@@ -207,10 +207,10 @@ export const HotelierProfile = () => {
   };
 
 
-  // useEffect(()=>{
-  //   getWebBasic();
-  //   getProfileHealth()
-  // },[profileHealthUpdate])
+  useEffect(()=>{
+    getWebBasic();
+    // getProfileHealth()
+  },[profileHealthUpdate])
 
 useEffect(() => {
     const interval = setInterval(() => {
@@ -255,7 +255,7 @@ useEffect(() => {
               </div>
             </div>
 
-          <div>
+          <div style={{marginTop:"60px"}}>
           <div onClick={handelProfilePhotoClick}>
                <div style={{textAlign:"center"}}>
                
@@ -278,7 +278,7 @@ useEffect(() => {
                </div>
             </div>
 
-<div onClick={handelProfileHealthClick} style={{marginTop:"30px"}}>
+{/* <div onClick={handelProfileHealthClick} style={{marginTop:"30px"}}>
 <div style={{background:"#ffffff",padding:"10px",border:"1px solid #E2E8F0",borderRadius:"16px",display:"flex",justifyContent:"left",alignItems:"center"}}>
        <div>
        <div className="profile-progress">
@@ -321,33 +321,7 @@ useEffect(() => {
        </div>
 </div>
 
-
-{/* <div 
-onClick={handelRewardClick}
-  style={{
-    marginTop: '20px',
-    background: `url('/assets/rewardBG.png')`, // Add your image path here
-    backgroundSize: 'cover',
-    padding: '15px',
-    borderRadius: '16px',
-    display: 'flex',
-    justifyContent: 'left',
-    alignItems: 'center'
-  }}
->
-      
-
-       <div style={{marginLeft:"90px"}}>
-        <div>
-        <span style={{fontSize:"14px",fontWeight:"bold"}}>Points earned</span>
-        </div>
-        <div style={{marginTop:"5px"}}>
-        <span style={{color:"#575757",fontSize:"14px"}}>470</span>
-        </div>
-      
-       </div>
 </div> */}
-</div>
 
 
 {/* <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"20px"}}>
@@ -382,7 +356,7 @@ onClick={handelRewardClick}
 
           </div>
 
-          <div style={{marginTop:"20px"}}>
+          <div style={{marginTop:"40px"}}>
 
           <IonGrid>
             <IonRow>

@@ -20,9 +20,10 @@ import { isMobile } from '../../IsMobile/IsMobile';
 export const Home = () => {
   const history = useIonRouter();
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-  const {editUpdate} = useContext(AppContext)
+  const {editUpdate,jobUpdate,setJobUpdate} = useContext(AppContext)
   const [backPressCount, setBackPressCount] = useState(0);
   const [profilePic,setProfilePic] = useState(null);
+  const [jobData,setJobData] = useState([]);
   const handelJobCardClick = (id)=>{
     history.push(`/job-details/${id}`)
   }
@@ -78,6 +79,49 @@ export const Home = () => {
       // showToast("error", "Try After Some Time", "");
     }
   };
+
+  const getJobs = async () => {
+    try {
+      const url = `${Base_url}job`;
+      const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      // formData1.append('resume', selectedFile);
+
+      const response = await axios.get(url, formData1, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+        },
+      });
+      const data = response.data;
+      console.log("Response check Job data", data, response);
+
+      // if(data === "otp in valid"){
+      //   showToast("error", "wrong otp", "");
+      //   return;
+      // }
+
+      if (data.status === "success") {
+        //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+        // setUpdate((prev)=>prev+1);
+        console.log("Job DAta ==>",data.post)
+        // const Data = data.img;
+        setJobData(data.post);
+
+        return;
+      }
+      // showToast("error", "Try After Some Time", "");
+    } catch (error) {
+      console.error("Error:", error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
+
+
+  useEffect(()=>{
+    getJobs();
+  },[jobUpdate])
+
 
   useEffect(()=>{
     getProfileImg()
@@ -262,30 +306,16 @@ width:"100%"
 
 <IonGrid style={{padding:0,margin:0}} >
   <IonRow >
-    <IonCol  size="12" size-md="6">
-    <JobCard  fun={handelJobCardClick}/>
-    </IonCol>
+    {
+      jobData.map((el,index)=>{
+        return  <IonCol  size="12" size-md="6">
+        <JobCard data={el}  fun={()=>handelJobCardClick(el.id)}/>
+        </IonCol>
+      })
+    }
+   
 
-    <IonCol  size="12" size-md="6">
-    <JobCard  fun={handelJobCardClick}/>
-    </IonCol>
-
-
-    <IonCol  size="12" size-md="6">
-    <JobCard  fun={handelJobCardClick}/>
-    </IonCol>
-
-    <IonCol  size="12" size-md="6">
-    <JobCard  fun={handelJobCardClick}/>
-    </IonCol>
-
-    <IonCol  size="12" size-md="6">
-    <JobCard  fun={handelJobCardClick}/>
-    </IonCol>
-
-    <IonCol  size="12" size-md="6">
-    <JobCard  fun={handelJobCardClick}/>
-    </IonCol>
+   
   </IonRow>
 </IonGrid>
 

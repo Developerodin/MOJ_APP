@@ -1,12 +1,63 @@
 import { IonButton, IonContent, IonIcon, IonPage } from '@ionic/react'
 import { bookmark, chevronBackOutline, locationOutline } from 'ionicons/icons'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import book from "/assets/book.png";
 import { CustomBtn1 } from '../../components/Buttons/CustomBtn1';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { isMobile } from '../../IsMobile/IsMobile';
+import { AppContext } from '../../Context/AppContext';
+import { Base_url } from '../../Config/BaseUrl';
+import axios from 'axios';
 export const JobDetails = () => {
   const history = useHistory()
+  const [data,setJobData] = useState([]);
+  const {editUpdate,jobUpdate,setJobUpdate} = useContext(AppContext)
+  const {id} = useParams()
+  const getJobs = async () => {
+    try {
+      const url = `${Base_url}job/Byid/${id}`;
+      const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      // formData1.append('resume', selectedFile);
+
+      const response = await axios.post(url, formData1, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+        },
+      });
+      const data = response.data;
+      console.log("Response check Job data", data, response);
+
+      // if(data === "otp in valid"){
+      //   showToast("error", "wrong otp", "");
+      //   return;
+      // }
+
+      if (data.status === "success") {
+        //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+        // setUpdate((prev)=>prev+1);
+        console.log("Job DAta ==>",data.Job[0])
+        // const Data = data.img;
+        setJobData(data.Job[0]);
+
+        return;
+      }
+      // showToast("error", "Try After Some Time", "");
+    } catch (error) {
+      console.error("Error:", error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
+
+
+  useEffect(()=>{
+    if(id){
+      getJobs(id);
+    }
+ 
+  },[id])
+
     const handelApplyClick =()=>{
         console.log("Apply click")
     }
@@ -38,13 +89,13 @@ export const JobDetails = () => {
        
 
         <div style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-          <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>Front Office Associate</span>
+          <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{data && data.job_title} {`(${data && data.department})`}</span>
          <span style={{fontSize:"12px",color:"#395CFF"}}>3 days ago</span>
         </div>
 
         <div style={{display:"flex",justifyContent:"left",alignItems:"center",marginTop:"10px"}}>
           <div>
-            <span style={{fontSize:"13px",color:"black",fontWeight:"bold"}}>Hotel King's palace</span>
+            <span style={{fontSize:"13px",color:"black",fontWeight:"bold"}}>{data && data.name}</span>
           </div>
 
          
@@ -54,7 +105,7 @@ export const JobDetails = () => {
            
         <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
             <IonIcon icon={locationOutline}  style={{color:"crimson",fontSize:"18px",fontWeight:"bold"}} />
-           <span style={{fontSize:"13px",marginLeft:"2px",marginTop:"3px",color:"black"}}>Jaipur (Raj.)</span> 
+           <span style={{fontSize:"13px",marginLeft:"2px",marginTop:"3px",color:"black"}}>{data && data.city},  {`(${data && data.state})`}</span> 
           </div>
         <div style={{display:"flex",justifyContent:"left",alignItems:"center",marginTop:"8px"}}>
             
@@ -69,7 +120,7 @@ export const JobDetails = () => {
 
            
               <span style={{fontSize:"15px",marginLeft:"3px",color:"black"}}>
-              1-3 Years
+              {data && data.experience}
               </span>
              
            
@@ -81,8 +132,8 @@ export const JobDetails = () => {
            
 
            
-              <span style={{fontSize:"15px",marginLeft:"12px",color:"black"}}>
-              20-30k/m
+              <span style={{fontSize:"15px",marginLeft:"3px",color:"black"}}>
+              {data && data.off_salery}
               </span>
              
            
@@ -105,16 +156,22 @@ export const JobDetails = () => {
              
              <div style={{marginTop:"30px"}}>
                 <div>
-                    <span style={{fontSize:"16px",fontWeight:"bold"}}>First head</span>
+                    <span style={{fontSize:"16px",fontWeight:"bold"}}>Job Info</span>
                 </div>
 
                 <div>
                     <ul>
-                        <li>sub points to be placed here</li>
-                        <li>sub points to be placed here</li>
-                        <li>sub points to be placed here</li>
-                        <li>sub points to be placed here</li>
-                        <li>sub points to be placed here</li>
+                    <li>{data && data.education}</li>
+                        {
+                          data && data.job_type === "Full Time" ?  <li>{data && data.job_type}</li>
+                          :
+                          <li>{`${data && data.job_type} (start time : ${data && data.start_time} ,end time : ${data && data.end_time} )`}</li>
+                        }
+                       
+                        <li>{data &&  `${data.department} (${data.sub_department })`}</li>
+                       
+                        <li>{data && data.job_description}</li>
+                        <li>{data && data.number_employees} employees required</li>
                     </ul>
                 </div>
              </div>
@@ -122,16 +179,15 @@ export const JobDetails = () => {
 
              <div style={{marginTop:"50px"}}>
                 <div>
-                    <span style={{fontSize:"16px",fontWeight:"bold"}}>Second head</span>
+                    <span style={{fontSize:"16px",fontWeight:"bold"}}>Address</span>
                 </div>
 
                 <div>
                     <ul>
-                        <li>sub points to be placed here</li>
-                        <li>sub points to be placed here</li>
-                        <li>sub points to be placed here</li>
-                        <li>sub points to be placed here</li>
-                        <li>sub points to be placed here</li>
+                        <li>{data && data.address}</li>
+                        <li>{data && data.pin_code}</li>
+                        <li>{data && data.city},{data && data.state},{data && data.country}</li>
+                      
                     </ul>
                 </div>
              </div>

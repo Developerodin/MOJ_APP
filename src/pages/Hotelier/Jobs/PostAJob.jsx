@@ -112,18 +112,18 @@ export const HotelierPostJob = () => {
       const url = `${Base_url}job/store`;
       const formData1 = new FormData();
       formData1.append('user_id', userDetails.user_id);
-      formData1.append('Hotel_name', hotelName || "");
+      // formData1.append('Hotel_name', hotelName || "");
       formData1.append('job_title', jobTitle || "");
       formData1.append('job_description', jobDescription || "");
       formData1.append('job_type', jobType|| "");
-      formData1.append('location', address|| "");
+      // formData1.append('location', address|| "");
       formData1.append('department', department || "");
       formData1.append('sub_department', departmentValue || "");
       formData1.append('education', Education || "");
       formData1.append('experience', experience || "");
       formData1.append('number_employees', numberOfEmployeRequired || "");
-      formData1.append('state', preferredState || "");
-      formData1.append('city', preferredCity || "");
+      // formData1.append('state', preferredState || "");
+      // formData1.append('city', preferredCity || "");
       formData1.append('off_salery', salaryRange || "");
       formData1.append('start_time', startTime || "");
       formData1.append('end_time', endTime || "");
@@ -302,7 +302,7 @@ export const HotelierPostJob = () => {
           </div>
           }
 
-<div style={{marginTop:"20px"}}>
+{/* <div style={{marginTop:"20px"}}>
 
 <IonLabel
 
@@ -316,7 +316,6 @@ style={{
 >
 Hotel Name
 </IonLabel>
-{/* <IonItem> */}
 <IonInput
 type="text"
 value={hotelName}
@@ -331,7 +330,7 @@ style={{
  backgroundColor:"#F4F4F4"
 }}
 />
-</div>
+</div> */}
 
              <div style={{marginTop:"20px"}}>
 
@@ -484,7 +483,7 @@ style={{
             </IonSelect>
           </div>
 
-          <div style={{marginTop:"20px"}}>
+          {/* <div style={{marginTop:"20px"}}>
 
 <IonLabel
 
@@ -498,7 +497,7 @@ style={{
 >
   Address
 </IonLabel>
-{/* <IonItem> */}
+
 <IonInput
 type="text"
 value={address}
@@ -513,10 +512,10 @@ style={{
  backgroundColor:"#F4F4F4"
 }}
 />
-</div>
+</div> */}
 
 
-          <div style={{ marginTop: "20px" }}>
+          {/* <div style={{ marginTop: "20px" }}>
             <label
               style={{
                 color: "#575757",
@@ -548,10 +547,10 @@ style={{
          }
          
          </div>
-          </div>
+          </div> */}
 
 
-{
+{/* {
   preferredState !== "" && <div style={{ marginTop: "20px" }}>
   <label
     style={{
@@ -585,7 +584,7 @@ preferredCity !== "" ? <span>{preferredCity}</span>:<span style={{color:"grey"}}
 
 </div>
 </div>
-}
+} */}
 <div style={{marginTop:"20px"}}>
 
 <IonLabel

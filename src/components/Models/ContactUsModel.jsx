@@ -3,7 +3,7 @@ import { callOutline, logoWhatsapp, mailOutline, phoneLandscape } from 'ionicons
 import React, { useState } from 'react'
 
 export const ContactUsModel = ({showModal, setShowModal,data}) => {
-   
+  const Role = localStorage.getItem("role") || "";
   return (
     <IonModal
     initialBreakpoint={0.25} breakpoints={[0, 0.25]}
@@ -14,7 +14,20 @@ export const ContactUsModel = ({showModal, setShowModal,data}) => {
     
   >
     <div className="modal-content" >
+      {Role === "Employers" ?
       <div style={{ padding: "30px" }}>
+      
+
+      <div style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+             <IonIcon icon={callOutline} color='primary'  style={{fontSize:"24px"}}/>
+
+             <span>+91 {data && data.h_mobile}</span>
+      </div>
+
+     
+     </div>
+     :
+     <div style={{ padding: "30px" }}>
        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <IonIcon icon={logoWhatsapp}  style={{fontSize:"24px"}} color='success'/>
 
@@ -33,6 +46,8 @@ export const ContactUsModel = ({showModal, setShowModal,data}) => {
               <span>{data && data.email}</span>
        </div>
       </div>
+      }
+      
     </div>
     {/* <IonBackdrop
       onClick={() => setShowModal(false)}
