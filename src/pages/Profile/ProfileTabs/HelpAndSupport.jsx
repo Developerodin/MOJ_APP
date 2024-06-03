@@ -51,12 +51,7 @@ export const HelpAndSupport = () => {
       
            
           </div>    
-         
 
-          {/* <div style={{width:"100%",position:"absolute",bottom:10,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
-
-              <CustomBtn1 fun={handelSaveClick} title={"Contact us"}/>
-             </div> */}
            
           </div>
         </IonContent>
