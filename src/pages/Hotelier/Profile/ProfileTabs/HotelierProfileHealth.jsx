@@ -1,11 +1,15 @@
 import { IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow, useIonRouter } from '@ionic/react'
 import React, { useContext, useEffect, useState } from 'react'
-import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders'
+
 import { bagHandleOutline, checkmarkCircleOutline, closeCircleOutline, medkitOutline } from 'ionicons/icons'
-import { Base_url } from '../../../Config/BaseUrl'
+
 import axios from 'axios'
-import { AppContext } from '../../../Context/AppContext'
-import { isMobile } from '../../../IsMobile/IsMobile'
+
+
+import { ProfileHeaders } from '../../../../components/Headers/ProfileHeaders'
+import { Base_url } from '../../../../Config/BaseUrl'
+import { isMobile } from '../../../../IsMobile/IsMobile'
+import { AppContext } from '../../../../Context/AppContext'
 
 export const HotelierProfileHealth = () => {
        const history = useIonRouter();
@@ -14,14 +18,11 @@ export const HotelierProfileHealth = () => {
     const [phHeathPercentage,setPhHeathPercentage] = useState(0);
     const [userProfileHealthData,setUserProfileHealthData] = useState(null);
     const Data =[
-        {name:"user_Job_pref",value:0,route:"/profile-job-preference",name2:"Job Preference"},
-        {name:"user_edu",value:0,route:"/profile-eduction",name2:"Eduction"},
-        {name:"user_img",value:0,route:"/update-profile-photo",name2:"Profile Photo"},
-        {name:"user_pro",value:0,route:"/profile-personal-details",name2:"Personal Details"},
-        {name:"user_resume",value:0,route:"/profile-resume",name2:"Resume"},
-        {name:"user_work",value:0,route:"/profile-work-experience",name2:"Work Experience"},
-        {name:"users",value:0,route:"/profile-contact-details",name2:"Contact Details"},
-    ]
+
+      {name:"user_img",value:0,route:"/update-profile-photo",name2:"Profile Photo"},
+      {name:"user_pro",value:0,route:"/employers-personal-details",name2:"Personal Details"},
+      {name:"users",value:0,route:"/employers-contact-details",name2:"Contact Details"},
+  ]
     const [dataPh,setDataPh] = useState(Data)
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
  
@@ -34,7 +35,7 @@ export const HotelierProfileHealth = () => {
         try {
 
             const formData = new FormData()
-          const url = `${Base_url}basic/profile_health_userid/${userDetails.user_id}`;
+          const url = `${Base_url}basic/Hotelprofile_health_userid/${userDetails.user_id}`;
           
         
     

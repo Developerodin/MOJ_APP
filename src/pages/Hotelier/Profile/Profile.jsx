@@ -10,7 +10,7 @@ import { AppContext } from '../../../Context/AppContext';
 import profileImg from "./profileImg2.png"
 import { ContactUsModel } from '../../../components/Models/ContactUsModel';
 import { isMobile } from '../../../IsMobile/IsMobile';
-
+import { Share } from "@capacitor/share";
 
 async function shareApp() {
   const { value } = await Share.canShare();
@@ -32,6 +32,7 @@ export const HotelierProfile = () => {
   const history = useHistory();
   const {editUpdate,setEditUpdate,profileHealthUpdate} = useContext(AppContext)
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const updatedImg = localStorage.getItem("updatedImg") || null
   const [profilePic,setProfilePic] = useState(null);
   
   const [basicData,setBasicData] = useState(null);
@@ -40,14 +41,11 @@ export const HotelierProfile = () => {
   const [phHeathPercentage,setPhHeathPercentage] = useState(0);
   const [userProfileHealthData,setUserProfileHealthData] = useState(null);
   const Data =[
-      {name:"user_Job_pref",value:0,route:"/profile-job-preference",name2:"Job Preference"},
-      {name:"user_edu",value:0,route:"/profile-eduction",name2:"Eduction"},
-      {name:"user_img",value:0,route:"/update-profile-photo",name2:"Profile Photo"},
-      {name:"user_pro",value:0,route:"/profile-personal-details",name2:"Personal Details"},
-      {name:"user_resume",value:0,route:"/profile-resume",name2:"Resume"},
-      {name:"user_work",value:0,route:"/profile-work-experience",name2:"Work Experience"},
-      {name:"users",value:0,route:"/profile-contact-details",name2:"Contact Details"},
-  ]
+
+    {name:"user_img",value:0,route:"/update-profile-photo",name2:"Profile Photo"},
+    {name:"user_pro",value:0,route:"/employers-personal-details",name2:"Personal Details"},
+    {name:"users",value:0,route:"/employers-contact-details",name2:"Contact Details"},
+]
   const [dataPh,setDataPh] = useState(Data)
   const ProfileTabs=[
     
@@ -65,7 +63,7 @@ export const HotelierProfile = () => {
   }
 
   const handelProfileHealthClick = ()=>{
-    // history.push("/profile-health")
+    history.push("/hotelier-profile-health")
   }
 
   const handelProfilePhotoClick = ()=>{
@@ -162,7 +160,7 @@ export const HotelierProfile = () => {
     try {
 
         const formData = new FormData()
-      const url = `${Base_url}basic/profile_health_userid/${userDetails.user_id}`;
+      const url = `${Base_url}basic/Hotelprofile_health_userid/${userDetails.user_id}`;
       
     
 
@@ -177,7 +175,7 @@ export const HotelierProfile = () => {
           // console.log("Response check work experience data",data,response)
           
             if(data){
-              console.log("Basic data",data.post)
+              console.log("Basic data profile health   ==>",data.post)
               const Data = data.post;
               setUserProfileHealthData(Data);
               const updatedData = dataPh.map(item => {
@@ -209,7 +207,7 @@ export const HotelierProfile = () => {
 
   useEffect(()=>{
     getWebBasic();
-    // getProfileHealth()
+    getProfileHealth()
   },[profileHealthUpdate])
 
 useEffect(() => {
@@ -255,13 +253,13 @@ useEffect(() => {
               </div>
             </div>
 
-          <div style={{marginTop:"60px"}}>
+          <div style={{marginTop:"30px"}}>
           <div onClick={handelProfilePhotoClick}>
                <div style={{textAlign:"center"}}>
                
                <div style={{position:"relative"}}>
                <img
-            src={profilePic || profileImg}
+            src={profilePic || updatedImg}
             alt="Globe Icon"
             style={{boxShadow: "6px 14px 28px rgba(0, 0, 255, 0.2)",border: "1px solid grey",height:"86px",width:"86px",borderRadius:"60px"}}
           />
@@ -278,7 +276,7 @@ useEffect(() => {
                </div>
             </div>
 
-{/* <div onClick={handelProfileHealthClick} style={{marginTop:"30px"}}>
+<div onClick={handelProfileHealthClick} style={{marginTop:"30px"}}>
 <div style={{background:"#ffffff",padding:"10px",border:"1px solid #E2E8F0",borderRadius:"16px",display:"flex",justifyContent:"left",alignItems:"center"}}>
        <div>
        <div className="profile-progress">
@@ -321,42 +319,14 @@ useEffect(() => {
        </div>
 </div>
 
-</div> */}
+</div>
 
 
-{/* <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"20px"}}>
-  <div onClick={()=>handelTabClick("/saved-jobs")} style={{borderRadius:"15px",padding:"15px",background:"#F3F5FE",display:"flex",justifyContent:"center",alignItems:"center"}}>
-     
-     <div>
-     <IonIcon icon={bookmark} style={{fontSize:"28px",color:"#395CFF"}}/>
-      </div>
-    
-    <div style={{marginLeft:"10px"}}>
-    <span style={{fontWeight:"bold"}}>Saved Jobs</span>
-    </div>
-    
-  </div>
-
-  <div onClick={()=>handelTabClick("/viewed-jobs")} style={{borderRadius:"15px",padding:"15px",background:"#F3F5FE",display:"flex",justifyContent:"center",alignItems:"center"}}>
-     
-     <div>
-     <IonIcon icon={eye} style={{fontSize:"28px",color:"#395CFF"}}/>
-      </div>
-    
-    <div style={{marginLeft:"10px"}}>
-    <span style={{fontWeight:"bold"}}>Viewed Jobs</span>
-    </div>
-    
-  </div>
-  <div>
-
-  </div>
-</div> */}
            
 
           </div>
 
-          <div style={{marginTop:"40px"}}>
+          <div style={{marginTop:"0px"}}>
 
           <IonGrid>
             <IonRow>

@@ -180,6 +180,7 @@ const DepartmentSelectModel = ({ isOpen, onClose,onSubmit,departmentValue,depart
                const departmentsArray = uniqueDepartments.map(department => ({ name: department }));
                setdepartmentdata(departmentsArray);
                setSubDepartmentData(Data);
+               setSelectedDepartment(departmentsArray[0].name)
               return
             
           }

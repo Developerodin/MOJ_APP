@@ -11,7 +11,13 @@ import axios from 'axios';
 export const JobDetails = () => {
   const history = useHistory()
   const [data,setJobData] = useState([]);
-  const {editUpdate,jobUpdate,setJobUpdate} = useContext(AppContext)
+  const [userData,setUserData] = useState(null);
+  const [resumeId,setResumeId] = useState(null)
+  const [resumeData,setResumeData] = useState(null)
+  const {showToast} = useContext(AppContext)
+
+const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+
   const {id} = useParams()
   const getJobs = async () => {
     try {
@@ -55,16 +61,121 @@ export const JobDetails = () => {
     if(id){
       getJobs(id);
     }
- 
+    
   },[id])
 
+
     const handelApplyClick =()=>{
-        console.log("Apply click")
+        console.log("Apply click",resumeData,resumeId);
+           if(resumeId === null || resumeData === 1){
+            showToast("error", "Please add resume in profile section", "");
+            return ;
+           }
+
+           AddJob()
+         
+          
     }
+
+    const getUserDataByid = async () => {
+      try {
+        const url = `${Base_url}get_user/${userDetails.user_id}`;
+        const formData1 = new FormData();
+        // formData1.append('user_id', userDetails.user_id);
+        // formData1.append('resume', selectedFile);
+  
+      
+  
+        const response = await axios.get(url,formData1,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+            // "Authorization" :`Berear ${token}`,
+       
+          }
+        });
+        const data = response.data
+            console.log("Response check work experience",data,response)
+            
+              // if(data === "otp in valid"){
+              //   showToast("error", "wrong otp", "");
+              //   return;
+              // }
+  
+            if(data.status === "success"){
+                //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+                // setUpdate((prev)=>prev+1);
+               const Data = data.data;
+               console.log("suer Data  ==> ",Data )
+               setUserData(Data)
+               setResumeData(Data.resume);
+               if(Data.resume === 0){
+                setResumeId(Data.resume_id)
+               }
+              
+                return
+              
+            }
+            // showToast("error", "Try After Some Time", "");
+  
+              
+           
+            
+      } catch (error) {
+        console.error('Error:', error);
+        // showToast("error", "Try After Some Time", "");
+      }
+    };
+
+
+    const AddJob = async () => {
+      try {
+        const url = `${Base_url}job_apply/store`;
+        const formData1 = new FormData();
+        formData1.append('user_id', userDetails.user_id);
+        formData1.append('job_id',data.id);
+        formData1.append('resume_id',resumeId);
+  
+      
+  
+        const response = await axios.post(url, formData1,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+            // "Authorization" :`Berear ${token}`,
+       
+          }
+        });
+        const data1 = response.data
+            console.log("Response check work experience",data1,response)
+            
+              // if(data === "otp in valid"){
+              //   showToast("error", "wrong otp", "");
+              //   return;
+              // }
+  
+            if(data1.status === "success"){
+                //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+                showToast("success", "Applied successfully", "");
+                handelBackClick()
+                return
+            }
+            showToast("error", "Try After Some Time", "");
+  
+              
+           
+            
+      } catch (error) {
+        console.error('Error:', error);
+        showToast("error", "Try After Some Time", "");
+      }
+    };
 
     const handelBackClick = ()=>{
       history.goBack()
     }
+
+    useEffect(()=>{
+      getUserDataByid()
+    },[])
   return (
     <IonPage>
         <IonContent>
@@ -196,7 +307,7 @@ export const JobDetails = () => {
 
              <div style={{width:"100%",position:"absolute",bottom:10,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
-              <CustomBtn1 fun={handelBackClick} title={"Apply"}/>
+              <CustomBtn1 fun={handelApplyClick} title={"Apply"}/>
              </div>
 
             </div>

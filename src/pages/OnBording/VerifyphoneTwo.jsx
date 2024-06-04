@@ -93,6 +93,19 @@ const VerifyPhoneTwo = () => {
     if (storedFormData) {
       setFormData(JSON.parse(storedFormData));
     }
+    if ('OTPCredential' in window) {
+      window.addEventListener('DOMContentLoaded', (e) => {
+        const ac = new AbortController();
+        navigator.credentials.get({
+          otp: { transport: ['sms'] },
+          signal: ac.signal
+        }).then((otp) => {
+          setOtp(otp.code);
+        }).catch(err => {
+          console.error(err);
+        });
+      });
+    }
   }, []);
   return (
     <IonPage>

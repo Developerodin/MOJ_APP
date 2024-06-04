@@ -10,11 +10,13 @@ import { AppContext } from '../../../Context/AppContext'
 import { Base_url } from '../../../Config/BaseUrl'
 import { isMobile } from '../../../IsMobile/IsMobile'
 export const UpdateProfilePhoto = () => {
+ 
   const { showToast ,setEditUpdate,setProfileHealthUpdate} = useContext(AppContext);
   const [picture, setPicture] = useState();
   const [selectedFile, setSelectedFile] = useState(null);
   const [ImgUrl,setImgUrl] = useState("");
   const [update,setUpdate] = useState(0);
+  const [loading,setLoading] = useState(false);
  const history = useIonRouter()
  const userDetails = JSON.parse(localStorage.getItem("userDetails" )|| localStorage.getItem("userRegisterDetails"));
     const handelSaveClick = ()=>{
@@ -177,6 +179,7 @@ export const UpdateProfilePhoto = () => {
 
     const AddProfilePhoto = async () => {
       try {
+        setLoading(true)
         const url = `${Base_url}profile_img_save/store`;
         const formData1 = new FormData();
         formData1.append("user_id", userDetails.user_id);
@@ -197,11 +200,14 @@ export const UpdateProfilePhoto = () => {
         // }
   
         if (data.status === "success") {
-          //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+           localStorage.setItem("updatedImg", data.image);
+          console.log("Data image path ==>",data)
           showToast("success", "updated", "");
           setUpdate((prev)=>prev+1);
           setEditUpdate((prev)=>prev+1)
           setProfileHealthUpdate((prev)=>prev+1)
+          setLoading(false);
+          history.goBack()
           return;
         }
       
@@ -210,6 +216,7 @@ export const UpdateProfilePhoto = () => {
         console.error("Error:", error);
       
         showToast("error", "Try After Some Time", "");
+        setLoading(false)
       }
     };
 
@@ -358,7 +365,7 @@ export const UpdateProfilePhoto = () => {
 
            <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
-<CustomBtn1 fun={handelSaveClick} title={"save"}/>
+<CustomBtn1 fun={handelSaveClick} title={"save"} loading={loading}/>
 <div style={{marginTop:"20px"}}>
     <span onClick={RemoveProfileImg} style={{color:"crimson",fontSize:"16px",fontWeight:"bold"}}>Remove photo</span>
 </div>
