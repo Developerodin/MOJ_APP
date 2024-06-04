@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonPage, useIonRouter } from '@ionic/react'
+import { IonButton, IonContent, IonLabel, IonPage, IonSegment, IonSegmentButton, IonToolbar, useIonRouter } from '@ionic/react'
 import React, { useContext, useEffect, useState } from 'react'
 import { JobCard } from '../../../components/Cards/JobCard/JobCard'
 import { PostJobCard } from '../../../components/Cards/JobCard/PostJobCard';
@@ -10,8 +10,10 @@ import axios from 'axios';
 export const HotelierJobPost = () => {
   const history = useIonRouter();
   const { showToast,jobUpdate,setJobUpdate } = useContext(AppContext);
-  const [jobData,setJobData] = useState([]);
+  const [ActiveJobData,setJobDataActive] = useState([]);
+  const [InActiveJobData,setJobDataInactive] = useState([]);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const [selectedTab, setSelectedTab] = useState('Active');
   const handelPostJob=()=>{
     history.push("/post-job")
   }
@@ -42,14 +44,58 @@ export const HotelierJobPost = () => {
         // setUpdate((prev)=>prev+1);
         console.log("Job DAta ==>",data.Job)
         // const Data = data.img;
-        setJobData(data.Job);
-
+        const filterData = data.Job.filter((el,index)=>el.status === "1")
+        const filterData2 = data.Job.filter((el,index)=>el.status === "0")
+        setJobDataActive(filterData);
+        setJobDataInactive(filterData2)
         return;
       }
       // showToast("error", "Try After Some Time", "");
     } catch (error) {
       console.error("Error:", error);
       // showToast("error", "Try After Some Time", "");
+    }
+  };
+
+  const renderComponent = () => {
+    switch (selectedTab) {
+      case 'Active':
+        return  <div style={{marginTop:"40px"}}>
+        {
+          ActiveJobData && ActiveJobData.length >0 ?  ActiveJobData.map((el,index)=>{
+            return <div style={{marginTop:"10px"}}>
+              <PostJobCard fun={()=>console.log("click on post job")} data={el}/>
+              </div> 
+          })
+          :
+          <div style={{textAlign:"center"}}>
+            <span style={{fontSize:"16px",color:"grey"}}>No Job Posted Yet</span>
+            </div>
+          
+        }
+      
+        
+      </div>;
+      case 'Inactive':
+        return  <div style={{marginTop:"40px"}}>
+        {
+          InActiveJobData && InActiveJobData.length >0 ?  InActiveJobData.map((el,index)=>{
+            return <div style={{marginTop:"10px"}}>
+              <PostJobCard fun={()=>console.log("click on post job")} data={el}/>
+              </div> 
+          })
+          :
+          <div style={{textAlign:"center"}}>
+            <span style={{fontSize:"16px",color:"grey"}}>No Job Posted Yet</span>
+            </div>
+          
+        }
+      
+        
+      </div> ;
+     
+      default:
+        return null;
     }
   };
 
@@ -68,23 +114,31 @@ export const HotelierJobPost = () => {
                 <IonButton onClick={handelPostJob}>Post a job</IonButton>
             </div>
 
-
-            <div style={{marginTop:"40px"}}>
-              {
-                jobData && jobData.length >0 ?  jobData.map((el,index)=>{
-                  return <div style={{marginTop:"10px"}}>
-                    <PostJobCard fun={()=>console.log("click on post job")} data={el}/>
-                    </div> 
-                })
-                :
-                <div style={{textAlign:"center"}}>
-                  <span style={{fontSize:"16px",color:"grey"}}>No Job Posted Yet</span>
-                  </div>
-                
-              }
-            
-              
+            <div style={{marginTop:"20px"}}>
+            <IonToolbar>
+        <IonSegment  value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
+          <IonSegmentButton value="Active" >
+            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >Active</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="Inactive" >
+            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >Inactive</IonLabel>
+          </IonSegmentButton>
+         
+        </IonSegment>
+      </IonToolbar>
             </div>
+
+            <div style={{marginTop:"30px",width:"95%",margin:"auto"}}>
+
+{
+    renderComponent()
+}
+
+</div>
+
+
+
+           
 
            
             </div>
