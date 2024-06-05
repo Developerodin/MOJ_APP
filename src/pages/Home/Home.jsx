@@ -106,7 +106,8 @@ export const Home = () => {
         // setUpdate((prev)=>prev+1);
         console.log("Job DAta ==>",data.post)
         // const Data = data.img;
-        setJobData(data.post);
+        const formatedData = data.post.filter((el)=>el.status === "1")
+        setJobData(formatedData);
 
         return;
       }

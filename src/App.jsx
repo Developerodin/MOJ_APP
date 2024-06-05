@@ -80,6 +80,8 @@ import { CandidateSearch } from './pages/Hotelier/DashboardPages/CandidateSearch
 import { HotelerContactDetails } from './pages/Hotelier/Profile/ProfileTabs/HotelerContactDetails';
 import { HotelierPersonalDetails } from './pages/Hotelier/Profile/ProfileTabs/HotelierPersonalDetails';
 import { HotelierProfileHealth } from './pages/Hotelier/Profile/ProfileTabs/HotelierProfileHealth';
+import { CandidateView } from './pages/Hotelier/Jobs/CandidateView';
+import { JobCandidateView } from './pages/Hotelier/Jobs/JobCandidateView';
 
 setupIonicReact();
 
@@ -186,7 +188,8 @@ const App = () => {
     <Route  path="/candidate-applied-jobs" component={CandidateAppliedJobs}  />
     <Route  path="/interested-candidates" component={InterestedCandidates}  />
     <Route  path="/candidate-search" component={CandidateSearch}  />
-    
+    <Route  path="/candidate-view/:id" component={CandidateView}  />
+    <Route  path="/job-candidate-view/:id" component={JobCandidateView}  />
     
     <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>
     </IonRouterOutlet>

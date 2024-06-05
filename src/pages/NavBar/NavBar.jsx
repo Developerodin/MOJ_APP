@@ -47,6 +47,8 @@ import { isMobile } from '../../IsMobile/IsMobile';
 import { HotelerContactDetails } from '../Hotelier/Profile/ProfileTabs/HotelerContactDetails';
 import { HotelierPersonalDetails } from '../Hotelier/Profile/ProfileTabs/HotelierPersonalDetails';
 import { HotelierProfileHealth } from '../Hotelier/Profile/ProfileTabs/HotelierProfileHealth';
+import { CandidateView } from '../Hotelier/Jobs/CandidateView';
+import { JobCandidateView } from '../Hotelier/Jobs/JobCandidateView';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -182,6 +184,8 @@ const NavBar = () => {
       <Route  path="/help-and-support" component={HelpAndSupport}  />
       <Route  path="/update-profile-photo" component={UpdateProfilePhoto}  />
       <Route  path="/hotelier-profile-health" component={HotelierProfileHealth}  />
+      <Route  path="/candidate-view/:id" component={CandidateView}  />
+      <Route  path="/job-candidate-view/:id" component={JobCandidateView}  />
             <Redirect exact  to="/app/home" />
           </IonRouterOutlet>
 

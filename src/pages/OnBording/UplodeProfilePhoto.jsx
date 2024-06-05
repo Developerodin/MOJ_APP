@@ -285,7 +285,7 @@ style={{
    
    </div>
 
-   <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+   <div style={{marginTop:"30px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
 <CustomBtn1 fun={handelSaveClick} title={"save"}/>
 <div style={{marginTop:"20px"}}>
