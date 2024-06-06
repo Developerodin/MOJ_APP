@@ -14,7 +14,7 @@ export const CandidateView = () => {
 
     const getApplicantsData = async (id) => {
       try {
-        const url = `${Base_url}job_apply/Byid_user/${id}`;
+        const url = `${Base_url}all_user_data/${id}`;
         const formData1 = new FormData();
         // formData1.append('user_id', userDetails.user_id);
         // formData1.append('resume', selectedFile);
@@ -26,7 +26,7 @@ export const CandidateView = () => {
           },
         });
         const data = response.data;
-        console.log("Response check work experience", data, response);
+        console.log("Response check user DAta ", data, response);
   
         // if(data === "otp in valid"){
         //   showToast("error", "wrong otp", "");
@@ -34,8 +34,8 @@ export const CandidateView = () => {
         // }
   
         if (data.status === "success") {
-         
-          // setApplicantsData(data)
+           console.log("data of user  ==>",data.Job)
+          setApplicantsData(data.Job[0])
           return;
         }
         // showToast("error", "Try After Some Time", "");
@@ -50,6 +50,7 @@ export const CandidateView = () => {
       getApplicantsData(id)
     }
     },[id])
+    
     const handelBackClick= ()=>{
       history.goBack();
         console.log("Back Presss")
@@ -74,10 +75,10 @@ export const CandidateView = () => {
     
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <div >
-            <img src={book} style={{width:"50px",height:"50px",borderRadius:"100px"}} />
+            <img src={ApplicantsData && ApplicantsData.user_img || book} style={{width:"50px",height:"50px",borderRadius:"100px"}} />
             </div>
             <div style={{textAlign:"center"}}>
-            <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>Dayal Jat</span><br/>
+            <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{ApplicantsData && ApplicantsData.user.name}</span><br/>
             <span style={{color:"grey",fontSize:"12px"}}>3 days ago</span>
             </div>
 

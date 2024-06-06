@@ -15,7 +15,8 @@ export const JobDetails = () => {
   const [resumeId,setResumeId] = useState(null)
   const [resumeData,setResumeData] = useState(null)
   const {showToast} = useContext(AppContext)
-
+  const [appliedJobData,setAppliedJobData] = useState([]);
+  const [JobAlreadyExist,setJobAlreadyExist] = useState(false);
 const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
   const {id} = useParams()
@@ -56,6 +57,60 @@ const userDetails = JSON.parse(localStorage.getItem("userDetails"));
     }
   };
 
+
+  const getAppliedJobs = async () => {
+    try {
+      const url = `${Base_url}job_apply/userByid/${userDetails.user_id}`;
+      const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      // formData1.append('resume', selectedFile);
+
+    
+
+      const response = await axios.post(url,formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data = response.data
+          console.log("Response check work experience",data,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data.status === "success"){
+              //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+              // setUpdate((prev)=>prev+1);
+             const Data = data.Job;
+             console.log("jobs Data  ==> ",Data )
+
+             const FilterData = Data.filter((el)=>el.job_id === id)
+               if(FilterData && FilterData.length>0){
+                setJobAlreadyExist(true)
+               }
+               else{
+                setJobAlreadyExist(false)
+               }
+             setAppliedJobData(FilterData)
+             
+            
+              return
+            
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
 
   useEffect(()=>{
     if(id){
@@ -175,6 +230,7 @@ const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
     useEffect(()=>{
       getUserDataByid()
+      getAppliedJobs()
     },[])
   return (
     <IonPage>
@@ -303,12 +359,14 @@ const userDetails = JSON.parse(localStorage.getItem("userDetails"));
                 </div>
              </div>
 
+               {
+                !JobAlreadyExist &&  <div style={{width:"100%",position:"absolute",bottom:10,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
+                <CustomBtn1 fun={handelApplyClick} title={"Apply"}/>
+               </div>
+               }
 
-             <div style={{width:"100%",position:"absolute",bottom:10,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
-
-              <CustomBtn1 fun={handelApplyClick} title={"Apply"}/>
-             </div>
+            
 
             </div>
            

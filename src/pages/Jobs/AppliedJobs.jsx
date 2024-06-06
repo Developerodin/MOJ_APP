@@ -1,4 +1,4 @@
-import { IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow } from '@ionic/react'
+import { IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow, useIonRouter } from '@ionic/react'
 import React, { useEffect, useState } from 'react'
 
 import { chevronDownOutline, documentTextOutline } from 'ionicons/icons'
@@ -9,9 +9,13 @@ import { isMobile } from '../../IsMobile/IsMobile';
 import axios from 'axios';
 import { Base_url } from '../../Config/BaseUrl';
 export const AppliedJobs = () => {
+  const history = useIonRouter();
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [jobData,setJobData] = useState([]);
-
+  const [InTouch,setInTouchData] = useState([]);
+  const [InReview,setInReviewData] = useState([]);
+  const [NotSelected,setNotSelectedData] = useState([]);
+  const [SelectedData,setSelectedData] = useState([]);
 
 
   const getAppliedJobs = async () => {
@@ -41,8 +45,22 @@ export const AppliedJobs = () => {
           if(data.status === "success"){
               //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
               // setUpdate((prev)=>prev+1);
-             const Data = data.data;
+             const Data = data.Job;
              console.log("jobs Data  ==> ",Data )
+
+             const InTouchData = Data.filter((el)=>el.status === "In Touch")
+
+             const InReviewData = Data.filter((el)=>el.status === "In Review")
+
+             const NotSelectedData = Data.filter((el)=>el.status === "Not Selected")
+
+             const SelectedData = Data.filter((el)=>el.status === "Selected")
+
+             setInTouchData(InTouchData);
+             setInReviewData(InReviewData);
+             setNotSelectedData(NotSelectedData);
+             setSelectedData(SelectedData);
+
              setJobData(Data)
              
             
@@ -59,6 +77,10 @@ export const AppliedJobs = () => {
       // showToast("error", "Try After Some Time", "");
     }
   };
+
+  const handelJobCardClick = (id)=>{
+    history.push(`/job-details/${id}`)
+  }
 
   useEffect(()=>{
     getAppliedJobs()
@@ -80,6 +102,33 @@ export const AppliedJobs = () => {
           
           />
           </div> */}
+          <div style={{marginTop:"60px"}}>
+            <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
+           
+          <span style={{fontSize:"22px",fontWeight:"bold",marginTop:"3px"}}>Selected</span>
+          <IonIcon icon={chevronDownOutline} style={{fontSize:"25px",marginLeft:"10px"}} />
+            </div>
+             <div style={{marginTop:"20px"}}>
+             <IonGrid>
+              <IonRow>
+                {
+                  SelectedData.map((el,index)=>{
+                    return   <IonCol  size="12" size-md="6">
+                    <div >
+                <AppliedJobCard data={el} fun={()=>handelJobCardClick(el.job_id)}/>
+                </div>
+                    </IonCol>
+                  })
+                }
+               
+              
+              </IonRow>
+             </IonGrid>
+             </div>
+             
+            
+          </div>
+
           <div style={{marginTop:"20px"}}>
             <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
            
@@ -89,16 +138,17 @@ export const AppliedJobs = () => {
              <div style={{marginTop:"20px"}}>
              <IonGrid>
               <IonRow>
-                <IonCol  size="12" size-md="6">
-                <div >
-            <AppliedJobCard/>
-            </div>
-                </IonCol>
-                <IonCol  size="12" size-md="6">
-                <div >
-            <AppliedJobCard/>
-            </div>
-                </IonCol>
+                {
+                  InTouch.map((el,index)=>{
+                    return   <IonCol  size="12" size-md="6">
+                    <div >
+                <AppliedJobCard data={el} fun={()=>handelJobCardClick(el.job_id)}/>
+                </div>
+                    </IonCol>
+                  })
+                }
+               
+              
               </IonRow>
              </IonGrid>
              </div>
@@ -115,17 +165,18 @@ export const AppliedJobs = () => {
 
             <div style={{marginTop:"20px"}}>
              <IonGrid>
-              <IonRow>
-                <IonCol  size="12" size-md="6">
-                <div >
-            <AppliedJobCard/>
-            </div>
-                </IonCol>
-                <IonCol  size="12" size-md="6">
-                <div >
-            <AppliedJobCard/>
-            </div>
-                </IonCol>
+             <IonRow>
+                {
+                  InReview.map((el,index)=>{
+                    return   <IonCol  size="12" size-md="6">
+                    <div >
+                <AppliedJobCard data={el} fun={()=>handelJobCardClick(el.job_id)}/>
+                </div>
+                    </IonCol>
+                  })
+                }
+               
+              
               </IonRow>
              </IonGrid>
              </div>
@@ -140,17 +191,18 @@ export const AppliedJobs = () => {
 
             <div style={{marginTop:"20px"}}>
              <IonGrid>
-              <IonRow>
-                <IonCol  size="12" size-md="6">
-                <div >
-            <AppliedJobCard/>
-            </div>
-                </IonCol>
-                <IonCol  size="12" size-md="6">
-                <div >
-            <AppliedJobCard/>
-            </div>
-                </IonCol>
+             <IonRow>
+                {
+                  NotSelected.map((el,index)=>{
+                    return   <IonCol  size="12" size-md="6">
+                    <div >
+                <AppliedJobCard data={el} fun={()=>handelJobCardClick(el.job_id)}/>
+                </div>
+                    </IonCol>
+                  })
+                }
+               
+              
               </IonRow>
              </IonGrid>
              </div>

@@ -11,7 +11,7 @@ export const JobCandidateView = () => {
     const history = useIonRouter();
     const {id} = useParams();
     const [ActiveApplicants,setActiveApplicants] = useState(0);
-
+     const [update,setUpdate] = useState(0)
     const getApplicants = async (id) => {
       try {
         const url = `${Base_url}job_apply/Byid_user/${id}`;
@@ -45,7 +45,8 @@ export const JobCandidateView = () => {
                 gender: item.user.gender,
                 address:item.user.address,
                 user_img: item.user_img,
-               
+                application_id:item.application_id,
+                application_status:item.application_status,
                 experience:item.work && item.work.length >0 ? "experienced" : "fresher",
                 job_pref: item.job_pref,
                 work: item.work,
@@ -66,7 +67,7 @@ export const JobCandidateView = () => {
     if(id){
         getApplicants(id)
     }
-    },[id])
+    },[id,update])
     const handelBackClick= ()=>{
       history.goBack();
         console.log("Back Presss")
@@ -88,7 +89,7 @@ export const JobCandidateView = () => {
                 {
                     ActiveApplicants && ActiveApplicants.map((el,index)=>{
                         return <div key={index} style={{marginTop:"20px"}}>
-                                <CandidateCard data={el}/>
+                                <CandidateCard data={el} setUpdate={setUpdate}/>
                              </div>
                     })
                 }
