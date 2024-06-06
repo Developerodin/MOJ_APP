@@ -237,8 +237,8 @@ export const HotelierHome = () => {
       </IonCol>
 
       <IonCol size="12" style={{marginTop:20,padding:0}}>
-      <div onClick={()=>handelCardClick("/candidate-applied-jobs")}>
-             
+      <div >
+      {/* onClick={()=>handelCardClick("/candidate-applied-jobs")} */}
              <div style={{
           
            border:"1px solid #BDBDBD",
@@ -271,8 +271,8 @@ export const HotelierHome = () => {
       </IonCol>
 
       <IonCol size='6.6' size-md="6" style={{marginTop:20,padding:0}}>
-      <div onClick={()=>handelCardClick("/interested-candidates")}>
-             
+      <div >
+      {/* onClick={()=>handelCardClick("/interested-candidates")} */}
              <div style={{
            position:"relative",
            background:"#BD7BFF",
@@ -305,8 +305,8 @@ export const HotelierHome = () => {
       </IonCol>
 
       <IonCol size="5" size-md="5.9" style={{marginTop:20,padding:0,marginLeft:"10px"}}>
-      <div onClick={()=>handelCardClick("/candidate-search")}>
-             
+      <div >
+      {/* onClick={()=>handelCardClick("/candidate-search")} */}
              <div style={{
            position:"relative",
            background:"#F75C5C",
