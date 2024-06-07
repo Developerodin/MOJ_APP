@@ -37,7 +37,7 @@ export const ProfilePersonalDetails = () => {
   const details = JSON.parse( localStorage.getItem("Mobile"));
   
   const [userDetails,setUserdetails] = useState(JSON.parse( localStorage.getItem("userDetails")));
-  const { showToast ,setProfileHealthUpdate} = useContext(AppContext);
+  const { showToast ,setProfileHealthUpdate,languageUpdate} = useContext(AppContext);
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [pincode,setPincode] = useState("")
@@ -61,7 +61,16 @@ export const ProfilePersonalDetails = () => {
   const [formValid, setFormValid] = useState(false);
  const [loading,setLoading] = useState(false);
  const [update,setupdate] = useState(0)
- 
+ const [selectedLanguage, setSelectedLanguage] = useState(
+  localStorage.getItem("selectedLanguage") || "English"
+);
+useEffect(() => {
+  // Code to update selectedLanguage from localStorage
+  const languageFromStorage = localStorage.getItem("selectedLanguage");
+  if (languageFromStorage) {
+    setSelectedLanguage(languageFromStorage);
+  }
+}, [languageUpdate]);
  const handelStateModelOpen =() =>{
   setIsStateModelOpen(true);
  }
@@ -263,7 +272,7 @@ export const ProfilePersonalDetails = () => {
 
           <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
 
-               <ProfileHeaders icon={<IonIcon icon={bookSharp} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Personal Details"}  />
+               <ProfileHeaders icon={<IonIcon icon={bookSharp} style={{fontSize:"24px",color:"#395CFF"}} />} title={selectedLanguage === "English" ? "Personal Details" : "व्यक्तिगत जानकारी"}  />
 
           
                <div style={{ marginTop: "30px" }}>
@@ -281,7 +290,7 @@ export const ProfilePersonalDetails = () => {
               lineHeight: "30px",
             }}
           >
-            First name
+             {selectedLanguage === "English" ? "First name" : "पहला नाम"}
           </label>
           {/* <IonItem> */}
           <input
@@ -306,7 +315,7 @@ export const ProfilePersonalDetails = () => {
               lineHeight: "30px",
             }}
           >
-            Last name
+           {selectedLanguage === "English" ? "Last name" : "उपनाम"}
           </label>
           {/* <IonItem> */}
           <input
@@ -332,7 +341,7 @@ export const ProfilePersonalDetails = () => {
               lineHeight: "30px",
             }}
           >
-            Date of Birth
+            {selectedLanguage === "English" ? "Date of Birth" : "जन्म की तारीख"}
           </label>
           {/* <IonItem> */}
           <input
@@ -357,7 +366,7 @@ export const ProfilePersonalDetails = () => {
               lineHeight: "30px",
             }}
           >
-            Gender
+            {selectedLanguage === "English" ? "Gender" : "लिंग"}
           </label>
           <div
             style={{
@@ -374,7 +383,7 @@ export const ProfilePersonalDetails = () => {
               placeholder="Gender"
             >
               <IonSelectOption defaultChecked value={""}>
-                Select Gender
+              {selectedLanguage === "English" ? "Select Gender" : "लिंग चुनें"}
               </IonSelectOption>
               <IonSelectOption value="male">Male</IonSelectOption>
               <IonSelectOption value="female">Female</IonSelectOption>
@@ -395,7 +404,7 @@ export const ProfilePersonalDetails = () => {
               lineHeight: "30px",
             }}
           >
-            Email (optional)
+           {selectedLanguage === "English" ? "Email (optional)" : "ईमेल (वैकल्पिक)"}
           </label>
           {/* <IonItem> */}
           <input
@@ -420,7 +429,7 @@ export const ProfilePersonalDetails = () => {
               lineHeight: "30px",
             }}
           >
-            Address
+            {selectedLanguage === "English" ? "Address" : "पता"}
           </label>
           {/* <IonItem> */}
           <input
@@ -445,7 +454,7 @@ export const ProfilePersonalDetails = () => {
               lineHeight: "30px",
             }}
           >
-            Pincode
+         {selectedLanguage === "English" ? "Pincode" : "पिन कोड"}
           </label>
           {/* <IonItem> */}
           <input
@@ -469,7 +478,7 @@ export const ProfilePersonalDetails = () => {
               lineHeight: "30px",
             }}
           >
-            State
+            {selectedLanguage === "English" ? "State" : "राज्य"}
           </label>
           <div
             // style={{
@@ -522,7 +531,7 @@ export const ProfilePersonalDetails = () => {
             lineHeight: "30px",
           }}
         >
-          City
+         {selectedLanguage === "English" ? "City" : "शहर"}
         </label>
 
         <div onClick={handelCityModelOpen}>
@@ -570,7 +579,7 @@ export const ProfilePersonalDetails = () => {
 
           <div style={{marginTop:"30px",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
-              <CustomBtn1 fun={handelSaveClick} title={"Update"}/>
+              <CustomBtn1 fun={handelSaveClick} title= {selectedLanguage === "English" ? "Update" : "अपडेट करो"}/>
              </div>
              <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={selectedState} setSelectedState={setSelectedState}  />
       <SelectCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} selectedCity={selectedCity} setSelectedCity={setSelectedCity} selectedState={selectedState}/>

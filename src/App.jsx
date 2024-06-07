@@ -82,7 +82,7 @@ import { HotelierPersonalDetails } from './pages/Hotelier/Profile/ProfileTabs/Ho
 import { HotelierProfileHealth } from './pages/Hotelier/Profile/ProfileTabs/HotelierProfileHealth';
 import { CandidateView } from './pages/Hotelier/Jobs/CandidateView';
 import { JobCandidateView } from './pages/Hotelier/Jobs/JobCandidateView';
-
+import { App as MainApp  } from "@capacitor/app";
 setupIonicReact();
 
 const App = () => {
@@ -92,7 +92,35 @@ const App = () => {
   let Auth = localStorage.getItem("Auth") || false;
   const Mobile = JSON.parse(localStorage.getItem("Mobile")) || false;
   const selectedLanguage = localStorage.getItem("selectedLanguage") || "English";
- 
+  const [backPressCount, setBackPressCount] = useState(0);
+
+  const handleGoBack = () => {
+    // Your custom back function logic here
+    console.log('Back button pressed once');
+    // Example: Navigate back in the app
+    window.history.back();
+  };
+
+  useEffect(() => {
+    const backButtonListener = MainApp.addListener('backButton', () => {
+      if (backPressCount === 0) {
+        setBackPressCount(1);
+        handleGoBack();
+
+        // Reset back press count after a delay
+        setTimeout(() => {
+          setBackPressCount(0);
+        }, 2000); // 2 seconds
+      } else if (backPressCount >= 2) {
+        MainApp.exitApp(); // Close the app
+      }
+    });
+
+    return () => {
+      backButtonListener.remove();
+    };
+  }, [backPressCount]);
+
   const checkUser = async () => {
     try {
       
@@ -188,7 +216,7 @@ const App = () => {
     <Route  path="/candidate-applied-jobs" component={CandidateAppliedJobs}  />
     <Route  path="/interested-candidates" component={InterestedCandidates}  />
     <Route  path="/candidate-search" component={CandidateSearch}  />
-    <Route  path="/candidate-view/:id" component={CandidateView}  />
+    <Route  path="/candidate-view/:id/:id2" component={CandidateView}  />
     <Route  path="/job-candidate-view/:id" component={JobCandidateView}  />
     
     <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>

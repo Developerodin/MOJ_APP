@@ -13,11 +13,24 @@ import axios from 'axios';
 import { AppContext } from '../../../Context/AppContext';
 export const HotelierHome = () => {
   const history = useIonRouter();
-  const { showToast,jobUpdate,setJobUpdate,editUpdate } = useContext(AppContext);
+  const { showToast,jobUpdate,setJobUpdate,editUpdate,languageUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [activeJobs,setActiveJobs] = useState(0);
   const [InactiveJobs,setInActiveJobs] = useState(0);
   const [profilePic,setProfilePic] = useState(null);
+
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
+
+
   const getJobs = async () => {
     try {
       const url = `${Base_url}job/Byuserid/${userDetails.user_id}`;
@@ -144,7 +157,11 @@ export const HotelierHome = () => {
     <IonRow  style={{margin:0,padding:0}}>
     <IonCol size="12"  style={{margin:0,padding:0}}>
        <div>
-        <IonText style={{fontWeight:"bold",fontSize:"25px"}}>Dashboard</IonText>
+        <IonText style={{fontWeight:"bold",fontSize:"25px"}}>
+         
+          {/* {selectedLanguage === "English" ? "Dashboard" : "डैशबोर्ड"} */}
+          Dashboard
+          </IonText>
        </div>
       </IonCol>
 
@@ -165,7 +182,10 @@ export const HotelierHome = () => {
                    <div>
                      
                      <div style={{marginTop:"6px"}} >
-                     <span style={{fontSize:"16px",color:"#fff"}}>Active Jobs</span>
+                     <span style={{fontSize:"16px",color:"#fff"}}>
+                      Active Jobs
+
+                      </span>
                      </div>
                      <div style={{marginTop:"10px"}}>
                      <span style={{fontSize:"24px",fontWeight:"bold",color:"#fff"}}>{activeJobs && activeJobs.length}</span>

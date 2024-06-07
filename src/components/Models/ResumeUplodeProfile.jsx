@@ -19,7 +19,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 import up from "/assets/uplode.gif";
 export const ResumeUplodeProfile = ({setUpdate}) => {
-  const { showToast ,setProfileHealthUpdate} = useContext(AppContext);
+  const { showToast ,setProfileHealthUpdate,languageUpdate} = useContext(AppContext);
   const userDetails = JSON.parse(
     localStorage.getItem("userDetails") ||
       localStorage.getItem("userRegisterDetails")
@@ -29,6 +29,16 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [showgif,setShowGif] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   function goToPreviousPage() {
     setPageNumber((prevPageNumber) =>
       prevPageNumber === 1 ? prevPageNumber : prevPageNumber - 1
@@ -144,7 +154,7 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
       >
         <CustomBtn1
           fun={() => document.getElementById("resumeInput").click()}
-          title={"Uplode"}
+          title={ selectedLanguage === "English" ? "Uplode" : "बायोडाटा अपडेट करें"}
         />
       </div>
       {/* <button
@@ -166,7 +176,10 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
 
       <IonModal isOpen={showModal} >
         <div style={{ padding: "20px" }}>
-          <span style={{ fontSize: "22px" }}>Selected Resume:</span>
+          <span style={{ fontSize: "22px" }}>
+
+          { selectedLanguage === "English" ? "Selected Resume:" : "चयनित बायोडाटा:"}
+          </span>
           {selectedFile && (
             <div style={{ marginTop: "20px" }}>
               <div>
@@ -285,10 +298,10 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
                 flexDirection: "column",
               }}
             >
-              <CustomBtn1 fun={handleUpload} title={"Update Resume"} />
+              <CustomBtn1 fun={handleUpload} title={ selectedLanguage === "English" ? "Update Resume" : "बायोडाटा अपडेट करें"} />
 
               <div style={{ marginTop: "20px" }}></div>
-              <CustomBtn1 fun={() => setShowModal(false)} title={"Close"} />
+              <CustomBtn1 fun={() => setShowModal(false)} title={ selectedLanguage === "English" ? "Close" : "बंद करना"} />
             </div>
           </div>
         </div>

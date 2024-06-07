@@ -6,15 +6,10 @@ import { Base_url } from '../../Config/BaseUrl';
 import axios from 'axios';
 import { AppContext } from '../../Context/AppContext';
 
-export const CandidateCard = ({data,setUpdate}) => {
+export const CandidateCard = ({data,setUpdate,fun}) => {
   const history = useIonRouter();
-  const { showToast,jobUpdate,setJobUpdate } = useContext(AppContext);
-  const handelCardClick = (id,id2)=>{
-    if(id){
-      history.push(`/candidate-view/${id}`);
-    }
-  
-}
+  const { showToast,jobUpdate,setJobUpdate,CandidateJobStatus,setCandidateJobStatus } = useContext(AppContext);
+
 
 const handleStatusChange = ()=>{
       
@@ -50,7 +45,7 @@ const ChangeStatus = async (value) => {
         if(data1.status === "success"){
             //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
             showToast("success", "updated", "");
-            setUpdate((prev)=>prev+1)
+            setCandidateJobStatus((prev)=>prev+1)
             return
         }
         showToast("error", "Try After Some Time", "");
@@ -66,10 +61,10 @@ const ChangeStatus = async (value) => {
 
   return (
     <div style={{width:"100%"}}>
-    <IonCard   style={{padding:"0px",borderRadius:"10px",background:"#fff",margin:0,boxShadow:"rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"}} >
+    <IonCard   style={{padding:"0px",border:"1px solid grey",borderRadius:"10px",background:"#fff",margin:0,boxShadow:"rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"}} >
         <IonCardContent style={{padding:"20px"}}>
           
-          <div onClick={()=>handelCardClick(data.user_id)}>
+          <div onClick={()=>fun()}>
             
     
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>

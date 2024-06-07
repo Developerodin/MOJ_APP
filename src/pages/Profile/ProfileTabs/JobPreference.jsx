@@ -33,7 +33,7 @@ export const ProfileJobPreference = () => {
     history.goBack();
       console.log("Back Presss")
   }
-  const { showToast,setProfileHealthUpdate } = useContext(AppContext);
+  const { showToast,setProfileHealthUpdate,languageUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const token =localStorage.getItem("token");
   const [departmentModel,setDepartmentModel] = useState(false)
@@ -48,6 +48,17 @@ export const ProfileJobPreference = () => {
   const [States, setStates] = useState([]);
   const [isStateModelOpen,setisStateModelOpen] = useState(false);
   const [isCityModelOpen,setIsCityModelOpen] = useState(false);
+  
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   const handelStateModleOpen = () =>{
     setisStateModelOpen(true);
   }
@@ -216,7 +227,7 @@ export const ProfileJobPreference = () => {
         <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
           
 
-        <ProfileHeaders icon={<IonIcon icon={filterOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Job preference"}  />
+        <ProfileHeaders icon={<IonIcon icon={filterOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={ selectedLanguage === "English" ? "Job preference" : "नौकरी वरीयता "}  />
 
           <div style={{ marginTop: "20px" }}>
             <label
@@ -228,7 +239,7 @@ export const ProfileJobPreference = () => {
                 lineHeight: "30px",
               }}
             >
-              Job Type
+             { selectedLanguage === "English" ? "Job Type" : "कार्य का प्रकार"}
             </label>
             <IonSelect
               value={jobType}
@@ -237,8 +248,12 @@ export const ProfileJobPreference = () => {
               placeholder="Select Job Type"
               style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
             >
-              <IonSelectOption value="Full Time">Full Time</IonSelectOption>
-              <IonSelectOption value="Part Time">Part Time</IonSelectOption>
+              <IonSelectOption value="Full Time">
+              { selectedLanguage === "English" ? "Full Time" : "पूरा समय"} 
+                </IonSelectOption>
+              <IonSelectOption value="Part Time">
+              { selectedLanguage === "English" ? "Part Time" : "पार्ट टाईम"} 
+                </IonSelectOption>
               {/* Add more job types as needed */}
             </IonSelect>
           </div>
@@ -255,12 +270,14 @@ export const ProfileJobPreference = () => {
                 lineHeight: "30px",
               }}
             >
-              Select Time Slote
+              { selectedLanguage === "English" ? "Select Time Slote" : "समय स्लॉट चुनें"}
             </label>
            
            <div style={{display:"flex",justifyContent:"left",alignItems:"center",marginTop:"10px"}}>
            <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-        <span style={{fontSize:"14px"}}>Start Time:</span>
+        <span style={{fontSize:"14px"}}>
+        { selectedLanguage === "English" ? "Start Time:" : "समय शुरू:"}
+          </span>
         <input
         style={{marginTop:"10px",borderRadius:"5px",border:"1px solid #E4E4E4",padding:"10px"}}
           type="time"
@@ -270,7 +287,9 @@ export const ProfileJobPreference = () => {
       </div>
 
       <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",marginLeft:"30px"}}>
-      <span style={{fontSize:"14px"}}>End Time:</span>
+      <span style={{fontSize:"14px"}}>
+      { selectedLanguage === "English" ? "End Time:" : "अंत समय:"}
+        </span>
         <input
         style={{marginTop:"10px",borderRadius:"5px",border:"1px solid #E4E4E4",padding:"10px"}}
           type="time"
@@ -297,7 +316,7 @@ export const ProfileJobPreference = () => {
                 lineHeight: "30px",
               }}
             >
-              Department {department !== "" && `(${department})`}
+              { selectedLanguage === "English" ? "Department" : "विभाग"}{department !== "" && `(${department})`}
             </label>
             <div
            
@@ -315,7 +334,9 @@ export const ProfileJobPreference = () => {
            }}
          > 
          {
-          departmentValue !== "" ? <span>{departmentValue}</span>:<span style={{color:"grey"}}>Select Department</span>
+          departmentValue !== "" ? <span>{departmentValue}</span>:<span style={{color:"grey"}}>
+             { selectedLanguage === "English" ? "Select Department" : "विभाग चुनें"}
+            </span>
          }
          
          </div>
@@ -332,7 +353,7 @@ export const ProfileJobPreference = () => {
                 lineHeight: "30px",
               }}
             >
-              Preferred State
+             { selectedLanguage === "English" ? "Preferred State" : "पसंदीदा राज्य"}
             </label>
             <div
            
@@ -350,7 +371,9 @@ export const ProfileJobPreference = () => {
            }}
          > 
          {
-          preferredState !== "" ? <span>{preferredState}</span>:<span style={{color:"grey"}}>Select Preferred State</span>
+          preferredState !== "" ? <span>{preferredState}</span>:<span style={{color:"grey"}}>
+             { selectedLanguage === "English" ? "Select Preferred State" : "पसंदीदा राज्य चुनें"}
+            </span>
          }
          
          </div>
@@ -368,7 +391,7 @@ export const ProfileJobPreference = () => {
       lineHeight: "30px",
     }}
   >
-    Preferred City
+   { selectedLanguage === "English" ? "Preferred City" : "पसंदीदा शहर"}
   </label>
   <div
  
@@ -386,7 +409,9 @@ export const ProfileJobPreference = () => {
  }}
 > 
 {
-preferredCity !== "" ? <span>{preferredCity}</span>:<span style={{color:"grey"}}>Select Preferred City</span>
+preferredCity !== "" ? <span>{preferredCity}</span>:<span style={{color:"grey"}}>
+  { selectedLanguage === "English" ? "Select Preferred City" : "पसंदीदा शहर चुनें"}
+  </span>
 }
 
 </div>
@@ -404,7 +429,7 @@ preferredCity !== "" ? <span>{preferredCity}</span>:<span style={{color:"grey"}}
                 lineHeight: "30px",
               }}
             >
-              Expected Salary Range
+              { selectedLanguage === "English" ? "Expected Salary Range" : "अपेक्षित वेतन सीमा"}
             </label>
             {/* <IonRange
               min={0}
@@ -436,7 +461,7 @@ preferredCity !== "" ? <span>{preferredCity}</span>:<span style={{color:"grey"}}
           {/* Other job preference fields go here */}
 
           <div style={{ marginTop:"70px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <CustomBtn1 fun={handleSaveClick} title={"Save"} />
+            <CustomBtn1 fun={handleSaveClick} title={selectedLanguage === "English" ? "Save" : "जारी रखें"} />
           </div>
           <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={preferredState} setSelectedState={setPreferredState}  />
           <DepartmentSelectModel isOpen={departmentModel} onClose={handelDepartmentModelClose} onSubmit={handelSelectedDepartment} department={department} departmentValue={departmentValue}  />

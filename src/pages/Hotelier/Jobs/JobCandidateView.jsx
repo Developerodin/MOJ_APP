@@ -1,5 +1,5 @@
 import { IonButton, IonContent, IonIcon, IonPage, useIonRouter } from '@ionic/react'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { isMobile } from '../../../IsMobile/IsMobile'
 import { bookmarkOutline, chatbubbleEllipsesOutline, chatbubbleOutline, chevronBackOutline } from 'ionicons/icons'
 import book from "/assets/Ellipse1.png";
@@ -7,10 +7,12 @@ import { CandidateCard } from '../../../components/Cards/CandidateCard';
 import { useParams } from 'react-router';
 import axios from 'axios';
 import { Base_url } from '../../../Config/BaseUrl';
+import { AppContext } from '../../../Context/AppContext';
 export const JobCandidateView = () => {
     const history = useIonRouter();
     const {id} = useParams();
     const [ActiveApplicants,setActiveApplicants] = useState(0);
+    const {CandidateJobStatus} = useContext(AppContext);
      const [update,setUpdate] = useState(0)
     const getApplicants = async (id) => {
       try {
@@ -67,11 +69,22 @@ export const JobCandidateView = () => {
     if(id){
         getApplicants(id)
     }
-    },[id,update])
+    },[id,update,CandidateJobStatus])
     const handelBackClick= ()=>{
       history.goBack();
         console.log("Back Presss")
     }
+
+    const handelCardClick = (id,id2,status)=>{
+      console.log("Card Click ==>",id,id2,status)
+      if (id) {
+        localStorage.setItem('candidateStatus', status);
+        history.push({
+          pathname: `/candidate-view/${id}/${id2}`
+        });
+      }
+    
+  }
 
   return (
     <IonPage>
@@ -87,11 +100,13 @@ export const JobCandidateView = () => {
 
                <div style={{marginTop:"30px"}}>
                 {
-                    ActiveApplicants && ActiveApplicants.map((el,index)=>{
+                    ActiveApplicants &&  ActiveApplicants.length > 0 ?ActiveApplicants.map((el,index)=>{
                         return <div key={index} style={{marginTop:"20px"}}>
-                                <CandidateCard data={el} setUpdate={setUpdate}/>
+                                <CandidateCard data={el} setUpdate={setUpdate} fun={()=>{handelCardClick(el.user_id,el.application_id,el.application_status)}}/>
                              </div>
                     })
+                    :
+                    <span>No Applicanst Found </span>
                 }
                  
                </div>

@@ -29,12 +29,21 @@ import { isMobile } from "../../../IsMobile/IsMobile";
 
 export const ProfileEduction = () => {
   const history = useIonRouter()
-  const { showToast,editUpdate,setProfileHealthUpdate } = useContext(AppContext);
+  const { showToast,editUpdate,setProfileHealthUpdate,languageUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const token =localStorage.getItem("token");
    const [update,setUpdate] =  useState(0)
   const [educationData,setEducationData] = useState(null)
-
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   const [showDoctorateField, setshowDoctorateField] = useState(false);
   const [isDoctorateChecked, setisDoctorateChecked] = useState(false);
 
@@ -379,16 +388,18 @@ export const ProfileEduction = () => {
         <IonContent>
  
            <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
-           <ProfileHeaders icon={<IonIcon icon={bookOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Education"}  />
+           <ProfileHeaders icon={<IonIcon icon={bookOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={selectedLanguage === "English" ? "Education" : "शिक्षा"}  />
            <div style={{marginTop:"10px"}}>
-            <span>Please fill in your highest educaion details</span>
+            <span> {selectedLanguage === "English" ? "Please fill in your highest educaion details" : "कृपया अपनी उच्चतम शिक्षा का विवरण भरें"}</span>
            </div>
 
            <div style={{marginTop:"60px"}}>
               
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
            <div>
-            <span style={{fontSize:"16px"}}>10th pass</span>
+            <span style={{fontSize:"16px"}}>
+            {selectedLanguage === "English" ? "10th pass" : "10वीं पास"}
+              </span>
            </div>
            <div>
            <IonCheckbox slot="end" checked={isSchoolChecked} onIonChange={handleSchoolCheckboxChange} />
@@ -409,7 +420,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              School name
+              {selectedLanguage === "English" ? "School name" : "स्कूल के नाम"}
             </label>
             {/* <IonItem> */}
             <input
@@ -434,7 +445,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              Year
+              {selectedLanguage === "English" ? "Year" : "वर्ष"}
             </label>
             {/* <IonItem> */}
             <input
@@ -458,7 +469,9 @@ export const ProfileEduction = () => {
               
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
            <div>
-            <span style={{fontSize:"16px"}}>12th pass</span>
+            <span style={{fontSize:"16px"}}>
+            {selectedLanguage === "English" ? "12th pass" : "12वीं पास"}
+              </span>
            </div>
            <div>
            <IonCheckbox slot="end" checked={isHigherSecondaryChecked} onIonChange={handleHigherSecondaryCheckboxChange} />
@@ -479,7 +492,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              School name
+              {selectedLanguage === "English" ? "School name" : "स्कूल के नाम"}
             </label>
             {/* <IonItem> */}
             <input
@@ -505,7 +518,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              Year
+              {selectedLanguage === "English" ? "Year" : "वर्ष"}
             </label>
             {/* <IonItem> */}
             <input
@@ -528,7 +541,9 @@ export const ProfileEduction = () => {
               
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
            <div>
-            <span style={{fontSize:"16px"}}>Graduation / diploma</span>
+            <span style={{fontSize:"16px"}}>
+            {selectedLanguage === "English" ? "Graduation / diploma" : "स्नातक / डिप्लोमा"}
+              </span>
            </div>
            <div>
            <IonCheckbox slot="end" checked={isGraduationChecked} onIonChange={handleGraduationCheckboxChange} />
@@ -549,7 +564,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              Collage name
+              {selectedLanguage === "English" ? "Collage name" : "कोलाज का नाम"}
             </label>
             {/* <IonItem> */}
             <input
@@ -574,7 +589,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              Degree
+              {selectedLanguage === "English" ? "Degree" : "डिग्री"}
             </label>
             {/* <IonItem> */}
             <input
@@ -596,7 +611,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              Year
+              {selectedLanguage === "English" ? "Year" : "वर्ष"}
             </label>
             {/* <IonItem> */}
             <input
@@ -619,7 +634,9 @@ export const ProfileEduction = () => {
               
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
            <div>
-            <span style={{fontSize:"16px"}}>Post graduation</span>
+            <span style={{fontSize:"16px"}}>
+            {selectedLanguage === "English" ? "Post graduation" : "पोस्ट ग्रेजुएशन"}
+              </span>
            </div>
            <div>
            <IonCheckbox slot="end" checked={isPostGChecked} onIonChange={handlePostGCheckboxChange} />
@@ -640,7 +657,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              Collage name
+              {selectedLanguage === "English" ? "Collage name" : "कोलाज का नाम"}
             </label>
             {/* <IonItem> */}
             <input
@@ -665,7 +682,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              Degree
+             {selectedLanguage === "English" ? "Degree" : "डिग्री"}
             </label>
             {/* <IonItem> */}
             <input
@@ -687,7 +704,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              Year
+               {selectedLanguage === "English" ? "Year" : "वर्ष"}
             </label>
             {/* <IonItem> */}
             <input
@@ -711,7 +728,9 @@ export const ProfileEduction = () => {
               
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
          <div>
-          <span style={{fontSize:"16px"}}>Doctorate</span>
+          <span style={{fontSize:"16px"}}>
+          {selectedLanguage === "English" ? "Doctorate" : "डॉक्टर की उपाधि"}
+            </span>
          </div>
          <div>
          <IonCheckbox slot="end" checked={isDoctorateChecked} onIonChange={handleDoctorateCheckboxChange} />
@@ -732,7 +751,7 @@ export const ProfileEduction = () => {
               lineHeight: "30px",
             }}
           >
-            Collage name
+            {selectedLanguage === "English" ? "Collage name" : "कोलाज का नाम"}
           </label>
           {/* <IonItem> */}
           <input
@@ -756,7 +775,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              Degree
+               {selectedLanguage === "English" ? "Degree" : "डिग्री"}
             </label>
             {/* <IonItem> */}
             <input
@@ -779,7 +798,7 @@ export const ProfileEduction = () => {
               lineHeight: "30px",
             }}
           >
-            Year
+            {selectedLanguage === "English" ? "Year" : "वर्ष"}
           </label>
           {/* <IonItem> */}
           <input
@@ -815,7 +834,9 @@ export const ProfileEduction = () => {
               
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
            <div>
-            <span style={{fontSize:"16px"}}>Do you have hotel management degree</span>
+            <span style={{fontSize:"16px"}}>
+            {selectedLanguage === "English" ? "Do you have hotel management degree" : "क्या आपके पास होटल मैनेजमेंट की डिग्री है?"}
+              </span>
            </div>
            <div>
            <IonCheckbox slot="end" checked={isHdegreeChecked} onIonChange={handleHdegreeCheckboxChange} />
@@ -836,7 +857,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              Collage name
+           {selectedLanguage === "English" ? "Collage name" : "कोलाज का नाम"}
             </label>
             {/* <IonItem> */}
             <input
@@ -861,7 +882,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              Year
+             {selectedLanguage === "English" ? "Year" : "वर्ष"}
             </label>
             {/* <IonItem> */}
             <input
@@ -883,7 +904,7 @@ export const ProfileEduction = () => {
 
               <div style={{background:"#fff",padding:"10px",width:"100%",position:"fixed",bottom:0,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
-<CustomBtn1 fun={handelSubmit} title={"Submit"}/>
+<CustomBtn1 fun={handelSubmit} title={ selectedLanguage === "English" ? "Submit" : "जारी रखें"}/>
 
         </div>
       

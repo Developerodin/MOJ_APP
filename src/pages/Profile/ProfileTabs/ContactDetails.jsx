@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   IonPage,
   IonContent,
@@ -13,11 +13,23 @@ import icon from "/assets/left.png";
 import { useHistory } from "react-router";
 import { ProfileHeaders } from "../../../components/Headers/ProfileHeaders";
 import { CustomBtn1 } from "../../../components/Buttons/CustomBtn1";
+import { AppContext } from "../../../Context/AppContext";
 
 export const ProfileContactDetails = () => {
     const history = useHistory()
     const userDetails = JSON.parse( localStorage.getItem("userDetails"));
     const details = JSON.parse( localStorage.getItem("Mobile"));
+    const {languageUpdate} = useContext(AppContext);
+    const [selectedLanguage, setSelectedLanguage] = useState(
+      localStorage.getItem("selectedLanguage") || "English"
+    );
+    useEffect(() => {
+      // Code to update selectedLanguage from localStorage
+      const languageFromStorage = localStorage.getItem("selectedLanguage");
+      if (languageFromStorage) {
+        setSelectedLanguage(languageFromStorage);
+      }
+    }, [languageUpdate]);
     const handelSaveClick= ()=>{
     //   history.push("/home")
     }
@@ -30,7 +42,7 @@ export const ProfileContactDetails = () => {
 
           <div style={{ padding: "20px" }}>
 
-               <ProfileHeaders icon={<IonIcon icon={callOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Contact details"}  />
+               <ProfileHeaders icon={<IonIcon icon={callOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={selectedLanguage === "English" ? "Contact details" : "सम्पर्क करने का विवरण"}  />
 
           
      <div style={{marginTop:"30px"}}>
@@ -46,7 +58,8 @@ export const ProfileContactDetails = () => {
                 lineHeight: "30px",
               }}
             >
-             Phone number
+             
+             {selectedLanguage === "English" ? "Phone number" : "फ़ोन नंबर"}
             </label>
             {/* <IonItem> */}
             <div
@@ -79,7 +92,8 @@ export const ProfileContactDetails = () => {
                 lineHeight: "30px",
               }}
             >
-              Email address
+              
+              {selectedLanguage === "English" ? "Email address" : "मेल पता"}
             </label>
             {/* <IonItem> */}
             {/* <IonInput

@@ -18,29 +18,29 @@ export const ContactUsModel = ({showModal, setShowModal,data}) => {
       <div style={{ padding: "30px" }}>
       
 
-      <div style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+      <div onClick={() => window.location.href = `tel:${data && data.h_mobile}`} style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
              <IonIcon icon={callOutline} color='primary'  style={{fontSize:"24px"}}/>
 
-             <span>+91 {data && data.h_mobile}</span>
+             <span>{data && data.h_mobile}</span>
       </div>
 
      
      </div>
      :
      <div style={{ padding: "30px" }}>
-       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+       <div onClick={() => window.open(`https://wa.me/${data && data.whatsapp}`, '_blank')} style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <IonIcon icon={logoWhatsapp}  style={{fontSize:"24px"}} color='success'/>
 
-              <span>+91 {data && data.whatsapp}</span>
+              <span>{data && data.whatsapp}</span>
        </div>
 
-       <div style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+       <div onClick={() => window.location.href = `tel:${data && data.mobile}`} style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <IonIcon icon={callOutline} color='primary'  style={{fontSize:"24px"}}/>
 
-              <span>+91 {data && data.mobile}</span>
+              <span>{data && data.mobile}</span>
        </div>
 
-       <div style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+       <div onClick={() => window.location.href = `mailto:${data && data.email}`} style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <IonIcon icon={mailOutline} color='danger' style={{fontSize:"24px"}}/>
 
               <span>{data && data.email}</span>

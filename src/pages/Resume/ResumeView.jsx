@@ -14,7 +14,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 export const ResumeView = () => {
-  const { showToast,profileHealthUpdate,setProfileHealthUpdate } = useContext(AppContext);
+  const { showToast,profileHealthUpdate,setProfileHealthUpdate,languageUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails" )|| localStorage.getItem("userRegisterDetails"));
   const [selectedFile, setSelectedFile] = useState(null);
   const [numPages, setNumPages] = useState(null);
@@ -23,7 +23,17 @@ export const ResumeView = () => {
   const [update,setUpdate] = useState(0)
 
   const [showModal, setShowModal] = useState(false);
-
+ 
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   function goToPreviousPage() {
     setPageNumber((prevPageNumber) =>
       prevPageNumber === 1 ? prevPageNumber : prevPageNumber - 1
@@ -99,7 +109,7 @@ export const ResumeView = () => {
     <IonPage>
         <IonContent>
           <div style={{padding:"20px"}}>
-          <ProfileHeaders icon={<IonIcon icon={cloudUploadOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Resume"}  />
+          <ProfileHeaders icon={<IonIcon icon={cloudUploadOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={ selectedLanguage === "English" ? "Resume" : "बायोडाटा"}  />
            
          {
           resumeUrl ?
@@ -111,14 +121,19 @@ export const ResumeView = () => {
                </div>
 
                <div onClick={openPDFInNewTab}>
-                <span style={{fontWeight:"bold",color:"#3351CC"}}>view</span>
+                <span style={{fontWeight:"bold",color:"#3351CC"}}>
+                  
+                  { selectedLanguage === "English" ? "view" : "देखना"}
+                  </span>
                  </div>
             
              </div>
           :
           <div style={{marginTop:"30px"}}>
 
-            <span>No Resume added</span>
+            <span>
+            { selectedLanguage === "English" ? "No Resume added" : "कोई बायोडाटा नहीं जोड़ा गया"}
+            </span>
            </div>
          }  
 

@@ -20,10 +20,20 @@ import { isMobile } from '../../IsMobile/IsMobile';
 export const Home = () => {
   const history = useIonRouter();
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-  const {editUpdate,jobUpdate,setJobUpdate} = useContext(AppContext)
+  const {editUpdate,jobUpdate,setJobUpdate,languageUpdate} = useContext(AppContext)
   const [backPressCount, setBackPressCount] = useState(0);
   const [profilePic,setProfilePic] = useState(null);
   const [jobData,setJobData] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   const handelJobCardClick = (id)=>{
     history.push(`/job-details/${id}`)
   }
@@ -127,28 +137,30 @@ export const Home = () => {
   useEffect(()=>{
     getProfileImg()
 },[editUpdate])
-  useEffect(() => {
-    const backButtonHandler = async () => {
-      console.log("Back Press ==>")
-      if (backPressCount < 1) {
-        console.log("Back Press ==> 1")
-        setBackPressCount(1);
-        setTimeout(() => {
-          setBackPressCount(0);
-          console.log("Back Press ==> 0")
-        }, 2000); // Reset the counter after 2 seconds
-      } else {
-        console.log("Back Press ==> exit app")
-        await MainApp.exitApp(); // Exit the app using the App plugin
-      }
-    };
 
-    MainApp.addListener("backButton", backButtonHandler);
 
-    return () => {
-      MainApp.removeAllListeners("backButton");
-    };
-  }, [backPressCount]);
+  // useEffect(() => {
+  //   const backButtonHandler = async () => {
+  //     console.log("Back Press ==>")
+  //     if (backPressCount < 1) {
+  //       console.log("Back Press ==> 1")
+  //       setBackPressCount(1);
+  //       setTimeout(() => {
+  //         setBackPressCount(0);
+  //         console.log("Back Press ==> 0")
+  //       }, 2000); // Reset the counter after 2 seconds
+  //     } else {
+  //       console.log("Back Press ==> exit app")
+  //       await MainApp.exitApp(); // Exit the app using the App plugin
+  //     }
+  //   };
+
+  //   MainApp.addListener("backButton", backButtonHandler);
+
+  //   return () => {
+  //     MainApp.removeAllListeners("backButton");
+  //   };
+  // }, [backPressCount]);
 
   // useEffect(()=>{
   //   StatusBar.setBackgroundColor({ color: '#FFFFFF' });
@@ -198,7 +210,10 @@ export const Home = () => {
   </div>
         <div  style={{marginTop:"20px"}}>
           <div >
-          <span style={{fontSize:"26px",fontWeight:"bold"}}>Offers</span> 
+          <span style={{fontSize:"26px",fontWeight:"bold"}}>
+            
+            { selectedLanguage === "English" ? "Offers" : "ऑफर"}
+            </span> 
              
              <IonGrid>
               <IonRow>
@@ -285,7 +300,10 @@ width:"100%"
           </div>
 
           <div style={{display:`${isMobile ? "block" : "flex"}`,justifyContent:"left",alignItems:"flex-start",flexDirection:"column",marginTop:"20px"}}>
-            <span style={{fontSize:"26px",fontWeight:"bold"}}>Featured jobs</span> 
+            <span style={{fontSize:"26px",fontWeight:"bold"}}>
+              
+              { selectedLanguage === "English" ? "Featured jobs" : "चुनिंदा नौकरियां"}
+              </span> 
             <br/>
             {/* <span style={{color:"grey",fontSize:"12px"}}>Showing results based on your added preference</span> */}
           </div>

@@ -1,5 +1,5 @@
 import { IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow, useIonRouter } from '@ionic/react'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { chevronDownOutline, documentTextOutline } from 'ionicons/icons'
 
@@ -8,6 +8,7 @@ import NoAppliedJobs from "/assets/appliedJobs.png";
 import { isMobile } from '../../IsMobile/IsMobile';
 import axios from 'axios';
 import { Base_url } from '../../Config/BaseUrl';
+import { AppContext } from '../../Context/AppContext';
 export const AppliedJobs = () => {
   const history = useIonRouter();
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -16,7 +17,17 @@ export const AppliedJobs = () => {
   const [InReview,setInReviewData] = useState([]);
   const [NotSelected,setNotSelectedData] = useState([]);
   const [SelectedData,setSelectedData] = useState([]);
-
+  const {languageUpdate} = useContext(AppContext)
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
   const getAppliedJobs = async () => {
     try {
@@ -92,7 +103,10 @@ export const AppliedJobs = () => {
           <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
           <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
           <IonIcon icon={documentTextOutline} style={{fontSize:"30px"}} />
-          <span style={{fontSize:"26px",fontWeight:"bold",marginLeft:"10px",marginTop:"3px"}}>Applied</span>
+          <span style={{fontSize:"26px",fontWeight:"bold",marginLeft:"10px",marginTop:"3px"}}>
+            
+            { selectedLanguage === "English" ? "Applied" : "लागू नौकरियां"}
+            </span>
           </div>
           
           {/* <div style={{height:"80vh",display:"flex",justifyContent:"center",alignItems:"center"}}>
@@ -105,7 +119,10 @@ export const AppliedJobs = () => {
           <div style={{marginTop:"60px"}}>
             <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
            
-          <span style={{fontSize:"22px",fontWeight:"bold",marginTop:"3px"}}>Selected</span>
+          <span style={{fontSize:"22px",fontWeight:"bold",marginTop:"3px"}}>
+            
+            { selectedLanguage === "English" ? "Selected" : "चयनित"}
+            </span>
           <IonIcon icon={chevronDownOutline} style={{fontSize:"25px",marginLeft:"10px"}} />
             </div>
              <div style={{marginTop:"20px"}}>
@@ -132,7 +149,10 @@ export const AppliedJobs = () => {
           <div style={{marginTop:"20px"}}>
             <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
            
-          <span style={{fontSize:"22px",fontWeight:"bold",marginTop:"3px"}}>In touch</span>
+          <span style={{fontSize:"22px",fontWeight:"bold",marginTop:"3px"}}>
+            
+            { selectedLanguage === "English" ? "In touch" : "संपर्क में"}
+            </span>
           <IonIcon icon={chevronDownOutline} style={{fontSize:"25px",marginLeft:"10px"}} />
             </div>
              <div style={{marginTop:"20px"}}>
@@ -159,7 +179,10 @@ export const AppliedJobs = () => {
           <div style={{marginTop:"30px"}}>
             <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
            
-          <span style={{fontSize:"22px",fontWeight:"bold",marginTop:"3px"}}>In review</span>
+          <span style={{fontSize:"22px",fontWeight:"bold",marginTop:"3px"}}>
+            
+            { selectedLanguage === "English" ? "In review" : "समीक्षा में"}
+            </span>
           <IonIcon icon={chevronDownOutline} style={{fontSize:"25px",marginLeft:"10px"}} />
             </div>
 
@@ -185,7 +208,10 @@ export const AppliedJobs = () => {
           <div style={{marginTop:"30px"}}>
             <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
            
-          <span style={{fontSize:"22px",fontWeight:"bold",marginTop:"3px"}}>Not selected</span>
+          <span style={{fontSize:"22px",fontWeight:"bold",marginTop:"3px"}}>
+            
+            { selectedLanguage === "English" ? "Not selected" : "चयनित नहीं"}
+            </span>
           <IonIcon icon={chevronDownOutline} style={{fontSize:"25px",marginLeft:"10px"}} />
             </div>
 

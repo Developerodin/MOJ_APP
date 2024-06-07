@@ -27,7 +27,7 @@ const Basicinfo = ({ handelContinue }) => {
   const history = useIonRouter();
   const Role = localStorage.getItem("role") || "";
   const details = JSON.parse( localStorage.getItem("Mobile"));
-  const { showToast } = useContext(AppContext);
+  const { showToast,languageUpdate } = useContext(AppContext);
   const [Citys, setCitys] = useState([]);
   const [States, setStates] = useState([]);
   const [selectedState, setSelectedState] = useState("");
@@ -65,7 +65,16 @@ const Basicinfo = ({ handelContinue }) => {
   });
   const [formValid, setFormValid] = useState(false);
  const [loading,setLoading] = useState(false);
-  
+ const [selectedLanguage, setSelectedLanguage] = useState(
+  localStorage.getItem("selectedLanguage") || "English"
+);
+useEffect(() => {
+  // Code to update selectedLanguage from localStorage
+  const languageFromStorage = localStorage.getItem("selectedLanguage");
+  if (languageFromStorage) {
+    setSelectedLanguage(languageFromStorage);
+  }
+}, [languageUpdate]);
  const handleInputChange2 = (e) => {
   const { name, value } = e.target;
   setFormData2({
@@ -389,7 +398,8 @@ const handlePincodeChange2 = (e) => {
           fontWeight: "700",
         }}
       >
-        Add your personal information
+        
+        {selectedLanguage === "English" ? "Add your personal information" : "अपनी व्यक्तिगत जानकारी जोड़ें"}
       </h1>
 
 {
@@ -405,7 +415,8 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      First name
+      
+      {selectedLanguage === "English" ? "First name" : "पहला नाम"}
     </label>
     {/* <IonItem> */}
     <input
@@ -428,7 +439,8 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      Last name
+     
+      {selectedLanguage === "English" ? "Last name" : "उपनाम"}
     </label>
     {/* <IonItem> */}
     <input
@@ -451,7 +463,8 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      Date of Birth
+      
+      {selectedLanguage === "English" ? "Date of Birth" : "जन्म की तारीख"}
     </label>
     {/* <IonItem> */}
     <input
@@ -474,7 +487,8 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      Gender
+      
+      {selectedLanguage === "English" ? "Gender" : "लिंग"}
     </label>
     <div
       style={{
@@ -491,7 +505,8 @@ const handlePincodeChange2 = (e) => {
         placeholder="Gender"
       >
         <IonSelectOption defaultChecked value={""}>
-          Select Gender
+          
+          {selectedLanguage === "English" ? "Select Gender" : "लिंग चुनें"}
         </IonSelectOption>
         <IonSelectOption value="male">Male</IonSelectOption>
         <IonSelectOption value="female">Female</IonSelectOption>
@@ -509,7 +524,8 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      Email (optional)
+      
+      {selectedLanguage === "English" ? "Email (optional)" : "ईमेल (वैकल्पिक)"}
     </label>
     {/* <IonItem> */}
     <input
@@ -532,7 +548,8 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      Address
+      
+      {selectedLanguage === "English" ? "Address" : "पता"}
     </label>
     {/* <IonItem> */}
     <input
@@ -555,7 +572,8 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      Pincode
+      
+      {selectedLanguage === "English" ? "Pincode" : "पिन कोड"}
     </label>
     {/* <IonItem> */}
     <input
@@ -578,7 +596,8 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      State
+      
+      {selectedLanguage === "English" ? "State" : "राज्य"}
     </label>
     <div
       // style={{
@@ -629,7 +648,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
       lineHeight: "30px",
     }}
   >
-    City
+    
+    {selectedLanguage === "English" ? "City" : "शहर"}
   </label>
 
   <div onClick={handelCityModelOpen}>
@@ -668,7 +688,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      Hotel Name
+      
+      {selectedLanguage === "English" ? "Hotel Name" : "होटल का नाम"}
     </label>
     {/* <IonItem> */}
     <input
@@ -691,7 +712,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      Hotel Location
+      
+      {selectedLanguage === "English" ? "Hotel Location" : "होटल का स्थान"}
     </label>
     {/* <IonItem> */}
     <input
@@ -715,7 +737,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      Email (optional)
+      
+      {selectedLanguage === "English" ? "Email (optional)" : "ईमेल (वैकल्पिक)"}
     </label>
     {/* <IonItem> */}
     <input
@@ -738,7 +761,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      Address
+     {selectedLanguage === "English" ? "Address" : "पता"}
     </label>
     {/* <IonItem> */}
     <input
@@ -761,7 +784,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      Pincode
+     {selectedLanguage === "English" ? "Pincode" : "पिन कोड"}
     </label>
     {/* <IonItem> */}
     <input
@@ -785,7 +808,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      State
+     {selectedLanguage === "English" ? "State" : "राज्य"}
     </label>
     <div
       // style={{
@@ -836,7 +859,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
       lineHeight: "30px",
     }}
   >
-    City
+     {selectedLanguage === "English" ? "City" : "शहर"}
   </label>
 
   <div onClick={handelCityModelOpen}>
@@ -857,7 +880,11 @@ display:"flex",justifyContent:"left",alignItems:"center"
  }
 
 <div style={{marginTop: "40px",textAlign:"center" }}>
-     <span style={{fontWeight:"bold"}}>GST Details</span>
+     <span style={{fontWeight:"bold"}}>
+      
+      {selectedLanguage === "English" ? "GST Details" : "जीएसटी विवरण"}
+      
+      </span>
   </div>
 
 
@@ -871,7 +898,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      GSTIN
+     
+      {selectedLanguage === "English" ? "GSTIN" : "जस्टिन"}
     </label>
     {/* <IonItem> */}
     <input
@@ -894,7 +922,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      Registered email address
+      
+      {selectedLanguage === "English" ? "Registered email address" : "पंजीकृत ईमेल पता"}
     </label>
     {/* <IonItem> */}
     <input
@@ -917,7 +946,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      Registered hotel name under GST 
+       
+      {selectedLanguage === "English" ? "Registered hotel name under GST" : "जीएसटी के अंतर्गत पंजीकृत होटल का नाम"}
     </label>
     {/* <IonItem> */}
     <input
@@ -940,7 +970,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      Registered hotel address  
+       
+      {selectedLanguage === "English" ? "Registered hotel address " : "पंजीकृत होटल का पता"}
     </label>
     {/* <IonItem> */}
     <input
@@ -968,11 +999,11 @@ display:"flex",justifyContent:"left",alignItems:"center"
   }}
 >
   {
-    Role === "Job Seeker" &&   <CustomBtn1 fun={handelBtnClick} title={"Continue"}  loading={loading}/>
+    Role === "Job Seeker" &&   <CustomBtn1 fun={handelBtnClick} title={selectedLanguage === "English" ? "Continue" : "जारी रखें"}  loading={loading}/>
   }
 
 {
-    Role === "Employers" &&   <CustomBtn1 fun={handelEmployersBtnClick} title={"Continue"}  loading={loading}/>
+    Role === "Employers" &&   <CustomBtn1 fun={handelEmployersBtnClick} title={selectedLanguage === "English" ? "Continue" : "जारी रखें"}  loading={loading}/>
   }
  
 </div>

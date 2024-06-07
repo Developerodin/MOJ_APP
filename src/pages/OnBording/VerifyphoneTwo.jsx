@@ -18,13 +18,23 @@ import logo from "/assets/moj.png";
 import { isMobile } from "../../IsMobile/IsMobile";
 const VerifyPhoneTwo = () => {
   const history = useIonRouter();
-  const { showToast } = useContext(AppContext);
+  const { showToast,languageUpdate } = useContext(AppContext);
   const [otp, setOtp] = useState("");
   const [formData, setFormData] = useState({
     phoneNumber: '',
     referralCode: ''
   });
   const [loading,setLoading] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   const handelBtnClick= ()=>{
        console.log("Otp",otp)
        LoginUsingOtp();
@@ -127,7 +137,8 @@ const VerifyPhoneTwo = () => {
               fontWeight: "700",
             }}
           >
-            We just sent you an SMS
+            
+            {selectedLanguage === "English" ? "We just sent you an SMS" : "हमने अभी आपको एक एसएमएस भेजा है"}
           </h1>
           <p
             style={{
@@ -137,7 +148,8 @@ const VerifyPhoneTwo = () => {
               fontWeight: "400",
             }}
           >
-            Enter the security code we sent to <br /> +91 {formData && formData.phoneNumber}
+            {selectedLanguage === "English" ? "Enter the security code we sent to" : "हमारे द्वारा भेजा गया सुरक्षा कोड दर्ज करें"}
+             <br /> +91 {formData && formData.phoneNumber}
           </p>
             </div>
           
@@ -170,7 +182,8 @@ const VerifyPhoneTwo = () => {
               fontSize: "14px",
             }}
           >
-            Didn't not get the code ?{" "}
+           
+            {selectedLanguage === "English" ? "Didn't not get the code " : "कोड नहीं मिला"}  ?{" "}
             <span
               style={{
                 color: "black",
@@ -179,14 +192,15 @@ const VerifyPhoneTwo = () => {
                 fontSize: "16px",
               }}
             >
-              Resend it
+              
+              {selectedLanguage === "English" ? "Resend it" : "फिर से भेजें"}
             </span>
           </div>
 
 {
   !isMobile &&    <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"50px"}}>
 
-  <CustomBtn1 fun={handelBtnClick} title={"Submit"} loading={loading}/>
+  <CustomBtn1 fun={handelBtnClick} title={selectedLanguage === "English" ? "Submit" : "सबमिट करें"} loading={loading}/>
   </div>
 }
        
@@ -199,7 +213,7 @@ const VerifyPhoneTwo = () => {
   isMobile && 
         <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
-<CustomBtn1 fun={handelBtnClick} title={"Submit"} loading={loading}/>
+<CustomBtn1 fun={handelBtnClick} title={selectedLanguage === "English" ? "Submit" : "सबमिट करें"} loading={loading}/>
 </div>
 }
 

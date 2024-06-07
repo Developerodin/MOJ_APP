@@ -24,6 +24,7 @@ const AppContextProvider = ({children}) => {
     const [editUpdate,setEditUpdate] = useState(0)
      const [itemData,setItemData] = useState(InitialitemData);
      const [profileHealthUpdate,setProfileHealthUpdate] = useState(0)
+     const [CandidateJobStatus,setCandidateJobStatus] = useState(0);
      const [toastStatus,setToastStatus] = useState({
       'type':'error',
       'heading':'Invalid Data',
@@ -42,7 +43,7 @@ const AppContextProvider = ({children}) => {
       },2500)
     }
 
-  return <AppContext.Provider value={{jobUpdate,setJobUpdate,profileHealthUpdate,setProfileHealthUpdate,languageUpdate,setLanguageUpdate,editUpdate,setEditUpdate, showToast,toastStatus,userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData}}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{CandidateJobStatus,setCandidateJobStatus,jobUpdate,setJobUpdate,profileHealthUpdate,setProfileHealthUpdate,languageUpdate,setLanguageUpdate,editUpdate,setEditUpdate, showToast,toastStatus,userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData}}>{children}</AppContext.Provider>
 }
 
 export default AppContextProvider;

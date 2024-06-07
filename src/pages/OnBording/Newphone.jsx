@@ -18,7 +18,7 @@ import { isMobile } from "../../IsMobile/IsMobile";
 const Newphone = () => {
   const history = useHistory()
   
-  const { showToast } = useContext(AppContext);
+  const { showToast,languageUpdate } = useContext(AppContext);
   const [formData, setFormData] = useState({
     phoneNumber: '',
     referralCode: ''
@@ -32,6 +32,16 @@ const Newphone = () => {
       [name]: value
     });
   };
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
  
   const handelBtnClick= ()=>{
     console.log('Phone Number:', formData);
@@ -117,7 +127,8 @@ const Newphone = () => {
               fontWeight: "700",
             }}
           >
-            Enter your phone number
+           
+           {selectedLanguage === "English" ? "Enter your phone number" : "अपना फोन नंबर डालें"}
           </h1>
 
           <h5
@@ -129,7 +140,8 @@ const Newphone = () => {
                 lineHeight: "30px",
             }}
           >
-            Enter your phone number to receive OTP
+            
+            {selectedLanguage === "English" ? "Enter your phone number to receive OTP" : "OTP प्राप्त करने के लिए अपना फ़ोन नंबर दर्ज करें"}
           </h5>
             </div>
         
@@ -145,7 +157,8 @@ const Newphone = () => {
             lineHeight: "30px",
           }}
         >
-          Phone Number
+          
+          {selectedLanguage === "English" ? "Phone Number" : "फ़ोन नंबर"}
         </IonLabel>
         <br/>
         <input
@@ -168,7 +181,8 @@ const Newphone = () => {
             lineHeight: "30px",
           }}
         >
-          Referral Code (optional)
+          
+          {selectedLanguage === "English" ? "Referral Code (optional)" : "रेफरल कोड (वैकल्पिक)"}
         </IonLabel>
         <input
         className="round-input"
@@ -204,7 +218,7 @@ const Newphone = () => {
         {
   isMobile &&   <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
-  <CustomBtn1 fun={handelBtnClick} title={"Continue"} loading={loading}/>
+  <CustomBtn1 fun={handelBtnClick} title={selectedLanguage === "English" ? "Continue" : "जारी रखना"} loading={loading}/>
   
   
   </div>

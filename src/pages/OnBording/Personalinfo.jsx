@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   IonPage,
   IonContent,
@@ -17,6 +17,7 @@ import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import { ResumeModel } from "../../components/Models/ResumeModel";
 import { isMobile } from "../../IsMobile/IsMobile";
+import { AppContext } from "../../Context/AppContext";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.js',
@@ -28,7 +29,17 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [showModal, setShowModal] = useState(false);
-
+  const {languageUpdate} = useContext(AppContext);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
   function goToPreviousPage() {
     setPageNumber(prevPageNumber => (prevPageNumber === 1 ? prevPageNumber : prevPageNumber - 1));
@@ -86,7 +97,8 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
               fontWeight: "700",
             }}
           >
-            Tell us a bit about yourself
+            
+            {selectedLanguage === "English" ? "Tell us a bit about yourself" : "हमें अपने बारे में कुछ बताएं"}
           </h1>
           <div style={{ marginTop:'30px', width: "100%", height: "50px" }}>
               <button
@@ -102,7 +114,8 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
                   border: "1px solid black"
                 }}
               >
-                Education
+                
+                {selectedLanguage === "English" ? "Education" : "शिक्षा"}
               </button>
               <button
               onClick={()=>{handelButtonSelected("/job-pref")}}
@@ -118,7 +131,8 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
                   border: "1px solid black",
                 }}
               >
-                Job Preference
+                
+                {selectedLanguage === "English" ? "Job Preference" : "नौकरी वरीयता "}
               </button>
               <button
               onClick={()=>{handelButtonSelected("/work")}}
@@ -134,7 +148,8 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
                   border: "1px solid black",
                 }}
               >
-                Work Experience
+                
+                {selectedLanguage === "English" ? "Work Experience" : "कार्य अनुभव"}
               </button>
 
               <button
@@ -151,7 +166,8 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
                   border: "1px solid black",
                 }}
               >
-                Resume
+                
+                {selectedLanguage === "English" ? "Resume" : "संक्षेप"}
               </button>
               <div>
  
@@ -165,9 +181,9 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
           
         </div>
         <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
-          <CustomBtn1 fun={handelBtnClick} title={"Finish"} />
+          <CustomBtn1 fun={handelBtnClick} title={ selectedLanguage === "English" ? "Finish" : "खत्म करें"} />
           <div onClick={handelSkipClick} style={{marginTop:"20px"}}>
-    <span style={{color:"black",fontSize:"16px",fontWeight:"bold"}}>Skip</span>
+    <span style={{color:"black",fontSize:"16px",fontWeight:"bold"}}>{ selectedLanguage === "English" ? "Skip" : "छोड़ दें"}</span>
 </div>
       
         </div>

@@ -1,17 +1,29 @@
 import { IonButton, IonContent, IonIcon, IonPage, IonToggle, useIonRouter } from '@ionic/react'
 import { bagHandleOutline } from 'ionicons/icons'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders'
 import { CustomBtn1 } from '../../../components/Buttons/CustomBtn1'
 import { useIonActionSheet } from '@ionic/react';
 import { Base_url } from '../../../Config/BaseUrl'
 import axios from 'axios'
 import { isMobile } from '../../../IsMobile/IsMobile'
+import { AppContext } from '../../../Context/AppContext'
 export const AccountsAndNotifications = () => {
   const history =  useIonRouter()
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
    const [deleteModel,setDeleteModel] = useState(false);
    const [present] = useIonActionSheet();
+   const {languageUpdate } = useContext(AppContext);
+   const [selectedLanguage, setSelectedLanguage] = useState(
+     localStorage.getItem("selectedLanguage") || "English"
+   );
+   useEffect(() => {
+     // Code to update selectedLanguage from localStorage
+     const languageFromStorage = localStorage.getItem("selectedLanguage");
+     if (languageFromStorage) {
+       setSelectedLanguage(languageFromStorage);
+     }
+   }, [languageUpdate]);
   const handelSave = () =>{
     console.log("save")
   }
@@ -53,16 +65,22 @@ export const AccountsAndNotifications = () => {
     <IonPage>
         <IonContent>
         <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
-          <ProfileHeaders icon={<IonIcon icon={bagHandleOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Accounts And Notifications"} />
+          <ProfileHeaders icon={<IonIcon icon={bagHandleOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={selectedLanguage === "English" ? "Accounts & Notifications" : "खाते और सूचनाएं"} />
           
            <div style={{marginTop:"50px"}}>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                   <div style={{width:"80%"}}>
                     <div>
-                      <span style={{fontSize:"18px",fontWeight:"bold"}}>SMS notification</span>
+                      <span style={{fontSize:"18px",fontWeight:"bold"}}>
+                        
+                        {selectedLanguage === "English" ? "SMS notification" : "एसएमएस अधिसूचना"}
+                        </span>
                     </div>
                     <div>
-                      <span style={{fontSize:"13px"}}>Enable SMS to get notification for unread messages</span>
+                      <span style={{fontSize:"13px"}}>
+                        
+                        {selectedLanguage === "English" ? "Enable SMS to get notification for unread messages" : "अपठित संदेशों की सूचना पाने के लिए SMS सक्षम करें"}
+                        </span>
                     </div>
                     <div>
 
@@ -77,10 +95,16 @@ export const AccountsAndNotifications = () => {
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"40px"}}>
                   <div style={{width:"80%"}}>
                     <div>
-                      <span style={{fontSize:"18px",fontWeight:"bold"}}>Notification</span>
+                      <span style={{fontSize:"18px",fontWeight:"bold"}}>
+                        
+                        {selectedLanguage === "English" ? "Notification" : "अधिसूचना"}
+                        </span>
                     </div>
                     <div>
-                      <span style={{fontSize:"13px"}}>Enable Push notification to get position recommendations based on your job preference.</span>
+                      <span style={{fontSize:"13px"}}>
+                        
+                        {selectedLanguage === "English" ? "Enable Push notification to get position recommendations based on your job preference." : "अपनी नौकरी वरीयता के आधार पर पद अनुशंसाएं प्राप्त करने के लिए पुश अधिसूचना सक्षम करें।"}
+                        </span>
                     </div>
                     <div>
 
@@ -127,7 +151,8 @@ export const AccountsAndNotifications = () => {
         })
       }
     >
-      Delete Account
+      
+      {selectedLanguage === "English" ? "Delete Account" : "खाता हटा दो"}
     </IonButton>
                   </div>
             </div>
@@ -136,7 +161,7 @@ export const AccountsAndNotifications = () => {
 
            <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
-<CustomBtn1 fun={handelSave} title={"Save"}/>
+<CustomBtn1 fun={handelSave} title={ selectedLanguage === "English" ? "Save" : "अपडेट करो"}/>
 
          </div>
           </div>

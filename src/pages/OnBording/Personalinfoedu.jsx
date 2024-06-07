@@ -14,12 +14,22 @@ import { ProfileHeaders } from "../../components/Headers/ProfileHeaders";
 
 const Personalinfoedu = () => {
   const history = useIonRouter()
-  const { showToast,editUpdate } = useContext(AppContext);
+  const { showToast,editUpdate,languageUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails")) || JSON.parse(localStorage.getItem("userRegisterDetails"));
   const token =localStorage.getItem("token");
    const [update,setUpdate] =  useState(0)
   const [educationData,setEducationData] = useState(null)
-
+  
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   const [showDoctorateField, setshowDoctorateField] = useState(false);
   const [isDoctorateChecked, setisDoctorateChecked] = useState(false);
 
@@ -315,16 +325,22 @@ const Personalinfoedu = () => {
       <IonContent>
 
          <div style={{padding:"20px"}}>
-         <ProfileHeaders icon={<IonIcon icon={bookOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Education"}  />
+         <ProfileHeaders icon={<IonIcon icon={bookOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={selectedLanguage === "English" ? "Education" : "शिक्षा"}  />
          <div style={{marginTop:"10px"}}>
-          <span>Please fill in your highest educaion details</span>
+          <span>
+            
+            {selectedLanguage === "English" ? "Please fill in your highest educaion details" : "कृपया अपनी उच्चतम शिक्षा का विवरण भरें"}
+          </span>
          </div>
 
          <div style={{marginTop:"60px"}}>
             
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
          <div>
-          <span style={{fontSize:"16px"}}>10th pass</span>
+          <span style={{fontSize:"16px"}}>
+            
+            {selectedLanguage === "English" ? "10th pass" : "10वीं पास"}
+            </span>
          </div>
          <div>
          <IonCheckbox slot="end" checked={isSchoolChecked} onIonChange={handleSchoolCheckboxChange} />
@@ -345,7 +361,7 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            School name
+              {selectedLanguage === "English" ? "School name" : "स्कूल के नाम"}
           </label>
           {/* <IonItem> */}
           <input
@@ -370,7 +386,7 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            Year
+              {selectedLanguage === "English" ? "Year" : "वर्ष"}
           </label>
           {/* <IonItem> */}
           <input
@@ -394,7 +410,10 @@ const Personalinfoedu = () => {
             
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
          <div>
-          <span style={{fontSize:"16px"}}>12th pass</span>
+          <span style={{fontSize:"16px"}}>
+            
+            {selectedLanguage === "English" ? "12th pass" : "12वीं पास"}
+            </span>
          </div>
          <div>
          <IonCheckbox slot="end" checked={isHigherSecondaryChecked} onIonChange={handleHigherSecondaryCheckboxChange} />
@@ -415,7 +434,8 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            School name
+            
+            {selectedLanguage === "English" ? "School name" : "स्कूल के नाम"}
           </label>
           {/* <IonItem> */}
           <input
@@ -441,7 +461,8 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            Year
+            
+            {selectedLanguage === "English" ? "Year" : "वर्ष"}
           </label>
           {/* <IonItem> */}
           <input
@@ -464,7 +485,10 @@ const Personalinfoedu = () => {
             
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
          <div>
-          <span style={{fontSize:"16px"}}>Graduation / diploma</span>
+          <span style={{fontSize:"16px"}}>
+            
+            {selectedLanguage === "English" ? "Graduation / diploma" : "स्नातक / डिप्लोमा"}
+            </span>
          </div>
          <div>
          <IonCheckbox slot="end" checked={isGraduationChecked} onIonChange={handleGraduationCheckboxChange} />
@@ -485,7 +509,7 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            Collage name
+            {selectedLanguage === "English" ? "Collage name" : "कोलाज का नाम"}
           </label>
           {/* <IonItem> */}
           <input
@@ -510,7 +534,8 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            Degree
+            
+            {selectedLanguage === "English" ? "Degree" : "डिग्री"}
           </label>
           {/* <IonItem> */}
           <input
@@ -532,7 +557,7 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            Year
+              {selectedLanguage === "English" ? "Year" : "वर्ष"}
           </label>
           {/* <IonItem> */}
           <input
@@ -555,7 +580,10 @@ const Personalinfoedu = () => {
             
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
          <div>
-          <span style={{fontSize:"16px"}}>Post graduation</span>
+          <span style={{fontSize:"16px"}}>
+            
+            {selectedLanguage === "English" ? "Post graduation" : "पोस्ट ग्रेजुएशन"}
+            </span>
          </div>
          <div>
          <IonCheckbox slot="end" checked={isPostGChecked} onIonChange={handlePostGCheckboxChange} />
@@ -576,7 +604,7 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            Collage name
+           {selectedLanguage === "English" ? "Collage name" : "कोलाज का नाम"}
           </label>
           {/* <IonItem> */}
           <input
@@ -601,7 +629,7 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            Degree
+           {selectedLanguage === "English" ? "Degree" : "डिग्री"}
           </label>
           {/* <IonItem> */}
           <input
@@ -623,7 +651,7 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            Year
+              {selectedLanguage === "English" ? "Year" : "वर्ष"}
           </label>
           {/* <IonItem> */}
           <input
@@ -647,7 +675,10 @@ const Personalinfoedu = () => {
             
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
        <div>
-        <span style={{fontSize:"16px"}}>Doctorate</span>
+        <span style={{fontSize:"16px"}}>
+          
+          {selectedLanguage === "English" ? "Doctorate" : "डॉक्टर की उपाधि"}
+          </span>
        </div>
        <div>
        <IonCheckbox slot="end" checked={isDoctorateChecked} onIonChange={handleDoctorateCheckboxChange} />
@@ -668,7 +699,7 @@ const Personalinfoedu = () => {
             lineHeight: "30px",
           }}
         >
-          Collage name
+         {selectedLanguage === "English" ? "Collage name" : "कोलाज का नाम"}
         </label>
         {/* <IonItem> */}
         <input
@@ -692,7 +723,7 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            Degree
+            {selectedLanguage === "English" ? "Degree" : "डिग्री"}
           </label>
           {/* <IonItem> */}
           <input
@@ -715,7 +746,7 @@ const Personalinfoedu = () => {
             lineHeight: "30px",
           }}
         >
-          Year
+            {selectedLanguage === "English" ? "Year" : "वर्ष"}
         </label>
         {/* <IonItem> */}
         <input
@@ -751,7 +782,10 @@ const Personalinfoedu = () => {
             
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
          <div>
-          <span style={{fontSize:"16px"}}>Do you have hotel management degree</span>
+          <span style={{fontSize:"16px"}}>
+            
+            {selectedLanguage === "English" ? "Do you have hotel management degree" : "क्या आपके पास होटल मैनेजमेंट की डिग्री है?"}
+            </span>
          </div>
          <div>
          <IonCheckbox slot="end" checked={isHdegreeChecked} onIonChange={handleHdegreeCheckboxChange} />
@@ -772,7 +806,8 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            Collage name
+            
+            {selectedLanguage === "English" ? "Collage name" : "कोलाज का नाम"}
           </label>
           {/* <IonItem> */}
           <input
@@ -797,7 +832,7 @@ const Personalinfoedu = () => {
               lineHeight: "30px",
             }}
           >
-            Year
+             {selectedLanguage === "English" ? "Year" : "वर्ष"}
           </label>
           {/* <IonItem> */}
           <input
@@ -819,7 +854,7 @@ const Personalinfoedu = () => {
 
             <div style={{background:"#fff",padding:"10px",width:"100%",position:"fixed",bottom:0,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
-<CustomBtn1 fun={handelSubmit} title={"Submit"}/>
+<CustomBtn1 fun={handelSubmit} title={ selectedLanguage === "English" ? "Submit" : "जारी रखें"}/>
 
       </div>
     

@@ -73,7 +73,7 @@ async function shareApp() {
 
 export const Profile = () => {
   const history = useHistory();
-  const { editUpdate, setEditUpdate, profileHealthUpdate } =
+  const { editUpdate, setEditUpdate, profileHealthUpdate,languageUpdate } =
     useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [profilePic, setProfilePic] = useState(null);
@@ -83,6 +83,16 @@ export const Profile = () => {
   const [completionPercentage, setCompletionPercentage] = useState(0);
   const [phHeathPercentage, setPhHeathPercentage] = useState(0);
   const [userProfileHealthData, setUserProfileHealthData] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   const Data = [
     {
       name: "user_Job_pref",
@@ -131,37 +141,37 @@ export const Profile = () => {
   const ProfileTabs = [
     {
       icon: lockClosedOutline,
-      title: "Personal Details",
+      title: selectedLanguage === "English" ? "Personal Details" : "व्यक्तिगत विवरण",
       link: "/profile-personal-details",
       color: "#395CFF",
     },
     {
       icon: callOutline,
-      title: "Contact Details",
+      title: selectedLanguage === "English" ? "Contact Details" : "सम्पर्क करने का विवरण",
       link: "/profile-contact-details",
       color: "#395CFF",
     },
     {
       icon: bookOutline,
-      title: "Education",
+      title: selectedLanguage === "English" ? "Education" : "शिक्षा",
       link: "/profile-eduction",
       color: "#395CFF",
     },
     {
       icon: gitPullRequestOutline,
-      title: "Job preference",
+      title: selectedLanguage === "English" ? "Job preference" : "काम प्राथमिकताएं",
       link: "/profile-job-preference",
       color: "#395CFF",
     },
     {
       icon: bagHandleOutline,
-      title: "Work experience",
+      title: selectedLanguage === "English" ? "Work experience" : "कार्य अनुभव",
       link: "/profile-work-experience",
       color: "#395CFF",
     },
     {
       icon: cloudUploadOutline,
-      title: "Resume",
+      title: selectedLanguage === "English" ? "Resume" : "बायोडाटा",
       link: "/profile-resume",
       color: "#395CFF",
     },
@@ -487,14 +497,17 @@ export const Profile = () => {
                 <div style={{ marginLeft: "20px" }}>
                   <div>
                     <span style={{ fontSize: "16px", fontWeight: "bold" }}>
-                      Profile health
+                      
+                      { selectedLanguage === "English" ? "Profile health" : "प्रोफ़ाइल स्वास्थ्य"}
                     </span>
                   </div>
                   <div style={{ marginTop: "10px" }}>
                     <span style={{ color: "#575757", fontSize: "14px" }}>
                       {phHeathPercentage > 99
                         ? "Completed"
-                        : "Complete your profile  !"}
+                        : 
+                         selectedLanguage === "English" ? "Complete your profile  !" : "अपनी प्रोफ़ाइल पूरी करें"
+                        }
                     </span>
                   </div>
                 </div>
@@ -526,7 +539,8 @@ export const Profile = () => {
                 <div style={{ marginLeft: "20px" }}>
                   <div>
                     <span style={{ fontSize: "16px", fontWeight: "bold" }}>
-                      Points earned
+                      
+                      { selectedLanguage === "English" ? "Points earned" : "अर्जित अंक"}
                     </span>
                   </div>
                   <div style={{ marginTop: "5px" }}>
@@ -575,7 +589,10 @@ export const Profile = () => {
                 </div>
 
                 <div style={{ marginLeft: "10px" }}>
-                  <span style={{ fontWeight: "bold" }}>Saved Jobs</span>
+                  <span style={{ fontWeight: "bold" }}>
+                    
+                    { selectedLanguage === "English" ? "Saved Jobs" : "बचाई गई नौकरियाँ"}
+                    </span>
                 </div>
               </div>
                   </IonCol>
@@ -600,7 +617,10 @@ export const Profile = () => {
                 </div>
 
                 <div style={{ marginLeft: "10px" }}>
-                  <span style={{ fontWeight: "bold" }}>Viewed Jobs</span>
+                  <span style={{ fontWeight: "bold" }}>
+                    
+                    { selectedLanguage === "English" ? "Viewed Jobs" : "देखी गई नौकरियाँ"}
+                    </span>
                 </div>
               </div>
                   </IonCol>
@@ -629,7 +649,8 @@ export const Profile = () => {
                           slot="start"
                         ></IonIcon>
                         <IonLabel style={{ fontWeight: "bold" }}>
-                          Contact us
+                          
+                          { selectedLanguage === "English" ? "Contact us" : "संपर्क करें"}
                         </IonLabel>
                         {/* <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon> */}
                       </IonItem>
@@ -663,7 +684,8 @@ export const Profile = () => {
                           slot="start"
                         ></IonIcon>
                         <IonLabel style={{ fontWeight: "bold" }}>
-                          Invite your friend
+                          
+                          { selectedLanguage === "English" ? "Invite your friend" : "अपने मित्र को निमंत्रित करो"}
                         </IonLabel>
                         {/* <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon> */}
                       </IonItem>

@@ -184,7 +184,7 @@ const NavBar = () => {
       <Route  path="/help-and-support" component={HelpAndSupport}  />
       <Route  path="/update-profile-photo" component={UpdateProfilePhoto}  />
       <Route  path="/hotelier-profile-health" component={HotelierProfileHealth}  />
-      <Route  path="/candidate-view/:id" component={CandidateView}  />
+      <Route  path="/candidate-view/:id/:id2" component={CandidateView}  />
       <Route  path="/job-candidate-view/:id" component={JobCandidateView}  />
             <Redirect exact  to="/app/home" />
           </IonRouterOutlet>

@@ -11,12 +11,22 @@ import { Base_url } from '../../../Config/BaseUrl'
 import { isMobile } from '../../../IsMobile/IsMobile'
 export const UpdateProfilePhoto = () => {
  
-  const { showToast ,setEditUpdate,setProfileHealthUpdate} = useContext(AppContext);
+  const { showToast ,setEditUpdate,setProfileHealthUpdate,languageUpdate} = useContext(AppContext);
   const [picture, setPicture] = useState();
   const [selectedFile, setSelectedFile] = useState(null);
   const [ImgUrl,setImgUrl] = useState("");
   const [update,setUpdate] = useState(0);
   const [loading,setLoading] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
  const history = useIonRouter()
  const userDetails = JSON.parse(localStorage.getItem("userDetails" )|| localStorage.getItem("userRegisterDetails"));
     const handelSaveClick = ()=>{
@@ -328,7 +338,10 @@ export const UpdateProfilePhoto = () => {
 
            <div style={{marginTop:"20px"}}>
 
-            <span style={{fontSize:"30px",fontWeight:"bold"}}>Update your profile photo</span>
+            <span style={{fontSize:"30px",fontWeight:"bold"}}>
+             
+              {selectedLanguage === "English" ? "Update your profile photo" : "अपना प्रोफ़ाइल फ़ोटो अपडेट करें"}
+              </span>
            </div>
 
 
@@ -346,28 +359,41 @@ export const UpdateProfilePhoto = () => {
 
            <div style={{marginTop:"30px",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
            <div onClick={takePicture}  style={{padding:"20px",border:"1px solid black",width:"100%",display:"flex",justifyContent:"center",alignItems:"center",borderRadius:"30px"}}>
-    <span style={{fontWeight:"bold"}}>Take photo</span>
+    <span style={{fontWeight:"bold"}}>
+      
+      {selectedLanguage === "English" ? "Take photo" : "फोटो लो"}
+      </span>
  </div>
 
 
 
 
  <div onClick={takePicture2} style={{marginTop:"20px",padding:"20px",border:"1px solid black",width:"100%",display:"flex",justifyContent:"center",alignItems:"center",borderRadius:"30px"}}>
-    <span style={{fontWeight:"bold"}}>Uplode from photos</span>
+    <span style={{fontWeight:"bold"}}>
+  
+      {selectedLanguage === "English" ? "Uplode from photos" : "फ़ोटो से अपलोड करें"}
+      </span>
  </div>
            </div>
 
            <div style={{marginTop:"30px",display:"flex",justifyContent:"left",alignItems:"center"}}>
               <IonIcon  icon={alertCircleOutline} style={{fontSize:"30px",color:"grey"}}/>
-           <span style={{fontSize:"14px",color:"#575757",marginLeft:"14px"}}>People with a profile photo have higher chances of getting hired.</span>
+           <span style={{fontSize:"14px",color:"#575757",marginLeft:"14px"}}>
+
+            {selectedLanguage === "English" ? "People with a profile photo have higher chances of getting hired." : "जिन लोगों के पास प्रोफाइल फोटो है, उन्हें नौकरी मिलने की संभावना अधिक होती है।"}
+
+            </span>
            
            </div>
 
            <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
-<CustomBtn1 fun={handelSaveClick} title={"save"} loading={loading}/>
+<CustomBtn1 fun={handelSaveClick} title={ selectedLanguage === "English" ? "Save" : "जारी रखें"} loading={loading}/>
 <div style={{marginTop:"20px"}}>
-    <span onClick={RemoveProfileImg} style={{color:"crimson",fontSize:"16px",fontWeight:"bold"}}>Remove photo</span>
+    <span onClick={RemoveProfileImg} style={{color:"crimson",fontSize:"16px",fontWeight:"bold"}}>
+     
+      { selectedLanguage === "English" ? " Remove photo" : "फोटो हटाएँ"}
+      </span>
 </div>
          </div>
 

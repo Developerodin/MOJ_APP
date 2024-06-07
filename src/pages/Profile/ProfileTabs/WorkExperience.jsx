@@ -24,7 +24,7 @@ import { isMobile } from "../../../IsMobile/IsMobile";
 
 export const ProfileWorkExperience = () => {
     const history = useIonRouter()
-    const { showToast,editUpdate } = useContext(AppContext);
+    const { showToast,editUpdate,languageUpdate } = useContext(AppContext);
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const token =localStorage.getItem("token");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,7 +32,16 @@ export const ProfileWorkExperience = () => {
     const [experienceData,setExperoenceData] = useState([])
     const [userData,setUserData] = useState(null);
     const [userWorkExperience,setuserWorkExperience] =  useState("fresher");
-    
+    const [selectedLanguage, setSelectedLanguage] = useState(
+      localStorage.getItem("selectedLanguage") || "English"
+    );
+    useEffect(() => {
+      // Code to update selectedLanguage from localStorage
+      const languageFromStorage = localStorage.getItem("selectedLanguage");
+      if (languageFromStorage) {
+        setSelectedLanguage(languageFromStorage);
+      }
+    }, [languageUpdate]);
     const handleOpenModal = () => {
       setIsModalOpen(true);
     };
@@ -198,7 +207,7 @@ export const ProfileWorkExperience = () => {
         {/* <IonButton onClick={handleOpenModal}>Open Form Modal</IonButton> */}
           <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
 
-               <ProfileHeaders icon={<IonIcon icon={bagHandleOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Work experience"} />
+               <ProfileHeaders icon={<IonIcon icon={bagHandleOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={ selectedLanguage === "English" ? "Work experience" : "कार्य अनुभव"} />
                     
                
                <div>
@@ -212,7 +221,7 @@ export const ProfileWorkExperience = () => {
                 lineHeight: "30px",
               }}
             >
-              Do you have work experience or are you a fresher?
+              { selectedLanguage === "English" ? "Do you have work experience or are you a fresher?" : "क्या आपके पास कार्य का अनुभव है या आप नये हैं?"}
             </label>
             <IonSelect
               value={userWorkExperience}
@@ -221,8 +230,12 @@ export const ProfileWorkExperience = () => {
               placeholder="Select Job Type"
               style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
             >
-              <IonSelectOption value="fresher">I am a fresher</IonSelectOption>
-              <IonSelectOption value="experienced">I have work experience</IonSelectOption>
+              <IonSelectOption value="fresher">
+              { selectedLanguage === "English" ? "I am a fresher" : "मैं एक नवसिखुआ हूँ"}
+                </IonSelectOption>
+              <IonSelectOption value="experienced">
+              { selectedLanguage === "English" ? "I have work experience" : "मेरे पास कार्य अनुभव है"}
+                </IonSelectOption>
               {/* Add more job types as needed */}
             </IonSelect>
           </div>
@@ -241,7 +254,10 @@ export const ProfileWorkExperience = () => {
   :
   <div style={{marginTop:"30px"}}>
 
-  <span>No Work Experience  Records Available</span>
+  <span>
+  { selectedLanguage === "English" ? "No Work Experience  Records Available" : "कोई कार्य अनुभव रिकॉर्ड उपलब्ध नहीं है"}
+
+  </span>
  </div>
 }
                   
@@ -257,7 +273,7 @@ export const ProfileWorkExperience = () => {
 
 userWorkExperience === "experienced"  &&    <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
-<CustomBtn1 fun={handleOpenModal} title={"Add"}/>
+<CustomBtn1 fun={handleOpenModal} title={ selectedLanguage === "English" ? "Add" : "जोड़ें"}/>
 
          </div>
 }

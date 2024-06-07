@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonModal } from '@ionic/react';
 import { CustomBtn1 } from '../Buttons/CustomBtn1';
 import { ProfileHeaders } from '../Headers/ProfileHeaders';
@@ -8,7 +8,7 @@ import { Base_url } from '../../Config/BaseUrl';
 import axios from 'axios';
 
 const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
-  const { showToast } = useContext(AppContext);
+  const { showToast,languageUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails") || localStorage.getItem("userRegisterDetails")) ;
   const token =localStorage.getItem("token");
   const [formData, setFormData] = useState({
@@ -21,6 +21,18 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
     refmobile:'',
     refemail:''
   });
+
+   
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
   const handleChange = (e) => {
 
@@ -117,7 +129,10 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
                </div>
 
                <div style={{marginLeft:"20px"}}>
-                <span style={{fontSize:"30px",fontWeight:"bold"}}>Work experience</span>
+                <span style={{fontSize:"30px",fontWeight:"bold"}}>
+                  
+                  { selectedLanguage === "English" ? "Work experience" : "कार्य अनुभव"}
+                  </span>
                </div>
          </div>
 
@@ -134,7 +149,8 @@ style={{
  lineHeight: "30px",
 }}
 >
-Hotel name
+
+{ selectedLanguage === "English" ? "Hotel name" : "होटल का नाम"}
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -162,7 +178,8 @@ style={{
  lineHeight: "30px",
 }}
 >
-Department
+
+{ selectedLanguage === "English" ? "Department" : "विभाग"}
 </label>
 {/* <IonItem> */}
 <IonInput
@@ -190,7 +207,8 @@ style={{
  lineHeight: "30px",
 }}
 >
-Work responsibility
+
+{ selectedLanguage === "English" ? "Work responsibility" : "कार्य जिम्मेदारी"}
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -226,7 +244,8 @@ style={{
  lineHeight: "30px",
 }}
 >
-Reference  Mobile
+
+{ selectedLanguage === "English" ? "Reference  Mobile" : "संदर्भ मोबाइल"}
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -258,7 +277,8 @@ style={{
  lineHeight: "30px",
 }}
 >
-Reference  Email
+
+{ selectedLanguage === "English" ? "Reference  Email" : "संदर्भ ईमेल"}
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -293,7 +313,8 @@ style={{
  lineHeight: "30px",
 }}
 >
-Location
+
+{ selectedLanguage === "English" ? "Location" : "स्थान"}
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -324,7 +345,8 @@ style={{
  lineHeight: "30px",
 }}
 >
-Start Date
+
+{ selectedLanguage === "English" ? "Start Date" : "आरंभ तिथि"}
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -354,7 +376,8 @@ style={{
  lineHeight: "30px",
 }}
 >
-End Date
+
+{ selectedLanguage === "English" ? "End Date" : "समाप्ति तिथि"}
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -378,7 +401,7 @@ style={{
 
 <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"60px"}}>
 
-<CustomBtn1 fun={handleSubmit} title={"Save"}/>
+<CustomBtn1 fun={handleSubmit} title={ selectedLanguage === "English" ? "Save" : "जारी रखें"}/>
 </div>
 
 </div>
