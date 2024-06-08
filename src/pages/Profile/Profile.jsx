@@ -48,28 +48,13 @@ import ProfileListItem from "../../components/ProfileItem/ProfileItem";
 import { useHistory } from "react-router";
 import { ResumeUplodeProfile } from "../../components/Models/ResumeUplodeProfile";
 
-import { Share } from "@capacitor/share";
 import { AppContext } from "../../Context/AppContext";
 import { ContactUsModel } from "../../components/Models/ContactUsModel";
 import { Base_url } from "../../Config/BaseUrl";
 import axios from "axios";
 import { isMobile } from "../../IsMobile/IsMobile";
 
-async function shareApp() {
-  const { value } = await Share.canShare();
-  if (value) {
-    await Share.share({
-      title: "Check out this job platform!",
-      text: "Join me on this awesome job platform!",
-      url: "https://your-app-url.com",
-      dialogTitle: "Share with buddies",
-    });
-  } else {
-    // Fallback if sharing is not supported
-    console.log("Sharing not supported on this platform.");
-    // You can provide alternative methods for sharing here
-  }
-}
+
 
 export const Profile = () => {
   const history = useHistory();
@@ -86,7 +71,26 @@ export const Profile = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
+  function encodeUserID(userID) {
+    const userIDStr = userID.toString();
+    const encodedUserID = btoa(userIDStr);
+    return encodedUserID;
+}
+
+function decodeReferenceID(referenceID) {
+  const decodedUserIDStr = atob(referenceID);
+  const userID = parseInt(decodedUserIDStr, 10);
+  return userID;
+}
+
   useEffect(() => {
+    const button = document.querySelector('[data-share]');
+    if (button) {
+      button.addEventListener('click', function () {
+       var refCode = encodeUserID(userDetails.user_id);
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'buttonPressed', ref: refCode }));
+      });
+    }
     // Code to update selectedLanguage from localStorage
     const languageFromStorage = localStorage.getItem("selectedLanguage");
     if (languageFromStorage) {
@@ -671,26 +675,26 @@ export const Profile = () => {
                       );
                     })}
 
-<IonCol  size="12" size-md="6">
-<div style={{ marginTop: "20px" }}>
-                      <IonItem
-                        onClick={shareApp}
-                        button
-                        style={{ marginTop: "10px" }}
-                      >
-                        <IonIcon
-                          icon={shareOutline}
-                          style={{ color: `#395CFF` }}
-                          slot="start"
-                        ></IonIcon>
-                        <IonLabel style={{ fontWeight: "bold" }}>
-                          
-                          { selectedLanguage === "English" ? "Invite your friend" : "अपने मित्र को निमंत्रित करो"}
-                        </IonLabel>
-                        {/* <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon> */}
-                      </IonItem>
-                    </div>
+<IonCol size="12" size-md="6">
+  <div style={{ marginTop: "20px" }}>
+    <IonItem
+     data-share // Add this href attribute
+      button
+      style={{ marginTop: "10px" }}
+    >
+      <IonIcon
+        icon={shareOutline}
+        style={{ color: `#395CFF` }}
+        slot="start"
+      ></IonIcon>
+      <IonLabel style={{ fontWeight: "bold" }}>
+        {selectedLanguage === "English" ? "Invite your friend" : "अपने मित्र को निमंत्रित करो"}
+      </IonLabel>
+      {/* <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon> */}
+    </IonItem>
+  </div>
 </IonCol>
+
                    
                   {/* </IonList> */}
                
