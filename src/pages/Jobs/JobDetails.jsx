@@ -57,6 +57,48 @@ const userDetails = JSON.parse(localStorage.getItem("userDetails"));
     }
   };
 
+  const handelJobViewed = async()=>{
+    try {
+      console.log("In Cahnge status ==>")
+    
+      
+      const url = `${Base_url}job_view/store`;
+      console.log("In Cahnge status 2==>")
+      const formData1 = new FormData();
+      formData1.append('user_id', userDetails.user_id);
+      formData1.append('job_id',id);
+    
+
+      const response = await axios.post(url, formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data1 = response.data
+          console.log("Response check work experience",data1,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data1.status === "success"){
+           
+              return
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  }
+
 
   const getAppliedJobs = async () => {
     try {
@@ -115,6 +157,7 @@ const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   useEffect(()=>{
     if(id){
       getJobs(id);
+      handelJobViewed(id)
     }
     
   },[id])

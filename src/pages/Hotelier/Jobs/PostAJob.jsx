@@ -647,13 +647,13 @@ style={{
               placeholder="Select Salary Range"
               style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
             >
-              <IonSelectOption value="0 - 10,000">0 - 5,000 ₹</IonSelectOption>
-              <IonSelectOption value="10,000 - 30,000">5,000 - 10,000 ₹</IonSelectOption>
-              <IonSelectOption value="30,000 - 50,000">10,000 - 20,000 ₹</IonSelectOption>
-              <IonSelectOption value="50,000 - 70,000">20,000 - 30,000 ₹</IonSelectOption>
-              <IonSelectOption value="50,000 - 70,000">30,000 - 50,000 ₹</IonSelectOption>
+             <IonSelectOption value="0 - 5,000">0 - 5,000 ₹</IonSelectOption>
+              <IonSelectOption value="5,000 - 10,000">5,000 - 10,000 ₹</IonSelectOption>
+              <IonSelectOption value="10,000 - 20,000">10,000 - 20,000 ₹</IonSelectOption>
+              <IonSelectOption value="20,000 - 30,000">20,000 - 30,000 ₹</IonSelectOption>
+              <IonSelectOption value="30,000 - 50,000">30,000 - 50,000 ₹</IonSelectOption>
               <IonSelectOption value="50,000 - 70,000">50,000 - 70,000 ₹</IonSelectOption>
-              {/* Add more preferred cities as needed */}
+              <IonSelectOption value="70,000 - more">70,000 - more ₹</IonSelectOption>
             </IonSelect>
           </div>
 
