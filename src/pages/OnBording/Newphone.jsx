@@ -35,6 +35,17 @@ const Newphone = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
+  function encodeUserID(userID) {
+    const userIDStr = userID.toString();
+    const encodedUserID = btoa(userIDStr);
+    return encodedUserID;
+}
+
+function decodeReferenceID(referenceID) {
+  const decodedUserIDStr = atob(referenceID);
+  const userID = parseInt(decodedUserIDStr, 10);
+  return userID;
+}
   useEffect(() => {
     // Code to update selectedLanguage from localStorage
     const languageFromStorage = localStorage.getItem("selectedLanguage");
@@ -47,6 +58,11 @@ const Newphone = () => {
     console.log('Phone Number:', formData);
        if(formData.phoneNumber.length === 10){
         localStorage.setItem('Mobile', JSON.stringify(formData));
+        // const eCode = encodeUserID("70");
+        const dCode = decodeReferenceID(formData.referralCode);
+
+        console.log("DCode ===>",dCode)
+        localStorage.setItem('refCode', JSON.stringify(dCode));
         checkMobile();
        }
        else{

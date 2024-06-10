@@ -40,6 +40,29 @@ export const HotelierProfile = () => {
   const [completionPercentage, setCompletionPercentage] = useState(0);
   const [phHeathPercentage,setPhHeathPercentage] = useState(0);
   const [userProfileHealthData,setUserProfileHealthData] = useState(null);
+  const [rewardPoints,setRewardPoints] = useState(0)
+  function encodeUserID(userID) {
+    const userIDStr = userID.toString();
+    const encodedUserID = btoa(userIDStr);
+    return encodedUserID;
+}
+
+function decodeReferenceID(referenceID) {
+  const decodedUserIDStr = atob(referenceID);
+  const userID = parseInt(decodedUserIDStr, 10);
+  return userID;
+}
+
+  useEffect(() => {
+    const button = document.querySelector('[data-share]');
+    if (button) {
+      button.addEventListener('click', function () {
+       var refCode = encodeUserID(userDetails.user_id);
+        window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'buttonPressed', ref: refCode }));
+      });
+    }
+  }, []);
+
   const Data =[
 
     {name:"user_img",value:0,route:"/update-profile-photo",name2:"Profile Photo"},
@@ -349,11 +372,24 @@ useEffect(() => {
                 }
 
                <div style={{marginTop:"20px"}}>
-               <IonItem onClick={shareApp}  button  style={{marginTop:"10px"}}>
-                  <IonIcon icon={shareOutline} style={{color:`#395CFF`}} slot="start"></IonIcon>
-                  <IonLabel style={{fontWeight:"bold"}}>Invite your friend</IonLabel>
-               
-                </IonItem>
+               <IonItem
+     data-share // Add this href attribute
+      button
+      style={{ marginTop: "10px" }}
+    >
+      <IonIcon
+        icon={shareOutline}
+        style={{ color: `#395CFF` }}
+        slot="start"
+      ></IonIcon>
+      <IonLabel style={{ fontWeight: "bold" }}>
+      Invite your friend
+      </IonLabel>
+      {/* <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon> */}
+    </IonItem>
+                <IonCol size="12" size-md="6">
+
+</IonCol>
                 </div>
 
               

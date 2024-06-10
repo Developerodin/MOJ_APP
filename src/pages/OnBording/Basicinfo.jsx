@@ -204,6 +204,48 @@ const handlePincodeChange2 = (e) => {
     }
   };
 
+  const handelPointsAdd = async()=>{
+    try {
+      const UserId =localStorage.getItem("refCode");
+      console.log("In Cahnge status ==>")
+    
+      
+      const url = `${Base_url}auth/user_refer/${UserId}`;
+      // console.log("In Cahnge status 2==>")
+      const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      formData1.append('point',10);
+    
+
+      const response = await axios.post(url, formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data1 = response.data
+          console.log("Response check work experience",data1,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data1.status === "success"){
+           
+              return
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  }
 
   const RegisterUser = async () => {
     try {
@@ -241,6 +283,7 @@ const handlePincodeChange2 = (e) => {
           if(data.status === "success"){
             setLoading(false);
                localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+               handelPointsAdd()
                handelContinue("ProfilePic")
               return
           }
@@ -299,6 +342,7 @@ const handlePincodeChange2 = (e) => {
           if(data.status === "success"){
             setLoading(false);
                localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
+               handelPointsAdd()
                history.push("/phone", 'root','replace')
               return
           }

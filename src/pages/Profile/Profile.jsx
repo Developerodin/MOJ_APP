@@ -71,6 +71,7 @@ export const Profile = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
+  const [rewardPoints,setRewardPoints] = useState(0)
   function encodeUserID(userID) {
     const userIDStr = userID.toString();
     const encodedUserID = btoa(userIDStr);
@@ -224,6 +225,47 @@ function decodeReferenceID(referenceID) {
     }
   };
 
+  const handelPointsDataGet = async()=>{
+    try {
+     
+      console.log("In Cahnge status ==>")
+    
+      
+      const url = `${Base_url}auth/points/${userDetails.user_id}`;
+      // console.log("In Cahnge status 2==>")
+      const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      // formData1.append('point',10);
+    
+
+      const response = await axios.post(url, formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data1 = response.data
+          console.log("Response check work experience",data1,response)
+         
+
+          if(data1.status === "success"){
+              console.log("Points Data ============================================>",data1);
+              const points = data1.data.points
+              setRewardPoints(points);
+              return
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  }
+
   const getProfileImg = async () => {
     try {
       const url = `${Base_url}profile_img_saved/Byuserid/${userDetails.user_id}`;
@@ -328,6 +370,7 @@ function decodeReferenceID(referenceID) {
 
   useEffect(() => {
     getProfileImg();
+    handelPointsDataGet()
   }, [editUpdate]);
   return (
     <IonPage>
@@ -549,7 +592,7 @@ function decodeReferenceID(referenceID) {
                   </div>
                   <div style={{ marginTop: "5px" }}>
                     <span style={{ color: "#575757", fontSize: "14px" }}>
-                      470
+                     {rewardPoints}
                     </span>
                   </div>
                 </div>

@@ -74,6 +74,7 @@ const VerifyPhoneTwo = () => {
             localStorage.setItem("token",data.access_token);
             localStorage.setItem("userDetails",JSON.stringify(data.user));
             localStorage.setItem("role",data.user.role);
+            
             showToast("success", data.message, "");
             setLoading(false)
               history.push("/app", 'root','replace');
