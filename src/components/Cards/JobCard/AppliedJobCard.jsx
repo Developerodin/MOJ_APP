@@ -4,6 +4,8 @@ import { bookmark, locationOutline } from 'ionicons/icons'
 import React from 'react'
 import book from "/assets/book.png";
 export const AppliedJobCard = ({data,fun}) => {
+
+  
   return (
     <div style={{width:"100%"}}>
 <IonCard onClick={fun} style={{padding:"0px",border:"1px solid #E4E4E4",borderRadius:"15px",background:"#f2f4fe",margin:0}} >
@@ -67,16 +69,16 @@ export const AppliedJobCard = ({data,fun}) => {
         </div> */}
 
 {
-  data.status === "Not Selected" ?  <div style={{textAlign:"center",position:"absolute",bottom:20,right:20,color:"crimson",padding:"3px",border:"1px solid crimson",borderRadius:"12px",width:"86px"}}>
+ data && data.status === "Not Selected" ?  <div style={{textAlign:"center",position:"absolute",bottom:20,right:20,color:"crimson",padding:"3px",border:"1px solid crimson",borderRadius:"12px",width:"86px"}}>
             
             
-  <span style={{fontSize:"14px"}}>{data.status}</span>
+  <span style={{fontSize:"14px"}}>{data && data.status}</span>
 </div>
 :
 <div style={{textAlign:"center",position:"absolute",bottom:20,right:20,color:"green",padding:"3px",border:"1px solid green",borderRadius:"12px",width:"86px"}}>
             
             
-            <span style={{fontSize:"14px"}}>{data.status}</span>
+            <span style={{fontSize:"14px"}}>{data && data.status}</span>
         </div>
 }
      
