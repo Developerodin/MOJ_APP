@@ -159,8 +159,8 @@ export const HotelierHome = () => {
        <div>
         <IonText style={{fontWeight:"bold",fontSize:"25px"}}>
          
-          {/* {selectedLanguage === "English" ? "Dashboard" : "डैशबोर्ड"} */}
-          Dashboard
+          {selectedLanguage === "English" ? "Dashboard" : "डैशबोर्ड"}
+       
           </IonText>
        </div>
       </IonCol>
@@ -183,8 +183,8 @@ export const HotelierHome = () => {
                      
                      <div style={{marginTop:"6px"}} >
                      <span style={{fontSize:"16px",color:"#fff"}}>
-                      Active Jobs
-
+                      
+                      {selectedLanguage === "English" ? "Active Jobs" : "सक्रिय नौकरियाँ"}
                       </span>
                      </div>
                      <div style={{marginTop:"10px"}}>
@@ -192,7 +192,10 @@ export const HotelierHome = () => {
                      </div>
 
                      <div style={{marginTop:"10px"}}>
-                     <span style={{fontSize:"13px",color:"#fff"}}>Click to view your active / inactive jobs</span>
+                     <span style={{fontSize:"13px",color:"#fff"}}>
+                      
+                      {selectedLanguage === "English" ? "Click to view your active / inactive jobs" : "अपनी सक्रिय/निष्क्रिय नौकरियाँ देखने के लिए क्लिक करें"}
+                      </span>
                      </div>
                      
                    </div>
@@ -229,14 +232,20 @@ export const HotelierHome = () => {
                    <div>
                      
                      <div style={{marginTop:"6px"}} >
-                     <span style={{fontSize:"16px",color:"#fff"}}>Job Applicants</span>
+                     <span style={{fontSize:"16px",color:"#fff"}}>
+                      
+                      {selectedLanguage === "English" ? "Job Applicants" : "नौकरी के आवेदक"}
+                      </span>
                      </div>
                      <div style={{marginTop:"10px"}}>
                      <span style={{fontSize:"24px",fontWeight:"bold",color:"#fff"}}>193</span>
                      </div>
 
                      <div style={{marginTop:"10px"}}>
-                     <span style={{fontSize:"13px",color:"#fff"}}>Click to view your job applicants</span>
+                     <span style={{fontSize:"13px",color:"#fff"}}>
+                      
+                      {selectedLanguage === "English" ? "Click to view your job applicants" : "अपने नौकरी आवेदकों को देखने के लिए क्लिक करें"}
+                      </span>
                      </div>
                      
                    </div>
@@ -269,11 +278,20 @@ export const HotelierHome = () => {
          }}>
            <div style={{padding:"15px" }}>
                <div>
-                <span style={{fontWeight:"bold",fontSize:"18px"}}>Candidates <br/> Applied</span>
+                <span style={{fontWeight:"bold",fontSize:"18px"}}>
+                  
+                  {selectedLanguage === "English" ? "Candidates" : "उम्मीदवार"}
+                  <br/> 
+                  {selectedLanguage === "English" ? "Applied" : "लागू"}
+                  
+                  </span>
                </div>
 
                <div style={{position:"absolute",left:20,bottom:"20px"}}>
-                  <span style={{textDecoration:"underline"}}>Show more</span>
+                  <span style={{textDecoration:"underline"}}>
+                    
+                    {selectedLanguage === "English" ? "Show more" : "और दिखाओ"}
+                    </span>
                </div>
 
                <div style={{position:"absolute",top:20,right:20}}>
@@ -302,9 +320,15 @@ export const HotelierHome = () => {
          }}>
            <div >
               <div style={{textAlign:"center",marginTop:"10px"}}>
-                <span style={{color:"#fff",fontSize:"18px",fontWeight:"bold"}}>Interested</span>
+                <span style={{color:"#fff",fontSize:"18px",fontWeight:"bold"}}>
+                  
+                  {selectedLanguage === "English" ? "Interested" : "इच्छुक"}
+                  </span>
                 <div style={{marginTop:"5px"}}>
-                <span style={{color:"#571599",fontSize:"18px",fontWeight:"bold"}}>Candidates</span>
+                <span style={{color:"#571599",fontSize:"18px",fontWeight:"bold"}}>
+                  
+                  {selectedLanguage === "English" ? "Candidates" : "उम्मीदवार"}
+                  </span>
                 </div>
                 
               </div>
@@ -336,10 +360,13 @@ export const HotelierHome = () => {
          }}>
            <div >
               <div style={{textAlign:"left",marginTop:"10px",marginLeft:"10px"}}>
-                <span style={{color:"#fff",fontSize:"18px",fontWeight:"bold"}}>Candidate</span>
+                <span style={{color:"#fff",fontSize:"18px",fontWeight:"bold"}}>
+                {selectedLanguage === "English" ? "Candidates" : "उम्मीदवार"}
+                  </span>
                 <div style={{marginTop:"5px"}}>
                 <span style={{color:"#fff",fontSize:"17px",fontWeight:"bold"}}>
-                  Search
+                  
+                  {selectedLanguage === "English" ? "Search" : "खोजे"}
                 </span>
                 </div>
                 
