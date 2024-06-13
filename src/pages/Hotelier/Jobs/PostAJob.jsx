@@ -479,6 +479,11 @@ style={{
             >
               <IonSelectOption value="10th">10th pass</IonSelectOption>
               <IonSelectOption value="12th">12th pass</IonSelectOption>
+              <IonSelectOption value="UG">Gradution/Diploma</IonSelectOption>
+              <IonSelectOption value="PG">Post gradution</IonSelectOption>
+              <IonSelectOption value="PhD">Doctorate</IonSelectOption>
+              <IonSelectOption value="bhm">BHM</IonSelectOption>
+              
               {/* Add more job types as needed */}
             </IonSelect>
           </div>

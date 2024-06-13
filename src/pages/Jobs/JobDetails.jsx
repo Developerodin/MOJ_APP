@@ -59,7 +59,7 @@ const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
   const handelJobViewed = async()=>{
     try {
-      console.log("In Cahnge status ==>")
+      console.log("In Change status ==>")
     
       
       const url = `${Base_url}job_view/store`;

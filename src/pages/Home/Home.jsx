@@ -1,14 +1,16 @@
 import { IonButton, IonCol, IonContent, IonGrid, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRow, IonSearchbar, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonRouter, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
 import React, { useContext, useEffect, useState } from 'react'
-import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline} from 'ionicons/icons';
+import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline ,refresh} from 'ionicons/icons';
 import './Home.css';
 import { JobCard } from '../../components/Cards/JobCard/JobCard';
+import FilterModal from '../../components/Models/FilterModal';
 
 import wm from "./wm.png"
 import frame from "./Frame1.png"
 import noOffer from "/assets/noOffer.png";
 import NoJobs from "/assets/home1.png";
 import equilizer from "./equalizer.png"
+import refreshicon from "./refresh.png"
 import { useHistory } from 'react-router';
 import { App as MainApp } from "@capacitor/app";
 import profileImg from "./profileImg2.png"
@@ -24,6 +26,11 @@ export const Home = () => {
   const [backPressCount, setBackPressCount] = useState(0);
   const [profilePic,setProfilePic] = useState(null);
   const [jobData,setJobData] = useState([]);
+  const [allJobData, setAllJobData] = useState([]);
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
+
+const [searchQuery, setSearchQuery] = useState('');
+const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
@@ -92,51 +99,86 @@ export const Home = () => {
 
   const getJobs = async () => {
     try {
-      const url = `${Base_url}job`;
-      const formData1 = new FormData();
-      // formData1.append('user_id', userDetails.user_id);
-      // formData1.append('resume', selectedFile);
+        const url = `${Base_url}job`;
+        const formData1 = new FormData();
 
-      const response = await axios.get(url, formData1, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          // "Authorization" :`Berear ${token}`,
-        },
-      });
-      const data = response.data;
-      console.log("Response check Job data", data, response);
+        const response = await axios.get(url, formData1, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        const data = response.data;
 
-      // if(data === "otp in valid"){
-      //   showToast("error", "wrong otp", "");
-      //   return;
-      // }
-
-      if (data.status === "success") {
-        //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-        // setUpdate((prev)=>prev+1);
-        console.log("Job DAta ==>",data.post)
-        // const Data = data.img;
-        const formatedData = data.post.filter((el)=>el.status === "1")
-        setJobData(formatedData);
-
-        return;
-      }
-      // showToast("error", "Try After Some Time", "");
+        if (data.status === "success") {
+            const formatedData = data.post.filter((el) => el.status === "1");
+            setAllJobData(formatedData);  // Store all job data
+            setJobData(formatedData);     // Set the job data to be displayed
+        }
     } catch (error) {
-      console.error("Error:", error);
-      // showToast("error", "Try After Some Time", "");
+        console.error("Error:", error);
     }
-  };
+};
 
 
-  useEffect(()=>{
+
+
+useEffect(() => {
     getJobs();
-  },[jobUpdate])
+}, [jobUpdate]);
 
 
   useEffect(()=>{
     getProfileImg()
 },[editUpdate])
+
+
+
+
+const handleSearch = (event) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    const filteredJobs = allJobData.filter((job) => 
+        job.job_title.toLowerCase().includes(query) ||
+        job.department.toLowerCase().includes(query) ||
+        job.sub_department.toLowerCase().includes(query)
+    );
+
+    setJobData(filteredJobs);
+};
+
+const handleFilterApply = (filters) => {
+  const filteredJobs = allJobData.filter((job) => {
+    const matchesCity = filters.city ? job.city.toLowerCase().includes(filters.city.toLowerCase()) : true;
+    const matchesState = filters.state ? job.state.toLowerCase().includes(filters.state.toLowerCase()) : true;
+
+    const salaryRange = job.off_salery.split('-').map(s => parseInt(s.trim().replace(/,/g, '')));
+    const minSalary = salaryRange[0];
+    const maxSalary = salaryRange[1];
+    const matchesSalary = (!filters.minSalary || minSalary >= filters.minSalary) && 
+                          (!filters.maxSalary || maxSalary <= filters.maxSalary);
+
+    const matchesProfile = filters.jobProfile ? job.job_title.toLowerCase().includes(filters.jobProfile.toLowerCase()) : true;
+    const matchesJobType = filters.jobType ? job.job_type === filters.jobType : true;
+    const matchesEducation = filters.education ? job.education === filters.education : true;
+    const matchesExperience = filters.experience ? job.experience.toLowerCase() === filters.experience.toLowerCase() : true;
+
+    return matchesCity && matchesState && matchesSalary && matchesProfile && matchesJobType && matchesEducation && matchesExperience;
+  });
+
+  setJobData(filteredJobs);
+  setIsFilterApplied(true);  // Set filter applied state to true
+};
+
+const handleResetFilters = () => {
+  setJobData(allJobData);
+  setIsFilterApplied(false);  // Reset filter applied state
+};
+
+
+
+
+
 
 
   // useEffect(() => {
@@ -188,8 +230,16 @@ export const Home = () => {
      </div>
 
      <div>
-          <img src={equilizer} />
-     </div>
+        <img src={equilizer} onClick={() => setIsModalOpen(true)} alt="Filter" />
+        {isFilterApplied && (
+          <img src={refreshicon}  onClick={handleResetFilters} style={{ cursor: 'pointer', marginLeft: '10px' }} />
+        )}
+      </div>
+            <FilterModal 
+                isOpen={isModalOpen} 
+                onClose={() => setIsModalOpen(false)} 
+                onApply={handleFilterApply} 
+            />
   </div>
 
   <div style={{marginTop:"30px"}}>
@@ -197,13 +247,15 @@ export const Home = () => {
     <div >
      <IonIcon icon={searchOutline}  style={{fontSize:"24px"}}/> 
     </div>
-    <div style={{marginLeft:"10px"}}>
-                <input 
-                    type="text" 
-                    placeholder="eg.cook, f&b..."
-                    style={{border: "none", outline: "none", background: "transparent", width: "100%", height: "100%", fontSize: "16px"}} 
-                />
-            </div>
+    <div style={{ marginLeft: "10px" }}>
+    <input 
+        type="text" 
+        placeholder="eg.cook, f&b..."
+        value={searchQuery}
+        onChange={handleSearch}
+        style={{ border: "none", outline: "none", background: "transparent", width: "100%", height: "100%", fontSize: "16px" }} 
+    />
+</div>
   </div>
 
 

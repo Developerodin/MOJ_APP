@@ -7,6 +7,7 @@ import { useLocation, useParams } from 'react-router';
 import { Base_url } from '../../../Config/BaseUrl';
 import axios from 'axios';
 import { AppContext } from '../../../Context/AppContext';
+
 export const CandidateView = () => {
     const history = useIonRouter();
 
@@ -141,9 +142,9 @@ export const CandidateView = () => {
             
     
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-            <div >
-            <img src={ApplicantsData && ApplicantsData.user_img || book} style={{width:"50px",height:"50px",borderRadius:"100px"}} />
-            </div>
+            <div>
+    <img src={(ApplicantsData && ApplicantsData.user_img) ? ApplicantsData.user_img : "https://dashboard.masterofjobs.in/public/images/user_img.png"} style={{width:"50px",height:"50px",borderRadius:"100px"}} />
+</div>
             <div style={{textAlign:"center"}}>
             <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{ApplicantsData && ApplicantsData.user.name}</span><br/>
             <span style={{color:"grey",fontSize:"12px"}}>3 days ago</span>
@@ -202,7 +203,7 @@ export const CandidateView = () => {
                 <div style={{padding:"3px 10px",border:"1px solid #0054e9",borderRadius:"18px"}}>
                     <span style={{fontSize:"11px",color:"#0054e9"}}>
                       {
-                        ApplicantsData && ApplicantsData.work.length > 0 ?
+                        ApplicantsData && ApplicantsData.work && ApplicantsData.work.length > 0 ?
                         "Experienced"
                         :
                         "Fresher"

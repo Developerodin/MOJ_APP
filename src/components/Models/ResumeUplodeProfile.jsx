@@ -154,7 +154,7 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
       >
         <CustomBtn1
           fun={() => document.getElementById("resumeInput").click()}
-          title={ selectedLanguage === "English" ? "Uplode" : "बायोडाटा अपडेट करें"}
+          title={ selectedLanguage === "English" ? "Upload" : "बायोडाटा अपडेट करें"}
         />
       </div>
       {/* <button
