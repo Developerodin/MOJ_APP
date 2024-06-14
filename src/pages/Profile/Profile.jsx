@@ -41,6 +41,7 @@ import {
   shareOutline,
   chevronForwardOutline,
   headsetOutline,
+  copyOutline,
 } from "ionicons/icons";
 import cs from "./th.jpg";
 import profileImg from "./profileImg2.png";
@@ -71,6 +72,10 @@ export const Profile = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
+  const [isPressed, setIsPressed] = useState(false);
+
+
+
   const [rewardPoints,setRewardPoints] = useState(0)
   function encodeUserID(userID) {
     const userIDStr = userID.toString();
@@ -83,6 +88,17 @@ function decodeReferenceID(referenceID) {
   const userID = parseInt(decodedUserIDStr, 10);
   return userID;
 }
+
+const copyToClipboard = () => {
+  let referralCode = encodeUserID(userDetails.user_id)
+  navigator.clipboard.writeText(referralCode).then(() => {
+    console.log('Referral code copied to clipboard:', referralCode);
+    setIsPressed(true);
+    setTimeout(() => {
+      setIsPressed(false);
+    }, 200);
+  });
+};
 
   useEffect(() => {
     const button = document.querySelector('[data-share]');
@@ -566,7 +582,7 @@ function decodeReferenceID(referenceID) {
                   <div
                 onClick={handelRewardClick}
                 style={{
-                 
+                
                   background: `url('/assets/rewardBG.png')`, // Add your image path here
                   
                   backgroundRepeat:"no-repeat",
@@ -577,7 +593,8 @@ function decodeReferenceID(referenceID) {
                   display: "flex",
                   justifyContent: "left",
                   alignItems: "center",
-                  height:"120px"
+                  height:"120px",
+                  position:"relative"
                 }}
               >
                 <div style={{width:"110px",textAlign:"center"}} >
@@ -596,11 +613,32 @@ function decodeReferenceID(referenceID) {
                     </span>
                   </div>
                 </div>
+               
+              </div>
+             
+                  </IonCol>
+                  <IonCol>
+                  <div  onClick={copyToClipboard}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: isPressed ? "#ff8c00" : "orange", // Darken the background color when pressed
+        padding: "20px",
+        borderRadius: "15px",
+        cursor: "pointer", // Add cursor pointer for better UX
+        transition: "background 0.2s", // Smooth transition for background color change
+      }}
+      >
+                <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    <span style={{color:"#fff",fontSize:"16px",letterSpacing:1}}>Click To Copy Referral  Code</span>
+                    <IonIcon icon={copyOutline} style={{color:"#fff",fontSize:"26px",marginLeft:"5px"}}></IonIcon>
+                </div>
               </div>
                   </IonCol>
                 </IonRow>
               </IonGrid>
-              
+             
 
               
 

@@ -147,7 +147,7 @@ export const CandidateView = () => {
 </div>
             <div style={{textAlign:"center"}}>
             <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{ApplicantsData && ApplicantsData.user.name}</span><br/>
-            <span style={{color:"grey",fontSize:"12px"}}>3 days ago</span>
+            {/* <span style={{color:"grey",fontSize:"12px"}}>3 days ago</span> */}
             </div>
 
             <div>

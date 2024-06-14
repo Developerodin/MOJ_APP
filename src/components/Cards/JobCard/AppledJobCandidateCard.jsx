@@ -45,6 +45,22 @@ export const AppledJobCandidateCard = ({data,fun}) => {
     }
   };
 
+  function timeAgo(dateString) {
+    const createdDate = new Date(dateString);
+    const now = new Date();
+    const timeDifference = now - createdDate;
+    
+    const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  
+    if (daysAgo === 0) {
+      return "Today";
+    } else if (daysAgo === 1) {
+      return "1 day ago";
+    } else {
+      return `${daysAgo} days ago`;
+    }
+  }
+
   useEffect(()=>{
   
       getApplicantsCount()
@@ -60,7 +76,7 @@ export const AppledJobCandidateCard = ({data,fun}) => {
     <IonCardContent style={{padding:"10px"}}>
       
       <div>
-        <span style={{fontSize:"12px",color:"#395CFF"}}>3 days ago</span>
+        <span style={{fontSize:"12px",color:"#395CFF"}}>{data && timeAgo(data.created_at)}</span>
 
         <div>
           <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{data && data.job_title} {`(${data && data.department})`}</span>

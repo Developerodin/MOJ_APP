@@ -5,11 +5,28 @@ import book from "/assets/book.png";
 import { Base_url } from '../../../Config/BaseUrl';
 import axios from 'axios';
 import { AppContext } from '../../../Context/AppContext';
+
 export const JobCard = ({data,fun}) => {
   const [jobSaved,setJobSaved] = useState(false);
   const [SavedJobId,setSavedJobId] = useState("");
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const { showToast,jobUpdate,setJobUpdate } = useContext(AppContext);
+
+  function timeAgo(dateString) {
+    const createdDate = new Date(dateString);
+    const now = new Date();
+    const timeDifference = now - createdDate;
+    
+    const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  
+    if (daysAgo === 0) {
+      return "Today";
+    } else if (daysAgo === 1) {
+      return "1 day ago";
+    } else {
+      return `${daysAgo} days ago`;
+    }
+  }
   
   const handelJobSave = async()=>{
     try {
@@ -150,7 +167,7 @@ export const JobCard = ({data,fun}) => {
     <IonCardContent style={{padding:"10px"}}>
       
       <div>
-        <span style={{fontSize:"12px",color:"#395CFF"}}>3 days ago</span>
+        <span style={{fontSize:"12px",color:"#395CFF"}}>{data && timeAgo(data.created_at)}</span>
           <div onClick={fun} >
           <div>
           <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{data && data.job_title} {`(${data && data.department})`}</span>

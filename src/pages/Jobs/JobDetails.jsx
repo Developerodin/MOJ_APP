@@ -165,10 +165,10 @@ const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
     const handelApplyClick =()=>{
         console.log("Apply click",resumeData,resumeId);
-           if(resumeId === null || resumeData === 1){
-            showToast("error", "Please add resume in profile section", "");
-            return ;
-           }
+          //  if(resumeId === null || resumeData === 1){
+          //   showToast("error", "Please add resume in profile section", "");
+          //   return ;
+          //  }
 
            AddJob()
          
@@ -223,6 +223,23 @@ const userDetails = JSON.parse(localStorage.getItem("userDetails"));
         // showToast("error", "Try After Some Time", "");
       }
     };
+
+    function timeAgo(dateString) {
+      const createdDate = new Date(dateString);
+      const now = new Date();
+      const timeDifference = now - createdDate;
+      
+      const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    
+      if (daysAgo === 0) {
+        return "Today";
+      } else if (daysAgo === 1) {
+        return "1 day ago";
+      } else {
+        return `${daysAgo} days ago`;
+      }
+    }
+
 
 
     const AddJob = async () => {
@@ -300,7 +317,7 @@ const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
         <div style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
           <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{data && data.job_title} {`(${data && data.department})`}</span>
-         <span style={{fontSize:"12px",color:"#395CFF"}}>3 days ago</span>
+         <span style={{fontSize:"12px",color:"#395CFF"}}>{data && timeAgo(data.created_at)}</span>
         </div>
 
         <div style={{display:"flex",justifyContent:"left",alignItems:"center",marginTop:"10px"}}>

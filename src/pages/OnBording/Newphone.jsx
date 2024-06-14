@@ -202,7 +202,7 @@ function decodeReferenceID(referenceID) {
         </IonLabel>
         <input
         className="round-input"
-          type="tel"
+        
           name="referralCode"
           value={formData.referralCode}
           onChange={handleChange}

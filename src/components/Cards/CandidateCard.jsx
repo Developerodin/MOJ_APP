@@ -59,6 +59,22 @@ const ChangeStatus = async (value) => {
   }
 };
 
+function timeAgo(dateString) {
+  const createdDate = new Date(dateString);
+  const now = new Date();
+  const timeDifference = now - createdDate;
+  
+  const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  if (daysAgo === 0) {
+    return "Today";
+  } else if (daysAgo === 1) {
+    return "1 day ago";
+  } else {
+    return `${daysAgo} days ago`;
+  }
+}
+
   return (
     <div style={{width:"100%"}}>
     <IonCard   style={{padding:"0px",border:"1px solid grey",borderRadius:"10px",background:"#fff",margin:0,boxShadow:"rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"}} >
@@ -73,7 +89,7 @@ const ChangeStatus = async (value) => {
             </div>
             <div style={{textAlign:"center"}}>
             <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{data && data.name}</span><br/>
-            <span style={{color:"grey",fontSize:"12px"}}>3 days ago</span>
+            {/* <span style={{color:"grey",fontSize:"12px"}}>{data && data.user && timeAgo(data.user.created_at)}</span> */}
             </div>
 
             <div>
