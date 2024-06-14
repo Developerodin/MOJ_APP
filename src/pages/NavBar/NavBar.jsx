@@ -49,6 +49,7 @@ import { HotelierPersonalDetails } from '../Hotelier/Profile/ProfileTabs/Hotelie
 import { HotelierProfileHealth } from '../Hotelier/Profile/ProfileTabs/HotelierProfileHealth';
 import { CandidateView } from '../Hotelier/Jobs/CandidateView';
 import { JobCandidateView } from '../Hotelier/Jobs/JobCandidateView';
+import HotelierPackage from '../Hotelier/Profile/ProfileTabs/HotelierPackage';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -186,6 +187,7 @@ const NavBar = () => {
       <Route  path="/hotelier-profile-health" component={HotelierProfileHealth}  />
       <Route  path="/candidate-view/:id/:id2" component={CandidateView}  />
       <Route  path="/job-candidate-view/:id" component={JobCandidateView}  />
+      <Route  path="/employers-package" component={HotelierPackage}  />
             <Redirect exact  to="/app/home" />
           </IonRouterOutlet>
 

@@ -87,7 +87,7 @@ const copyToClipboard = () => {
     
     {icon:lockClosedOutline,title:"Personal Details",link:"/employers-personal-details",color:"#395CFF"},
     {icon:callOutline,title:"Contact Details",link:"/employers-contact-details",color:"#395CFF"},
-    {icon:bookOutline,title:"Your current selected package",link:"/",color:"#395CFF"},
+    {icon:bookOutline,title:"Your current selected package",link:"/employers-package",color:"#395CFF"},
     {icon:gitPullRequestOutline,title:"Term and services",link:"/term-services",color:"#395CFF"},
     {icon:bagHandleOutline,title:"Privacy policy",link:"/privacy-policy",color:"#395CFF"},
     

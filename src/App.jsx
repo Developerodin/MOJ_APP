@@ -80,6 +80,7 @@ import { CandidateSearch } from './pages/Hotelier/DashboardPages/CandidateSearch
 import { HotelerContactDetails } from './pages/Hotelier/Profile/ProfileTabs/HotelerContactDetails';
 import { HotelierPersonalDetails } from './pages/Hotelier/Profile/ProfileTabs/HotelierPersonalDetails';
 import { HotelierProfileHealth } from './pages/Hotelier/Profile/ProfileTabs/HotelierProfileHealth';
+import { HotelierPackage } from './pages/Hotelier/Profile/ProfileTabs/HotelierPackage.jsx';
 import { CandidateView } from './pages/Hotelier/Jobs/CandidateView';
 import { JobCandidateView } from './pages/Hotelier/Jobs/JobCandidateView';
 import { App as MainApp  } from "@capacitor/app";
@@ -196,6 +197,7 @@ const App = () => {
 
     <Route  path="/employers-contact-details" component={HotelerContactDetails}  />
     <Route  path="/employers-personal-details" component={HotelierPersonalDetails}  />
+    <Route  path="/employers-package" component={HotelierPackage}  />
      
 
 

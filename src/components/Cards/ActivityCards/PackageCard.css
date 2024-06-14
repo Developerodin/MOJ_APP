@@ -1,0 +1,47 @@
+.pricing-card {
+    border: 1px solid #E4E4E4;
+    border-radius: 15px;
+    background: #f2f4fe;
+   
+  }
+  
+  .pricing-card h2 {
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .pricing-card h1 {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .pricing-card p {
+    font-size: 16px;
+    color: gray;
+  }
+  
+  .pricing-card a {
+    color: #395CFF;
+    text-decoration: none;
+  }
+  
+  .benefits-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .benefits-list li {
+    font-size: 14px;
+    margin: 8px 0;
+  }
+  
+  .benefits-list li.included {
+    color: black;
+  }
+  .pricing-card.selected {
+    border-color: green;
+  }  
+  
+  
