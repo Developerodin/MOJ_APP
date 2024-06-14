@@ -1,6 +1,6 @@
 import { IonCol, IonContent, IonGrid, IonIcon, IonItem, IonLabel, IonList, IonPage, IonRow, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
 import React, { useContext, useEffect, useState } from 'react'
-import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline, starOutline, colorFill, star, helpCircleOutline, settingsOutline, createOutline, bookmark, eye, lockClosedOutline, callOutline, bookOutline, gitPullRequestOutline, bagHandleOutline, cloudUploadOutline, shareOutline, chevronForwardOutline, headsetOutline} from 'ionicons/icons';
+import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline, starOutline, colorFill, star, helpCircleOutline, settingsOutline, createOutline, bookmark, eye, lockClosedOutline, callOutline, bookOutline, gitPullRequestOutline, bagHandleOutline, cloudUploadOutline, shareOutline, chevronForwardOutline, headsetOutline, copyOutline} from 'ionicons/icons';
 
 import { useHistory } from 'react-router';
 import ProfileListItem from '../../../components/ProfileItem/ProfileItem';
@@ -40,6 +40,8 @@ export const HotelierProfile = () => {
   const [completionPercentage, setCompletionPercentage] = useState(0);
   const [phHeathPercentage,setPhHeathPercentage] = useState(0);
   const [userProfileHealthData,setUserProfileHealthData] = useState(null);
+  const [isPressed, setIsPressed] = useState(false);
+
   const [rewardPoints,setRewardPoints] = useState(0)
   function encodeUserID(userID) {
     const userIDStr = userID.toString();
@@ -52,6 +54,17 @@ function decodeReferenceID(referenceID) {
   const userID = parseInt(decodedUserIDStr, 10);
   return userID;
 }
+
+const copyToClipboard = () => {
+  let referralCode = encodeUserID(userDetails.user_id)
+  navigator.clipboard.writeText(referralCode).then(() => {
+    console.log('Referral code copied to clipboard:', referralCode);
+    setIsPressed(true);
+    setTimeout(() => {
+      setIsPressed(false);
+    }, 200);
+  });
+};
 
   useEffect(() => {
     const button = document.querySelector('[data-share]');
@@ -79,6 +92,46 @@ function decodeReferenceID(referenceID) {
     {icon:bagHandleOutline,title:"Privacy policy",link:"/privacy-policy",color:"#395CFF"},
     
   ]
+  const handelPointsDataGet = async()=>{
+    try {
+     
+      console.log("In Cahnge status ==>")
+    
+      
+      const url = `${Base_url}auth/points/${userDetails.user_id}`;
+      // console.log("In Cahnge status 2==>")
+      const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      // formData1.append('point',10);
+    
+
+      const response = await axios.post(url, formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data1 = response.data
+          console.log("Response check work experience",data1,response)
+         
+
+          if(data1.status === "success"){
+              console.log("Points Data ============================================>",data1);
+              const points = data1.data.points
+              setRewardPoints(points);
+              return
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  }
  
 
   const handelRewardClick = ()=>{
@@ -255,6 +308,7 @@ useEffect(() => {
 
   useEffect(()=>{
     getProfileImg()
+    handelPointsDataGet()
   },[editUpdate])
   return (
    <IonPage>
@@ -299,50 +353,148 @@ useEffect(() => {
                </div>
             </div>
 
-<div onClick={handelProfileHealthClick} style={{marginTop:"30px"}}>
-<div style={{background:"#ffffff",padding:"10px",border:"1px solid #E2E8F0",borderRadius:"16px",display:"flex",justifyContent:"left",alignItems:"center"}}>
-       <div>
-       <div className="profile-progress">
-      <svg width={width} height={height}>
-        <circle
-          r={radius}
-          cx={width / 2}
-          cy={height / 2}
-          fill="none"
-          stroke="#e6e6e6"
-          strokeWidth={strokeWidth}
-        />
-        <circle
-          r={radius}
-          cx={width / 2}
-          cy={height / 2}
-          fill="none"
-          stroke={phHeathPercentage < 30 ? "crimson" : "#51B248" }
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-        />
-        <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="13" fill="#000">
-        {phHeathPercentage}%
-        </text>
-      </svg>
-    </div>
 
-       </div>
+            <div
+              
+              style={{ marginTop: "30px" }}
+            >
+              <IonGrid>
+                <IonRow>
+                  <IonCol size="12" size-md="6">
+                  <div
+              onClick={handelProfileHealthClick}
+                style={{
+                  background: "#ffffff",
+                  padding: "10px",
+                  border: "1px solid #E2E8F0",
+                  borderRadius: "16px",
+                  display: "flex",
+                  justifyContent: "left",
+                  alignItems: "center",
+                  height:"120px"
+                }}
+              >
+                <div>
+                  <div className="profile-progress">
+                    <svg width={width} height={height}>
+                      <circle
+                        r={radius}
+                        cx={width / 2}
+                        cy={height / 2}
+                        fill="none"
+                        stroke="#e6e6e6"
+                        strokeWidth={strokeWidth}
+                      />
+                      <circle
+                        r={radius}
+                        cx={width / 2}
+                        cy={height / 2}
+                        fill="none"
+                        stroke={phHeathPercentage < 30 ? "crimson" : "#51B248"}
+                        strokeWidth={strokeWidth}
+                        strokeLinecap="round"
+                        strokeDasharray={circumference}
+                        strokeDashoffset={offset}
+                      />
+                      <text
+                        x="50%"
+                        y="50%"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                        fontSize="13"
+                        fill="#000"
+                      >
+                        {phHeathPercentage}%
+                      </text>
+                    </svg>
+                  </div>
+                </div>
 
-       <div style={{marginLeft:"20px"}}>
-        <div>
-        <span style={{fontSize:"16px",fontWeight:"bold"}}>Profile health</span>
-        </div>
-        <div style={{marginTop:"10px"}}>
-        <span style={{color:"#575757",fontSize:"14px"}}>{phHeathPercentage > 99 ? "Completed" : "Complete your profile  !"}</span>
-        </div>
-      
-       </div>
-</div>
+                <div style={{ marginLeft: "20px" }}>
+                  <div>
+                    <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                     Profile health
+                    </span>
+                  </div>
+                  <div style={{ marginTop: "10px" }}>
+                    <span style={{ color: "#575757", fontSize: "14px" }}>
+                      {phHeathPercentage > 99
+                        ? "Completed"
+                        :
+                        "Complete your profile  !"
+                        }
+                    </span>
+                  </div>
+                </div>
+              </div>
+                  </IonCol>
 
-</div>
+
+                  <IonCol size="12" size-md="6">
+                  <div
+                onClick={handelRewardClick}
+                style={{
+                
+                  background: `url('/assets/rewardBG.png')`, // Add your image path here
+                  
+                  backgroundRepeat:"no-repeat",
+                  backgroundSize:"cover",
+                  backgroundPosition:"center",
+                  padding: "10px",
+                  borderRadius: "16px",
+                  display: "flex",
+                  justifyContent: "left",
+                  alignItems: "center",
+                  height:"120px",
+                  position:"relative"
+                }}
+              >
+                <div style={{width:"110px",textAlign:"center"}} >
+                  <img src="/assets/reward1.png" style={{height:"80px",width:"80px"}} />
+                </div>
+                <div style={{ marginLeft: "20px" }}>
+                  <div>
+                    <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                     Points earned
+                    </span>
+                  </div>
+                  <div style={{ marginTop: "5px" }}>
+                    <span style={{ color: "#575757", fontSize: "14px" }}>
+                     {rewardPoints}
+                    </span>
+                  </div>
+                </div>
+               
+              </div>
+             
+                  </IonCol>
+
+                  <IonCol>
+                  <div  onClick={copyToClipboard}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: isPressed ? "#ff8c00" : "orange", // Darken the background color when pressed
+        padding: "20px",
+        borderRadius: "15px",
+        cursor: "pointer", // Add cursor pointer for better UX
+        transition: "background 0.2s", // Smooth transition for background color change
+      }}
+      >
+                <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    <span style={{color:"#fff",fontSize:"16px",letterSpacing:1}}>Click To Copy Referral  Code</span>
+                    <IonIcon icon={copyOutline} style={{color:"#fff",fontSize:"26px",marginLeft:"5px"}}></IonIcon>
+                </div>
+              </div>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+             
+
+              
+
+            </div>
 
 
            

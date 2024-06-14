@@ -204,7 +204,7 @@ const handlePincodeChange2 = (e) => {
     }
   };
 
-  const handelPointsAdd = async()=>{
+  const handelPointsAdd = async(value)=>{
     try {
       const UserId =localStorage.getItem("refCode");
       console.log("In Cahnge status ==>")
@@ -214,7 +214,7 @@ const handlePincodeChange2 = (e) => {
       // console.log("In Cahnge status 2==>")
       const formData1 = new FormData();
       // formData1.append('user_id', userDetails.user_id);
-      formData1.append('point',10);
+      formData1.append('point',value);
     
 
       const response = await axios.post(url, formData1,{
@@ -283,7 +283,7 @@ const handlePincodeChange2 = (e) => {
           if(data.status === "success"){
             setLoading(false);
                localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-               handelPointsAdd()
+               handelPointsAdd(10)
                handelContinue("ProfilePic")
               return
           }
@@ -342,7 +342,7 @@ const handlePincodeChange2 = (e) => {
           if(data.status === "success"){
             setLoading(false);
                localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-               handelPointsAdd()
+               handelPointsAdd(50)
                history.push("/phone", 'root','replace')
               return
           }
