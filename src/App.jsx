@@ -84,6 +84,7 @@ import { HotelierPackage } from './pages/Hotelier/Profile/ProfileTabs/HotelierPa
 import { CandidateView } from './pages/Hotelier/Jobs/CandidateView';
 import { JobCandidateView } from './pages/Hotelier/Jobs/JobCandidateView';
 import { App as MainApp  } from "@capacitor/app";
+import { HotelierPackageSelect } from './pages/OnBording/HotelierPackageSelect';
 setupIonicReact();
 
 const App = () => {
@@ -198,6 +199,7 @@ const App = () => {
     <Route  path="/employers-contact-details" component={HotelerContactDetails}  />
     <Route  path="/employers-personal-details" component={HotelierPersonalDetails}  />
     <Route  path="/employers-package" component={HotelierPackage}  />
+    <Route  path="/hotelier-package" component={HotelierPackageSelect}  />
      
 
 

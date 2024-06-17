@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IonCard, IonCardContent, IonLabel, IonRadio, IonRadioGroup, IonButton } from '@ionic/react';
 import './PackageCard.css'; // Assuming you create this file for specific styles
 
-const PackageCard = ({ plan, price, benefits = [], selectedPlan, onPlanSelect }) => {
+const PackageCard = ({data, plan, price, benefits = [], selectedPlan, onPlanSelect }) => {
+  useEffect(()=>{
+      console.log("Data ==>",plan)
+  },[])
   return (
-    <IonCard className={`pricing-card ${selectedPlan === plan ? 'selected' : ''}`} onClick={() => onPlanSelect(plan)}>
+    <IonCard className={`pricing-card ${selectedPlan === data.id ? 'selected' : ''}`} onClick={() => onPlanSelect(data.id)}>
       <IonCardContent>
         <IonLabel>
           <h2>{plan}</h2>

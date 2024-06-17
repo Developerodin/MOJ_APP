@@ -343,7 +343,8 @@ const handlePincodeChange2 = (e) => {
             setLoading(false);
                localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
                handelPointsAdd(50)
-               history.push("/phone", 'root','replace')
+              //  history.push("/phone", 'root','replace')
+              history.push("/hotelier-package")
               return
           }
           // showToast("error", "Try After Some Time", "");

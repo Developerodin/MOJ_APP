@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonBackButton,IonButton, useIonRouter } from '@ionic/react';
-import PackageCard from '../../../../components/Cards/ActivityCards/PackageCard';
+import PackageCard from '../../components/Cards/ActivityCards/PackageCard';
 
 
-export const HotelierPackage = () => {
+
+export const HotelierPackageSelect = () => {
   const [selectedPlan, setSelectedPlan] = useState(1);
   const history = useIonRouter()
   const plans = [
@@ -58,7 +59,7 @@ export const HotelierPackage = () => {
     localStorage.setItem('selectedPlan',selectedPlan);
     // You can add code to submit the data as needed, e.g., to an API
     console.log("Plan saved:", selectedPlan);
-    history.goBack();
+    history.push("/phone", 'root','replace')
   };
 
   return (
@@ -89,4 +90,4 @@ export const HotelierPackage = () => {
   );
 };
 
-export default HotelierPackage;
+export default HotelierPackageSelect;

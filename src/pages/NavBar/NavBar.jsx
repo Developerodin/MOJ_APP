@@ -170,6 +170,7 @@ const NavBar = () => {
            <Route  path="/app/chat" component={HotelierMessages}  />
            <Route  path="/post-job" component={HotelierPostJob}  />
            <Route  path="/active-jobs" component={ActiveJobs}  />
+           <Route  path="/personal-chat/:id" component={PersonalChat}  />
     <Route  path="/inactive-jobs" component={InActiveJobs}  /> 
     <Route  path="/candidate-applied-jobs" component={CandidateAppliedJobs}  />
     <Route  path="/interested-candidates" component={InterestedCandidates}  />
