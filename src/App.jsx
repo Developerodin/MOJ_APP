@@ -57,6 +57,7 @@ import { SavedJobs } from './pages/Jobs/SavedJobs';
 import { ViewedJobs } from './pages/Jobs/ViewedJobs';
 import { Settings } from './pages/Profile/ProfileTabs/Settings';
 import PersonalChat from './components/Chats/PersonalChat';
+import JobPersonalChat from './components/Chats/JobChat/JobPersonalChat';
 import GroupChatting from './components/Chats/GroupChatting';
 import SelectLang from './pages/OnBording/SelectLang';
 import { AppContext } from './Context/AppContext';
@@ -85,6 +86,7 @@ import { CandidateView } from './pages/Hotelier/Jobs/CandidateView';
 import { JobCandidateView } from './pages/Hotelier/Jobs/JobCandidateView';
 import { App as MainApp  } from "@capacitor/app";
 import { HotelierPackageSelect } from './pages/OnBording/HotelierPackageSelect';
+import SearchCandidateView from './pages/Hotelier/DashboardPages/SearchCandidateView';
 setupIonicReact();
 
 const App = () => {
@@ -182,6 +184,7 @@ const App = () => {
     <Route  path="/job-pref" component={JobPref} exact />
     <Route  path="/work" component={Workexperience} exact />
     <Route  path="/personal-chat/:id" component={PersonalChat}  />
+    <Route  path="/job-personal-chat/:id" component={JobPersonalChat}  />
          <Route  path="/group-chat" component={GroupChatting}  />
          {/* <Route exact path="/job-details/:id" component={JobDetails}  /> */}
          {/* =================================================== */}
@@ -220,6 +223,8 @@ const App = () => {
     <Route  path="/candidate-applied-jobs" component={CandidateAppliedJobs}  />
     <Route  path="/interested-candidates" component={InterestedCandidates}  />
     <Route  path="/candidate-search" component={CandidateSearch}  />
+    <Route  path="/search-candidate-view/:id" component={SearchCandidateView}  />
+
     <Route  path="/candidate-view/:id/:id2" component={CandidateView}  />
     <Route  path="/job-candidate-view/:id" component={JobCandidateView}  />
     

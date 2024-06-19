@@ -1,13 +1,14 @@
 import { IonContent, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
 import React, { useContext, useState } from 'react'
 import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline, documentTextOutline, chatboxEllipsesOutline} from 'ionicons/icons';
-import ContactsChat from '../../components/Chats/ContactsChat';
-import GroupsChat from '../../components/Chats/GroupsChat';
-import Threds from '../../components/Chats/Threds';
+import JobContactsChat from '../../components/Chats/JobChat/JobContactsChat';
+import JobGroupsChat from '../../components/Chats/JobChat/JobGroupsChat';
+import JobThreds from '../../components/Chats/JobChat/JobThreds';
 import { useHistory, useLocation } from 'react-router';
 import { AppContext } from '../../Context/AppContext';
 import Nochat from "/assets/coming-soon.png";
 import { isMobile } from '../../IsMobile/IsMobile';
+import ContactsChat from '../../components/Chats/ContactsChat';
 export const Chats = () => {
   const{MarkerData,setTabBarVisibility,TabBarVisibility,itemData}=useContext(AppContext);
 
@@ -58,7 +59,7 @@ export const Chats = () => {
           <div style={{marginTop:"20px"}}>
 
 {
-    <ContactsChat />
+    <JobContactsChat />
 }
 
 </div>

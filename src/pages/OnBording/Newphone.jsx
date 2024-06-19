@@ -37,15 +37,16 @@ const Newphone = () => {
   );
   function encodeUserID(userID) {
     const userIDStr = userID.toString();
-    const encodedUserID = btoa(userIDStr);
-    return encodedUserID;
-}
+    const encodedUserID = btoa(userIDStr) ;
+    return userDetails.name.substring(0,2).toUpperCase() + encodedUserID ;
+  }
 
-function decodeReferenceID(referenceID) {
-  const decodedUserIDStr = atob(referenceID);
-  const userID = parseInt(decodedUserIDStr, 10);
-  return userID;
-}
+  function decodeReferenceID(referenceID) {
+    const refid = referenceID.substring(2, referenceID.length);
+    const decodedUserIDStr = atob(refid);
+    const userID = parseInt(decodedUserIDStr, 10);
+    return userID;
+  }
   useEffect(() => {
     // Code to update selectedLanguage from localStorage
     const languageFromStorage = localStorage.getItem("selectedLanguage");

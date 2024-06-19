@@ -247,7 +247,7 @@ const userDetails = JSON.parse(localStorage.getItem("userDetails"));
         const url = `${Base_url}job_apply/store`;
         const formData1 = new FormData();
         formData1.append('user_id', userDetails.user_id);
-        formData1.append('job_id',data.id);
+        formData1.append('job_id',id);
         formData1.append('resume_id',resumeId);
   
       

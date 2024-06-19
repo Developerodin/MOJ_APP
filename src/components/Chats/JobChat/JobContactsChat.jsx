@@ -1,18 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../../Context/AppContext';
-import ChatCard from '../Cards/ChatCard';
+
+import ChatCard from '../../Cards/JobChatCard';
 import { useHistory } from 'react-router';
 import axios from 'axios';
-import { Base_url } from '../../Config/BaseUrl';
+import { Base_url } from '../../../Config/BaseUrl';
 
-const ContactsChat = () => {
-  const { itemData } = useContext(AppContext);
+
+const JobContactsChat = () => {
+  
   const history = useHistory();
   const [uniqueReceiverIds, setUniqueReceiverIds] = useState([]);
   const [messages, setMessages] = useState([]);
 
   const handleCardClick = (receiverId) => {
-    history.push(`/personal-chat/${receiverId}`);
+    history.push(`/job-personal-chat/${receiverId}`);
   };
 
   useEffect(() => {
@@ -74,4 +75,4 @@ const ContactsChat = () => {
   );
 };
 
-export default ContactsChat;
+export default JobContactsChat;

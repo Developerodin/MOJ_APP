@@ -11,6 +11,10 @@ import { AppContext } from '../../../Context/AppContext';
 export const CandidateView = () => {
     const history = useIonRouter();
 
+
+
+    
+
     const {id,id2} = useParams();
     // const location = useLocation();
     // const { status } = location.state || null;
@@ -50,7 +54,12 @@ export const CandidateView = () => {
         // showToast("error", "Try After Some Time", "");
       }
     };
-
+    const navigateToChat = () => {
+      const id = ApplicantsData.user_id;
+      console.log("Navigating to chat with ID:", id); // Debugging log
+      history.push(`/personal-chat/${id}`);
+    };
+    
     const ChangeStatus = async (value) => {
       try {
         console.log("In Cahnge status ==>",id2)
@@ -368,7 +377,7 @@ export const CandidateView = () => {
                 <div>
                     <IonIcon style={{fontSize:"25px",color:"grey"}} icon={chatbubbleEllipsesOutline}></IonIcon>
                 </div>
-                <div style={{marginLeft:"20px"}}>
+                <div style={{marginLeft:"20px"}} onClick={navigateToChat}>
                     <span style={{fontSize:"18px",color:"grey"}}>Connect with the candidate</span>
                 </div>
             </div>

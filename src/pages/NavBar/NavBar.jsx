@@ -50,6 +50,8 @@ import { HotelierProfileHealth } from '../Hotelier/Profile/ProfileTabs/HotelierP
 import { CandidateView } from '../Hotelier/Jobs/CandidateView';
 import { JobCandidateView } from '../Hotelier/Jobs/JobCandidateView';
 import HotelierPackage from '../Hotelier/Profile/ProfileTabs/HotelierPackage';
+import JobPersonalChat from '../../components/Chats/JobChat/JobPersonalChat';
+import SearchCandidateView from '../Hotelier/DashboardPages/SearchCandidateView';
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -78,8 +80,8 @@ const NavBar = () => {
            <Route  path="/app/home" component={Home}  />
            <Route  path="/app/profile" component={Profile}  />
            <Route  path="/app/applied-jobs" component={AppliedJobs}  />
-           <Route  path="/app/chat" component={Chats}  />
-           <Route  path="/personal-chat/:id" component={PersonalChat}  />
+           <Route  path="/app/job-chat" component={Chats}  />
+           <Route  path="/job-personal-chat/:id" component={JobPersonalChat}  />
            <Route  path="/group-chat" component={GroupChatting}  />
            <Route  path="/job-details/:id" component={JobDetails}  />
            <Route  path="/profile-work-experience" component={ProfileWorkExperience}  />
@@ -134,7 +136,7 @@ const NavBar = () => {
              }
            </IonTabButton>
  
-           <IonTabButton tab="activity" href="/app/chat" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton tab="activity" href="/app/job-chat" style={{backgroundColor:"#FFF",color:"grey"}}>
              
              {
               isMobile ? <IonIcon icon={chatboxEllipsesOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Messages</span>
@@ -175,6 +177,8 @@ const NavBar = () => {
     <Route  path="/candidate-applied-jobs" component={CandidateAppliedJobs}  />
     <Route  path="/interested-candidates" component={InterestedCandidates}  />
     <Route  path="/candidate-search" component={CandidateSearch}  />
+    <Route  path="/search-candidate-view/:id" component={SearchCandidateView}  />
+
    
       <Route  path="/employers-contact-details" component={HotelerContactDetails}  />
     <Route  path="/employers-personal-details" component={HotelierPersonalDetails}  />

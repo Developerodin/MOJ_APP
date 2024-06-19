@@ -42,6 +42,7 @@ import {
   chevronForwardOutline,
   headsetOutline,
   copyOutline,
+  linkOutline,
 } from "ionicons/icons";
 import cs from "./th.jpg";
 import profileImg from "./profileImg2.png";
@@ -79,15 +80,16 @@ export const Profile = () => {
   const [rewardPoints,setRewardPoints] = useState(0)
   function encodeUserID(userID) {
     const userIDStr = userID.toString();
-    const encodedUserID = btoa(userIDStr);
-    return encodedUserID;
-}
+    const encodedUserID = btoa(userIDStr) ;
+    return userDetails.name.substring(0,2).toUpperCase() + encodedUserID ;
+  }
 
-function decodeReferenceID(referenceID) {
-  const decodedUserIDStr = atob(referenceID);
-  const userID = parseInt(decodedUserIDStr, 10);
-  return userID;
-}
+  function decodeReferenceID(referenceID) {
+    const refid = referenceID.substring(2, referenceID.length);
+    const decodedUserIDStr = atob(refid);
+    const userID = parseInt(decodedUserIDStr, 10);
+    return userID;
+  }
 
 const copyToClipboard = () => {
   let referralCode = encodeUserID(userDetails.user_id)
@@ -618,24 +620,66 @@ const copyToClipboard = () => {
              
                   </IonCol>
                   <IonCol>
-                  <div  onClick={copyToClipboard}
+  <div
+    onClick={copyToClipboard}
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      background: '#F5F5F5', 
+      padding: '10px 20px', 
+      borderRadius: '12px', 
+      
+      cursor: 'pointer', 
+      transition: 'background 0.2s', 
+      border: '1px solid #E0E0E0', 
+      background: isPressed ? "#E0E0E0" : "#F5F5F5",
+    }}
+  >
+    <div
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: isPressed ? "#ff8c00" : "orange", // Darken the background color when pressed
-        padding: "20px",
-        borderRadius: "15px",
-        cursor: "pointer", // Add cursor pointer for better UX
-        transition: "background 0.2s", // Smooth transition for background color change
+        display: 'flex',
+        alignItems: 'center',
+        flexGrow: 1,
       }}
+    >
+      <IonIcon
+        icon={linkOutline}
+        style={{
+          color: '#3B82F6', 
+          fontSize: '24px', 
+          marginRight: '10px', 
+          
+        }}
+      />
+      <span
+        style={{
+          color: '#333', 
+          fontSize: '16px',
+          fontWeight: 'bold', 
+        }}
       >
-                <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-                    <span style={{color:"#fff",fontSize:"16px",letterSpacing:1}}>Click To Copy Referral  Code</span>
-                    <IonIcon icon={copyOutline} style={{color:"#fff",fontSize:"26px",marginLeft:"5px"}}></IonIcon>
-                </div>
-              </div>
-                  </IonCol>
+       
+        {encodeUserID(userDetails.user_id)}
+      </span>
+    </div>
+    <div
+      style={{
+        marginLeft: 'auto', 
+        background: '#3B82F6', 
+        color: '#fff',
+        padding: '8px 20px',
+        borderRadius: '15px ', 
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontWeight: 'bold', 
+        fontSize: '16px', 
+      }}
+    >
+      Copy
+    </div>
+  </div>
+</IonCol>
                 </IonRow>
               </IonGrid>
              

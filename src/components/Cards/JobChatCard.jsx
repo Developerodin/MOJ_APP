@@ -4,13 +4,13 @@ import { IonText } from "@ionic/react";
 import axios from "axios";
 import { Base_url } from "../../Config/BaseUrl";
 
-const ChatCard = ({ Data }) => {
+const JobChatCard = ({ Data }) => {
   const history = useHistory();
   const [userData, setUserData] = useState({ user_img: '', name: '' });
 
   const handleClick = () => {
     history.push({
-      pathname: `/personal-chat/${Data.receiver_id}`,
+      pathname: `/job-personal-chat/${Data.receiver_id}`,
       state: { userData: Data },
     });
   };
@@ -18,7 +18,7 @@ const ChatCard = ({ Data }) => {
   const getuserID = async (id) => {
     try {
       const response = await axios.post(
-        `${Base_url}all_user_data/${id}`,
+        `${Base_url}all_Huser_data/${id}`,
         {},
         {
           headers: {
@@ -31,13 +31,13 @@ const ChatCard = ({ Data }) => {
         console.log("Fetched user data:", data);
 
         if (data && data.Job && data.Job.length > 0) {
-          const user = data.Job[0].user;
-          console.log("User data:", data.Job[0].user_img, user.name);
-          if (user && user.name) {
-            setUserData({
-              user_img: data.Job[0].user_img || '',
-              name: user.name || '',
-            });
+            const hoteler = data.Job[0].hoteler_data;
+            console.log("Hoteler data:", hoteler.name,data.Job[0].user_img);
+            if (hoteler && hoteler.name) {
+              setUserData({
+                user_img: data.Job[0].user_img,
+                name: hoteler.name,
+              });
           } else {
             console.warn(
               "User data does not contain expected properties:",
@@ -146,4 +146,4 @@ const ChatCard = ({ Data }) => {
   );
 };
 
-export default ChatCard;
+export default JobChatCard;

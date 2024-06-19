@@ -15,12 +15,12 @@ import {
 import { closeOutline, sendOutline } from "ionicons/icons";
 import { useParams, useLocation } from "react-router";
 import axios from "axios";
-import { AppContext } from "../../Context/AppContext";
-import { Base_url } from "../../Config/BaseUrl";
-import ChattingCardSender from "../Cards/ChattingCardSender";
-import ChattingGroupRecivedCard from "../Cards/ChattingGroupRecivedCard";
+import { AppContext } from "../../../Context/AppContext";
+import { Base_url } from "../../../Config/BaseUrl";
+import ChattingCardSender from "../../Cards/ChattingCardSender";
+import ChattingGroupRecivedCard from "../../Cards/ChattingGroupRecivedCard";
 
-const PersonalChat = () => {
+const JobPersonalChat = () => {
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
   const [userData, setUserData] = useState(null);
@@ -58,14 +58,12 @@ const PersonalChat = () => {
   const getuserID = async (id) => {
     try {
       const response = await axios.post(
-        `${Base_url}all_user_data/${id}`,
-        {
-        
-        },
+        `${Base_url}all_Huser_data/${id}`,
+        {},
         {
           headers: {
             "Content-Type": "multipart/form-data",
-          },
+          }
         }
       );
       if (response.status === 200) {
@@ -73,31 +71,31 @@ const PersonalChat = () => {
         console.log("Fetched user data:", data);
 
         if (data && data.Job && data.Job.length > 0) {
-          const user = data.Job[0].user;
-          console.log("User data:", data.Job[0].user_img, user.name);
-          if (user && user.name) {
+          const hoteler = data.Job[0].hoteler_data;
+          console.log("Hoteler data:", hoteler.name,data.Job[0].user_img);
+          if (hoteler && hoteler.name) {
             setUserData({
               user_img: data.Job[0].user_img,
-              name: user.name,
+              name: hoteler.name,
             });
           } else {
             console.warn(
-              "User data does not contain expected properties:",
-              user
+              "Hoteler data does not contain expected properties:",
+              hotelerData
             );
           }
         } else {
-          console.warn("No user data found for ID:", id);
+          console.warn("No hoteler data found for ID:", id);
         }
       } else {
         console.error(
-          "Error fetching user data: ",
+          "Error fetching hoteler data: ",
           response.status,
           response.statusText
         );
       }
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      console.error("Error fetching hoteler data:", error);
     }
   };
 
@@ -115,13 +113,13 @@ const PersonalChat = () => {
         `${Base_url}msg/store`,
         {
           sender_id: senderId,
-          receiver_id: id ,
+          receiver_id: id,
           message_content: newMessage,
         },
         {
           headers: {
             "Content-Type": "multipart/form-data",
-          },
+          }
         }
       );
       console.log("Message sent:", response.data);
@@ -145,16 +143,16 @@ const PersonalChat = () => {
           "Content-Type": "multipart/form-data",
         }
       });
-  
+
       // Log the entire response to understand its structure
       console.log("API response:", response.data);
-  
+
       const { sender, reciver } = response.data.Job;
-  
+
       if (!Array.isArray(sender) || !Array.isArray(reciver)) {
         throw new Error("Invalid response format: sender or reciver is not an array");
       }
-  
+
       // Combine and sort messages by sent_at
       const combinedMessages = [...sender, ...reciver];
       const sortedMessages = combinedMessages.sort((a, b) => new Date(a.sent_at) - new Date(b.sent_at));
@@ -167,7 +165,6 @@ const PersonalChat = () => {
       console.error(`Error getting all messages: ${error}`);
     }
   };
-  
 
   const handleInputKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -213,7 +210,6 @@ const PersonalChat = () => {
       }
     }
   }, [messages]);
-
   return (
     <IonPage>
       <IonContent>
@@ -272,7 +268,7 @@ const PersonalChat = () => {
           </div>
         </div>
 
-        <div ref={chatWindowRef} style={{ marginTop: "100px", marginBottom: "60px", height: '79vh', overflow: 'auto' }}>
+        <div ref={chatWindowRef} style={{ marginTop: "100px", marginBottom: "60px", height: '79vh', overflow: 'auto' }} id="chatWindow" >
           {messages.map((msg, index) =>
             msg.sender_id === userDetails.user_id ? (
               <ChattingCardSender
@@ -328,4 +324,4 @@ const PersonalChat = () => {
   );
 };
 
-export default PersonalChat;
+export default JobPersonalChat;
