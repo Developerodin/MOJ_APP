@@ -143,28 +143,33 @@ const JobPersonalChat = () => {
           "Content-Type": "multipart/form-data",
         }
       });
-
+  
       // Log the entire response to understand its structure
       console.log("API response:", response.data);
-
+  
       const { sender, reciver } = response.data.Job;
-
-      if (!Array.isArray(sender) || !Array.isArray(reciver)) {
-        throw new Error("Invalid response format: sender or reciver is not an array");
-      }
-
+  
+      // Handle cases where sender or reciver arrays are null
+      const validSender = Array.isArray(sender) ? sender : [];
+      const validReciver = Array.isArray(reciver) ? reciver : [];
+  
       // Combine and sort messages by sent_at
-      const combinedMessages = [...sender, ...reciver];
+      const combinedMessages = [...validSender, ...validReciver];
       const sortedMessages = combinedMessages.sort((a, b) => new Date(a.sent_at) - new Date(b.sent_at));
       console.log("Sorted messages:", sortedMessages);
-      const filteredMessages = sortedMessages.filter(msg => msg.sender_id === id || msg.receiver_id === id);
+  
+      const filteredMessages = sortedMessages.filter((msg) => {
+        console.log("Message???????:", msg.sender_id === id , msg.receiver_id === senderId);
+        return msg.sender_id === id && msg.receiver_id === senderId || msg.sender_id === senderId && msg.receiver_id === id;
+      });
       console.log("Filtered messages:", filteredMessages);
       setMessages(filteredMessages);
-
+  
     } catch (error) {
       console.error(`Error getting all messages: ${error}`);
     }
   };
+  
 
   const handleInputKeyPress = (e) => {
     if (e.key === "Enter") {
