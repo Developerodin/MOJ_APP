@@ -231,14 +231,14 @@ export const CandidateView = () => {
                 <span style={{fontSize:"15px",color:"black",fontWeight:"bold"}}>Education</span>
               </div>
               {
-                ApplicantsData && ApplicantsData.user_edu[0].to_th === "true" &&
+                ApplicantsData && ApplicantsData.user_edu && ApplicantsData.user_edu[0].ten_th === "true" &&
                 <div>
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",fontWeight:"bold"}}>{ApplicantsData.user_edu[0].to_th_school}</span>
+                <span style={{fontSize:"13px",fontWeight:"bold"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].ten_school}</span>
                 </div>
   
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",color:"grey"}}>{ApplicantsData.user_edu[0].to_th_year}</span>
+                <span style={{fontSize:"13px",color:"grey"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].ten_year}</span>
                 </div>
   
               
@@ -246,50 +246,65 @@ export const CandidateView = () => {
                 </div>
               }
               {
-                ApplicantsData && ApplicantsData.user_edu[0].doc === "true" &&
+                ApplicantsData && ApplicantsData.user_edu && ApplicantsData.user_edu[0].to_th === "true" &&
                 <div>
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",fontWeight:"bold"}}>{ApplicantsData.user_edu[0].doc_degree}</span>
+                <span style={{fontSize:"13px",fontWeight:"bold"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].to_th_school}</span>
                 </div>
   
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",color:"grey"}}>{ApplicantsData.user_edu[0].doc_university}</span>
+                <span style={{fontSize:"13px",color:"grey"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].to_th_year}</span>
+                </div>
+  
+              
+  
+                </div>
+              }
+              {
+               ApplicantsData && ApplicantsData.user_edu  && ApplicantsData.user_edu[0].doc === "true" &&
+                <div>
+                <div style={{marginTop:"10px"}}>
+                <span style={{fontSize:"13px",fontWeight:"bold"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].doc_degree}</span>
                 </div>
   
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",fontWeight:"bold",color:"black"}}>{ApplicantsData.user_edu[0].doc_year}</span>
+                <span style={{fontSize:"13px",color:"grey"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].doc_university}</span>
+                </div>
+  
+                <div style={{marginTop:"10px"}}>
+                <span style={{fontSize:"13px",fontWeight:"bold",color:"black"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].doc_year}</span>
                 </div>
   
                 </div>
               }
 
 {
-                ApplicantsData && ApplicantsData.user_edu[0].gra_dip === "true" &&
+                ApplicantsData && ApplicantsData.user_edu && ApplicantsData.user_edu[0].gra_dip === "true" &&
                 <div>
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",fontWeight:"bold"}}>{ApplicantsData.user_edu[0].gr_degree}</span>
+                <span style={{fontSize:"13px",fontWeight:"bold"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].gr_degree}</span>
                 </div>
   
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",color:"grey"}}>{ApplicantsData.user_edu[0].gr_university}</span>
+                <span style={{fontSize:"13px",color:"grey"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].gr_university}</span>
                 </div>
   
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",fontWeight:"bold",color:"black"}}>{ApplicantsData.user_edu[0].gr_year}</span>
+                <span style={{fontSize:"13px",fontWeight:"bold",color:"black"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].gr_year}</span>
                 </div>
   
                 </div>
               }
 
 {
-                ApplicantsData && ApplicantsData.user_edu[0].hotel_de === "true" &&
+                ApplicantsData && ApplicantsData.user_edu && ApplicantsData.user_edu[0].hotel_de === "true" &&
                 <div>
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",fontWeight:"bold"}}>{ApplicantsData.user_edu[0].h_college}</span>
+                <span style={{fontSize:"13px",fontWeight:"bold"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].h_college}</span>
                 </div>
   
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",color:"grey"}}>{ApplicantsData.user_edu[0].h_year}</span>
+                <span style={{fontSize:"13px",color:"grey"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].h_year}</span>
                 </div>
   
                
@@ -298,18 +313,18 @@ export const CandidateView = () => {
               }
 
 {
-                ApplicantsData && ApplicantsData.user_edu[0].post_gra === "true" &&
+                ApplicantsData && ApplicantsData.user_edu && ApplicantsData.user_edu[0].post_gra === "true" &&
                 <div>
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",fontWeight:"bold"}}>{ApplicantsData.user_edu[0].pg_degree}</span>
+                <span style={{fontSize:"13px",fontWeight:"bold"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].pg_degree}</span>
                 </div>
   
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",color:"grey"}}>{ApplicantsData.user_edu[0].pg_university}</span>
+                <span style={{fontSize:"13px",color:"grey"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].pg_university}</span>
                 </div>
   
                 <div style={{marginTop:"10px"}}>
-                <span style={{fontSize:"13px",fontWeight:"bold",color:"black"}}>{ApplicantsData.user_edu[0].pg_year}</span>
+                <span style={{fontSize:"13px",fontWeight:"bold",color:"black"}}>{ApplicantsData && ApplicantsData.user_edu &&ApplicantsData.user_edu[0].pg_year}</span>
                 </div>
   
                 </div>
@@ -324,7 +339,7 @@ export const CandidateView = () => {
                 <span style={{fontSize:"15px",color:"black",fontWeight:"bold"}}>Work experience</span>
               </div>
  {
-  ApplicantsData && ApplicantsData.work && ApplicantsData.work.map((el,index)=>{
+  ApplicantsData && ApplicantsData.work ? ApplicantsData.work.map((el,index)=>{
     return <div>
     <div style={{marginTop:"10px"}}>
     <span style={{fontSize:"13px",fontWeight:"bold",color:"grey"}}>{el.designation}</span>
@@ -339,6 +354,8 @@ export const CandidateView = () => {
     </div>
     </div>
   })
+  :
+  <span style={{marginTop:"20px",fontSize:"13px",}}>Fresher</span>
  }
               
 
