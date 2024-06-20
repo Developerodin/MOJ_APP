@@ -65,6 +65,11 @@ const JobContactsChat = () => {
     };
 
     getAllMessages();
+    const interval = setInterval(() => {
+      getAllMessages();
+    }, 10000); // 10000 milliseconds = 10 seconds
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
