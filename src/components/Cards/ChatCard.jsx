@@ -63,6 +63,37 @@ const ChatCard = ({ Data }) => {
     getuserID(Data.receiver_id);
   }, [Data.receiver_id]);
 
+  const formatRelativeTime = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    
+    const diffInMs = now - date;
+    const diffInSeconds = Math.floor(diffInMs / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+
+    if (diffInDays > 0) {
+      if (diffInDays === 1) {
+        return "Yesterday";
+      } else if (diffInDays <= 7) {
+        return `${diffInDays} days ago`;
+      } else {
+        // Return date in "MM-dd-yyyy" format
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}-${year}`;
+      }
+    } else if (diffInHours > 0) {
+      return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+    } else if (diffInMinutes > 0) {
+      return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
+    } else {
+      return `${diffInSeconds} second${diffInSeconds > 1 ? 's' : ''} ago`;
+    }
+  };
+
   return (
     <div onClick={handleClick} style={{ marginBottom: "10px" }}>
       <div
@@ -93,7 +124,6 @@ const ChatCard = ({ Data }) => {
           <div style={{ marginLeft: "6px" }}>
             <div>
               <IonText
-                
                 style={{
                   fontSize: "18px",
                   fontWeight: "bold",
@@ -118,7 +148,7 @@ const ChatCard = ({ Data }) => {
           }}
         >
           <div>
-            <IonText style={{ fontSize: "14px" }}>{Data.sent_at}</IonText>
+            <IonText style={{ fontSize: "14px" }}>{formatRelativeTime(Data.sent_at)}</IonText>
           </div>
         </div>
       </div>

@@ -178,6 +178,7 @@ const NavBar = () => {
     <Route  path="/interested-candidates" component={InterestedCandidates}  />
     <Route  path="/candidate-search" component={CandidateSearch}  />
     <Route  path="/search-candidate-view/:id" component={SearchCandidateView}  />
+    <Route  path="/rewards" component={Reward}  />
 
    
       <Route  path="/employers-contact-details" component={HotelerContactDetails}  />
