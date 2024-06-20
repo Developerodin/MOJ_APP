@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonBackButton,IonButton, useIonRouter } from '@ionic/react';
 import PackageCard from '../../../../components/Cards/ActivityCards/PackageCard';
 
@@ -60,6 +60,11 @@ export const HotelierPackage = () => {
     console.log("Plan saved:", selectedPlan);
     history.goBack();
   };
+
+  useEffect(()=>{
+ const id = localStorage.getItem('selectedPlan') || `1`
+ setSelectedPlan(parseInt(id));
+  },[])
 
   return (
     <IonPage>
