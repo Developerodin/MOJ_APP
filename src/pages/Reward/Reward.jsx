@@ -25,8 +25,8 @@ export const Reward = () => {
         switch (selectedTab) {
           case 'MyPoints':
             return <MyPoints />;
-          case 'History':
-            return <History />;
+          // case 'History':
+          //   return <History />;
           case 'Howitworks':
             return <HowItworks />;
           default:
@@ -105,9 +105,9 @@ export const Reward = () => {
           <IonSegmentButton value="MyPoints" >
             <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >My points</IonLabel>
           </IonSegmentButton>
-          <IonSegmentButton value="History" >
+          {/* <IonSegmentButton value="History" >
             <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >History</IonLabel>
-          </IonSegmentButton>
+          </IonSegmentButton> */}
           <IonSegmentButton value="Howitworks" >
             <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >How it works</IonLabel>
           </IonSegmentButton>
