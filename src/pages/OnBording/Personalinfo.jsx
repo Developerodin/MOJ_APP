@@ -66,7 +66,7 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
   };
   const handelBtnClick= ()=>{
     // localStorage.setItem("Auth",true);
-    history.push("/phone",'replace');
+    history.push("/complete",'replace');
 
     // window.location.reload();
     // handelContinue("/home")
@@ -80,7 +80,7 @@ const Personalinfo = ({handelContinue,setActiveTab}) => {
  
   const handelSkipClick =()=>{
     setActiveTab("PersonalDetails")
-    history.push("/phone",'replace');
+    history.push("/complete",'replace');
   }
 
  

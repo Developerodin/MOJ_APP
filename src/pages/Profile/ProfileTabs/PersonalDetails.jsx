@@ -290,7 +290,7 @@ useEffect(() => {
               lineHeight: "30px",
             }}
           >
-             {selectedLanguage === "English" ? "First name" : "पहला नाम"}
+             {selectedLanguage === "English" ? "First name" : "पहला नाम"} <span style={{color:"red"}}>*</span>
           </label>
           {/* <IonItem> */}
           <input
@@ -299,7 +299,7 @@ useEffect(() => {
             name="firstName"
             value={formData.firstName}
             onChange={handleInputChange}
-           
+            
           />
         </div>
                     </IonCol>
@@ -315,7 +315,7 @@ useEffect(() => {
               lineHeight: "30px",
             }}
           >
-           {selectedLanguage === "English" ? "Last name" : "उपनाम"}
+           {selectedLanguage === "English" ? "Last name" : "उपनाम"}<span style={{color:"red"}}>*</span>
           </label>
           {/* <IonItem> */}
           <input
@@ -366,7 +366,7 @@ useEffect(() => {
               lineHeight: "30px",
             }}
           >
-            {selectedLanguage === "English" ? "Gender" : "लिंग"}
+            {selectedLanguage === "English" ? "Gender" : "लिंग"}<span style={{color:"red"}}>*</span>
           </label>
           <div
             style={{
@@ -404,7 +404,7 @@ useEffect(() => {
               lineHeight: "30px",
             }}
           >
-           {selectedLanguage === "English" ? "Email (optional)" : "ईमेल (वैकल्पिक)"}
+           {selectedLanguage === "English" ? "Email" : "ईमेल"}<span style={{color:"red"}}>*</span>
           </label>
           {/* <IonItem> */}
           <input

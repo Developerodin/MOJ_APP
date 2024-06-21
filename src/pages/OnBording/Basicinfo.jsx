@@ -64,6 +64,7 @@ const Basicinfo = ({ handelContinue }) => {
     gstAddress:""
   });
   const [formValid, setFormValid] = useState(false);
+  const [formValid2, setFormValid2] = useState(false);
  const [loading,setLoading] = useState(false);
  const [selectedLanguage, setSelectedLanguage] = useState(
   localStorage.getItem("selectedLanguage") || "English"
@@ -249,6 +250,11 @@ const handlePincodeChange2 = (e) => {
 
   const RegisterUser = async () => {
     try {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (formData.email !=="" && !emailPattern.test(formData.email)) {
+        showToast("error", "Email is not valid", "");
+        return;
+    }
       setLoading(true)
       const url = `${Base_url}auth/register`;
       const formData1 = new FormData();
@@ -301,10 +307,16 @@ const handlePincodeChange2 = (e) => {
 
 
   const handelEmployersBtnClick = async()=>{
-    if(formData2.hotelName === "" || formData2.email === ""){
-      showToast("error", "Hotel name and email is required", "");
-      return  ;
+    if(formValid2 === false){
+      showToast("error", "fill the required fields", "");
+      return
     }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(formData2.email)) {
+        showToast("error", "Email is not valid", "");
+        return;
+    }
+   
     try {
       setLoading(true)
       const url = `${Base_url}auth/register`;
@@ -413,9 +425,16 @@ const handlePincodeChange2 = (e) => {
  
   useEffect(() => {
     const isValid =
-      formData.firstName !== ""
+      formData.firstName !== "" && formData.lastName !== "" && formData.gender !== ""
     setFormValid(isValid);
   }, [formData]);
+  
+  useEffect(() => {
+    const isValid =
+      formData2.hotelName !== "" && formData2.email !== ""
+    setFormValid2(isValid);
+  }, [formData2]);
+
   useEffect(() => {
     AddAddressData()
     // console.log("States:", statesOfIndia)
@@ -461,7 +480,7 @@ const handlePincodeChange2 = (e) => {
       }}
     >
       
-      {selectedLanguage === "English" ? "First name" : "पहला नाम"}
+      {selectedLanguage === "English" ? "First name" : "पहला नाम"}<span style={{color:"red"}}>*</span>
     </label>
     {/* <IonItem> */}
     <input
@@ -485,7 +504,7 @@ const handlePincodeChange2 = (e) => {
       }}
     >
      
-      {selectedLanguage === "English" ? "Last name" : "उपनाम"}
+      {selectedLanguage === "English" ? "Last name" : "उपनाम"}<span style={{color:"red"}}>*</span>
     </label>
     {/* <IonItem> */}
     <input
@@ -518,7 +537,7 @@ const handlePincodeChange2 = (e) => {
       name="dob"
       value={formData.dob}
       onChange={handleInputChange}
-   
+      max={new Date().toISOString().split("T")[0]} 
     />
   </div>
 
@@ -533,7 +552,7 @@ const handlePincodeChange2 = (e) => {
       }}
     >
       
-      {selectedLanguage === "English" ? "Gender" : "लिंग"}
+      {selectedLanguage === "English" ? "Gender" : "लिंग"}<span style={{color:"red"}}>*</span>
     </label>
     <div
       style={{
@@ -570,7 +589,7 @@ const handlePincodeChange2 = (e) => {
       }}
     >
       
-      {selectedLanguage === "English" ? "Email (optional)" : "ईमेल (वैकल्पिक)"}
+      {selectedLanguage === "English" ? "Email" : "ईमेल"}
     </label>
     {/* <IonItem> */}
     <input
@@ -734,7 +753,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
       }}
     >
       
-      {selectedLanguage === "English" ? "Hotel Name" : "होटल का नाम"}
+      {selectedLanguage === "English" ? "Hotel Name" : "होटल का नाम"}<span style={{color:"red"}}>*</span>
     </label>
     {/* <IonItem> */}
     <input
@@ -783,7 +802,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
       }}
     >
       
-      {selectedLanguage === "English" ? "Email (optional)" : "ईमेल (वैकल्पिक)"}
+      {selectedLanguage === "English" ? "Email" : "ईमेल"}<span style={{color:"red"}}>*</span>
     </label>
     {/* <IonItem> */}
     <input

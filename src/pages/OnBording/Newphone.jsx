@@ -233,7 +233,7 @@ const Newphone = () => {
           
         </div>
         {
-  isMobile &&   <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
+  isMobile &&   <div style={{width:"100%",position:"fixed",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
   <CustomBtn1 fun={handelBtnClick} title={selectedLanguage === "English" ? "Continue" : "जारी रखना"} loading={loading}/>
   

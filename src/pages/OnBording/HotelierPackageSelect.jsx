@@ -59,7 +59,7 @@ export const HotelierPackageSelect = () => {
     localStorage.setItem('selectedPlan',selectedPlan);
     // You can add code to submit the data as needed, e.g., to an API
     console.log("Plan saved:", selectedPlan);
-    history.push("/phone", 'root','replace')
+    history.push("/complete", 'root','replace')
   };
 
   return (
