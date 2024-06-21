@@ -93,7 +93,7 @@ const SearchCandidateView = () => {
 
     return (
         <IonPage>
-            <IonContent>
+            <IonContent fullscreen style={{ '--ion-background-color': '#FAFAFA' }}>
                 <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
                     <div style={{ marginTop: "20px" }}>
                         <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{ fontSize: "28px" }}></IonIcon>
@@ -104,12 +104,12 @@ const SearchCandidateView = () => {
 
                     <div>
                         <div style={{ marginTop: "30px" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <div style={{ display: "flex", justifyContent: "", alignItems: "center" }}>
                                 <div>
                                     <img src={(ApplicantsData && ApplicantsData.user_img) ? ApplicantsData.user_img : "https://dashboard.masterofjobs.in/public/images/user_img.png"} style={{ width: "50px", height: "50px", borderRadius: "100px" }} />
                                 </div>
                                 <div style={{ textAlign: "center" }}>
-                                    <span style={{ fontSize: "18px", color: "black", fontWeight: "bold" }}>{ApplicantsData && ApplicantsData.user && ApplicantsData.user.name}</span><br />
+                                    <span style={{ fontSize: "18px", color: "black", fontWeight: "bold",paddingLeft:'15px' }}>{ApplicantsData && ApplicantsData.user && ApplicantsData.user.name}</span><br />
                                 </div>
                                 <div>
                                     {
@@ -127,8 +127,8 @@ const SearchCandidateView = () => {
                                 <div style={{ display: "flex", justifyContent: "left", alignItems: "center", flexWrap: "wrap", marginTop: "10px", marginBottom: "10px", gap: "10px" }}>
                                     {
                                         ApplicantsData && ApplicantsData.user  && ApplicantsData.job_pref && ApplicantsData.job_pref.map((el, index) => {
-                                            return <div key={index} style={{ padding: "3px 10px", border: "1px solid #0054e9", borderRadius: "18px" }}>
-                                                <span style={{ fontSize: "11px", color: "#0054e9" }}>{el.department}</span>
+                                            return <div key={index} style={{ padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0' }}>
+                                                <span style={{ fontSize:"11px",color:"#5A5A5A" }}>{el.department}</span>
                                             </div>
                                         })
                                     }
@@ -142,8 +142,8 @@ const SearchCandidateView = () => {
               <div style={{display:"flex",justifyContent:"left",alignItems:"center",flexWrap:"wrap",marginTop:"10px",marginBottom:"10px",gap:"10px"}}>
                
 
-                <div style={{padding:"3px 10px",border:"1px solid #0054e9",borderRadius:"18px"}}>
-                    <span style={{fontSize:"11px",color:"#0054e9"}}>{ApplicantsData && ApplicantsData.user && ApplicantsData.user.city}</span>
+                <div style={{padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0'}}>
+                    <span style={{fontSize:"11px",color:"#5A5A5A"}}>{ApplicantsData && ApplicantsData.user && ApplicantsData.user.city}</span>
                 </div>
 
                 
@@ -158,8 +158,8 @@ const SearchCandidateView = () => {
               </div>
               <div style={{display:"flex",justifyContent:"left",alignItems:"center",flexWrap:"wrap",marginTop:"10px",marginBottom:"10px",gap:"10px"}}>
               
-                <div style={{padding:"3px 10px",border:"1px solid #0054e9",borderRadius:"18px"}}>
-                    <span style={{fontSize:"11px",color:"#0054e9"}}>
+                <div style={{padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0'}}>
+                    <span style={{fontSize:"11px",color:"#5A5A5A"}}>
                       {
                         ApplicantsData && ApplicantsData.work && ApplicantsData.work.length > 0 ?
                         "Experienced"
@@ -222,19 +222,26 @@ const SearchCandidateView = () => {
 
                             <div style={{ marginTop: "30px" }}>
                                 <div>
-                                    <span style={{ fontSize: "15px", color: "black", fontWeight: "bold" }}>Job Description</span>
+                                    <span style={{ fontSize: "15px", color: "black", fontWeight: "bold" }}>Work Experience</span>
                                 </div>
                                 <div style={{ marginTop: "10px" }}>
                                     <span style={{ fontSize: "13px", color: "grey" }}>
                                         {
                                             ApplicantsData && ApplicantsData.user && ApplicantsData.work && ApplicantsData.work.length > 0 &&
                                             ApplicantsData.work.map((el, index) => {
-                                                return (
-                                                    <div key={index} style={{ marginBottom: "10px" }}>
-                                                        <span style={{ display: "block" }}><strong>Company:</strong> {el.company}</span>
-                                                        <span style={{ display: "block" }}><strong>Position:</strong> {el.position}</span>
-                                                        <span style={{ display: "block" }}><strong>From:</strong> {el.from} <strong>To:</strong> {el.to}</span>
-                                                    </div>
+                                                return (<div>
+                                                <div style={{marginTop:"10px"}}>
+                                                <span style={{fontSize:"13px",fontWeight:"bold",color:"grey"}}>{el.designation}</span>
+                                                </div>
+                                            
+                                                <div style={{marginTop:"10px"}}>
+                                                <span style={{fontSize:"13px",color:"grey"}}>{el.organisation},{el.location}</span>
+                                                </div>
+                                            
+                                                <div style={{marginTop:"5px"}}>
+                                                <span style={{fontSize:"14px",color:"grey"}}>{el.start_date} - {el.end_date} </span>
+                                                </div>
+                                                </div>
                                                 );
                                             })
                                         }
@@ -243,9 +250,6 @@ const SearchCandidateView = () => {
                             </div>
 
                             <div style={{ marginTop: "30px" }}>
-                                <div>
-                                    <span style={{ fontSize: "15px", color: "black", fontWeight: "bold" }}>Skills</span>
-                                </div>
                                 <div style={{ marginTop: "10px" }}>
                                     {
                                         ApplicantsData && ApplicantsData.user && ApplicantsData.skills && ApplicantsData.skills.map((skill, index) => (
@@ -281,7 +285,7 @@ const SearchCandidateView = () => {
 
             </div>
 
-            <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"40px"}}>
+            <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"40px",backgroundColor:'#F0F0F0',borderRadius:'10px',height:'52px'}}>
                 <div>
                     <IonIcon style={{fontSize:"25px",color:"grey"}} icon={chatbubbleEllipsesOutline}></IonIcon>
                 </div>

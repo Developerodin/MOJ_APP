@@ -35,16 +35,16 @@ export const CandidateSearchCard = ({ data }) => {
 
 
   return (
-    <div onClick={handelClick} style={{ width: "100%", marginBottom: "10px" }}>
-      <IonCard style={{ padding: "0px", border: "1px solid grey", borderRadius: "10px", background: "#fff", margin: 0, boxShadow: "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px" }}>
+    <div onClick={handelClick} style={{ width: "100%", marginBottom: "30px" }}>
+      <IonCard style={{ padding: "0px", border:"1px solid #F3F3F3",borderRadius:"10px",background:"#FAFAFA", margin: 0 }}>
         <IonCardContent style={{ padding: "20px" }}>
           <div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ display: "flex", justifyContent: "", alignItems: "center" }}>
               <div>
                 <img src={data.user_img || book} style={{ width: "50px", height: "50px", borderRadius: "100px" }} alt="Candidate" />
               </div>
               <div style={{ textAlign: "center" }}>
-                <span style={{ fontSize: "18px", color: "black", fontWeight: "bold" }}>
+                <span style={{ fontSize: "18px", color: "black", fontWeight: "bold",paddingLeft:'15px' }}>
                   {data.user ? `${data.user.name} ${data.user.last_name}` : "Anonymous"}
                 </span><br />
               </div>
@@ -80,8 +80,8 @@ export const CandidateSearchCard = ({ data }) => {
                   <span style={{ fontSize: "13px", color: "black", fontWeight: "bold" }}>City</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "left", alignItems: "center", flexWrap: "wrap", marginTop: "10px", marginBottom: "10px", gap: "10px" }}>
-                  <div style={{ padding: "3px 10px", border: "1px solid #0054e9", borderRadius: "18px" }}>
-                    <span style={{ fontSize: "11px", color: "#0054e9" }}>{city}</span>
+                  <div style={{ padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0' }}>
+                    <span style={{ fontSize:"11px",color:"#5A5A5A" }}>{city}</span>
                   </div>
                 </div>
               </div>
@@ -93,8 +93,8 @@ export const CandidateSearchCard = ({ data }) => {
                   <span style={{ fontSize: "13px", color: "black", fontWeight: "bold" }}>Experience</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "left", alignItems: "center", flexWrap: "wrap", marginTop: "10px", marginBottom: "10px", gap: "10px" }}>
-                  <div style={{ padding: "3px 10px", border: "1px solid #0054e9", borderRadius: "18px" }}>
-                    <span style={{ fontSize: "11px", color: "#0054e9" }}>{experience}</span>
+                  <div style={{ padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0' }}>
+                    <span style={{ fontSize:"11px",color:"#5A5A5A" }}>{experience}</span>
                   </div>
                 </div>
               </div>
