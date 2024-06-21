@@ -102,6 +102,13 @@ export const HotelierAppliedJobs = () => {
   useEffect(()=>{
     getJobs();
   },[jobUpdate])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getJobs();
+    }, 10000); // 10000ms = 10 seconds
+
+    return () => clearInterval(interval); // Clear the interval on component unmount
+  }, [])
 
   return (
     <IonPage>
