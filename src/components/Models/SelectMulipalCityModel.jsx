@@ -65,16 +65,14 @@ const SelectMulipalCityModel = ({ isOpen, onClose, setPreferredCity, preferredCi
         onClose();
     }
 
-  useEffect(()=>{
-    setSelectedCitiesL([])
-    if(preferredCity !== ""){
-       
-        const selectedC = preferredCity.split(',').map(city => city.trim());
-        setSelectedCitiesL(selectedC);
-        console.log("PRevious data ==>",preferredCity)
-    }
-   
-  },[isOpen])
+ useEffect(() => {
+  setSelectedCitiesL([]);
+  if (typeof preferredCity === "string" && preferredCity !== "") {
+    const selectedC = preferredCity.split(',').map(city => city.trim());
+    setSelectedCitiesL(selectedC);
+    console.log("Previous data ==>", preferredCity);
+  }
+}, [isOpen, preferredCity]); // Also, add preferredCity as a dependency to re-run this effect if it changes.
   
     return (
       <IonModal isOpen={isOpen} onDidDismiss={onClose}>

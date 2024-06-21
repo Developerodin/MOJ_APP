@@ -99,6 +99,45 @@ export const JobPref = () => {
   };
 
   const AddJobPref = async () => {
+    if (!department || !jobType || !preferredState || !preferredCity || !salaryRange || (jobType === "Part Time" && (!startTime || !endTime))) {
+      if (!department) {
+        showToast("error", "Department is mandatory", "");
+        return;
+      } 
+      if (!jobType) {
+        showToast("error", "Job Type is mandatory", "");
+        return;
+      } 
+      if (!preferredState) {
+        showToast("error", "Preferred State is mandatory", "");
+        return;
+      } 
+      if (!preferredCity) {
+        showToast("error", "Preferred City is mandatory", "");
+        return;
+      } 
+      if (!salaryRange) {
+        showToast("error", "Salary field is mandatory", "");
+        return;
+      } 
+      if (jobType === "Part Time") {
+        if (!startTime) {
+          showToast("error", "Start Time is mandatory", "");
+          return;
+        } 
+        if (!endTime) {
+          showToast("error", "End Time is mandatory", "");
+          return;
+        }
+      }
+      
+      return;
+    }
+
+
+
+
+
     try {
       const url = `${Base_url}user_job_prf/store`;
       const formData1 = new FormData();
@@ -229,7 +268,7 @@ export const JobPref = () => {
               }}
             >
               
-              { selectedLanguage === "English" ? "Job Type" : "कार्य का प्रकार"} 
+              { selectedLanguage === "English" ? "Job Type" : "कार्य का प्रकार"}<span style={{color:"red"}}>*</span> 
             </label>
             <IonSelect
               value={jobType}
@@ -263,7 +302,7 @@ export const JobPref = () => {
               }}
             >
               
-              { selectedLanguage === "English" ? "Select Time Slote" : "समय स्लॉट चुनें"}
+              { selectedLanguage === "English" ? "Select Time Slote" : "समय स्लॉट चुनें"}<span style={{color:"red"}}>*</span>
             </label>
            
            <div style={{display:"flex",justifyContent:"left",alignItems:"center",marginTop:"10px"}}>
@@ -312,7 +351,7 @@ export const JobPref = () => {
               }}
             >
               { selectedLanguage === "English" ? "Department" : "विभाग"}
-               {department !== "" && `(${department})`}
+               {department !== "" && `(${department})`}<span style={{color:"red"}}>*</span>
             </label>
             <div
            
@@ -351,7 +390,7 @@ export const JobPref = () => {
               }}
             >
               
-              { selectedLanguage === "English" ? "Preferred State" : "पसंदीदा राज्य"}
+              { selectedLanguage === "English" ? "Preferred State" : "पसंदीदा राज्य"}<span style={{color:"red"}}>*</span>
             </label>
             <div
            
@@ -391,7 +430,7 @@ export const JobPref = () => {
     }}
   >
     
-    { selectedLanguage === "English" ? "Preferred City" : "पसंदीदा शहर"}
+    { selectedLanguage === "English" ? "Preferred City" : "पसंदीदा शहर"}<span style={{color:"red"}}>*</span>
   </label>
   <div
  
@@ -431,7 +470,7 @@ preferredCity !== "" ? <span>{preferredCity}</span>:<span style={{color:"grey"}}
               }}
             >
               
-              { selectedLanguage === "English" ? "Expected Salary Range" : "अपेक्षित वेतन सीमा"}
+              { selectedLanguage === "English" ? "Expected Salary Range" : "अपेक्षित वेतन सीमा"}<span style={{color:"red"}}>*</span>
             </label>
             {/* <IonRange
               min={0}

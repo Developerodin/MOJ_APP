@@ -5,22 +5,33 @@ import { ProfileHeaders } from '../Headers/ProfileHeaders';
 import { bagHandleOutline, chevronBackOutline } from 'ionicons/icons';
 import { AppContext } from '../../Context/AppContext';
 import { Base_url } from '../../Config/BaseUrl';
+import SelectStateModel from './SelectStateModel';
+import SelectMulipalCityModel from './SelectMulipalCityModel';
 import axios from 'axios';
 
 const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
   const { showToast,languageUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails") || localStorage.getItem("userRegisterDetails")) ;
   const token =localStorage.getItem("token");
+  const [isStateModelOpen, setIsStateModelOpen] = useState(false);
+  const [isCityModelOpen, setIsCityModelOpen] = useState(false);
+ 
+  const [preferredCity, setPreferredCity] = useState("");
+  const [preferredState, setPreferredState] = useState("");
+
+
+
+  
   const [formData, setFormData] = useState({
     designation: '',
     profile: '',
     organisation: '',
-    location: '',
     startDate: '',
     endDate: '',
     refmobile:'',
     refemail:''
   });
+  
 
    
   const [selectedLanguage, setSelectedLanguage] = useState(
@@ -57,6 +68,18 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
     //   history.push("/home")
     }
 
+    // const handleStateSelect = (selectedState) => {
+    //   setState(selectedState);
+    //   setIsStateModelOpen(false);
+    // };
+  
+    // const handleCitySelect = (selectedCity) => {
+    //   setCity(selectedCity);
+    //   setIsCityModelOpen(false);
+    // };
+     
+
+    
     const AddWorkExperience = async () => {
       try {
         const url = `${Base_url}user_work_ex/store`;
@@ -70,6 +93,10 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
         formData1.append('end_date', formData.endDate);
         formData1.append('ref_mob', formData.refmobile);
         formData1.append('ref_email', formData.refemail);
+        formData1.append('state', preferredState);
+        formData1.append('city', preferredCity);
+        
+      
   
         const response = await axios.post(url, formData1,{
           headers: {
@@ -93,10 +120,22 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
                   designation: '',
                   profile: '',
                   organisation: '',
-                  location: '',
+                  
                   startDate: '',
                   endDate: '',
-            })
+                  refmobile:'',
+                  refemail:'',
+
+                
+
+
+                  
+
+
+            }) 
+            setPreferredCity("");
+            setPreferredState("");
+            
                 onClose();
                 return
             }
@@ -110,6 +149,35 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
         // showToast("error", "Try After Some Time", "");
       }
     };
+    const handelStateModleOpen = () =>{
+      setIsStateModelOpen(true);
+    }
+    const handelStateModleClose = () =>{
+      setIsStateModelOpen(false);
+    }
+  
+    const handelCityModelOpen =() =>{
+      setIsCityModelOpen(true);
+     }
+  
+     const handelCityModleClose = () =>{
+      setIsCityModelOpen(false)
+     }
+
+     useEffect(() => {
+      setPreferredCity("");
+    }, [preferredState]);
+
+
+    const getCurrentDate = () => {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+  
+    const maxDate = getCurrentDate();    
 
   return (
     <IonModal isOpen={isOpen} onDidDismiss={onClose}>
@@ -297,7 +365,76 @@ backgroundColor:"#F4F4F4"
 />
 
 </div>
-
+<div style={{ marginTop: "10px" }}>
+      <label
+        style={{
+          color: "#575757",
+          fontFamily: "inter",
+          fontSize: "14px",
+          fontWeight: "400",
+          lineHeight: "30px",
+        }}
+      >
+        {selectedLanguage === "English" ? "State" : "पसंदीदा राज्य"}
+      </label>
+      <div
+        onClick={handelStateModleOpen}
+        
+        style={{
+          display:"flex",
+          justifyContent:"left",
+          alignItems: "center",
+          borderRadius: "0px",
+          padding:"10px",
+          border: "1px solid #E2E8F0",
+          height:"52px",
+          backgroundColor:"#F4F4F4"
+        }}
+      > 
+        {
+          preferredState !== "" ? <span>{preferredState}</span> : <span style={{color:"grey"}}>
+            {selectedLanguage === "English" ? "Select State" : "पसंदीदा राज्य चुनें"}
+          </span>
+        }
+      </div>
+      
+      {/* Conditional rendering based on state */}
+      {preferredState !== "" && (
+        <div style={{ marginTop: "10px" }}>
+          <label
+            style={{
+              color: "#575757",
+              fontFamily: "inter",
+              fontSize: "14px",
+              fontWeight: "400",
+              lineHeight: "30px",
+            }}
+          >
+            {selectedLanguage === "English" ? "City" : "पसंदीदा शहर"}
+          </label>
+          <div
+            onClick={handelCityModelOpen}
+            
+            style={{
+              display:"flex",
+              justifyContent:"left",
+              alignItems: "center",
+              borderRadius: "0px",
+              padding:"10px",
+              border: "1px solid #E2E8F0",
+              height:"52px",
+              backgroundColor:"#F4F4F4"
+            }}
+          > 
+            {
+              preferredCity !== "" ? <span>{preferredCity}</span> : <span style={{color:"grey"}}>
+                {selectedLanguage === "English" ? "Select City" : "पसंदीदा शहर चुनें"}
+              </span>
+            }
+          </div>
+        </div>
+      )}
+    </div>
 
 
 
@@ -354,6 +491,7 @@ type="date"
 name="startDate" 
 value={formData.startDate} 
 onIonChange={handleChange}
+max={maxDate}
 style={{
 borderRadius: "0px",
 padding:"10px",
@@ -385,6 +523,7 @@ type="date"
 name="endDate" 
 value={formData.endDate} 
 onIonChange={handleChange}
+max={maxDate}
 style={{
  borderRadius: "0px",
  padding:"10px",
@@ -405,6 +544,8 @@ style={{
 </div>
 
 </div>
+      <SelectMulipalCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} preferredCity={preferredCity} setPreferredCity={setPreferredCity} selectedState={preferredState}/>
+<SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={preferredState} setSelectedState={setPreferredState}  />
       
       
       </IonContent>

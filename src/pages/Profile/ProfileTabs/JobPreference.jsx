@@ -110,52 +110,76 @@ export const ProfileJobPreference = () => {
   };
 
   const AddJobPref = async () => {
-    try {
-      const url = `${Base_url}user_job_prf/store`;
-      const formData1 = new FormData();
-      formData1.append('user_id', userDetails.user_id);
-      formData1.append('department', department || "");
-      formData1.append('sub_dep', departmentValue || "");
-      formData1.append('job_type', jobType|| "");
-      formData1.append('pref_state', preferredState || "");
-      formData1.append('pref_city', preferredCity || "");
-      formData1.append('salery', salaryRange || "");
-      formData1.append('start_time', startTime || "");
-      formData1.append('end_time', endTime || "");
-
-    
-
-      const response = await axios.post(url, formData1,{
-        headers: {
-          "Content-Type": "multipart/form-data",
-          // "Authorization" :`Berear ${token}`,
-     
-        }
-      });
-      const data = response.data
-          console.log("Response check work experience",data,response)
-          
-            // if(data === "otp in valid"){
-            //   showToast("error", "wrong otp", "");
-            //   return;
-            // }
-
-          if(data.status === "success"){
-              //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-              showToast("success", "updated", "");
-              setProfileHealthUpdate((prev)=>prev+1)
-              return
-          }
-          showToast("error", "Try After Some Time", "");
-
-            
-         
-          
-    } catch (error) {
-      console.error('Error:', error);
-      showToast("error", "Try After Some Time", "");
+  
+ if (!department || !jobType || !preferredState || !preferredCity || !salaryRange || (jobType === "Part Time" && (!startTime || !endTime))) {
+  if (!department) {
+    showToast("error", "Department is mandatory", "");
+    return;
+  } 
+  if (!jobType) {
+    showToast("error", "Job Type is mandatory", "");
+    return;
+  } 
+  if (!preferredState) {
+    showToast("error", "Preferred State is mandatory", "");
+    return;
+  } 
+  if (!preferredCity) {
+    showToast("error", "Preferred City is mandatory", "");
+    return;
+  } 
+  if (!salaryRange) {
+    showToast("error", "Salary field is mandatory", "");
+    return;
+  } 
+  if (jobType === "Part Time") {
+    if (!startTime) {
+      showToast("error", "Start Time is mandatory", "");
+      return;
+    } 
+    if (!endTime) {
+      showToast("error", "End Time is mandatory", "");
+      return;
     }
-  };
+  }
+  
+  return;
+}
+  try {
+    const url = `${Base_url}user_job_prf/store`;
+    const formData1 = new FormData();
+    formData1.append('user_id', userDetails.user_id);
+    formData1.append('department', department);
+    formData1.append('sub_dep', departmentValue);
+    formData1.append('job_type', jobType);
+    formData1.append('pref_state', preferredState);
+    formData1.append('pref_city', preferredCity);
+    formData1.append('salery', salaryRange);
+    formData1.append('start_time', startTime);
+    formData1.append('end_time', endTime);
+
+    const response = await axios.post(url, formData1, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }
+    });
+
+    const data = response.data;
+    console.log("Response check work experience", data, response);
+
+    if (data.status === "success") {
+      showToast("success", "Updated", "");
+      setProfileHealthUpdate((prev) => prev + 1);
+      return;
+    }
+
+    showToast("error", "Try After Some Time", "");
+  } catch (error) {
+    console.error('Error:', error);
+    showToast("error", "Try After Some Time", "");
+  }
+};
+
 
 
   const getJobPrefDetails = async() =>{
@@ -239,7 +263,7 @@ export const ProfileJobPreference = () => {
                 lineHeight: "30px",
               }}
             >
-             { selectedLanguage === "English" ? "Job Type" : "कार्य का प्रकार"}
+             { selectedLanguage === "English" ? "Job Type" : "कार्य का प्रकार"}<span style={{color:"red"}}>*</span>
             </label>
             <IonSelect
               value={jobType}
@@ -316,7 +340,7 @@ export const ProfileJobPreference = () => {
                 lineHeight: "30px",
               }}
             >
-              { selectedLanguage === "English" ? "Department" : "विभाग"}{department !== "" && `(${department})`}
+              { selectedLanguage === "English" ? "Department" : "विभाग"}{department !== "" && `(${department})`}<span style={{color:"red"}}>*</span>
             </label>
             <div
            
@@ -353,7 +377,7 @@ export const ProfileJobPreference = () => {
                 lineHeight: "30px",
               }}
             >
-             { selectedLanguage === "English" ? "Preferred State" : "पसंदीदा राज्य"}
+             { selectedLanguage === "English" ? "Preferred State" : "पसंदीदा राज्य"}<span style={{color:"red"}}>*</span>
             </label>
             <div
            
@@ -391,7 +415,7 @@ export const ProfileJobPreference = () => {
       lineHeight: "30px",
     }}
   >
-   { selectedLanguage === "English" ? "Preferred City" : "पसंदीदा शहर"}
+   { selectedLanguage === "English" ? "Preferred City" : "पसंदीदा शहर"}<span style={{color:"red"}}>*</span>
   </label>
   <div
  
@@ -429,7 +453,7 @@ preferredCity !== "" ? <span>{preferredCity}</span>:<span style={{color:"grey"}}
                 lineHeight: "30px",
               }}
             >
-              { selectedLanguage === "English" ? "Expected Salary Range" : "अपेक्षित वेतन सीमा"}
+              { selectedLanguage === "English" ? "Expected Salary Range" : "अपेक्षित वेतन सीमा"}<span style={{color:"red"}}>*</span>
             </label>
             {/* <IonRange
               min={0}
