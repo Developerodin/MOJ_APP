@@ -28,7 +28,7 @@ export const AppliedJobCard = ({data,fun}) => {
       <div>
         <span style={{fontSize:"12px",color:"#395CFF"}}>{data && timeAgo(data.created_at)}</span>
 
-        <div>
+        <div style={{width:"80%"}}>
           <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{data && data.job_title} {`(${data && data.department})`}</span>
         </div>
 

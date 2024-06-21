@@ -179,6 +179,7 @@ const App = () => {
     <Route  path="/select-lang" component={SelectLang}  />
     <Route  path="/verify-otp" component={VerifyPhoneTwo} exact />
     <Route  path="/phone" component={Newphone}  />
+    <Route  path="/basic-info" component={Basicinfo} exact />
     <Route  path="/personal-details" component={PersonalDetails} exact />
     <Route  path="/complete" component={OnBordingCompletePage} exact />
     <Route  path="/edu" component={Personalinfoedu}  />

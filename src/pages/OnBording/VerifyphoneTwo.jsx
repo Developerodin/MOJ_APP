@@ -82,7 +82,7 @@ const VerifyPhoneTwo = () => {
           }
 
           if(response.data === "user not found"){
-            history.push("/personal-details");
+            history.push("/basic-info");
             setOtp("");
             setLoading(false)
             return;

@@ -22,7 +22,7 @@ import axios from "axios";
 import SelectStateModel from "../../components/Models/SelectStateModel";
 import SelectCityModel from "../../components/Models/SelectCityModel";
 import { isMobile } from "../../IsMobile/IsMobile";
-
+import logo from "/assets/moj.png";
 const Basicinfo = ({ handelContinue }) => {
   const history = useIonRouter();
   const Role = localStorage.getItem("role") || "";
@@ -290,7 +290,7 @@ const handlePincodeChange2 = (e) => {
             setLoading(false);
                localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
                handelPointsAdd(10)
-               handelContinue("ProfilePic")
+               history.push("/personal-details")
               return
           }
           // showToast("error", "Try After Some Time", "");
@@ -308,6 +308,7 @@ const handlePincodeChange2 = (e) => {
 
   const handelEmployersBtnClick = async()=>{
     if(formValid2 === false){
+      console.log("In if=============================>",formData2)
       showToast("error", "fill the required fields", "");
       return
     }
@@ -354,7 +355,7 @@ const handlePincodeChange2 = (e) => {
           if(data.status === "success"){
             setLoading(false);
                localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-               handelPointsAdd(50)
+              //  handelPointsAdd(50)
               //  history.push("/phone", 'root','replace')
               history.push("/hotelier-package")
               return
@@ -431,14 +432,24 @@ const handlePincodeChange2 = (e) => {
   
   useEffect(() => {
     const isValid =
-      formData2.hotelName !== "" && formData2.email !== ""
-    setFormValid2(isValid);
-  }, [formData2]);
+      formData2.hotelName !== "" && formData2.email !== "" && pincode2 !== "" && selectedState !== "" && selectedCity !== ""
+      console.log("FormData 2===>",formData2)
+      setFormValid2(isValid);
+    }, [formData2]);
 
   useEffect(() => {
     AddAddressData()
     // console.log("States:", statesOfIndia)
   }, []);
+
+  const handelBackClick = ()=>{
+
+      history.goBack();
+
+    
+  
+    
+  }
 
   // useEffect(()=>{
   //   console.log("In City Data  ===>",formData.state)
@@ -450,6 +461,20 @@ const handlePincodeChange2 = (e) => {
 
   // },[formData.state])
   return (
+    <IonPage>
+    <IonContent>
+        <div style={{padding:"20px"}}>
+           
+    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+        <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
+
+        <div >
+        
+        <img src={logo} style={{height:"68px",width:"92px"}}/>
+
+        </div>
+        
+       </div>
     <div  className={isMobile ? "" : 'sw'}  style={{display:`${isMobile ? "block" : "flex"}`,justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
       {/* <div>
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
@@ -848,7 +873,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-     {selectedLanguage === "English" ? "Pincode" : "पिन कोड"}
+     {selectedLanguage === "English" ? "Pincode" : "पिन कोड"}<span style={{color:"red"}}>*</span>
     </label>
     {/* <IonItem> */}
     <input
@@ -872,7 +897,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-     {selectedLanguage === "English" ? "State" : "राज्य"}
+     {selectedLanguage === "English" ? "State" : "राज्य"}<span style={{color:"red"}}>*</span>
     </label>
     <div
       // style={{
@@ -923,7 +948,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
       lineHeight: "30px",
     }}
   >
-     {selectedLanguage === "English" ? "City" : "शहर"}
+     {selectedLanguage === "English" ? "City" : "शहर"}<span style={{color:"red"}}>*</span>
   </label>
 
   <div onClick={handelCityModelOpen}>
@@ -1076,6 +1101,9 @@ display:"flex",justifyContent:"left",alignItems:"center"
       <SelectCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} selectedCity={selectedCity} setSelectedCity={setSelectedCity} selectedState={selectedState}/>
     
     </div>
+    </div>
+    </IonContent>
+    </IonPage>
   );
 };
 

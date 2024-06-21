@@ -16,15 +16,23 @@ export const ContactUsModel = ({showModal, setShowModal,data}) => {
     <div className="modal-content" >
       {Role === "Employers" ?
       <div style={{ padding: "30px" }}>
-      
+      <div onClick={() => window.open(`https://wa.me/${data && data.whatsapp}`, '_blank')} style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+             <IonIcon icon={logoWhatsapp}  style={{fontSize:"24px"}} color='success'/>
 
-      <div onClick={() => window.location.href = `tel:${data && data.h_mobile}`} style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+             <span>{data && data.h_mobile}</span>
+      </div>
+
+      <div onClick={() => window.location.href = `tel:${data && data.mobile}`} style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
              <IonIcon icon={callOutline} color='primary'  style={{fontSize:"24px"}}/>
 
              <span>{data && data.h_mobile}</span>
       </div>
 
-     
+      <div onClick={() => window.location.href = `mailto:${data && data.email}`} style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+             <IonIcon icon={mailOutline} color='danger' style={{fontSize:"24px"}}/>
+
+             <span>{data && data.h_email}</span>
+      </div>
      </div>
      :
      <div style={{ padding: "30px" }}>

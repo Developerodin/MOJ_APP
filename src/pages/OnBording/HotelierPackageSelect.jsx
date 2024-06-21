@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonBackButton,IonButton, useIonRouter } from '@ionic/react';
 import PackageCard from '../../components/Cards/ActivityCards/PackageCard';
+import axios from 'axios';
+import { Base_url } from '../../Config/BaseUrl';
 
 
 
@@ -55,12 +57,62 @@ export const HotelierPackageSelect = () => {
   };
 
   const handleSavePlan = () => {
+    if(selectedPlan === 1){
+      handelPointsAdd(10)
+    }
+    if(selectedPlan !== 1){
+      handelPointsAdd(1000)
+    }
  
     localStorage.setItem('selectedPlan',selectedPlan);
     // You can add code to submit the data as needed, e.g., to an API
     console.log("Plan saved:", selectedPlan);
     history.push("/complete", 'root','replace')
   };
+
+  const handelPointsAdd = async(value)=>{
+    try {
+      const UserId =localStorage.getItem("refCode");
+      console.log("In Cahnge status ==>")
+    
+      
+      const url = `${Base_url}auth/user_refer/${UserId}`;
+      // console.log("In Cahnge status 2==>")
+      const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      formData1.append('point',value);
+    
+
+      const response = await axios.post(url, formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data1 = response.data
+          console.log("Response check work experience",data1,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+          if(data1.status === "success"){
+           
+              return
+          }
+          // showToast("error", "Try After Some Time", "");
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      // showToast("error", "Try After Some Time", "");
+    }
+  }
+
 
   return (
     <IonPage>

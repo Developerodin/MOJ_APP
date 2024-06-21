@@ -81,17 +81,13 @@ const OnBordingCompletePage = () => {
   return (
     <IonPage>
       <IonContent>
-        <div style={{ padding: "20px" }}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-            <IonIcon  icon={chevronBackOutline} style={{fontSize:"24px"}} />
-
-            <img src={logo} style={{height:"68px",width:"92px"}}/>
-           </div>
+        <div style={{ padding: "20px",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",height:"70%" }}>
+        
 
 
            <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 
-            <div>
+            <div style={{textAlign:"center"}}>
             <h1
             style={{
               color: "#232323",
@@ -101,9 +97,13 @@ const OnBordingCompletePage = () => {
             }}
           >
            
-           {selectedLanguage === "English" ? "Enter your phone number" : "अपना फोन नंबर डालें"}
+           {selectedLanguage === "English" ? "Congratulations!" : "अपना फोन नंबर डालें"}
           </h1>
+          <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+            {/* <IonIcon  icon={chevronBackOutline} style={{fontSize:"24px"}} /> */}
 
+            <img src={logo} style={{height:"200px",width:"200px"}}/>
+           </div>
           <h5
             style={{
                 color: "#575757",
@@ -114,7 +114,7 @@ const OnBordingCompletePage = () => {
             }}
           >
             
-            {selectedLanguage === "English" ? "Enter your phone number to receive OTP" : "OTP प्राप्त करने के लिए अपना फ़ोन नंबर दर्ज करें"}
+            {selectedLanguage === "English" ? "Your account has been successfully created. You can now log in to start using our app" : "OTP प्राप्त करने के लिए अपना फ़ोन नंबर दर्ज करें"}
           </h5>
             </div>
         

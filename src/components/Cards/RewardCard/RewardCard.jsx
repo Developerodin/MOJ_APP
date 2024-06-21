@@ -24,7 +24,7 @@ export const RewardCard = ({ points }) => {
              
              <div style={{display:"flex",justifyContent:"right",alignItems:"center"}}>
                   <div style={{textAlign:"right"}}>
-                    <span style={{color:"#fff",fontWeight:"bold",fontSize:"24px"}}>₹{points}</span> <br/>
+                    <span style={{color:"#fff",fontWeight:"bold",fontSize:"24px"}}>{points}</span> <br/>
                     <span style={{fontSize:"12px",color:"#fff"}}>Card Value</span>
                   </div>
              </div>

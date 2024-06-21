@@ -390,6 +390,14 @@ const copyToClipboard = () => {
     getProfileImg();
     handelPointsDataGet()
   }, [editUpdate]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handelPointsDataGet();
+    }, 10000); // 10000ms = 10 seconds
+
+    return () => clearInterval(interval); // Clear the interval on component unmount
+  }, []);
   return (
     <IonPage>
       <IonContent>
@@ -626,7 +634,7 @@ const copyToClipboard = () => {
       display: 'flex',
       alignItems: 'center',
       background: '#F5F5F5', 
-      padding: '10px 20px', 
+      // padding: '10px 20px', 
       borderRadius: '12px', 
       
       cursor: 'pointer', 
@@ -640,6 +648,7 @@ const copyToClipboard = () => {
         display: 'flex',
         alignItems: 'center',
         flexGrow: 1,
+        padding:"20px"
       }}
     >
       <IonIcon
@@ -648,9 +657,12 @@ const copyToClipboard = () => {
           color: '#3B82F6', 
           fontSize: '24px', 
           marginRight: '10px', 
-          
+          transform:'rotate(45deg)'
         }}
       />
+      <span style={{marginRight:"10px",fontSize:"14px"}}>
+      Referral Code
+      </span>
       <span
         style={{
           color: '#333', 
@@ -659,7 +671,7 @@ const copyToClipboard = () => {
         }}
       >
        
-        {encodeUserID(userDetails.user_id)}
+         {encodeUserID(userDetails.user_id)}
       </span>
     </div>
     <div
@@ -668,16 +680,20 @@ const copyToClipboard = () => {
         background: '#3B82F6', 
         color: '#fff',
         padding: '8px 20px',
-        borderRadius: '15px ', 
+        borderTopRightRadius:"10px",
+        borderBottomRightRadius:"10px",
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         fontWeight: 'bold', 
         fontSize: '16px', 
+        height:"60px",
+        
       }}
     >
       Copy
     </div>
+
   </div>
 </IonCol>
                 </IonRow>

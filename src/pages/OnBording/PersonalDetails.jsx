@@ -9,13 +9,17 @@ import logo from "/assets/moj.png";
 export const PersonalDetails = () => {
     const history = useHistory()
          
-      const [activeTab,setActiveTab] = useState("PersonalDetails")
+      const [activeTab,setActiveTab] = useState("ProfilePic")
 
     const handelBtnClick= ()=>{
       history.push("/info")
     }
     const handelBackClick = ()=>{
-      history.goBack()
+     
+      if(activeTab === "Details"){
+        setActiveTab("ProfilePic")
+      }
+      
     }
 
     const handelTabActive = (value) =>{
@@ -29,10 +33,15 @@ export const PersonalDetails = () => {
             <div style={{padding:"20px"}}>
                
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-            <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
+          <div style={{width:"20px"}}>
+          {
+            activeTab === "Details" && <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
+          }
+          </div>
+            
 
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-            <div style={{width:"21px",height:"7px",border:"1px solid #D9D9D9",borderRadius:"60px",background:`${activeTab === "PersonalDetails" ? "blue" : "#D9D9D9"}`}}></div>
+            <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginLeft:"20px"}}>
+
                <div style={{marginLeft:"5px",width:"21px",height:"7px",border:"1px solid #D9D9D9",borderRadius:"60px",background:`${activeTab === "ProfilePic" ? "blue" : "#D9D9D9"}`}}></div>
               
                <div style={{marginLeft:"5px",width:"21px",height:"7px",border:"1px solid #D9D9D9",borderRadius:"60px",background:`${activeTab === "Details" ? "blue" : "#D9D9D9"}`}}></div>
@@ -46,13 +55,6 @@ export const PersonalDetails = () => {
             
            </div>
 
-           {
-    activeTab === "PersonalDetails" &&
-    <div style={{marginTop:"50px"}}>
-    <Basicinfo handelContinue={handelTabActive} />
-</div>
-
-}
 {
     activeTab === "ProfilePic" &&  <div style={{marginTop:"50px"}}>
      <UplodeProfilePhoto  handelContinue={handelTabActive} />
