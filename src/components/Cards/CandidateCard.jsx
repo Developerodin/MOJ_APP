@@ -77,31 +77,29 @@ function timeAgo(dateString) {
 
   return (
     <div style={{width:"100%"}}>
-    <IonCard   style={{padding:"0px",border:"1px solid grey",borderRadius:"10px",background:"#fff",margin:0,boxShadow:"rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"}} >
+    <IonCard   style={{padding:"0px",border:"1px solid #F3F3F3",borderRadius:"10px",background:"#FAFAFA",margin:0}} >
         <IonCardContent style={{padding:"20px"}}>
           
           <div onClick={()=>fun()}>
             
     
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-            <div >
-            <img src={data && data.user_img || book} style={{width:"50px",height:"50px",borderRadius:"100px"}} />
-            </div>
-            <div style={{textAlign:"center"}}>
-            <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{data && data.name}</span><br/>
+    <div style={{display:"flex", alignItems:"center"}}>
+        <img src={data && data.user_img || book} style={{width:"50px",height:"50px",borderRadius:"100px"}} />
+        <div style={{marginLeft: '10px'}}>
+            <span style={{fontSize:"18px",color:"black",fontWeight:"bold",paddingLeft:'10px'}}>{data && data.name}</span><br/>
             {/* <span style={{color:"grey",fontSize:"12px"}}>{data && data.user && timeAgo(data.user.created_at)}</span> */}
-            </div>
-
-            <div>
-              {
-                data.application_status === "Not Selected" ? <span style={{color:"crimson"}}>{data.application_status}</span>
-                :
-                <span style={{color:"#0054e9"}}>{data.application_status}</span>
-              }
-           
-            </div>
+        </div>
+    </div>
+    <div>
+        {
+            data.application_status === "Not Selected" ? <span style={{color:"crimson"}}>{data.application_status}</span>
+            :
+            <span style={{color:"#0054e9"}}>{data.application_status}</span>
+        }
+    </div>
+</div>
              
-            </div>
     
             <div style={{marginTop:"30px"}}>
               <div>
@@ -111,8 +109,8 @@ function timeAgo(dateString) {
                 
                 {
                   data.job_pref && data.job_pref.map((el,index)=>{
-                    return  <div style={{padding:"3px 10px",border:"1px solid #0054e9",borderRadius:"18px"}}>
-                    <span style={{fontSize:"11px",color:"#0054e9"}}>{el.department}</span>
+                    return  <div style={{padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0'}}>
+                    <span style={{fontSize:"11px",color:"#5A5A5A"}}>{el.department}</span>
                 </div>
                   })
                 }
@@ -136,8 +134,8 @@ function timeAgo(dateString) {
               <div style={{display:"flex",justifyContent:"left",alignItems:"center",flexWrap:"wrap",marginTop:"10px",marginBottom:"10px",gap:"10px"}}>
                
 
-                <div style={{padding:"3px 10px",border:"1px solid #0054e9",borderRadius:"18px"}}>
-                    <span style={{fontSize:"11px",color:"#0054e9"}}>{data && data.city}</span>
+                <div style={{padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0'}}>
+                    <span style={{fontSize:"11px",color:"#5A5A5A"}}>{data && data.city}</span>
                 </div>
 
               </div>
@@ -153,8 +151,8 @@ function timeAgo(dateString) {
               </div>
               <div style={{display:"flex",justifyContent:"left",alignItems:"center",flexWrap:"wrap",marginTop:"10px",marginBottom:"10px",gap:"10px"}}>
               
-                <div style={{padding:"3px 10px",border:"1px solid #0054e9",borderRadius:"18px"}}>
-                    <span style={{fontSize:"11px",color:"#0054e9"}}>{data && data.experience}</span>
+                <div style={{padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0'}}>
+                    <span style={{fontSize:"11px",color:"#5A5A5A"}}>{data && data.experience }</span>
                 </div>
 
                 
@@ -165,17 +163,17 @@ function timeAgo(dateString) {
 
             
           </div>
-          <div style={{marginTop:"50px",display:"flex",justifyContent:"center",alignItems:"center"}}>
+          <div style={{marginTop:"50px",display:"flex",justifyContent:"space-around",alignItems:"center"}}>
                {
-                data.application_status === "In Review" && <IonButton onClick={()=>ChangeStatus("Selected")} size="small" shape="round" style={{width:"140px"}}>Selected</IonButton>
+                data.application_status === "In Review" && <IonButton  onClick={()=>ChangeStatus("Selected")} size="default" shape="round" style={{width:"144px",height:'36px'}}>Selected</IonButton>
                }
 
                {
-                data.application_status === "In Touch" && <IonButton onClick={()=>ChangeStatus("In Review")} size="small" shape="round" style={{width:"140px"}}>Accept</IonButton>
+                data.application_status === "In Touch" && <IonButton  onClick={()=>ChangeStatus("In Review")} size="default" shape="round" style={{width:"144px",height:'36px'}} >Accept</IonButton>
                }
                
                {
-                data.application_status !== "Not Selected" &&   <IonButton onClick={()=>ChangeStatus("Not Selected")} size="small" shape="round" color={"danger"} style={{width:"120px"}} fill="outline">Decline</IonButton>
+                data.application_status !== "Not Selected" &&   <IonButton onClick={()=>ChangeStatus("Not Selected")} size="default" shape="round" color={"danger"} style={{width:"144px",height:'36px'}} fill="outline">Decline</IonButton>
                }
              
 

@@ -1,7 +1,12 @@
 import { IonCard, IonCardContent } from '@ionic/react';
 import React from 'react';
 import icon from "/assets/Coin.png";
-export const RewardCard = () => {
+import { Base_url } from '../../../Config/BaseUrl';
+export const RewardCard = ({ points }) => {
+  const maxPoints = 1000;
+  const progressPercentage = (points / maxPoints) * 100;
+
+
   return (
     <div style={{ width: "100%",position:"relative" }}>
          <img src={icon} alt="Coin" style={{ position: "absolute", top: 0, left: 0, opacity: 0.37, width: "50%", zIndex: 1 }} />
@@ -19,7 +24,7 @@ export const RewardCard = () => {
              
              <div style={{display:"flex",justifyContent:"right",alignItems:"center"}}>
                   <div style={{textAlign:"right"}}>
-                    <span style={{color:"#fff",fontWeight:"bold",fontSize:"24px"}}>₹1000</span> <br/>
+                    <span style={{color:"#fff",fontWeight:"bold",fontSize:"24px"}}>₹{points}</span> <br/>
                     <span style={{fontSize:"12px",color:"#fff"}}>Card Value</span>
                   </div>
              </div>
@@ -28,7 +33,7 @@ export const RewardCard = () => {
                
            <div style={{width:"80%",margin:"auto",color:"#fff",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             
-            <span style={{fontSize:"18px",color:"#fff",fontWeight:"bold"}}>470/1000</span>
+            <span style={{fontSize:"18px",color:"#fff",fontWeight:"bold"}}>{points}/{maxPoints}</span>
      
         <span style={{fontSize:"11px"}}>Click to redeem</span>
        </div>
@@ -48,7 +53,7 @@ export const RewardCard = () => {
           >
             <div
               style={{
-                width: "47%",
+                width: `${progressPercentage}%`,
                 height: "100%",
                 background: "#fff" // Loading progress color
               }}

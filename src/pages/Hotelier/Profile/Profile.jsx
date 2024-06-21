@@ -217,7 +217,7 @@ export const HotelierProfile = () => {
   };
 
   const handelRewardClick = () => {
-    // history.push("/rewards")
+    history.push("/rewards")
   };
 
   const handelProfileHealthClick = () => {

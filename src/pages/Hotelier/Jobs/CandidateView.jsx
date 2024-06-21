@@ -135,7 +135,7 @@ export const CandidateView = () => {
 
   return (
     <IonPage>
-        <IonContent>
+        <IonContent fullscreen style={{ '--ion-background-color': '#FAFAFA' }} >
         <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}> 
         <div style={{marginTop:"20px"}}>
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"28px"}}></IonIcon>
@@ -147,28 +147,25 @@ export const CandidateView = () => {
 
                <div>
 
-               <div style={{marginTop:"30px"}}>
+               <div style={{marginTop:"30px"}}  >
             
     
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-            <div>
-    <img src={(ApplicantsData && ApplicantsData.user_img) ? ApplicantsData.user_img : "https://dashboard.masterofjobs.in/public/images/user_img.png"} style={{width:"50px",height:"50px",borderRadius:"100px"}} />
-</div>
-            <div style={{textAlign:"center"}}>
-            <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{ApplicantsData && ApplicantsData.user.name}</span><br/>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+    <div style={{display:"flex", alignItems:"center"}}>
+        <img src={(ApplicantsData && ApplicantsData.user_img) ? ApplicantsData.user_img : "https://dashboard.masterofjobs.in/public/images/user_img.png"} style={{width:"50px",height:"50px",borderRadius:"100px"}} />
+        <div style={{marginLeft: '10px'}}>
+            <span style={{fontSize:"18px",color:"black",fontWeight:"bold",paddingLeft:'10px'}}>{ApplicantsData && ApplicantsData.user.name}</span><br/>
             {/* <span style={{color:"grey",fontSize:"12px"}}>3 days ago</span> */}
-            </div>
-
-            <div>
-              {
-               StatusValue && StatusValue === "Not Selected" ? <span style={{color:"crimson"}}>{StatusValue && StatusValue}</span>
-                :
-                <span style={{color:"#0054e9"}}>{StatusValue && StatusValue}</span>
-              }
-           
-            </div>
-             
-            </div>
+        </div>
+    </div>
+    <div>
+        {
+            StatusValue && StatusValue === "Not Selected" ? <span style={{color:"crimson"}}>{StatusValue && StatusValue}</span>
+            :
+            <span style={{color:"#0054e9"}}>{StatusValue && StatusValue}</span>
+        }
+    </div>
+</div>
     
             <div style={{marginTop:"30px"}}>
               <div>
@@ -177,8 +174,8 @@ export const CandidateView = () => {
               <div style={{display:"flex",justifyContent:"left",alignItems:"center",flexWrap:"wrap",marginTop:"10px",marginBottom:"10px",gap:"10px"}}>
               {
                  ApplicantsData &&  ApplicantsData.job_pref && ApplicantsData.job_pref.map((el,index)=>{
-                    return  <div style={{padding:"3px 10px",border:"1px solid #0054e9",borderRadius:"18px"}}>
-                    <span style={{fontSize:"11px",color:"#0054e9"}}>{el.department}</span>
+                    return  <div style={{padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0'}}>
+                    <span style={{fontSize:"11px",color:"#5A5A5A"}}>{el.department}</span>
                 </div>
                   })
                 }
@@ -193,8 +190,8 @@ export const CandidateView = () => {
               <div style={{display:"flex",justifyContent:"left",alignItems:"center",flexWrap:"wrap",marginTop:"10px",marginBottom:"10px",gap:"10px"}}>
                
 
-                <div style={{padding:"3px 10px",border:"1px solid #0054e9",borderRadius:"18px"}}>
-                    <span style={{fontSize:"11px",color:"#0054e9"}}>{ApplicantsData && ApplicantsData.user && ApplicantsData.user.city}</span>
+                <div style={{padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0'}}>
+                    <span style={{fontSize:"11px",color:"#5A5A5A"}}>{ApplicantsData && ApplicantsData.user && ApplicantsData.user.city}</span>
                 </div>
 
                 
@@ -209,8 +206,8 @@ export const CandidateView = () => {
               </div>
               <div style={{display:"flex",justifyContent:"left",alignItems:"center",flexWrap:"wrap",marginTop:"10px",marginBottom:"10px",gap:"10px"}}>
               
-                <div style={{padding:"3px 10px",border:"1px solid #0054e9",borderRadius:"18px"}}>
-                    <span style={{fontSize:"11px",color:"#0054e9"}}>
+                <div style={{padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0'}}>
+                    <span style={{fontSize:"11px",color:"#5A5A5A"}}>
                       {
                         ApplicantsData && ApplicantsData.work && ApplicantsData.work.length > 0 ?
                         "Experienced"
@@ -390,34 +387,20 @@ export const CandidateView = () => {
 
             </div>
              
-            <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"40px"}}>
+            <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"40px",backgroundColor:'#F0F0F0',borderRadius:'10px',height:'52px'}}>
                 <div>
                     <IonIcon style={{fontSize:"25px",color:"grey"}} icon={chatbubbleEllipsesOutline}></IonIcon>
                 </div>
                 <div style={{marginLeft:"20px"}} onClick={navigateToChat}>
-                    <span style={{fontSize:"18px",color:"grey"}}>Connect with the candidate</span>
+                    <span style={{fontSize:"18px",color:"grey",backgroundColor:'#F0F0F0'}}>Connect with the candidate</span>
                 </div>
             </div>
             
-            {/* {
-               status &&  <div style={{marginTop:"50px",display:"flex",justifyContent:"center",alignItems:"center"}}>
-              {
-              status === "In Review" && <IonButton onClick={()=>ChangeStatus("Selected")} size="small" shape="round" style={{width:"140px"}}>Selected</IonButton>
-              }
-
-              {
-               status !== "In Touch" && <IonButton onClick={()=>ChangeStatus("In Review")} size="small" shape="round" style={{width:"140px"}}>Accept</IonButton>
-              }
-              
-              {
-              status !== "Not Selected" &&   <IonButton onClick={()=>ChangeStatus("Not Selected")} size="small" shape="round" color={"danger"} style={{width:"120px"}} fill="outline">Decline</IonButton>
-              }
-            
-
-           </div>
-            } */}
-           
-
+           {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',marginTop:'30px' }}>
+    
+    { StatusValue  === "In Review" && <IonButton onClick={()=>ChangeStatus("In Review")} size="default" shape="round" style={{width:"255px", marginBottom: '10px'}}>Accept</IonButton> }
+    <IonButton onClick={()=>ChangeStatus("Not Selected")} size="default" shape="round" color={"danger"} style={{width:"255px"}} fill="outline">Decline</IonButton>
+</div> */}
             
           </div>
                </div>
