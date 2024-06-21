@@ -87,6 +87,7 @@ import { JobCandidateView } from './pages/Hotelier/Jobs/JobCandidateView';
 import { App as MainApp  } from "@capacitor/app";
 import { HotelierPackageSelect } from './pages/OnBording/HotelierPackageSelect';
 import SearchCandidateView from './pages/Hotelier/DashboardPages/SearchCandidateView';
+import OnBordingCompletePage from './pages/OnBording/OnBordingCompletePage';
 setupIonicReact();
 
 const App = () => {
@@ -179,7 +180,7 @@ const App = () => {
     <Route  path="/verify-otp" component={VerifyPhoneTwo} exact />
     <Route  path="/phone" component={Newphone}  />
     <Route  path="/personal-details" component={PersonalDetails} exact />
-
+    <Route  path="/complete" component={OnBordingCompletePage} exact />
     <Route  path="/edu" component={Personalinfoedu}  />
     <Route  path="/job-pref" component={JobPref} exact />
     <Route  path="/work" component={Workexperience} exact />
