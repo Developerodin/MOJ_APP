@@ -440,7 +440,7 @@ width:"100%"
         </IonSegmentButton>
         <IonSegmentButton value="recommendations">
           <IonLabel style={{ color: "black", fontSize: "16px", fontWeight: "500" }}>
-            {selectedLanguage === "English" ? "You May Also Like" : "आपको कौन पसंद हो सकता है"}
+            {selectedLanguage === "English" ? "Other Jobs" : "अन्य नौकरियां"}
           </IonLabel>
         </IonSegmentButton>
       </IonSegment>
