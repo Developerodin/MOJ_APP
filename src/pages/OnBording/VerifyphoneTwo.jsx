@@ -229,9 +229,9 @@ const VerifyPhoneTwo = () => {
         </div>
 
         {
-          !isKeyboardOpen &&
+          
   isMobile && 
-        <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
+        <div style={{width:"100%",display:"flex",justifyContent:"center",alignItems:"center",marginTop:'43vh'}}>
 
 <CustomBtn1 fun={handelBtnClick} title={selectedLanguage === "English" ? "Submit" : "सबमिट करें"} loading={loading}/>
 </div>
