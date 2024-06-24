@@ -9,7 +9,7 @@ import SelectStateModel from './SelectStateModel';
 import SelectMulipalCityModel from './SelectMulipalCityModel';
 import DepartmentSelectModel from './DepartmentSelectModel';
 import axios from 'axios';
-import { set } from 'mongoose';
+
 
 const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
   const { showToast,languageUpdate } = useContext(AppContext);

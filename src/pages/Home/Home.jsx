@@ -18,7 +18,7 @@ import { Base_url } from '../../Config/BaseUrl';
 import axios from 'axios';
 import { AppContext } from '../../Context/AppContext';
 import { isMobile } from '../../IsMobile/IsMobile';
-import { set } from 'mongoose';
+
 // import { StatusBar } from '@capacitor/status-bar';
 export const Home = () => {
   const history = useIonRouter();
