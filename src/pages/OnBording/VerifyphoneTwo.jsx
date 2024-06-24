@@ -16,6 +16,7 @@ import { Base_url } from "../../Config/BaseUrl";
 import axios from "axios";
 import logo from "/assets/moj.png";
 import { isMobile } from "../../IsMobile/IsMobile";
+import { Keyboard } from '@capacitor/keyboard';
 const VerifyPhoneTwo = () => {
   const history = useIonRouter();
   const { showToast,languageUpdate } = useContext(AppContext);
@@ -28,6 +29,22 @@ const VerifyPhoneTwo = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+
+  useEffect(() => {
+    const showHandler = Keyboard.addListener('keyboardWillShow', () => {
+      setIsKeyboardOpen(true);
+    });
+
+    const hideHandler = Keyboard.addListener('keyboardWillHide', () => {
+      setIsKeyboardOpen(false);
+    });
+
+    return () => {
+      showHandler.remove();
+      hideHandler.remove();
+    };
+  }, []);
   useEffect(() => {
     // Code to update selectedLanguage from localStorage
     const languageFromStorage = localStorage.getItem("selectedLanguage");
@@ -121,7 +138,7 @@ const VerifyPhoneTwo = () => {
   return (
     <IonPage>
       <IonContent>
-        <div style={{ padding: "20px",height:"100vh" }}>
+        <div style={{ padding: "20px" }}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
 
@@ -158,6 +175,7 @@ const VerifyPhoneTwo = () => {
           {/* <IonItem> */}
           <div style={{display:"flex",justifyContent:"center", alignItems:"center"}}>
              <OtpInput
+             
                 inputType="password"
                 value={otp}
                 onChange={setOtp}
@@ -211,6 +229,7 @@ const VerifyPhoneTwo = () => {
         </div>
 
         {
+          !isKeyboardOpen &&
   isMobile && 
         <div style={{width:"100%",position:"absolute",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 

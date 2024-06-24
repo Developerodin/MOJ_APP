@@ -15,6 +15,7 @@ import axios from 'axios';
 import { AppContext } from "../../Context/AppContext";
 import logo from "/assets/moj.png";
 import { isMobile } from "../../IsMobile/IsMobile";
+import { Keyboard } from '@capacitor/keyboard';
 const Newphone = () => {
   const history = useHistory()
   
@@ -25,6 +26,22 @@ const Newphone = () => {
   });
   const [response, setResponse] = useState('');
   const [loading,setLoading] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+
+  useEffect(() => {
+    const showHandler = Keyboard.addListener('keyboardWillShow', () => {
+      setIsKeyboardOpen(true);
+    });
+
+    const hideHandler = Keyboard.addListener('keyboardWillHide', () => {
+      setIsKeyboardOpen(false);
+    });
+
+    return () => {
+      showHandler.remove();
+      hideHandler.remove();
+    };
+  }, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -125,7 +142,7 @@ const Newphone = () => {
   return (
     <IonPage >
       <IonContent>
-        <div style={{ padding: "20px",height:"100vh" }}>
+        <div style={{ padding: "20px"}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
 
@@ -233,6 +250,7 @@ const Newphone = () => {
           
         </div>
         {
+          !isKeyboardOpen &&
   isMobile &&   <div style={{width:"100%",position:"fixed",bottom:20,left: "50%", transform: "translateX(-50%)",display:"flex",justifyContent:"center",alignItems:"center"}}>
 
   <CustomBtn1 fun={handelBtnClick} title={selectedLanguage === "English" ? "Continue" : "जारी रखना"} loading={loading}/>
