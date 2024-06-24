@@ -305,13 +305,13 @@ const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
       
       <div>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+        <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>
             <div>
                 <span style={{fontSize:"28px",fontWeight:"bold"}}>Job Details</span>
             </div>
-            <div>
+            {/* <div>
             <IonIcon style={{color:"#395CFF",fontSize:"24px"}} icon={bookmark} />
-            </div>
+            </div> */}
         </div>
        
 
