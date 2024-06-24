@@ -121,7 +121,7 @@ const VerifyPhoneTwo = () => {
   return (
     <IonPage>
       <IonContent>
-        <div style={{ padding: "20px" }}>
+        <div style={{ padding: "20px",height:"100vh" }}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <IonIcon onClick={handelBackClick} icon={chevronBackOutline} style={{fontSize:"24px"}} />
 

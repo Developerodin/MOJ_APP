@@ -14,7 +14,7 @@ import { CustomBtn1 } from "../../components/Buttons/CustomBtn1";
 import { Base_url } from "../../Config/BaseUrl";
 import axios from 'axios';
 import { AppContext } from "../../Context/AppContext";
-import logo from "/assets/moj.png";
+import logo from "/assets/check2.gif";
 import { isMobile } from "../../IsMobile/IsMobile";
 const OnBordingCompletePage = () => {
   const history = useIonRouter()
@@ -102,7 +102,7 @@ const OnBordingCompletePage = () => {
           <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
             {/* <IonIcon  icon={chevronBackOutline} style={{fontSize:"24px"}} /> */}
 
-            <img src={logo} style={{height:"200px",width:"200px"}}/>
+            <img src={logo} />
            </div>
           <h5
             style={{
