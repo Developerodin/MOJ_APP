@@ -212,11 +212,11 @@ const DepartmentSelectModel = ({ isOpen, onClose, onSubmit, departmentValue, dep
 
   useEffect(() => {
    
-    if(department.length >0){
+    if(department && department.length >0){
       setSelectedDepartments(department)
     }
 
-    if (departmentValue !== "") {
+    if (departmentValue && typeof departmentValue === "string" && departmentValue !== "") {
       const departmentArray = departmentValue.split(", ");
       if (departmentArray.length > 1) {
         setSkillLength(departmentArray.length);

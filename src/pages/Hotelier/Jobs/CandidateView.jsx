@@ -173,12 +173,15 @@ export const CandidateView = () => {
               </div>
               <div style={{display:"flex",justifyContent:"left",alignItems:"center",flexWrap:"wrap",marginTop:"10px",marginBottom:"10px",gap:"10px"}}>
               {
-                 ApplicantsData &&  ApplicantsData.job_pref && ApplicantsData.job_pref.map((el,index)=>{
-                    return  <div style={{padding:"3px 10px",borderRadius:"74px",backgroundColor:'#F0F0F0'}}>
-                    <span style={{fontSize:"11px",color:"#5A5A5A"}}>{el.department}</span>
-                </div>
-                  })
-                }
+  ApplicantsData && ApplicantsData.job_pref && ApplicantsData.job_pref.map((el, index) => {
+    const departments = el.department.split(',');
+    return departments.map((dept, deptIndex) => (
+      <div key={`${index}-${deptIndex}`} style={{ padding: "3px 10px", borderRadius: "74px", backgroundColor: '#F0F0F0', marginBottom: '5px' }}>
+        <span style={{ fontSize: "11px", color: "#5A5A5A" }}>{dept}</span>
+      </div>
+    ));
+  })
+}
               </div>
              
             </div>

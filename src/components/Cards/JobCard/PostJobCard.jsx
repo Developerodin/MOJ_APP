@@ -84,7 +84,7 @@ export const PostJobCard = ({fun,data}) => {
         <span style={{fontSize:"12px",color:"#395CFF"}}>{data && timeAgo(data.created_at)}</span>
 
         <div style={{width:"80%"}}>
-          <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{data && data.job_title} {`(${data && data.department})`}</span>
+          <span style={{fontSize:"18px",color:"black",fontWeight:"bold"}}>{data && data.department} {`(${data && data.sub_department})`}</span>
         </div>
 
         <div style={{display:"flex",justifyContent:"left",alignItems:"center"}}>

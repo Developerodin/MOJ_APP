@@ -18,6 +18,7 @@ import { Base_url } from '../../Config/BaseUrl';
 import axios from 'axios';
 import { AppContext } from '../../Context/AppContext';
 import { isMobile } from '../../IsMobile/IsMobile';
+import { set } from 'mongoose';
 // import { StatusBar } from '@capacitor/status-bar';
 export const Home = () => {
   const history = useIonRouter();
@@ -28,6 +29,9 @@ export const Home = () => {
   const [jobData,setJobData] = useState([]);
   const [allJobData, setAllJobData] = useState([]);
   const [isFilterApplied, setIsFilterApplied] = useState(false);
+  const [userPrefData, setUserPrefData] = useState({});
+const [filteredJobData, setFilteredJobData] = useState([]);
+const [selectedTab, setSelectedTab] = useState('featured');
 
 const [searchQuery, setSearchQuery] = useState('');
 const [isModalOpen, setIsModalOpen] = useState(false);
@@ -108,6 +112,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
             },
         });
         const data = response.data;
+        console.log("Data get from job ==>", data);
 
         if (data.status === "success") {
             const formatedData = data.post.filter((el) => el.status === "1");
@@ -119,7 +124,73 @@ const [isModalOpen, setIsModalOpen] = useState(false);
     }
 };
 
+const getuserref = async () => {
+  try {
+    const url = `${Base_url}user_job_pref_userid/${userDetails.user_id}`;
+   
 
+    const response = await axios.get(url,{
+      headers: {
+        "Content-Type": "multipart/form-data",
+        
+   
+      }
+    });
+    const data = response.data
+        console.log("user pref-->",data,response)
+
+
+        if(data.status === "success"){
+         
+            console.log("Data get from job pref ==++++++++++++++++++++++++>",data);
+            setUserPrefData(data.post[0])
+            
+
+            
+          return
+      }
+
+          
+       
+        
+  } catch (error) {
+    console.error('Error:', error);
+    
+  }
+};
+
+const filterJobsByUserPreference = () => {
+  console.log("Attempting to filter jobs with:", allJobData, userPrefData); 
+
+  if (!userPrefData || allJobData.length === 0) return;
+
+  
+  const { job_type, department, sub_dep, salery, pref_state, pref_city } = userPrefData;
+
+  const filteredJobs = allJobData.filter(job => {
+    return (
+      // (!job_type || job.job_type === job_type) &&
+      (!department || job.department === department) 
+      // (!sub_dep || job.sub_department === sub_dep) &&
+      // (!salery || job.off_salery === salery) &&
+      // (!pref_state || job.state === pref_state) &&
+      // (!pref_city || job.city === pref_city)
+    );
+  });
+
+  console.log("Filtered Jobs:", filteredJobs); 
+
+  setFilteredJobData(filteredJobs); 
+};
+
+
+useEffect(() => {
+  filterJobsByUserPreference();
+}, [allJobData, userPrefData]);
+
+useEffect(() => {
+  getuserref()
+}, []);
 
 
 useEffect(() => {
@@ -351,44 +422,52 @@ width:"100%"
            
           </div>
 
-          <div style={{display:`${isMobile ? "block" : "flex"}`,justifyContent:"left",alignItems:"flex-start",flexDirection:"column",marginTop:"20px"}}>
+          {/* <div style={{display:`${isMobile ? "block" : "flex"}`,justifyContent:"left",alignItems:"flex-start",flexDirection:"column",marginTop:"20px"}}>
             <span style={{fontSize:"26px",fontWeight:"bold"}}>
               
               { selectedLanguage === "English" ? "Featured jobs" : "चुनिंदा नौकरियां"}
               </span> 
             <br/>
-            {/* <span style={{color:"grey",fontSize:"12px"}}>Showing results based on your added preference</span> */}
-          </div>
-          <div >
-               
-               {/* <div>
-               <img
-            src={NoJobs}
-            alt="Globe Icon"
-            
-          />
-          <div style={{marginTop:"20px",textAlign:"center"}}>
-          <span  style={{fontSize:"14px"}}>Oops!</span>
-          </div>
-          <div style={{marginTop:"5px",textAlign:"center"}}>
-            <span style={{fontSize:"14px"}}>No Jobs available at the moment</span>
-          </div>
-               </div> */}
+          
+          </div> */}
+      <IonToolbar style={{backgroundColor:'none'}}>
+      <IonSegment value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
+        <IonSegmentButton value="featured">
+          <IonLabel style={{ color: "black", fontSize: "16px", fontWeight: "500" }}>
+            {selectedLanguage === "English" ? "Featured jobs" : "चुनिंदा नौकरियां"}
+          </IonLabel>
+        </IonSegmentButton>
+        <IonSegmentButton value="recommendations">
+          <IonLabel style={{ color: "black", fontSize: "16px", fontWeight: "500" }}>
+            {selectedLanguage === "English" ? "You May Also Like" : "आपको कौन पसंद हो सकता है"}
+          </IonLabel>
+        </IonSegmentButton>
+      </IonSegment>
+    </IonToolbar>
 
-<IonGrid style={{padding:0,margin:0}} >
-  <IonRow >
-    {
-      jobData.map((el,index)=>{
-        return  <IonCol  size="12" size-md="6">
-        <JobCard data={el}  fun={()=>handelJobCardClick(el.id)}/>
-        </IonCol>
-      })
-    }
-   
+    {selectedTab === 'featured' && (
+      <IonGrid style={{ padding: 0, margin: 0 }}>
+        <IonRow>
+          {allJobData.map((el, index) => (
+            <IonCol size="12" size-md="6" key={index}>
+              <JobCard data={el} fun={() => handelJobCardClick(el.id)} />
+            </IonCol>
+          ))}
+        </IonRow>
+      </IonGrid>
+    )}
 
-   
-  </IonRow>
-</IonGrid>
+    {selectedTab === 'recommendations' && (
+      <IonGrid style={{ padding: 0, margin: 0 }}>
+        <IonRow>
+          {filteredJobData.map((el, index) => (
+            <IonCol size="12" size-md="6" key={index}>
+              <JobCard data={el} fun={() => handelJobCardClick(el.id)} />
+            </IonCol>
+          ))}
+        </IonRow>
+      </IonGrid>
+    )}
 
             
          
@@ -402,7 +481,7 @@ width:"100%"
 
           </div>
 
-</div>
+
       
           
        

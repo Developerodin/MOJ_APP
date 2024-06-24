@@ -7,7 +7,9 @@ import { AppContext } from '../../Context/AppContext';
 import { Base_url } from '../../Config/BaseUrl';
 import SelectStateModel from './SelectStateModel';
 import SelectMulipalCityModel from './SelectMulipalCityModel';
+import DepartmentSelectModel from './DepartmentSelectModel';
 import axios from 'axios';
+import { set } from 'mongoose';
 
 const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
   const { showToast,languageUpdate } = useContext(AppContext);
@@ -18,12 +20,15 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
  
   const [preferredCity, setPreferredCity] = useState("");
   const [preferredState, setPreferredState] = useState("");
+  const [departmentModel,setDepartmentModel] = useState(false)
+  const [department, setDepartment] = useState("");
+  const [departmentValue, setDepartmentValue] = useState("");
 
 
 
   
   const [formData, setFormData] = useState({
-    designation: '',
+  
     profile: '',
     organisation: '',
     startDate: '',
@@ -81,12 +86,60 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
 
     
     const AddWorkExperience = async () => {
+      if ( !formData.organisation || !formData.profile || !formData.location || !formData.startDate || !formData.endDate || !preferredState || !preferredCity || !department || !departmentValue) {
+        showToast("error", "Please fill all the fields", "");
+        if (!formData.organisation) {
+          showToast("error", "Please enter organisation", "");
+          return;
+        }
+        if (!formData.profile) {
+          showToast("error", "Please enter profile", "");
+          return;
+        }
+       
+        if (!formData.startDate) {
+          showToast("error", "Please enter start date", "");
+          return;
+        }
+        if (!formData.endDate) {
+          showToast("error", "Please enter end date", "");
+          return;
+        }
+        if (!preferredState) {
+          showToast("error", "Please select state", "");
+          return;
+        }
+        if (!preferredCity) {
+          showToast("error", "Please select city", "");
+          return;
+        }
+        if (!formData.location) {
+          showToast("error", "Please enter location", "");
+          return;
+        }
+        if (!department) {
+          showToast("error", "Please select department", "");
+          return;
+        }
+        if (!departmentValue) {
+          showToast("error", "Please select sub department", "");
+          return;
+        }
+        return;
+
+      }
+
+
+
       try {
+        
+
+
         const url = `${Base_url}user_work_ex/store`;
         const formData1 = new FormData();
         formData1.append('user_id', userDetails.user_id);
         formData1.append('organisation', formData.organisation);
-        formData1.append('designation', formData.designation);
+        // formData1.append('designation', formData.designation);
         formData1.append('profile', formData.profile);
         formData1.append('location', formData.location);
         formData1.append('start_date', formData.startDate);
@@ -95,6 +148,9 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
         formData1.append('ref_email', formData.refemail);
         formData1.append('state', preferredState);
         formData1.append('city', preferredCity);
+        formData1.append('designation', department);
+        formData1.append('sub_department', departmentValue);
+        ;
         
       
   
@@ -117,7 +173,7 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
                 //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
                 setUpdate((prev)=>prev+1);
                 setFormData({
-                  designation: '',
+                  
                   profile: '',
                   organisation: '',
                   
@@ -135,6 +191,8 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
             }) 
             setPreferredCity("");
             setPreferredState("");
+            setDepartmentValue("");
+            setDepartment("");
             
                 onClose();
                 return
@@ -163,6 +221,33 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
      const handelCityModleClose = () =>{
       setIsCityModelOpen(false)
      }
+
+
+
+     const handelSelectedDepartment = (selectedDepartment, subDepartments) => {
+      handelDepartmentModelClose();
+      console.log("Data of Department", selectedDepartment, subDepartments);
+      const namesString = subDepartments.map(subDepartment => subDepartment.sub_department).join(', ');
+      setDepartment(selectedDepartment);
+      setDepartmentValue(namesString);
+      if (typeof onSubmit === 'function') {
+        onSubmit(selectedDepartment, subDepartments);
+      } else {
+        console.error("onSubmit is not a function");
+      }
+    };
+    
+
+
+    
+  
+    const handelDepartmentModelOpen = ()=>{
+      setDepartmentModel(true)
+    }
+  
+    const handelDepartmentModelClose = ()=>{
+      setDepartmentModel(false)
+    }
 
      useEffect(() => {
       setPreferredCity("");
@@ -205,7 +290,7 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
          </div>
 
     </div>
-    <div style={{marginTop:"30px"}}>
+    <div style={{marginTop:"10px"}}>
 
 <IonLabel
 
@@ -218,7 +303,7 @@ style={{
 }}
 >
 
-{ selectedLanguage === "English" ? "Hotel name" : "होटल का नाम"}
+{ selectedLanguage === "English" ? "Hotel name" : "होटल का नाम"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -236,34 +321,40 @@ style={{
 }}
 />
 </div>
-<div style={{marginTop:"10px"}}>
-<label
-style={{
- color: "#575757",
- fontFamily: "inter",
- fontSize: "14px",
- fontWeight: "400",
- lineHeight: "30px",
-}}
->
-
-{ selectedLanguage === "English" ? "Department" : "विभाग"}
-</label>
-{/* <IonItem> */}
-<IonInput
-type="text"
-name="designation" 
-value={formData.designation} 
-onIonChange={handleChange}
-placeholder="e.g fnb manager"
-style={{
- borderRadius: "0px",
- padding:"10px",
- border: "1px solid #E2E8F0",
- height:"52px",
- backgroundColor:"#F4F4F4"
-}}
-/>
+<div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              { selectedLanguage === "English" ? "Department" : "विभाग"}{department !== "" && `(${department})`}<span style={{color:"red"}}>*</span>
+            </label>
+            <div
+           
+           onClick={handelDepartmentModelOpen}
+           
+           style={{
+             display:"flex",
+             justifyContent:"left",
+             alignItems: "center",
+             borderRadius: "0px",
+             padding:"10px",
+             border: "1px solid #E2E8F0",
+             height:"52px",
+             backgroundColor:"#F4F4F4"
+           }}
+         > 
+         {
+          departmentValue !== "" ? <span>{departmentValue}</span>:<span style={{color:"grey"}}>
+             { selectedLanguage === "English" ? "Select Department" : "विभाग चुनें"}
+            </span>
+         }
+         
+         </div>
 
 <div style={{marginTop:"10px"}}>
 <IonLabel
@@ -276,7 +367,7 @@ style={{
 }}
 >
 
-{ selectedLanguage === "English" ? "Work responsibility" : "कार्य जिम्मेदारी"}
+{ selectedLanguage === "English" ? "Work responsibility" : "कार्य जिम्मेदारी"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -313,7 +404,7 @@ style={{
 }}
 >
 
-{ selectedLanguage === "English" ? "Reference  Mobile" : "संदर्भ मोबाइल"}
+{ selectedLanguage === "English" ? "Reference  Mobile" : "संदर्भ मोबाइल"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -346,7 +437,7 @@ style={{
 }}
 >
 
-{ selectedLanguage === "English" ? "Reference  Email" : "संदर्भ ईमेल"}
+{ selectedLanguage === "English" ? "Reference  Email" : "संदर्भ ईमेल"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -375,7 +466,7 @@ backgroundColor:"#F4F4F4"
           lineHeight: "30px",
         }}
       >
-        {selectedLanguage === "English" ? "State" : "पसंदीदा राज्य"}
+        {selectedLanguage === "English" ? "State" : "पसंदीदा राज्य"}<span style={{color:"red"}}>*</span>
       </label>
       <div
         onClick={handelStateModleOpen}
@@ -410,7 +501,7 @@ backgroundColor:"#F4F4F4"
               lineHeight: "30px",
             }}
           >
-            {selectedLanguage === "English" ? "City" : "पसंदीदा शहर"}
+            {selectedLanguage === "English" ? "City" : "पसंदीदा शहर"}<span style={{color:"red"}}>*</span>
           </label>
           <div
             onClick={handelCityModelOpen}
@@ -451,7 +542,7 @@ style={{
 }}
 >
 
-{ selectedLanguage === "English" ? "Location" : "स्थान"}
+{ selectedLanguage === "English" ? "Location" : "स्थान"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -483,7 +574,7 @@ style={{
 }}
 >
 
-{ selectedLanguage === "English" ? "Start Date" : "आरंभ तिथि"}
+{ selectedLanguage === "English" ? "Start Date" : "आरंभ तिथि"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -515,7 +606,7 @@ style={{
 }}
 >
 
-{ selectedLanguage === "English" ? "End Date" : "समाप्ति तिथि"}
+{ selectedLanguage === "English" ? "End Date" : "समाप्ति तिथि"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -544,6 +635,7 @@ style={{
 </div>
 
 </div>
+<DepartmentSelectModel isOpen={departmentModel} onClose={handelDepartmentModelClose} onSubmit={handelSelectedDepartment} department={department} departmentValue={departmentValue}  />
       <SelectMulipalCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} preferredCity={preferredCity} setPreferredCity={setPreferredCity} selectedState={preferredState}/>
 <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={preferredState} setSelectedState={setPreferredState}  />
       

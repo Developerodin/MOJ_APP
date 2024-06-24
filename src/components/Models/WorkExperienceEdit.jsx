@@ -7,6 +7,9 @@ import { AppContext } from '../../Context/AppContext';
 import { Base_url } from '../../Config/BaseUrl';
 import axios from 'axios';
 import { useParams } from 'react-router';
+import SelectStateModel from './SelectStateModel';
+import SelectMulipalCityModel from './SelectMulipalCityModel';
+import DepartmentSelectModel from './DepartmentSelectModel';
 
 const WorkExperienceEdit = () => {
   const { showToast,editUpdate,setEditUpdate } = useContext(AppContext);
@@ -14,8 +17,17 @@ const WorkExperienceEdit = () => {
   const token =localStorage.getItem("token");
   const history = useIonRouter()
   const {id} = useParams()
+  const [isStateModelOpen, setIsStateModelOpen] = useState(false);
+  const [isCityModelOpen, setIsCityModelOpen] = useState(false);
+ 
+  const [preferredCity, setPreferredCity] = useState("");
+  const [preferredState, setPreferredState] = useState("");
+  const [departmentModel,setDepartmentModel] = useState(false)
+  const [department, setDepartment] = useState("");
+  const [departmentValue, setDepartmentValue] = useState("");
+
   const [formData, setFormData] = useState({
-    designation: '',
+    
     profile: '',
     organisation: '',
     location: '',
@@ -34,6 +46,10 @@ const WorkExperienceEdit = () => {
       [name]: value,
     });
   };
+
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
 
   const handleSubmit = () => {
     // Handle form submission logic here
@@ -56,18 +72,64 @@ const WorkExperienceEdit = () => {
 
 
     const UpdateWorkExperience = async () => {
+      if ( !formData.organisation || !formData.profile || !formData.location || !formData.startDate || !formData.endDate || !preferredState || !preferredCity || !department || !departmentValue) {
+        showToast("error", "Please fill all the fields", "");
+        if (!formData.organisation) {
+          showToast("error", "Please enter organisation", "");
+          return;
+        }
+        if (!formData.profile) {
+          showToast("error", "Please enter profile", "");
+          return;
+        }
+       
+        if (!formData.startDate) {
+          showToast("error", "Please enter start date", "");
+          return;
+        }
+        if (!formData.endDate) {
+          showToast("error", "Please enter end date", "");
+          return;
+        }
+        if (!preferredState) {
+          showToast("error", "Please select state", "");
+          return;
+        }
+        if (!preferredCity) {
+          showToast("error", "Please select city", "");
+          return;
+        }
+        if (!formData.location) {
+          showToast("error", "Please enter location", "");
+          return;
+        }
+        if (!department) {
+          showToast("error", "Please select department", "");
+          return;
+        }
+        if (!departmentValue) {
+          showToast("error", "Please select sub department", "");
+          return;
+        }
+        return;
+
+      }
       try {
         const url = `${Base_url}user_work_ex/Update_ById/${id}`;
         const formData1 = new FormData();
         formData1.append('user_id', userDetails.user_id);
         formData1.append('organisation', formData.organisation);
-        formData1.append('designation', formData.designation);
+        // formData1.append('designation', formData.designation);
         formData1.append('profile', formData.profile);
         formData1.append('location', formData.location);
         formData1.append('start_date', formData.startDate);
         formData1.append('end_date', formData.endDate);
         formData1.append('ref_mob', formData.refmobile);
         formData1.append('ref_email', formData.refemail);
+        formData1.append('state', preferredState);
+        formData1.append('city', preferredCity);
+        formData1.append('designation', department);
+        formData1.append('sub_department', departmentValue);
       
   
         const response = await axios.post(url, formData1,{
@@ -89,7 +151,7 @@ const WorkExperienceEdit = () => {
                 //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
                 // setUpdate((prev)=>prev+1);
                 setFormData({
-                  designation: '',
+                  
                   profile: '',
                   organisation: '',
                   location: '',
@@ -98,6 +160,11 @@ const WorkExperienceEdit = () => {
             })
             setEditUpdate((prev)=>prev+1)
               handelBackClick();
+
+              setPreferredCity("");
+              setPreferredState("");
+              setDepartmentValue("");
+              setDepartment("");
                 return
             }
             // showToast("error", "Try After Some Time", "");
@@ -140,7 +207,10 @@ const WorkExperienceEdit = () => {
                   endDate:el.end_date,
                   description:el.description,
                   refmobile:el.ref_email,
-                  refemail:el.ref_mobile
+                  refemail:el.ref_mobile,
+                  city:el.city,
+                  state:el.state,
+                  sub_department:el.sub_department
                 }));
                 setFormData(formatedData[0])
                 }
@@ -153,6 +223,51 @@ const WorkExperienceEdit = () => {
           showToast("error", "Try After Some Time", "");
         }
       };
+      const handelStateModleOpen = () =>{
+        setIsStateModelOpen(true);
+      }
+      const handelStateModleClose = () =>{
+        setIsStateModelOpen(false);
+      }
+    
+      const handelCityModelOpen =() =>{
+        setIsCityModelOpen(true);
+       }
+    
+       const handelCityModleClose = () =>{
+        setIsCityModelOpen(false)
+       }
+  
+  
+  
+       const handelSelectedDepartment = (selectedDepartment, subDepartments) => {
+        handelDepartmentModelClose();
+        console.log("Data of Department", selectedDepartment, subDepartments);
+        const namesString = subDepartments.map(subDepartment => subDepartment.sub_department).join(', ');
+        setDepartment(selectedDepartment);
+        setDepartmentValue(namesString);
+        if (typeof onSubmit === 'function') {
+          onSubmit(selectedDepartment, subDepartments);
+        } else {
+          console.error("onSubmit is not a function");
+        }
+      };
+      
+  
+  
+      
+    
+      const handelDepartmentModelOpen = ()=>{
+        setDepartmentModel(true)
+      }
+    
+      const handelDepartmentModelClose = ()=>{
+        setDepartmentModel(false)
+      }
+  
+       useEffect(() => {
+        setPreferredCity("");
+      }, [preferredState]);      
 
     useEffect(()=>{
         if(id){
@@ -185,7 +300,7 @@ const WorkExperienceEdit = () => {
 
     </div>
 
-    <div style={{marginTop:"30px"}}>
+    <div style={{marginTop:"10px"}}>
 
 <IonLabel
 
@@ -197,7 +312,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Hotel name
+Hotel name<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -215,33 +330,40 @@ style={{
 }}
 />
 </div>
-<div style={{marginTop:"10px"}}>
-<label
-style={{
- color: "#575757",
- fontFamily: "inter",
- fontSize: "14px",
- fontWeight: "400",
- lineHeight: "30px",
-}}
->
-Department
-</label>
-{/* <IonItem> */}
-<IonInput
-type="text"
-name="designation" 
-value={formData.designation} 
-onIonChange={handleChange}
-placeholder="e.g fnb manager"
-style={{
- borderRadius: "0px",
- padding:"10px",
- border: "1px solid #E2E8F0",
- height:"52px",
- backgroundColor:"#F4F4F4"
-}}
-/>
+<div style={{ marginTop: "20px" }}>
+            <label
+              style={{
+                color: "#575757",
+                fontFamily: "inter",
+                fontSize: "14px",
+                fontWeight: "400",
+                lineHeight: "30px",
+              }}
+            >
+              { selectedLanguage === "English" ? "Department" : "विभाग"}{department !== "" && `(${department})`}<span style={{color:"red"}}>*</span>
+            </label>
+            <div
+           
+           onClick={handelDepartmentModelOpen}
+           
+           style={{
+             display:"flex",
+             justifyContent:"left",
+             alignItems: "center",
+             borderRadius: "0px",
+             padding:"10px",
+             border: "1px solid #E2E8F0",
+             height:"52px",
+             backgroundColor:"#F4F4F4"
+           }}
+         > 
+         {
+          departmentValue !== "" ? <span>{departmentValue}</span>:<span style={{color:"grey"}}>
+             { selectedLanguage === "English" ? "Select Department" : "विभाग चुनें"}
+            </span>
+         }
+         
+         </div>
 
 <div style={{marginTop:"10px"}}>
 <IonLabel
@@ -253,7 +375,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Work responsibility
+Work responsibility<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -289,7 +411,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Reference  Mobile
+Reference  Mobile<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -321,7 +443,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Reference  Email
+Reference  Email<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -340,7 +462,76 @@ backgroundColor:"#F4F4F4"
 />
 
 </div>
-
+<div style={{ marginTop: "10px" }}>
+      <label
+        style={{
+          color: "#575757",
+          fontFamily: "inter",
+          fontSize: "14px",
+          fontWeight: "400",
+          lineHeight: "30px",
+        }}
+      >
+        {selectedLanguage === "English" ? "State" : "पसंदीदा राज्य"}<span style={{color:"red"}}>*</span>
+      </label>
+      <div
+        onClick={handelStateModleOpen}
+        
+        style={{
+          display:"flex",
+          justifyContent:"left",
+          alignItems: "center",
+          borderRadius: "0px",
+          padding:"10px",
+          border: "1px solid #E2E8F0",
+          height:"52px",
+          backgroundColor:"#F4F4F4"
+        }}
+      > 
+        {
+          preferredState !== "" ? <span>{preferredState}</span> : <span style={{color:"grey"}}>
+            {selectedLanguage === "English" ? "Select State" : "पसंदीदा राज्य चुनें"}
+          </span>
+        }
+      </div>
+      
+      {/* Conditional rendering based on state */}
+      {preferredState !== "" && (
+        <div style={{ marginTop: "10px" }}>
+          <label
+            style={{
+              color: "#575757",
+              fontFamily: "inter",
+              fontSize: "14px",
+              fontWeight: "400",
+              lineHeight: "30px",
+            }}
+          >
+            {selectedLanguage === "English" ? "City" : "पसंदीदा शहर"}<span style={{color:"red"}}>*</span>
+          </label>
+          <div
+            onClick={handelCityModelOpen}
+            
+            style={{
+              display:"flex",
+              justifyContent:"left",
+              alignItems: "center",
+              borderRadius: "0px",
+              padding:"10px",
+              border: "1px solid #E2E8F0",
+              height:"52px",
+              backgroundColor:"#F4F4F4"
+            }}
+          > 
+            {
+              preferredCity !== "" ? <span>{preferredCity}</span> : <span style={{color:"grey"}}>
+                {selectedLanguage === "English" ? "Select City" : "पसंदीदा शहर चुनें"}
+              </span>
+            }
+          </div>
+        </div>
+      )}
+    </div>
 
 
 
@@ -356,7 +547,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Location
+Location<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -387,7 +578,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Start Date
+Start Date<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -417,7 +608,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-End Date
+End Date<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -445,6 +636,9 @@ style={{
 </div>
 
 </div>
+<DepartmentSelectModel isOpen={departmentModel} onClose={handelDepartmentModelClose} onSubmit={handelSelectedDepartment} department={department} departmentValue={departmentValue}  />
+      <SelectMulipalCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} preferredCity={preferredCity} setPreferredCity={setPreferredCity} selectedState={preferredState}/>
+<SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={preferredState} setSelectedState={setPreferredState}  />
       
       
       </IonContent>

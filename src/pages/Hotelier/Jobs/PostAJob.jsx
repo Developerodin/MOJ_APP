@@ -100,7 +100,7 @@ export const HotelierPostJob = () => {
     // Save logic here
     console.log("DAta ==>",hotelName,jobTitle,address,numberOfEmployeRequired,jobDescription,experience,Education,department,preferredCity,preferredState,jobType,salaryRange,startTime,endTime);
     AddJob();
-    handelBackClick()
+ 
   };
 
   const handleBackClick = () => {
@@ -108,6 +108,56 @@ export const HotelierPostJob = () => {
   };
 
   const AddJob = async () => {
+    if (!department || !jobType || !jobDescription || !Education || !salaryRange || !experience || numberOfEmployeRequired ||(jobType === "Part Time" && (!startTime || !endTime))) {
+    if(jobType === "") {
+      showToast("error", "Please select job type", "");
+      return;
+    }
+    if(jobTitle === "") {
+      showToast("error", "Please enter job title", "");
+      return;
+    }
+    if(jobDescription === "") {
+      showToast("error", "Please enter job description", "");
+      return;
+    }
+    if(department === "") {
+      showToast("error", "Please select department", "");
+      return;
+    }
+    if(departmentValue === "") {
+      showToast("error", "Please select sub department", "");
+      return;
+    }
+    if(Education === "") {
+      showToast("error", "Please select education", "");
+      return;
+    }
+    if(experience === "") {
+      showToast("error", "Please select experience", "");
+      return;
+    }
+    if(numberOfEmployeRequired === "") {
+      showToast("error", "Please enter number of employees required", "");
+      return;
+    }
+    if(salaryRange === "") {
+      showToast("error", "Please select salary range", "");
+      return;
+    }
+    if(jobType === "Part Time" && (startTime === "" || endTime === "")) {
+      showToast("error", "Please select start and end time", "");
+      return;
+    }
+
+  
+  return;
+}
+
+
+
+
+
     try {
       const url = `${Base_url}job/store`;
       const formData1 = new FormData();
@@ -149,6 +199,7 @@ export const HotelierPostJob = () => {
               //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
               showToast("success", "updated", "");
               setJobUpdate((prev)=>prev+1)
+              handleBackClick();
               return
           }
           showToast("error", "Try After Some Time", "");
@@ -244,7 +295,7 @@ export const HotelierPostJob = () => {
                 lineHeight: "30px",
               }}
             >
-              Job Type
+              Job Type<span style={{color:"red"}}>*</span>
             </label>
             <IonSelect
               value={jobType}
@@ -276,7 +327,7 @@ export const HotelierPostJob = () => {
            
            <div style={{display:"flex",justifyContent:"left",alignItems:"center",marginTop:"10px"}}>
            <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-        <span style={{fontSize:"14px"}}>Start Time:</span>
+        <span style={{fontSize:"14px"}}>Start Time:<span style={{color:"red"}}>*</span></span>
         <input
         style={{marginTop:"10px",borderRadius:"5px",border:"1px solid #E4E4E4",padding:"10px"}}
           type="time"
@@ -286,7 +337,7 @@ export const HotelierPostJob = () => {
       </div>
 
       <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",marginLeft:"30px"}}>
-      <span style={{fontSize:"14px"}}>End Time:</span>
+      <span style={{fontSize:"14px"}}>End Time:<span style={{color:"red"}}>*</span></span>
         <input
         style={{marginTop:"10px",borderRadius:"5px",border:"1px solid #E4E4E4",padding:"10px"}}
           type="time"
@@ -344,7 +395,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Job Title
+Job Title<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -375,7 +426,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Job description
+Job description<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -408,7 +459,7 @@ style={{
                 lineHeight: "30px",
               }}
             >
-              Department {department !== "" && `(${department})`}
+              Department {department !== "" && `(${department})`}<span style={{color:"red"}}>*</span>
             </label>
             <div
            
@@ -442,7 +493,7 @@ style={{
                 lineHeight: "30px",
               }}
             >
-              Experience
+              Experience<span style={{color:"red"}}>*</span>
             </label>
             <IonSelect
               value={experience}
@@ -468,7 +519,7 @@ style={{
                 lineHeight: "30px",
               }}
             >
-              Education
+              Education<span style={{color:"red"}}>*</span>
             </label>
             <IonSelect
               value={Education}
@@ -631,7 +682,7 @@ style={{
                 lineHeight: "30px",
               }}
             >
-              Offered salary 
+              Offered salary<span style={{color:"red"}}>*</span> 
             </label>
             {/* <IonRange
               min={0}
