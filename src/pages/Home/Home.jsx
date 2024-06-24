@@ -117,7 +117,8 @@ const [isModalOpen, setIsModalOpen] = useState(false);
         if (data.status === "success") {
             const formatedData = data.post.filter((el) => el.status === "1");
             setAllJobData(formatedData);  // Store all job data
-            setJobData(formatedData);     // Set the job data to be displayed
+            setJobData(formatedData);  
+               // Set the job data to be displayed
         }
     } catch (error) {
         console.error("Error:", error);

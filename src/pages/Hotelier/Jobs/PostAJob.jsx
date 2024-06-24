@@ -108,51 +108,51 @@ export const HotelierPostJob = () => {
   };
 
   const AddJob = async () => {
-    if (!department || !jobType || !jobDescription || !Education || !salaryRange || !experience || numberOfEmployeRequired ||(jobType === "Part Time" && (!startTime || !endTime))) {
-    if(jobType === "") {
-      showToast("error", "Please select job type", "");
-      return;
-    }
-    if(jobTitle === "") {
-      showToast("error", "Please enter job title", "");
-      return;
-    }
-    if(jobDescription === "") {
-      showToast("error", "Please enter job description", "");
-      return;
-    }
-    if(department === "") {
-      showToast("error", "Please select department", "");
-      return;
-    }
-    if(departmentValue === "") {
-      showToast("error", "Please select sub department", "");
-      return;
-    }
-    if(Education === "") {
-      showToast("error", "Please select education", "");
-      return;
-    }
-    if(experience === "") {
-      showToast("error", "Please select experience", "");
-      return;
-    }
-    if(numberOfEmployeRequired === "") {
-      showToast("error", "Please enter number of employees required", "");
-      return;
-    }
-    if(salaryRange === "") {
-      showToast("error", "Please select salary range", "");
-      return;
-    }
-    if(jobType === "Part Time" && (startTime === "" || endTime === "")) {
-      showToast("error", "Please select start and end time", "");
-      return;
-    }
+//     if (!department || !jobType || !jobDescription || !Education || !salaryRange || !experience || numberOfEmployeRequired ||(jobType === "Part Time" && (!startTime || !endTime))) {
+//     if(jobType === "") {
+//       showToast("error", "Please select job type", "");
+//       return;
+//     }
+//     if(jobTitle === "") {
+//       showToast("error", "Please enter job title", "");
+//       return;
+//     }
+//     if(jobDescription === "") {
+//       showToast("error", "Please enter job description", "");
+//       return;
+//     }
+//     if(department === "") {
+//       showToast("error", "Please select department", "");
+//       return;
+//     }
+//     if(departmentValue === "") {
+//       showToast("error", "Please select sub department", "");
+//       return;
+//     }
+//     if(Education === "") {
+//       showToast("error", "Please select education", "");
+//       return;
+//     }
+//     if(experience === "") {
+//       showToast("error", "Please select experience", "");
+//       return;
+//     }
+//     if(numberOfEmployeRequired === "") {
+//       showToast("error", "Please enter number of employees required", "");
+//       return;
+//     }
+//     if(salaryRange === "") {
+//       showToast("error", "Please select salary range", "");
+//       return;
+//     }
+//     if(jobType === "Part Time" && (startTime === "" || endTime === "")) {
+//       showToast("error", "Please select start and end time", "");
+//       return;
+//     }
 
   
-  return;
-}
+//   return;
+// }
 
 
 
