@@ -210,16 +210,17 @@ const handleSearch = (event) => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
 
-    const filteredJobs = allJobData.filter((job) => 
+    const filteredJobs = jobData.filter((job) => 
         job.job_title.toLowerCase().includes(query) ||
         job.department.toLowerCase().includes(query) ||
         job.sub_department.toLowerCase().includes(query)
     );
 
-    setJobData(filteredJobs);
+    setAllJobData(filteredJobs);
 };
 
 const handleFilterApply = (filters) => {
+
   const filteredJobs = allJobData.filter((job) => {
     const matchesCity = filters.city ? job.city.toLowerCase().includes(filters.city.toLowerCase()) : true;
     const matchesState = filters.state ? job.state.toLowerCase().includes(filters.state.toLowerCase()) : true;
@@ -237,13 +238,13 @@ const handleFilterApply = (filters) => {
 
     return matchesCity && matchesState && matchesSalary && matchesProfile && matchesJobType && matchesEducation && matchesExperience;
   });
-
-  setJobData(filteredJobs);
+  console.log("Filtered Jobs+++++++++++++++++++++++++++12:", filteredJobs);
+  setAllJobData(filteredJobs);
   setIsFilterApplied(true);  // Set filter applied state to true
 };
 
 const handleResetFilters = () => {
-  setJobData(allJobData);
+  setAllJobData(jobData);
   setIsFilterApplied(false);  // Reset filter applied state
 };
 
