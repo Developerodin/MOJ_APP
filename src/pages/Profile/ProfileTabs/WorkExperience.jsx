@@ -246,22 +246,21 @@ export const ProfileWorkExperience = () => {
 
                    <div style={{padding:"5px"}}>
 
-{
- userWorkExperience !== "fresher" && experienceData ? experienceData && experienceData.map((el,index)=>{
-    return  <div key={index} style={{marginTop:"30px"}} >
-    <WorkExperienceCard  data={el} UserWorkExperienceDelete={UserWorkExperienceDelete}/>
-   </div>
-  })
-  :
-  <div style={{marginTop:"30px"}}>
-
-  <span>
-  { selectedLanguage === "English" ? "No Work Experience  Records Available" : "कोई कार्य अनुभव रिकॉर्ड उपलब्ध नहीं है"}
-
-  </span>
- </div>
-}
-                  
+<div style={{ height: '68vh', overflow: 'auto',marginBottom:'60px' }}>
+  {
+    userWorkExperience !== "fresher" && experienceData ? experienceData.map((el, index) => {
+      return <div key={index} style={{ marginTop: "30px",marginBottom:'30px' }}>
+        <WorkExperienceCard data={el} UserWorkExperienceDelete={UserWorkExperienceDelete} />
+      </div>
+    })
+    :
+    <div style={{ marginTop: "30px" }}>
+      <span>
+        {selectedLanguage === "English" ? "No Work Experience Records Available" : "कोई कार्य अनुभव रिकॉर्ड उपलब्ध नहीं है"}
+      </span>
+    </div>
+  }
+</div>               
 
                   
                 

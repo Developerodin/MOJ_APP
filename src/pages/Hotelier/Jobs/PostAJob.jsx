@@ -163,7 +163,7 @@ export const HotelierPostJob = () => {
       const formData1 = new FormData();
       formData1.append('user_id', userDetails.user_id);
       // formData1.append('Hotel_name', hotelName || "");
-      formData1.append('job_title', jobTitle || "");
+      formData1.append('job_title', "");
       formData1.append('job_description', jobDescription || "");
       formData1.append('job_type', jobType|| "");
       // formData1.append('location', address|| "");
@@ -383,7 +383,7 @@ style={{
 />
 </div> */}
 
-             <div style={{marginTop:"20px"}}>
+             {/* <div style={{marginTop:"20px"}}>
 
 <IonLabel
 
@@ -397,7 +397,7 @@ style={{
 >
 Job Title<span style={{color:"red"}}>*</span>
 </IonLabel>
-{/* <IonItem> */}
+
 <IonInput
 type="text"
 value={jobTitle}
@@ -412,7 +412,7 @@ style={{
  backgroundColor:"#F4F4F4"
 }}
 />
-</div>
+</div> */}
 
           <div style={{marginTop:"20px"}}>
 

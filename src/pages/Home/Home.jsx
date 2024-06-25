@@ -18,6 +18,7 @@ import { Base_url } from '../../Config/BaseUrl';
 import axios from 'axios';
 import { AppContext } from '../../Context/AppContext';
 import { isMobile } from '../../IsMobile/IsMobile';
+import { set } from 'mongoose';
 
 // import { StatusBar } from '@capacitor/status-bar';
 export const Home = () => {
@@ -127,71 +128,37 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
 const getuserref = async () => {
   try {
-    const url = `${Base_url}user_job_pref_userid/${userDetails.user_id}`;
-   
+    const url = `${Base_url}job/user_prf/${userDetails.user_id}`;
 
-    const response = await axios.get(url,{
+    
+    const formData = new FormData();
+    formData.append('id', userDetails.user_id);  
+
+    const response = await axios.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-        
-   
       }
     });
-    const data = response.data
-        console.log("user pref-->",data,response)
+    
+    const data = response.data;
+    console.log("user pref-->", data, response);
 
-
-        if(data.status === "success"){
-         
-            console.log("Data get from job pref ==++++++++++++++++++++++++>",data);
-            setUserPrefData(data.post[0])
-            
-
-            
-          return
-      }
-
-          
-       
-        
+    if (data.status === "success") {
+      console.log("Data get from job pref ==++++++++++++++++++++++++>", data);
+      setFilteredJobData(data.post);
+      return;
+    }
   } catch (error) {
     console.error('Error:', error);
-    
   }
 };
 
-const filterJobsByUserPreference = () => {
-  console.log("Attempting to filter jobs with:", allJobData, userPrefData); 
-
-  if (!userPrefData || allJobData.length === 0) return;
-
-  
-  const { job_type, department, sub_dep, salery, pref_state, pref_city } = userPrefData;
-
-  const filteredJobs = allJobData.filter(job => {
-    return (
-      // (!job_type || job.job_type === job_type) &&
-      (!department || job.department === department) 
-      // (!sub_dep || job.sub_department === sub_dep) &&
-      // (!salery || job.off_salery === salery) &&
-      // (!pref_state || job.state === pref_state) &&
-      // (!pref_city || job.city === pref_city)
-    );
-  });
-
-  console.log("Filtered Jobs:", filteredJobs); 
-
-  setFilteredJobData(filteredJobs); 
-};
-
-
 useEffect(() => {
-  filterJobsByUserPreference();
-}, [allJobData, userPrefData]);
+  getuserref();
+}, [jobUpdate]); 
 
-useEffect(() => {
-  getuserref()
-}, []);
+
+
 
 
 useEffect(() => {
@@ -217,11 +184,12 @@ const handleSearch = (event) => {
     );
 
     setAllJobData(filteredJobs);
+    setFilteredJobData(filteredJobs);
 };
 
 const handleFilterApply = (filters) => {
 
-  const filteredJobs = allJobData.filter((job) => {
+  const filteredJobs =   jobData.filter((job) => {
     const matchesCity = filters.city ? job.city.toLowerCase().includes(filters.city.toLowerCase()) : true;
     const matchesState = filters.state ? job.state.toLowerCase().includes(filters.state.toLowerCase()) : true;
 
@@ -240,11 +208,13 @@ const handleFilterApply = (filters) => {
   });
   console.log("Filtered Jobs+++++++++++++++++++++++++++12:", filteredJobs);
   setAllJobData(filteredJobs);
+  setFilteredJobData(filteredJobs);
   setIsFilterApplied(true);  // Set filter applied state to true
 };
 
 const handleResetFilters = () => {
   setAllJobData(jobData);
+  setFilteredJobData(jobData);
   setIsFilterApplied(false);  // Reset filter applied state
 };
 
@@ -450,7 +420,7 @@ width:"100%"
     {selectedTab === 'featured' && (
       <IonGrid style={{ padding: 0, margin: 0 }}>
         <IonRow>
-          {allJobData.map((el, index) => (
+          {filteredJobData.map((el, index) => (
             <IonCol size="12" size-md="6" key={index}>
               <JobCard data={el} fun={() => handelJobCardClick(el.id)} />
             </IonCol>
@@ -462,7 +432,7 @@ width:"100%"
     {selectedTab === 'recommendations' && (
       <IonGrid style={{ padding: 0, margin: 0 }}>
         <IonRow>
-          {filteredJobData.map((el, index) => (
+          {allJobData.map((el, index) => (
             <IonCol size="12" size-md="6" key={index}>
               <JobCard data={el} fun={() => handelJobCardClick(el.id)} />
             </IonCol>

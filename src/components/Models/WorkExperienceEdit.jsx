@@ -10,6 +10,7 @@ import { useParams } from 'react-router';
 import SelectStateModel from './SelectStateModel';
 import SelectMulipalCityModel from './SelectMulipalCityModel';
 import DepartmentSelectModel from './DepartmentSelectModel';
+import { set } from 'mongoose';
 
 const WorkExperienceEdit = () => {
   const { showToast,editUpdate,setEditUpdate } = useContext(AppContext);
@@ -30,7 +31,7 @@ const WorkExperienceEdit = () => {
     
     profile: '',
     organisation: '',
-    location: '',
+    // location: '',
     startDate: '',
     endDate: '',
     refmobile:'',
@@ -72,7 +73,7 @@ const WorkExperienceEdit = () => {
 
 
     const UpdateWorkExperience = async () => {
-      if ( !formData.organisation || !formData.profile || !formData.location || !formData.startDate || !formData.endDate || !preferredState || !preferredCity || !department || !departmentValue) {
+      if ( !formData.organisation || !formData.profile  || !formData.startDate || !formData.endDate || !preferredState || !preferredCity || !department || !departmentValue) {
         showToast("error", "Please fill all the fields", "");
         if (!formData.organisation) {
           showToast("error", "Please enter organisation", "");
@@ -99,10 +100,10 @@ const WorkExperienceEdit = () => {
           showToast("error", "Please select city", "");
           return;
         }
-        if (!formData.location) {
-          showToast("error", "Please enter location", "");
-          return;
-        }
+        // if (!formData.location) {
+        //   showToast("error", "Please enter location", "");
+        //   return;
+        // }
         if (!department) {
           showToast("error", "Please select department", "");
           return;
@@ -121,14 +122,14 @@ const WorkExperienceEdit = () => {
         formData1.append('organisation', formData.organisation);
         // formData1.append('designation', formData.designation);
         formData1.append('profile', formData.profile);
-        formData1.append('location', formData.location);
+        // formData1.append('location', formData.location);
         formData1.append('start_date', formData.startDate);
         formData1.append('end_date', formData.endDate);
         formData1.append('ref_mob', formData.refmobile);
         formData1.append('ref_email', formData.refemail);
         formData1.append('state', preferredState);
         formData1.append('city', preferredCity);
-        formData1.append('designation', department);
+        formData1.append('department', department);
         formData1.append('sub_department', departmentValue);
       
   
@@ -154,7 +155,7 @@ const WorkExperienceEdit = () => {
                   
                   profile: '',
                   organisation: '',
-                  location: '',
+                  // location: '',
                   startDate: '',
                   endDate: '',
             })
@@ -200,9 +201,9 @@ const WorkExperienceEdit = () => {
                 //   setExperoenceData(data.data);
                 const formatedData = data.data.map(el => ({
                   organisation:el.organisation,
-                  designation:el.designation,
+                  department:el.department,
                   profile:el.profile,
-                  location:el.location,
+                  // location:el.location,
                   startDate:el.start_date,
                   endDate:el.end_date,
                   description:el.description,
@@ -213,6 +214,10 @@ const WorkExperienceEdit = () => {
                   sub_department:el.sub_department
                 }));
                 setFormData(formatedData[0])
+                setPreferredCity(formatedData[0].city);
+                setPreferredState(formatedData[0].state);
+                setDepartment(formatedData[0].department);
+                setDepartmentValue(formatedData[0].sub_department);
                 }
     
                 
@@ -330,7 +335,7 @@ style={{
 }}
 />
 </div>
-<div style={{ marginTop: "20px" }}>
+<div style={{ marginTop: "10px" }}>
             <label
               style={{
                 color: "#575757",
@@ -536,7 +541,7 @@ backgroundColor:"#F4F4F4"
 
 
 
-<div style={{marginTop:"10px"}}>
+{/* <div style={{marginTop:"10px"}}>
 
 <IonLabel
 style={{
@@ -549,7 +554,7 @@ style={{
 >
 Location<span style={{color:"red"}}>*</span>
 </IonLabel>
-{/* <IonItem> */}
+
 <IonInput
 type="text"
 placeholder="eg jaipur"
@@ -565,7 +570,7 @@ backgroundColor:"#F4F4F4"
 }}
 />
 
-</div>
+</div> */}
 
 
 <div style={{marginTop:"10px"}}>

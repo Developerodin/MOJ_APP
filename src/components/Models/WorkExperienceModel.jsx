@@ -86,7 +86,7 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
 
     
     const AddWorkExperience = async () => {
-      if ( !formData.organisation || !formData.profile || !formData.location || !formData.startDate || !formData.endDate || !preferredState || !preferredCity || !department || !departmentValue) {
+      if ( !formData.organisation || !formData.profile  || !formData.startDate || !formData.endDate || !preferredState || !preferredCity || !department || !departmentValue) {
         showToast("error", "Please fill all the fields", "");
         if (!formData.organisation) {
           showToast("error", "Please enter organisation", "");
@@ -113,10 +113,10 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
           showToast("error", "Please select city", "");
           return;
         }
-        if (!formData.location) {
-          showToast("error", "Please enter location", "");
-          return;
-        }
+        // if (!formData.location) {
+        //   showToast("error", "Please enter location", "");
+        //   return;
+        // }
         if (!department) {
           showToast("error", "Please select department", "");
           return;
@@ -141,14 +141,14 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
         formData1.append('organisation', formData.organisation);
         // formData1.append('designation', formData.designation);
         formData1.append('profile', formData.profile);
-        formData1.append('location', formData.location);
+        // formData1.append('location', formData.location);
         formData1.append('start_date', formData.startDate);
         formData1.append('end_date', formData.endDate);
         formData1.append('ref_mob', formData.refmobile);
         formData1.append('ref_email', formData.refemail);
         formData1.append('state', preferredState);
         formData1.append('city', preferredCity);
-        formData1.append('designation', department);
+        formData1.append('department', department);
         formData1.append('sub_department', departmentValue);
         ;
         
@@ -321,7 +321,7 @@ style={{
 }}
 />
 </div>
-<div style={{ marginTop: "20px" }}>
+<div style={{ marginTop: "10px" }}>
             <label
               style={{
                 color: "#575757",
@@ -530,7 +530,7 @@ backgroundColor:"#F4F4F4"
 
 
 
-<div style={{marginTop:"10px"}}>
+{/* <div style={{marginTop:"10px"}}>
 
 <IonLabel
 style={{
@@ -544,7 +544,7 @@ style={{
 
 { selectedLanguage === "English" ? "Location" : "स्थान"}<span style={{color:"red"}}>*</span>
 </IonLabel>
-{/* <IonItem> */}
+
 <IonInput
 type="text"
 placeholder="eg jaipur"
@@ -560,7 +560,7 @@ backgroundColor:"#F4F4F4"
 }}
 />
 
-</div>
+</div> */}
 
 
 <div style={{marginTop:"10px"}}>

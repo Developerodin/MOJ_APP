@@ -277,7 +277,7 @@ const DepartmentSelectModel = ({ isOpen, onClose, onSubmit, departmentValue, dep
             <IonToggle checked={skillLength === 1} onIonChange={() => handleSkillToggle(1)}>Single Skill</IonToggle>
             <IonToggle style={{ marginLeft: "30px" }} checked={skillLength === 5} onIonChange={() => handleSkillToggle(5)}>Multiple Skills</IonToggle>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between", marginTop: "30px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
             <div style={{ width: "30%", height: "65vh", overflow: "auto", display: "flex", justifyContent: "left", alignItems: "center", flexDirection: "column" }}>
               {departmentData.map((department, index) => (
                 <DepartmentComponent
@@ -287,7 +287,7 @@ const DepartmentSelectModel = ({ isOpen, onClose, onSubmit, departmentValue, dep
                 />
               ))}
             </div>
-            <div style={{ width: "65%", height: "65vh", borderLeft: "1px solid #E4E4E4", overflow: "auto" }}>
+            <div style={{ width: "65%", height: "62vh", borderLeft: "1px solid #E4E4E4", overflow: "auto" }}>
               {activeDepartment && (
                 <IonGrid>
                   <IonRow>
@@ -302,7 +302,7 @@ const DepartmentSelectModel = ({ isOpen, onClose, onSubmit, departmentValue, dep
             </div>
           </div>
         </div>
-        <div style={{ padding: "20px", display: "flex", justifyContent: "space-between" }}>
+        <div style={{ padding: "0px 20px", display: "flex", justifyContent: "space-between"  }}>
           <IonButton onClick={onClose}>Cancel</IonButton>
           <IonButton onClick={handleSubmit}>Submit</IonButton>
         </div>
