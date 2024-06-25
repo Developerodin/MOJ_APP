@@ -10,7 +10,6 @@ import { useParams } from 'react-router';
 import SelectStateModel from './SelectStateModel';
 import SelectMulipalCityModel from './SelectMulipalCityModel';
 import DepartmentSelectModel from './DepartmentSelectModel';
-import { set } from 'mongoose';
 
 const WorkExperienceEdit = () => {
   const { showToast,editUpdate,setEditUpdate } = useContext(AppContext);
