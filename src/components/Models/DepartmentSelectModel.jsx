@@ -302,7 +302,7 @@ const DepartmentSelectModel = ({ isOpen, onClose, onSubmit, departmentValue, dep
             </div>
           </div>
         </div>
-        <div style={{ padding: "0px 20px", display: "flex", justifyContent: "space-between"  }}>
+        <div style={{ padding: "0px 20px", display: "flex", justifyContent: "space-around"  }}>
           <IonButton onClick={onClose}>Cancel</IonButton>
           <IonButton onClick={handleSubmit}>Submit</IonButton>
         </div>

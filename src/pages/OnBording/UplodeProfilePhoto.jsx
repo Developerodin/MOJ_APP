@@ -293,7 +293,7 @@ style={{
 <div onClick={() => document.getElementById("ImgInput").click()} style={{marginTop:"20px",padding:"20px",border:"1px solid black",width:"100%",display:"flex",justifyContent:"center",alignItems:"center",borderRadius:"30px"}}>
 <span style={{fontWeight:"bold"}}>
   
-  {selectedLanguage === "English" ? "Uplode from photos" : "फ़ोटो से अपलोड करें"}
+  {selectedLanguage === "English" ? "Upload from photos" : "फ़ोटो से अपलोड करें"}
   </span>
 </div>
    </div>
@@ -313,7 +313,7 @@ style={{
 <div style={{marginTop:"20px"}}>
 <span onClick={()=>handelContinue("Details")} style={{fontSize:"16px",fontWeight:"bold"}}>
   
-  { selectedLanguage === "English" ? "skip" : "छोड़ें"}
+  { selectedLanguage === "English" ? "Skip" : "छोड़ें"}
   </span>
 </div>
  </div>

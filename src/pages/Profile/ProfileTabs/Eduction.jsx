@@ -564,7 +564,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              {selectedLanguage === "English" ? "Collage name" : "कोलाज का नाम"}
+              {selectedLanguage === "English" ? "College name" : "कोलाज का नाम"}
             </label>
             {/* <IonItem> */}
             <input
@@ -657,7 +657,7 @@ export const ProfileEduction = () => {
                 lineHeight: "30px",
               }}
             >
-              {selectedLanguage === "English" ? "Collage name" : "कोलाज का नाम"}
+              {selectedLanguage === "English" ? "College name" : "कोलाज का नाम"}
             </label>
             {/* <IonItem> */}
             <input

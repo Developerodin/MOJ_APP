@@ -302,7 +302,7 @@ export const JobPref = () => {
               }}
             >
               
-              { selectedLanguage === "English" ? "Select Time Slote" : "समय स्लॉट चुनें"}<span style={{color:"red"}}>*</span>
+              { selectedLanguage === "English" ? "Select Time Slot" : "समय स्लॉट चुनें"}<span style={{color:"red"}}>*</span>
             </label>
            
            <div style={{display:"flex",justifyContent:"left",alignItems:"center",marginTop:"10px"}}>
