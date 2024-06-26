@@ -38,7 +38,7 @@ export const MyPoints = () => {
     };
 
     handelPointsDataGet();
-  }, [userDetails.user_id]);
+  }, [userDetails &&  userDetails.user_id]);
 
   return (
     <div style={{ padding: "20px" }}>

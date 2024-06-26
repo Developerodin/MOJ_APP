@@ -309,8 +309,8 @@ export const HotelierHome = () => {
       </IonCol>
 
       <IonCol size='6.6' size-md="6" style={{marginTop:20,padding:0}}>
-      <div >
-      {/* onClick={()=>handelCardClick("/interested-candidates")} */}
+      <div  onClick={()=>handelCardClick("/interested-candidates")}>
+     
              <div style={{
            position:"relative",
            background:"#BD7BFF",

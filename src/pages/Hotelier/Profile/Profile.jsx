@@ -88,10 +88,13 @@ export const HotelierProfile = () => {
 
   const [rewardPoints, setRewardPoints] = useState(0);
   function encodeUserID(userID) {
+    if (userID === null) {
+        return '';
+    }
     const userIDStr = userID.toString();
-    const encodedUserID = btoa(userIDStr) ;
-    return userDetails.name.substring(0,2).toUpperCase() + encodedUserID ;
-  }
+    const encodedUserID = btoa(userIDStr);
+    return userDetails.name.substring(0,2).toUpperCase() + encodedUserID;
+}
 
   function decodeReferenceID(referenceID) {
     const refid = referenceID.substring(2, referenceID.length);
@@ -369,7 +372,7 @@ export const HotelierProfile = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       handelPointsDataGet();
-    }, 10000); // 10000ms = 10 seconds
+    }, 20000); // 10000ms = 10 seconds
 
     return () => clearInterval(interval); // Clear the interval on component unmount
   }, []);
@@ -632,7 +635,7 @@ export const HotelierProfile = () => {
         }}
       >
        
-         {encodeUserID(userDetails.user_id)}
+         {encodeUserID(userDetails &&  userDetails.user_id)}
       </span>
     </div>
     <div
