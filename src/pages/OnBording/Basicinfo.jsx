@@ -147,10 +147,23 @@ const handlePincodeChange2 = (e) => {
     console.log("Form Data ==>", formData);
   
     // handelContinue("ProfilePic")
-    if(formValid === false){
-      showToast("error", "Fill the required fields", "");
-      return
-    }
+    
+    // if(formValid === false){
+    //   showToast("error", "Fill the required fields", "");
+    //   return
+    // }
+
+
+if (!formData.firstName) {
+  showToast("error", "First name is required", "");
+  return;
+} else if (!formData.lastName) {
+  showToast("error", "Last name is required", "");
+  return;
+} else if (!formData.gender) {
+  showToast("error", "Gender is required", "");
+  return;
+}
     console.log("Data",formData)
     RegisterUser()
    
@@ -563,6 +576,7 @@ const handlePincodeChange2 = (e) => {
       value={formData.dob}
       onChange={handleInputChange}
       max={new Date().toISOString().split("T")[0]} 
+      style={{ paddingRight: "20px"}}
     />
   </div>
 
