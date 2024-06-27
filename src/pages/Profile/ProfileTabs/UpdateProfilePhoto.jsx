@@ -36,7 +36,7 @@ export const UpdateProfilePhoto = () => {
         return;
       }
       
-      showToast("error", "select a image", "");
+      showToast("error", "Select an image", "");
       // history.goBack();
     }
 
@@ -371,7 +371,7 @@ export const UpdateProfilePhoto = () => {
  <div onClick={takePicture2} style={{marginTop:"20px",padding:"20px",border:"1px solid black",width:"100%",display:"flex",justifyContent:"center",alignItems:"center",borderRadius:"30px"}}>
     <span style={{fontWeight:"bold"}}>
   
-      {selectedLanguage === "English" ? "Uplode from photos" : "फ़ोटो से अपलोड करें"}
+      {selectedLanguage === "English" ? "Upload from photos" : "फ़ोटो से अपलोड करें"}
       </span>
  </div>
            </div>

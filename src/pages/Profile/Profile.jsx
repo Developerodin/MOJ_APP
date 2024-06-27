@@ -182,13 +182,13 @@ const copyToClipboard = () => {
     },
     {
       icon: gitPullRequestOutline,
-      title: selectedLanguage === "English" ? "Job preference" : "काम प्राथमिकताएं",
+      title: selectedLanguage === "English" ? "Job Preference" : "काम प्राथमिकताएं",
       link: "/profile-job-preference",
       color: "#395CFF",
     },
     {
       icon: bagHandleOutline,
-      title: selectedLanguage === "English" ? "Work experience" : "कार्य अनुभव",
+      title: selectedLanguage === "English" ? "Work Experience" : "कार्य अनुभव",
       link: "/profile-work-experience",
       color: "#395CFF",
     },
@@ -571,7 +571,7 @@ const copyToClipboard = () => {
                   <div>
                     <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                       
-                      { selectedLanguage === "English" ? "Profile health" : "प्रोफ़ाइल स्वास्थ्य"}
+                      { selectedLanguage === "English" ? "Profile Health" : "प्रोफ़ाइल स्वास्थ्य"}
                     </span>
                   </div>
                   <div style={{ marginTop: "10px" }}>
@@ -614,7 +614,7 @@ const copyToClipboard = () => {
                   <div>
                     <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                       
-                      { selectedLanguage === "English" ? "Points earned" : "अर्जित अंक"}
+                      { selectedLanguage === "English" ? "Points Earned" : "अर्जित अंक"}
                     </span>
                   </div>
                   <div style={{ marginTop: "5px" }}>
@@ -795,7 +795,7 @@ const copyToClipboard = () => {
                         ></IonIcon>
                         <IonLabel style={{ fontWeight: "bold" }}>
                           
-                          { selectedLanguage === "English" ? "Contact us" : "संपर्क करें"}
+                          { selectedLanguage === "English" ? "Contact Us" : "संपर्क करें"}
                         </IonLabel>
                         {/* <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon> */}
                       </IonItem>
@@ -829,7 +829,7 @@ const copyToClipboard = () => {
         slot="start"
       ></IonIcon>
       <IonLabel style={{ fontWeight: "bold" }}>
-        {selectedLanguage === "English" ? "Invite your friend" : "अपने मित्र को निमंत्रित करो"}
+        {selectedLanguage === "English" ? "Invite your Friend" : "अपने मित्र को निमंत्रित करो"}
       </IonLabel>
       {/* <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon> */}
     </IonItem>

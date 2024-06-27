@@ -495,7 +495,7 @@ export const Home = () => {
                 <IonSegment value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
                   <IonSegmentButton value="featured">
                     <IonLabel style={{ color: "black", fontSize: "16px", fontWeight: "500" }}>
-                      {selectedLanguage === "English" ? "Featured jobs" : "चुनिंदा नौकरियां"}
+                      {selectedLanguage === "English" ? "Featured Jobs" : "चुनिंदा नौकरियां"}
                     </IonLabel>
                   </IonSegmentButton>
                   <IonSegmentButton value="recommendations">

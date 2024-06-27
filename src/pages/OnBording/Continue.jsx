@@ -30,7 +30,7 @@ const Continue = () => {
     }
    
     console.log("Tost ")
-    showToast("success", "Comming Soon ", "");
+    showToast("success", "Coming Soon ", "");
   }
 
   const handelSelectLanguageCLick =() =>{

@@ -280,6 +280,45 @@ const WorkExperienceEdit = () => {
         
     },[id])
 
+    const getCurrentDate = () => {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+  
+    const maxDate = getCurrentDate();
+  
+    const addOneDay = (dateString) => {
+      const date = new Date(dateString);
+      date.setDate(date.getDate() + 1);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+  
+    const handleStartDateChange = (e) => {
+      const newStartDate = e.target.value;
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        startDate: newStartDate,
+        // Reset end date if it's before the new start date
+        endDate: newStartDate >= formData.endDate ? '' : formData.endDate
+      }));
+      handleChange(e);
+    };
+  
+    const handleEndDateChange = (e) => {
+      const newEndDate = e.target.value;
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        endDate: newEndDate
+      }));
+      handleChange(e);
+    };  
+
   return (
     <IonPage >
       <IonContent>
@@ -589,7 +628,8 @@ Start Date<span style={{color:"red"}}>*</span>
 type="date"
 name="startDate" 
 value={formData.startDate} 
-onIonChange={handleChange}
+onIonChange={handleStartDateChange}
+max={maxDate}
 style={{
 borderRadius: "0px",
 padding:"10px",
@@ -619,7 +659,9 @@ End Date<span style={{color:"red"}}>*</span>
 type="date"
 name="endDate" 
 value={formData.endDate} 
-onIonChange={handleChange}
+onIonChange={handleEndDateChange}
+min={formData.startDate ? addOneDay(formData.startDate) : ''}
+max={maxDate}
 style={{
  borderRadius: "0px",
  padding:"10px",

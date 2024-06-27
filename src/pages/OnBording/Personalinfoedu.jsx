@@ -294,7 +294,7 @@ const Personalinfoedu = () => {
   
             if(data.status === "success"){
                 //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-                showToast("success", "Updated", "");
+                showToast("success", "Education updated", "");
                 history.goBack()
                 return
             }

@@ -115,7 +115,7 @@ export const HotelierAppliedJobs = () => {
         <IonContent>
            <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}> 
                <div>
-                <span style={{fontSize:"20px"}} >Click to view applicants</span>
+                <span style={{fontSize:"24px",fontWeight:"bold"}} >Click to View Applicants</span>
                </div>
 
                <div style={{marginTop:"20px"}}>

@@ -168,7 +168,7 @@ export const ProfileJobPreference = () => {
     console.log("Response check work experience", data, response);
 
     if (data.status === "success") {
-      showToast("success", "Updated", "");
+      showToast("success", "Job Preference updated", "");
       setProfileHealthUpdate((prev) => prev + 1);
       return;
     }

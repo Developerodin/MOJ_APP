@@ -167,7 +167,7 @@ export const HotelierProfile = () => {
     },
     {
       icon: bookOutline,
-      title: "Your current selected package",
+      title: "Your Current Selected Package",
       link: "/employers-package",
       color: "#395CFF",
     },
@@ -179,7 +179,7 @@ export const HotelierProfile = () => {
     },
     {
       icon: bagHandleOutline,
-      title: "Privacy policy",
+      title: "Privacy Policy",
       link: "/privacy-policy",
       color: "#395CFF",
     },
@@ -536,7 +536,7 @@ export const HotelierProfile = () => {
                           <span
                             style={{ fontSize: "16px", fontWeight: "bold" }}
                           >
-                            Profile health
+                            Profile Health
                           </span>
                         </div>
                         <div style={{ marginTop: "10px" }}>
@@ -579,7 +579,7 @@ export const HotelierProfile = () => {
                           <span
                             style={{ fontSize: "16px", fontWeight: "bold" }}
                           >
-                            Points earned
+                            Points Earned
                           </span>
                         </div>
                         <div style={{ marginTop: "5px" }}>
@@ -683,7 +683,7 @@ export const HotelierProfile = () => {
                           slot="start"
                         ></IonIcon>
                         <IonLabel style={{ fontWeight: "bold" }}>
-                          Contact us
+                          Contact Us
                         </IonLabel>
                       </IonItem>
                     </div>
@@ -708,7 +708,7 @@ export const HotelierProfile = () => {
                           slot="start"
                         ></IonIcon>
                         <IonLabel style={{ fontWeight: "bold" }}>
-                          Invite your friend
+                          Invite your Friend
                         </IonLabel>
                         {/* <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon> */}
                       </IonItem>

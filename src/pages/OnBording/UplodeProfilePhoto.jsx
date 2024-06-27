@@ -154,7 +154,7 @@ useEffect(() => {
   
         if (data.status === "success") {
           //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-          showToast("success", "updated", "");
+          showToast("success", "Photo updated", "");
           setUpdate((prev)=>prev+1);
           setEditUpdate((prev)=>prev+1)
           return;

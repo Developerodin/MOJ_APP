@@ -129,6 +129,13 @@ useEffect(() => {
   }
 
   const UpdateUser = async () => {
+    
+    if (!formData.firstName || !formData.lastName || !formData.gender || !formData.email || !selectedState || !selectedCity || !formData.address || !formData.dob || !pincode) {
+      showToast("error", "All fields are mandatory", "");
+      return;
+    }
+  
+
     try {
       const url = `${Base_url}auth/user_update`;
       const formData1 = new FormData();
@@ -164,7 +171,7 @@ useEffect(() => {
                localStorage.setItem("userDetails", JSON.stringify(data.user));
               //  handelContinue("ProfilePic")
               setupdate((prev)=>prev+1)
-                showToast("success", "updated", "");
+                showToast("success", "Personal Details updated", "");
                 setProfileHealthUpdate((prev)=>prev+1)
                 history.goBack()
               return

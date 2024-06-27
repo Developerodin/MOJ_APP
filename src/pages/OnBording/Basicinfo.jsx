@@ -148,7 +148,7 @@ const handlePincodeChange2 = (e) => {
   
     // handelContinue("ProfilePic")
     if(formValid === false){
-      showToast("error", "fill the required fields", "");
+      showToast("error", "Fill the required fields", "");
       return
     }
     console.log("Data",formData)
@@ -309,7 +309,7 @@ const handlePincodeChange2 = (e) => {
   const handelEmployersBtnClick = async()=>{
     if(formValid2 === false){
       console.log("In if=============================>",formData2)
-      showToast("error", "fill the required fields", "");
+      showToast("error", "Fill the required fields", "");
       return
     }
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1077,7 +1077,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
   {/* </IonItem> */}
 </div>
 }
-      
+
  {
    <div
   style={{
@@ -1093,7 +1093,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
 
 {
     Role === "Employers" &&   <CustomBtn1 fun={handelEmployersBtnClick} title={selectedLanguage === "English" ? "Continue" : "जारी रखें"}  loading={loading}/>
-  }
+  }  
  
 </div>
  }

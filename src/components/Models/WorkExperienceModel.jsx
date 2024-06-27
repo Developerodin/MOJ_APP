@@ -262,7 +262,36 @@ const WorkExperienceModel = ({ isOpen, onClose ,setUpdate}) => {
       return `${year}-${month}-${day}`;
     };
   
-    const maxDate = getCurrentDate();    
+    const maxDate = getCurrentDate();
+  
+    const addOneDay = (dateString) => {
+      const date = new Date(dateString);
+      date.setDate(date.getDate() + 1);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+  
+    const handleStartDateChange = (e) => {
+      const newStartDate = e.target.value;
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        startDate: newStartDate,
+        // Reset end date if it's before the new start date
+        endDate: newStartDate >= formData.endDate ? '' : formData.endDate
+      }));
+      handleChange(e);
+    };
+  
+    const handleEndDateChange = (e) => {
+      const newEndDate = e.target.value;
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        endDate: newEndDate
+      }));
+      handleChange(e);
+    };
 
   return (
     <IonModal isOpen={isOpen} onDidDismiss={onClose}>
@@ -581,7 +610,7 @@ style={{
 type="date"
 name="startDate" 
 value={formData.startDate} 
-onIonChange={handleChange}
+onIonChange={handleStartDateChange}
 max={maxDate}
 style={{
 borderRadius: "0px",
@@ -613,7 +642,8 @@ style={{
 type="date"
 name="endDate" 
 value={formData.endDate} 
-onIonChange={handleChange}
+onIonChange={handleEndDateChange}
+min={formData.startDate ? addOneDay(formData.startDate) : ''}
 max={maxDate}
 style={{
  borderRadius: "0px",
