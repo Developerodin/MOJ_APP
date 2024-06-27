@@ -170,7 +170,7 @@ export const JobPref = () => {
 
           if(data.status === "success"){
               //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-                 showToast("success", "updated", "");
+                 showToast("success", "Job preference updated", "");
               handelBackClick()
               return
           }

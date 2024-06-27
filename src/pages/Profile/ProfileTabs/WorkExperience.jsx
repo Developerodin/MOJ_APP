@@ -176,7 +176,7 @@ export const ProfileWorkExperience = () => {
                 //  handelContinue("ProfilePic")
                 setUpdate((prev)=>prev+1)
                 getUser();
-                  showToast("success", "updated", "");
+                  showToast("success", "Experience updated", "");
                   setProfileHealthUpdate((prev)=>prev+1)
                 return
             }

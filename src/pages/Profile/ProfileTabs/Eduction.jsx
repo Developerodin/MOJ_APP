@@ -308,7 +308,7 @@ export const ProfileEduction = () => {
   
             if(data.status === "success"){
                 //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-                showToast("success", "Updated", "");
+                showToast("success", "Education updated", "");
                 setProfileHealthUpdate((prev)=>prev+1)
                 return
             }

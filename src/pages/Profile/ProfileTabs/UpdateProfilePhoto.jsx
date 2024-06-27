@@ -212,7 +212,7 @@ export const UpdateProfilePhoto = () => {
         if (data.status === "success") {
            localStorage.setItem("updatedImg", data.image);
           console.log("Data image path ==>",data)
-          showToast("success", "updated", "");
+          showToast("success", "Photo updated", "");
           setUpdate((prev)=>prev+1);
           setEditUpdate((prev)=>prev+1)
           setProfileHealthUpdate((prev)=>prev+1)

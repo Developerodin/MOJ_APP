@@ -61,22 +61,38 @@ export const CandidateSearchCard = ({ data }) => {
               </div>
             )}
 
-       {data.work && data.work.length > 0 && (
+{((data.work && data.work.length > 0) || (data.job_pref && data.job_pref.length > 0)) && (
   <div style={{ marginTop: "15px" }}>
     <div>
       <span style={{ fontSize: "13px", color: "black", fontWeight: "bold" }}>Department</span>
     </div>
     <div style={{ display: "flex", justifyContent: "left", alignItems: "center", flexWrap: "wrap", marginTop: "10px", marginBottom: "10px", gap: "10px" }}>
-      {data.work.flatMap((workItem, index) => 
-        workItem.department.split(',').map((dept, deptIndex) => (
-          <div key={`${index}-${deptIndex}`} style={{ padding: "3px 10px", borderRadius: "74px", backgroundColor: '#F0F0F0' }}>
-            <span style={{ fontSize: "11px", color: "#5A5A5A" }}>{dept.trim()}</span>
-          </div>
-        ))
+      {data.work && data.work.length > 0 ? (
+        data.work.flatMap((workItem, index) =>
+          workItem.department.split(',').map((dept, deptIndex) => (
+            <div key={`${index}-${deptIndex}`} style={{ padding: "3px 10px", borderRadius: "74px", backgroundColor: '#F0F0F0' }}>
+              <span style={{ fontSize: "11px", color: "#5A5A5A" }}>{dept.trim()}</span>
+            </div>
+          ))
+        )
+      ) : (
+        data.job_pref.flatMap((jobPrefItem, index) =>
+          jobPrefItem.department.split(',').map((dept, deptIndex) => (
+            <div key={`${index}-${deptIndex}`} style={{ padding: "3px 10px", borderRadius: "74px", backgroundColor: '#F0F0F0' }}>
+              <span style={{ fontSize: "11px", color: "#5A5A5A" }}>{dept.trim()}</span>
+            </div>
+          ))
+        )
       )}
     </div>
   </div>
 )}
+
+
+
+
+
+
 
             {city && (
               <div style={{ marginTop: "15px" }}>

@@ -120,7 +120,7 @@ const handlePincodeChange2 = (e) => {
                localStorage.setItem("userDetails", JSON.stringify(data.user));
               //  handelContinue("ProfilePic")
               setupdate((prev)=>prev+1)
-                showToast("success", "updated", "");
+                showToast("success", "Personal details updated", "");
                 setProfileHealthUpdate((prev)=>prev+1)
                 history.goBack()
               return

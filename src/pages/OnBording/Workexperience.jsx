@@ -175,7 +175,7 @@ const token =localStorage.getItem("token");
               //  handelContinue("ProfilePic")
               setUpdate((prev)=>prev+1)
               getUser();
-                showToast("success", "updated", "");
+                showToast("success", "Experience updated", "");
               return
           }
           // showToast("error", "Try After Some Time", "");
