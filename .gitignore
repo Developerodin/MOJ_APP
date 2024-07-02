@@ -5,11 +5,13 @@
 /.pnp
 .pnp.js
 /android
+/ios
 # testing
 /coverage
 
 # production
 /dist
+
 
 # misc
 .DS_Store

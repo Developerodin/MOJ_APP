@@ -9,7 +9,7 @@ import { playCircle, radio, library, search,homeOutline ,searchOutline,addCircle
 import { Home } from '../Home/Home';
 import { Profile } from '../Profile/Profile';
 import { AppliedJobs } from '../Jobs/AppliedJobs';
-import { Chats } from '../Chat/Chats';
+
 import PersonalChat from '../../components/Chats/PersonalChat';
 import GroupChatting from '../../components/Chats/GroupChatting';
 import { JobDetails } from '../Jobs/JobDetails';
@@ -52,6 +52,14 @@ import { JobCandidateView } from '../Hotelier/Jobs/JobCandidateView';
 import HotelierPackage from '../Hotelier/Profile/ProfileTabs/HotelierPackage';
 import JobPersonalChat from '../../components/Chats/JobChat/JobPersonalChat';
 import SearchCandidateView from '../Hotelier/DashboardPages/SearchCandidateView';
+import { AgentHome } from '../Agent/Home/AgentHome';
+import { AgentProfile } from '../Agent/Profile/Profile';
+import { AgentPersonalDetails } from '../Agent/Profile/ProfileTabs/AgentPersonalDetails';
+import { AgentContactDetails } from '../Agent/Profile/ProfileTabs/AgentContactDetails';
+import { AgentEduction } from '../Agent/Profile/ProfileTabs/AgentEduction';
+import { Chats } from '../Chat/Chats';
+import { AgentChats } from '../Agent/AgentChat/AgentChat';
+
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
@@ -230,6 +238,70 @@ const NavBar = () => {
          </IonTabBar>
 
         }
+
+{
+           role === "Agent" && <IonRouterOutlet>
+          
+         
+         
+           <Route  path="/app/home" component={AgentHome}  />
+          <Route  path="/app/profile" component={AgentProfile}  />
+          <Route  path ="/app/agent-personal-details" component={AgentPersonalDetails} />
+          <Route  path ="/app/agent-contact-details" component={AgentContactDetails} />
+          <Route  path ="/app/agent-eduction" component={AgentEduction} />
+          <Route  path="/app/agent-chat" component={AgentChats}  />
+         
+           {/* <Route  path="/app/profile" component={Profile}  />
+           <Route  path="/app/applied-jobs" component={AppliedJobs}  /> */}
+            <Redirect exact  to="/app/home" />
+            </IonRouterOutlet>
+
+}
+
+
+{
+           role === "Agent" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",marginBottam:"20px",display:"flex"}}>
+           
+           {/* <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
+             
+             {
+              isMobile ? <IonIcon icon={homeOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Home</span>
+             }
+           </IonTabButton> */}
+           <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
+             
+             {
+              isMobile ? <IonIcon icon={homeOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Home</span>
+             }
+           </IonTabButton>
+ 
+           
+ 
+           {/* <IonTabButton tab="addpost" href="/app/applied-jobs" style={{backgroundColor:"#FFF",color:"grey"}}>
+             
+             {
+              isMobile ? <IonIcon icon={documentTextOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Applied Jobs</span>
+             }
+           </IonTabButton> */}
+ 
+           <IonTabButton tab="activity" href="/app/agent-chat" style={{backgroundColor:"#FFF",color:"grey"}}>
+             
+             {
+              isMobile ? <IonIcon icon={chatboxEllipsesOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Messages</span>
+             }
+           </IonTabButton>
+ 
+           <IonTabButton tab="user" href="/app/profile" style={{backgroundColor:"#FFF",color:"grey"}}>
+            
+             {
+              isMobile ?  <IonIcon icon={personOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Profile</span>
+             }
+           </IonTabButton>
+         </IonTabBar>
+
+        }
+
+
       </IonTabs>
  
    

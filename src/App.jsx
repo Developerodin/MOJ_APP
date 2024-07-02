@@ -88,6 +88,12 @@ import { App as MainApp  } from "@capacitor/app";
 import { HotelierPackageSelect } from './pages/OnBording/HotelierPackageSelect';
 import SearchCandidateView from './pages/Hotelier/DashboardPages/SearchCandidateView';
 import OnBordingCompletePage from './pages/OnBording/OnBordingCompletePage';
+import { AgentPersonalDetails } from './pages/Agent/Profile/ProfileTabs/AgentPersonalDetails';
+import { AgentContactDetails } from './pages/Agent/Profile/ProfileTabs/AgentContactDetails';
+import { AgentEduction } from './pages/Agent/Profile/ProfileTabs/AgentEduction';
+import { AgentSettings } from './pages/Agent/Profile/ProfileTabs/AgentSettings';
+
+
 setupIonicReact();
 
 const App = () => {
@@ -229,6 +235,10 @@ const App = () => {
 
     <Route  path="/candidate-view/:id/:id2" component={CandidateView}  />
     <Route  path="/job-candidate-view/:id" component={JobCandidateView}  />
+    <Route  path="/agent-personal-details" component={AgentPersonalDetails}  />
+    <Route  path="/agent-contact-details" component={AgentContactDetails}  />
+    <Route  path="/agent-eduction" component={AgentEduction}  />
+    <Route  path="/agent-settings" component={AgentSettings}  />
     
     <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>
     </IonRouterOutlet>

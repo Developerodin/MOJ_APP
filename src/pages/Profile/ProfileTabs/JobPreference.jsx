@@ -498,4 +498,3 @@ preferredCity !== "" ? <span>{preferredCity}</span>:<span style={{color:"grey"}}
     </IonPage>
   );
 };
-

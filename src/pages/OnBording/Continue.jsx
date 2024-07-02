@@ -23,7 +23,7 @@ const Continue = () => {
 
   const handelBtnClick= (value)=>{
     // || value === "Employers"
-    if(value === "Job Seeker" || value === "Employers" ){
+    if(value === "Job Seeker" || value === "Employers" || value === "Agent"){
       localStorage.setItem("role",value)
       history.push("/phone");
       return
