@@ -269,9 +269,7 @@ const WorkExperienceEdit = () => {
         setDepartmentModel(false)
       }
   
-       useEffect(() => {
-        setPreferredCity("");
-      }, [preferredState]);      
+         
 
     useEffect(()=>{
         if(id){
@@ -279,6 +277,16 @@ const WorkExperienceEdit = () => {
         }
         
     },[id])
+
+      useEffect(() => {
+        if(formData && formData.city && formData.city !== ""){
+          return
+        }
+        else{
+          setPreferredCity("");
+        }
+       
+      }, [preferredState]);  
 
     const getCurrentDate = () => {
       const today = new Date();

@@ -48,7 +48,7 @@ export const ProfileJobPreference = () => {
   const [States, setStates] = useState([]);
   const [isStateModelOpen,setisStateModelOpen] = useState(false);
   const [isCityModelOpen,setIsCityModelOpen] = useState(false);
-  
+  const [Data,setData] = useState(null)
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
@@ -208,6 +208,7 @@ export const ProfileJobPreference = () => {
               //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
                 console.log("Data get from job pref ==>",data);
                 const Data = data.post[0];
+                setData(Data);
                 setJobType(Data.job_type)
                 setDepartment(Data.department);
                 setSalaryRange(Data.salery);
@@ -231,8 +232,14 @@ export const ProfileJobPreference = () => {
 
 
   useEffect(() => {
-    setPreferredCity("");
-  }, [preferredState]);
+    if(Data && Data.pref_city !== ""){
+      return
+    }
+    else{
+      setPreferredCity("");
+    }
+   
+  }, [preferredState]); 
 
   useEffect(()=>{
     if(jobType === "Full Time"){
