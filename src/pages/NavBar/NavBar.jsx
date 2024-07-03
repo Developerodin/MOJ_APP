@@ -59,6 +59,7 @@ import { AgentContactDetails } from '../Agent/Profile/ProfileTabs/AgentContactDe
 import { AgentEduction } from '../Agent/Profile/ProfileTabs/AgentEduction';
 import { Chats } from '../Chat/Chats';
 import { AgentChats } from '../Agent/AgentChat/AgentChat';
+import { AgentProfileHealth } from '../Agent/Profile/ProfileTabs/AgentProfileHealth';
 
 
 const NavBar = () => {
@@ -246,10 +247,19 @@ const NavBar = () => {
          
            <Route  path="/app/home" component={AgentHome}  />
           <Route  path="/app/profile" component={AgentProfile}  />
-          <Route  path ="/app/agent-personal-details" component={AgentPersonalDetails} />
-          <Route  path ="/app/agent-contact-details" component={AgentContactDetails} />
-          <Route  path ="/app/agent-eduction" component={AgentEduction} />
+          <Route  path ="/agent-personal-details" component={AgentPersonalDetails} />
+          <Route  path ="/agent-contact-details" component={AgentContactDetails} />
+          <Route  path ="/agent-eduction" component={AgentEduction} />
           <Route  path="/app/agent-chat" component={AgentChats}  />
+          <Route  path="/settings" component={Settings}  />
+          <Route  path="/accounts-notification" component={AccountsAndNotifications}  />
+          <Route  path="/term-services" component={TermAndServices}  />
+          <Route  path="/privacy-policy" component={PrivacyAndPolicy}  />
+          <Route  path="/select-lang" component={SelectLang}  />
+          <Route  path="/help-and-support" component={HelpAndSupport}  />
+          <Route  path="/update-profile-photo" component={UpdateProfilePhoto}  />
+          <Route  path="/agent-profile-health" component={AgentProfileHealth}  />
+          <Route  path="/rewards" component={Reward}  />
          
            {/* <Route  path="/app/profile" component={Profile}  />
            <Route  path="/app/applied-jobs" component={AppliedJobs}  /> */}

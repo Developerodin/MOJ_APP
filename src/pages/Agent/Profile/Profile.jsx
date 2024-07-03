@@ -141,7 +141,7 @@ import {
       {
         name: "user_pro",
         value: 0,
-        route: "app/agent-personal-details",
+        route: "/agent-personal-details",
         name2: "Personal Details",
       },
     //   {
@@ -208,7 +208,7 @@ import {
     };
   
     const handelProfileHealthClick = () => {
-      history.push("/profile-health");
+      history.push("/agent-profile-health");
     };
   
     const handelProfilePhotoClick = () => {
@@ -249,11 +249,11 @@ import {
     const handelPointsDataGet = async()=>{
       try {
        
-        console.log("In Cahnge status ==>")
+        console.log("In Change status ==>")
       
         
         const url = `${Base_url}auth/points/${userDetails.user_id}`;
-        // console.log("In Cahnge status 2==>")
+        
         const formData1 = new FormData();
         // formData1.append('user_id', userDetails.user_id);
         // formData1.append('point',10);
@@ -262,7 +262,7 @@ import {
         const response = await axios.post(url, formData1,{
           headers: {
             "Content-Type": "multipart/form-data",
-            // "Authorization" :`Berear ${token}`,
+          
        
           }
         });
@@ -276,14 +276,14 @@ import {
                 setRewardPoints(points);
                 return
             }
-            // showToast("error", "Try After Some Time", "");
+        
   
               
            
             
       } catch (error) {
         console.error('Error:', error);
-        // showToast("error", "Try After Some Time", "");
+        
       }
     }
   
@@ -291,26 +291,22 @@ import {
       try {
         const url = `${Base_url}profile_img_saved/Byuserid/${userDetails.user_id}`;
         const formData1 = new FormData();
-        // formData1.append('user_id', userDetails.user_id);
-        // formData1.append('resume', selectedFile);
+        
+      
   
         const response = await axios.post(url, formData1, {
           headers: {
             "Content-Type": "multipart/form-data",
-            // "Authorization" :`Berear ${token}`,
+            
           },
         });
         const data = response.data;
         console.log("Response check work experience", data, response);
   
-        // if(data === "otp in valid"){
-        //   showToast("error", "wrong otp", "");
-        //   return;
-        // }
+        
   
         if (data.status === "success") {
-          //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-          // setUpdate((prev)=>prev+1);
+         
           const Data = data.img;
           setProfilePic(Data.image_path);
   
@@ -361,7 +357,7 @@ import {
         }
       } catch (error) {
         console.error("Error:", error);
-        // showToast("error", "Try After Some Time", "");
+        
       }
     };
   
@@ -449,7 +445,7 @@ import {
                     style={{ fontSize: "24px", marginRight: "10px" }}
                   />
                   <IonIcon
-                    onClick={() => handelTabClick("/agent-settings")}
+                    onClick={() => handelTabClick("/settings")}
                     icon={settingsOutline}
                     style={{ fontSize: "21px" }}
                   />

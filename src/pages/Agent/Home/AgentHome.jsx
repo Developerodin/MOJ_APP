@@ -98,7 +98,7 @@ export const AgentHome = () => {
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between',padding:'8px 12px' }}>
-            <h2 style={{fontWeight:'bold'}}>My Posts</h2>
+            <h2 style={{fontWeight:'bold'}}>Availability</h2>
             <IonButton onClick={() => setIsModalOpen(true)}>
               <IonIcon icon={addOutline} style={{ marginRight: '8px' }} />
               Add New

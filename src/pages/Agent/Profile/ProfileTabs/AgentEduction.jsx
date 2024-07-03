@@ -373,7 +373,7 @@ export const AgentEduction = () => {
        }
      
        showToast("error", "Select a field ", "");
-      // history.goBack()
+     
     }
 
     useEffect(()=>{

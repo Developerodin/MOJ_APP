@@ -274,7 +274,7 @@ export const HotelierHome = () => {
           
            borderRadius:"15px"
            ,position:"relative",
-            height:"200px",
+            height:"150px",
          }}>
            <div style={{padding:"15px" }}>
                <div>
@@ -294,9 +294,9 @@ export const HotelierHome = () => {
                     </span>
                </div>
 
-               <div style={{position:"absolute",top:20,right:20}}>
+               <div style={{position:"absolute",bottom:0,right:20}}>
                   <div>
-                  <img src='./assets/Dimg3.png'   />
+                  <img src='./assets/Agent.png'   />
                   </div>
                </div>
     

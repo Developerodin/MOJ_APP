@@ -91,7 +91,8 @@ import OnBordingCompletePage from './pages/OnBording/OnBordingCompletePage';
 import { AgentPersonalDetails } from './pages/Agent/Profile/ProfileTabs/AgentPersonalDetails';
 import { AgentContactDetails } from './pages/Agent/Profile/ProfileTabs/AgentContactDetails';
 import { AgentEduction } from './pages/Agent/Profile/ProfileTabs/AgentEduction';
-import { AgentSettings } from './pages/Agent/Profile/ProfileTabs/AgentSettings';
+
+import { AgentProfileHealth } from './pages/Agent/Profile/ProfileTabs/AgentProfileHealth';
 
 
 setupIonicReact();
@@ -238,7 +239,8 @@ const App = () => {
     <Route  path="/agent-personal-details" component={AgentPersonalDetails}  />
     <Route  path="/agent-contact-details" component={AgentContactDetails}  />
     <Route  path="/agent-eduction" component={AgentEduction}  />
-    <Route  path="/agent-settings" component={AgentSettings}  />
+    
+    <Route  path="/agent-profile-health" component={AgentProfileHealth}  />
     
     <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>
     </IonRouterOutlet>
