@@ -7,7 +7,7 @@ import { AppContext } from '../../Context/AppContext';
 import { Base_url } from '../../Config/BaseUrl';
 import axios from 'axios';
 
-const SelectStateModel = ({ isOpen, onClose,setSelectedState,selectedState }) => {
+const SelectStateModel = ({ isOpen, onClose,setSelectedState,selectedState,setPreferredCity }) => {
   const { showToast } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails" )|| localStorage.getItem("userRegisterDetails"));
   const token =localStorage.getItem("token");
@@ -112,8 +112,9 @@ const SelectStateModel = ({ isOpen, onClose,setSelectedState,selectedState }) =>
     };
 
     const SelectState = (state) =>{
-      
+        
         setSelectedState(state);
+        setPreferredCity("");
         onClose();
         console.log("Selected",state);
     }
