@@ -60,6 +60,7 @@ import { AgentEduction } from '../Agent/Profile/ProfileTabs/AgentEduction';
 import { Chats } from '../Chat/Chats';
 import { AgentChats } from '../Agent/AgentChat/AgentChat';
 import { AgentProfileHealth } from '../Agent/Profile/ProfileTabs/AgentProfileHealth';
+import EditPostModal from '../../components/Cards/AgentCard/EditPost';
 
 
 const NavBar = () => {
@@ -260,6 +261,7 @@ const NavBar = () => {
           <Route  path="/update-profile-photo" component={UpdateProfilePhoto}  />
           <Route  path="/agent-profile-health" component={AgentProfileHealth}  />
           <Route  path="/rewards" component={Reward}  />
+          <Route  path="/edit-post" component={EditPostModal}  />
          
            {/* <Route  path="/app/profile" component={Profile}  />
            <Route  path="/app/applied-jobs" component={AppliedJobs}  /> */}

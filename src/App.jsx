@@ -93,6 +93,7 @@ import { AgentContactDetails } from './pages/Agent/Profile/ProfileTabs/AgentCont
 import { AgentEduction } from './pages/Agent/Profile/ProfileTabs/AgentEduction';
 
 import { AgentProfileHealth } from './pages/Agent/Profile/ProfileTabs/AgentProfileHealth';
+import EditPost from './components/Cards/AgentCard/EditPost';
 
 
 setupIonicReact();
@@ -241,6 +242,7 @@ const App = () => {
     <Route  path="/agent-eduction" component={AgentEduction}  />
     
     <Route  path="/agent-profile-health" component={AgentProfileHealth}  />
+    <Route  path="/edit-post" component={EditPost}  />
     
     <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>
     </IonRouterOutlet>

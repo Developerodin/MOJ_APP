@@ -99,7 +99,7 @@ const CreatePostModal = ({ onClose }) => {
     }
 
     try {
-      const url = `${Base_url}user_post/store`;
+      const url = `${Base_url}auth/agent_post/store`;
       const formData = new FormData();
       formData.append('user_id', userDetails.user_id);
       formData.append('preferred_state', preferredState);

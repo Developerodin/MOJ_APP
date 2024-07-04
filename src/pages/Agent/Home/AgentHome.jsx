@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IonContent,
   IonIcon,
@@ -7,28 +7,55 @@ import {
   IonRow,
   IonButton,
   IonModal,
+  IonCol,
 } from '@ionic/react';
 import { searchOutline, addOutline } from 'ionicons/icons';
-import { AgentJobCard } from '../../../components/Cards/AgentCard/AgentJobCard';
+import AgentJobCard from '../../../components/Cards/AgentCard/AgentJobCard';
 import profileImg from './profileImg2.png';
 import equilizer from './equalizer.png';
 import { isMobile } from '../../../IsMobile/IsMobile';
 import CreatePostModal from '../../../components/Cards/AgentCard/CreatePost';
+import axios from 'axios';
+import { Base_url } from '../../../Config/BaseUrl';
 
 export const AgentHome = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [jobs, setJobs] = useState([]); // State to store job data
+
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+  const getJobs = async () => {
+    try {
+      const url = `${Base_url}auth/agent_post/show_byuser_id/${userDetails.user_id}`;
+      const response = await axios.post(
+        url,
+        {},
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const data = response.data;
+      console.log("Data get from job ==>", data);
+
+      if (data.status === "success") {
+        setJobs(data.Post); // Store the job data
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getJobs(); // Fetch job data when the component mounts
+  }, []);
 
   const handelProfileClick = () => {
     history.push('/app/profile');
   };
-
-  const jobs = [
-    { id: 1, daysAgo: 3, position: 'Housekeeping', location: 'Jaipur (Raj.)', availableStaff: 10 },
-    { id: 2, daysAgo: 3, position: 'Housekeeping', location: 'Ajmer (Raj.)', availableStaff: 10 },
-    { id: 3, daysAgo: 6, position: 'Manager', location: 'Bhilwara ', availableStaff: 10 }
-  ];
 
   return (
     <IonPage>
@@ -97,18 +124,22 @@ export const AgentHome = () => {
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between',padding:'8px 12px' }}>
-            <h2 style={{fontWeight:'bold'}}>Availability</h2>
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px' }}>
+            <h2 style={{ fontWeight: 'bold' }}>Availability</h2>
             <IonButton onClick={() => setIsModalOpen(true)}>
               <IonIcon icon={addOutline} style={{ marginRight: '8px' }} />
               Add New
             </IonButton>
           </div>
 
-          <IonGrid style={{ padding: 0, margin: 0 }}>
+          <IonGrid >
             <IonRow>
               {jobs.map((job) => (
-                <AgentJobCard key={job.id} data={job} />
+                
+                <IonCol size="12" size-md="6" key={job.id}>
+                  
+                  <AgentJobCard data={job} />
+                </IonCol>
               ))}
             </IonRow>
           </IonGrid>
