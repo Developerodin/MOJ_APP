@@ -44,7 +44,7 @@ export const WorkExperienceCard = ({data, UserWorkExperienceDelete}) => {
         <IonCardContent style={{ padding: "20px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
-              <span style={{ fontSize: "18px", fontWeight: 500 }}>{data && data.designation} {`( ${data && data.profile})`}</span>
+              <span style={{ fontSize: "18px", fontWeight: 800 }}>{data && data.designation} Profile -  {`${data && data.profile}`}</span>
             </div>
             <div style={{ display: "flex", justifyContent: "right", alignItems: "center" }}>
               {/* <IonIcon icon={createOutline} style={{fontSize:"22px"}}/> */}
@@ -52,14 +52,21 @@ export const WorkExperienceCard = ({data, UserWorkExperienceDelete}) => {
             </div>
           </div>
           <div style={{ marginTop: "3px" }}>
-            <span style={{ fontSize: "15px", color: "#575757", fontWeight: 500 }}>{data && data.organisation},{data && data.location}</span>
+            <span style={{ fontSize: "15px", color: "#575757", fontWeight: 500 }}>Company Name - {data && data.organisation},{data && data.location}</span>
           </div>
           <div style={{ marginTop: "3px" }}>
-            <span style={{ fontSize: "15px", fontWeight: 500 }}>Full Time . {data && data.start_date} - {data && data.end_date} </span>
+            <span style={{ fontSize: "15px", fontWeight: 500 }}>Duration - {data && data.start_date} - {data && data.end_date} </span>
           </div>
           <div style={{ marginTop: "3px" }}>
-            <span style={{ fontSize: "15px", fontWeight: 500 }}>Reference . {data && data.ref_mobile} - {data && data.ref_email} </span>
+            <span style={{ fontSize: "15px", fontWeight: 500 }}>Place - {data && data.city}, {data && data.state} </span>
           </div>
+          <div style={{ marginTop: "3px" }}>
+            <span style={{ fontSize: "15px", fontWeight: 500 }}>Reference . {data && data.ref_mobile} </span>
+          </div>
+          <div style={{ marginTop: "3px" }}>
+            <span style={{ fontSize: "15px", fontWeight: 500 }}>Email - {data && data.ref_email} </span>
+          </div>
+         
           <div style={{ marginTop: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <div onClick={handelEditWorkExp} style={{ background: "#0054e9", borderRadius: "10px", width: "30%", padding: "10px", display: "flex", justifyContent: "center", alignItems: "center" }}>
               <span style={{ fontSize: "14px", color: "#fff", fontWeight: "bold" }}>Edit</span>
