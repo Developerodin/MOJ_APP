@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { IonCard, IonCardContent, IonIcon } from '@ionic/react';
 import { locationOutline } from 'ionicons/icons';
-import { useHistory } from 'react-router-dom'; // Import useHistory hook
+import { useHistory } from 'react-router-dom';
 import EditPost from './EditPost';
-import deleteIcon from './deleteicon.png';
 
-// Helper function to calculate days ago
+
 const getDaysAgo = (createdDate) => {
   const today = new Date();
   const createdAt = new Date(createdDate);
@@ -21,28 +20,31 @@ const getDaysAgo = (createdDate) => {
   }
 };
 
-const AgentJobCard = ({ data }) => {
+const AgentAvailableCard = ({ data, agents }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentData, setCurrentData] = useState(null);
-  const history = useHistory(); // Initialize useHistory
+  const history = useHistory();
 
-  const handleEditClick = () => {
+  const handleViewClick = () => {
     const id = data.id;
-    history.push(`/edit-post/${id}`); 
+    history.push(`/agent-view/${id}`); 
     setCurrentData(data);
-    console.log('Edit clicked', data.id);
+    console.log('View clicked', data.id);
   };
 
   const handleCloseModal = () => {
     setIsEditModalOpen(false);
   };
 
-  // Ensure staff_details is parsed correctly
+  const agent = agents.find(agent => agent.user_id === data.user_id);
+
+  if (!agent) {
+    return null;
+  }
+
   const staffDetails = JSON.parse(data.staff_details);
 
-  // Group departments and find the one with the most available staff
   const groupedDetails = staffDetails.reduce((acc, staff) => {
-    // Ensure department is an array
     if (Array.isArray(staff.department)) {
       staff.department.forEach(department => {
         if (!acc[department]) {
@@ -51,11 +53,10 @@ const AgentJobCard = ({ data }) => {
         acc[department].positions.push(staff.positionTitle);
         acc[department].availableStaff += parseInt(staff.availableStaff, 10);
       });
-    } else {
-      console.error(`Invalid department data for staff with ID ${staff.id}`); // Log the error or handle it accordingly
     }
     return acc;
   }, {});
+
   const departmentEntries = Object.entries(groupedDetails);
   const mainDepartment = departmentEntries.reduce((maxDept, dept) => {
     return dept[1].availableStaff > maxDept[1].availableStaff ? dept : maxDept;
@@ -67,20 +68,27 @@ const AgentJobCard = ({ data }) => {
   const allAvailableStaff = staffDetails.map(staff => staff.availableStaff).join(', ');
 
   return (
-    <div onClick={handleEditClick}>
+    <div onClick={handleViewClick}>
       <IonCard style={{ width: '100%', padding: '0px', border: "1px solid #E4E4E4", borderRadius: "15px", background: "#f2f4fe", margin: '0px' }}>
         <IonCardContent style={{ padding: '10px' }}>
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ fontSize: '14px', color: '#395CFF', fontWeight: 'bold' }}>{getDaysAgo(data.created_at)}</div>
-              <img src={deleteIcon} alt="Delete" style={{ width: '20px', height: '20px', float: 'right' }} />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <img src={agent.user_img} alt="Agent" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+            <div style={{ marginLeft: '10px' }}>
+              <div style={{ fontSize: '16px', fontWeight: 'bold',color:'#232323' }}>{agent.user.name}</div>
+              <div style={{ fontSize: '14px', color: '#232323' }}>{agent.user.gst_name}</div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+          </div>
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+              <div style={{ fontSize: '14px', color: '#395CFF', fontWeight: 'bold' }}>{getDaysAgo(data.created_at)}</div>
+              
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
               <span style={{ fontSize: '18px', color: 'black', fontWeight: 'bold' }}>
                 {mainDepartment[0]}
               </span>
               {additionalDepartmentsCount > 0 && (
-                <span style={{ fontSize: '10px', color: '#395CFF', fontWeight: 'lighter', marginLeft: '5px', background: '#D5DDFF', borderRadius: '59px', height: '19px', width: '15px', display: 'flex', justifyItems: 'center', alignItems: 'center' }}>
+                <span style={{ fontSize: '10px', color: '#395CFF', fontWeight: 'lighter', marginLeft: '5px', background: '#D5DDFF', borderRadius: '59px', height: '19px', width: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   +{additionalDepartmentsCount}
                 </span>
               )}
@@ -114,4 +122,4 @@ const AgentJobCard = ({ data }) => {
   );
 };
 
-export default AgentJobCard;
+export default AgentAvailableCard;

@@ -718,7 +718,7 @@ style={{
           <div style={{ marginTop:"70px", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <CustomBtn1 fun={handleSaveClick} title={"Save"} />
           </div>
-          <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={preferredState} setSelectedState={setPreferredState}  />
+          <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={preferredState} setSelectedState={setPreferredState} setPreferredCity={setPreferredCity} />
           <DepartmentSelectModel isOpen={departmentModel} onClose={handelDepartmentModelClose} onSubmit={handelSelectedDepartment} department={department} departmentValue={departmentValue}  />
           <SelectMulipalCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} preferredCity={preferredCity} setPreferredCity={setPreferredCity} selectedState={preferredState}/>
         </div>

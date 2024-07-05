@@ -61,6 +61,8 @@ import { Chats } from '../Chat/Chats';
 import { AgentChats } from '../Agent/AgentChat/AgentChat';
 import { AgentProfileHealth } from '../Agent/Profile/ProfileTabs/AgentProfileHealth';
 import EditPostModal from '../../components/Cards/AgentCard/EditPost';
+import { AgentAvailable } from '../Hotelier/DashboardPages/AgentAvailable';
+import { AgentView } from '../Hotelier/DashboardPages/AgentView';
 
 
 const NavBar = () => {
@@ -204,6 +206,8 @@ const NavBar = () => {
       <Route  path="/candidate-view/:id/:id2" component={CandidateView}  />
       <Route  path="/job-candidate-view/:id" component={JobCandidateView}  />
       <Route  path="/employers-package" component={HotelierPackage}  />
+      <Route  path="/agent-available" component={AgentAvailable} />
+      <Route  path="/agent-view/:id" component={AgentView} />
             <Redirect exact  to="/app/home" />
           </IonRouterOutlet>
 
@@ -261,7 +265,7 @@ const NavBar = () => {
           <Route  path="/update-profile-photo" component={UpdateProfilePhoto}  />
           <Route  path="/agent-profile-health" component={AgentProfileHealth}  />
           <Route  path="/rewards" component={Reward}  />
-          <Route  path="/edit-post" component={EditPostModal}  />
+          <Route  path="/edit-post/:id" component={EditPostModal}  />
          
            {/* <Route  path="/app/profile" component={Profile}  />
            <Route  path="/app/applied-jobs" component={AppliedJobs}  /> */}

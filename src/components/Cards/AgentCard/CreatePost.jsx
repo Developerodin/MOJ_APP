@@ -346,6 +346,7 @@ const CreatePostModal = ({ onClose }) => {
           onClose={handelStateModleClose}
           selectedState={preferredState}
           setSelectedState={setPreferredState}
+          
         />
         <SelectMulipalCityModel
           isOpen={isCityModelOpen}

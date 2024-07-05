@@ -17,12 +17,13 @@ import { isMobile } from '../../../IsMobile/IsMobile';
 import CreatePostModal from '../../../components/Cards/AgentCard/CreatePost';
 import axios from 'axios';
 import { Base_url } from '../../../Config/BaseUrl';
+import noPost from './noPost.png';
 
 export const AgentHome = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [jobs, setJobs] = useState([]); // State to store job data
+  const [jobs, setJobs] = useState([]); // Initialize with an empty array
 
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
@@ -41,11 +42,14 @@ export const AgentHome = () => {
       const data = response.data;
       console.log("Data get from job ==>", data);
 
-      if (data.status === "success") {
+      if (data.status === "success" && Array.isArray(data.Post)) {
         setJobs(data.Post); // Store the job data
+      } else {
+        setJobs([]); // Set to an empty array if the data structure is unexpected
       }
     } catch (error) {
       console.error("Error:", error);
+      setJobs([]); // Set to an empty array in case of an error
     }
   };
 
@@ -132,22 +136,28 @@ export const AgentHome = () => {
             </IonButton>
           </div>
 
-          <IonGrid >
-            <IonRow>
-              {jobs.map((job) => (
-                
-                <IonCol size="12" size-md="6" key={job.id}>
-                  
-                  <AgentJobCard data={job} />
-                </IonCol>
-              ))}
-            </IonRow>
-          </IonGrid>
-        </div>
+          <div>
+            <IonGrid>
+              {jobs.length > 0 ? (
+                <IonRow>
+                  {jobs.map((job) => (
+                    <IonCol size="12" size-md="6" key={job.id}>
+                      <AgentJobCard data={job} />
+                    </IonCol>
+                  ))}
+                </IonRow>
+              ) : (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                  <img src={noPost} alt="No Posts" />
+                </div>
+              )}
+            </IonGrid>
+          </div>
 
-        <IonModal isOpen={isModalOpen} onDidDismiss={() => setIsModalOpen(false)}>
-          <CreatePostModal onClose={() => setIsModalOpen(false)} />
-        </IonModal>
+          <IonModal isOpen={isModalOpen} onDidDismiss={() => setIsModalOpen(false)}>
+            <CreatePostModal onClose={() => setIsModalOpen(false)} />
+          </IonModal>
+        </div>
       </IonContent>
     </IonPage>
   );

@@ -136,7 +136,7 @@ const handlePincodeChange2 = (e) => {
     }
   };
 
-
+  
    useEffect(()=>{
     console.log("Personal detailsss =>",userDetails)
    let profileDetails ={
@@ -158,6 +158,19 @@ const handlePincodeChange2 = (e) => {
     console.log("Data profile ===>",profileDetails)
    setFormData2(profileDetails);
  },[update])
+
+//  useEffect(()=>{
+//   if ( userDetails && userDetails.city !== "" ) {
+//     return
+//   }else {
+//     setSelectedCity("");
+//   }
+// },[selectedState])
+
+
+
+
+ 
 
   return (
    <IonPage>
@@ -485,7 +498,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
 
 
  </div>
-      <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={selectedState} setSelectedState={setSelectedState}  />
+      <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={selectedState} setSelectedState={setSelectedState} setSelectedCity={setSelectedCity} />
       <SelectCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} selectedCity={selectedCity} setSelectedCity={setSelectedCity} selectedState={selectedState}/>
     
     
