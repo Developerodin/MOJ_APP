@@ -150,7 +150,7 @@ export const ProfileEduction = () => {
                   schoolName:Data.ten_school,
                   year:Data.ten_year
                 });
-
+                console.log("Data.ten_th",Data.ten_th,Data.ten_year)
                 setformDataTwelvth({
                   schoolName:Data.to_th_school,
                   year:Data.to_th_year
