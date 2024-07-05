@@ -115,6 +115,7 @@ const SelectStateModel = ({ isOpen, onClose,setSelectedState,selectedState,setPr
         
         setSelectedState(state);
         setPreferredCity("");
+        
         onClose();
         console.log("Selected",state);
     }

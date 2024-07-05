@@ -588,7 +588,7 @@ useEffect(() => {
 
               <CustomBtn1 fun={handelSaveClick} title= {selectedLanguage === "English" ? "Update" : "अपडेट करो"}/>
              </div>
-             <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={selectedState} setSelectedState={setSelectedState}  />
+             <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={selectedState} setSelectedState={setSelectedState}  setPreferredCity={setSelectedCity} />
       <SelectCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} selectedCity={selectedCity} setSelectedCity={setSelectedCity} selectedState={selectedState}/>
           </div>
         </IonContent>
