@@ -11,8 +11,9 @@ import { Base_url } from "../../../Config/BaseUrl";
 import axios from "axios";
 import AddIcon from './addicon.png';
 
+
 const CreatePostModal = ({ onClose }) => {
-  const { showToast,  setProfileHealthUpdate } = useContext(AppContext);
+  const { showToast,setPostUpdate , setProfileHealthUpdate } = useContext(AppContext);
   const [present] = useIonActionSheet();
 
   const [departmentModel, setDepartmentModel] = useState(false);
@@ -121,6 +122,7 @@ const CreatePostModal = ({ onClose }) => {
       if (data.status === "success") {
         showToast("success", "Post created successfully", "");
         setProfileHealthUpdate((prev) => prev + 1);
+        setPostUpdate((prev) => prev + 1);
         onClose();
         return;
       }

@@ -14,7 +14,7 @@ import deleteIcon from "./deleteicon.png";
 import { useHistory, useParams } from "react-router";
 
 const EditPostModal = () => {
-  const { showToast, setProfileHealthUpdate } = useContext(AppContext);
+  const { showToast, setProfileHealthUpdate ,setPostUpdate} = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [present] = useIonActionSheet();
   const history = useHistory();
@@ -84,6 +84,7 @@ const EditPostModal = () => {
       if (data.status === "success") {
         showToast("success", "Post updated successfully", "");
         setProfileHealthUpdate((prev) => prev + 1);
+        setPostUpdate((prev) => prev + 1);
       } else {
         showToast("error", "Error updating post", "");
       }
@@ -101,7 +102,9 @@ const EditPostModal = () => {
       const data = response.data;
       if (response.status === 200 ) {
         showToast("success", "Post deleted successfully", "");
-        history.push("/app/home"); // Redirect to a specific page after deletion
+        setPostUpdate((prev) => prev + 1);
+        history.push("/app/home"); 
+        
       } else {
         showToast("error", "Error deleting post", "");
       }

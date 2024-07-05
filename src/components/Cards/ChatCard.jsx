@@ -4,55 +4,62 @@ import { IonText } from "@ionic/react";
 import axios from "axios";
 import { Base_url } from "../../Config/BaseUrl";
 
-const ChatCard = ({ Data }) => {
+const ChatCard = ({ Data, userType }) => {
   const history = useHistory();
   const [userData, setUserData] = useState({ user_img: '', name: '' });
 
   const handleClick = () => {
+    const path = userType === 'Agent' ? `/agent-personal-chat/${Data.receiver_id}` : `/personal-chat/${Data.receiver_id}`;
     history.push({
-      pathname: `/personal-chat/${Data.receiver_id}`,
+      pathname: path,
       state: { userData: Data },
     });
   };
 
-  const getuserID = async (id) => {
+  const getUserData = async (id) => {
+    const apiUrl = userType === 'Agent' ? `${Base_url}auth/agent_get` : `${Base_url}all_user_data/${id}`;
+
     try {
-      const response = await axios.post(
-        `${Base_url}all_user_data/${id}`,
-        {},
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = userType === 'Agent' 
+        ? await axios.get(apiUrl, { params: { id } })
+        : await axios.post(apiUrl, {}, { headers: { "Content-Type": "multipart/form-data" } });
+
       if (response.status === 200) {
         const data = response.data;
         console.log("Fetched user data:", data);
 
-        if (data && data.Job && data.Job.length > 0) {
-          const user = data.Job[0].user;
-          console.log("User data:", data.Job[0].user_img, user.name);
-          if (user && user.name) {
-            setUserData({
-              user_img: data.Job[0].user_img || '',
-              name: user.name || '',
-            });
+        if (userType === 'Agent') {
+          if (data && data.Job) {
+            const user = data.Job.find(job => job.user_id.toString() === id.toString());
+            if (user && user.user) {
+              setUserData({
+                user_img: user.user_img || '',
+                name: user.user.name || '',
+                
+              });
+            } else {
+              console.warn("No user data found for ID:", id);
+            }
           } else {
-            console.warn(
-              "User data does not contain expected properties:",
-              user
-            );
+            console.warn("No agent data found.");
           }
         } else {
-          console.warn("No user data found for ID:", id);
+          if (data && data.Job && data.Job.length > 0) {
+            const user = data.Job[0].user;
+            if (user) {
+              setUserData({
+                user_img: data.Job[0].user_img || '',
+                name: user.name || '',
+              });
+            } else {
+              console.warn("No user data found for ID:", id);
+            }
+          } else {
+            console.warn("No user data found for ID:", id);
+          }
         }
       } else {
-        console.error(
-          "Error fetching user data: ",
-          response.status,
-          response.statusText
-        );
+        console.error("Error fetching user data: ", response.status, response.statusText);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -60,13 +67,13 @@ const ChatCard = ({ Data }) => {
   };
 
   useEffect(() => {
-    getuserID(Data.receiver_id);
+    getUserData(Data.receiver_id);
   }, [Data.receiver_id]);
 
   const formatRelativeTime = (dateString) => {
     const date = new Date(dateString);
     const now = new Date();
-    
+
     const diffInMs = now - date;
     const diffInSeconds = Math.floor(diffInMs / 1000);
     const diffInMinutes = Math.floor(diffInSeconds / 60);
@@ -79,7 +86,6 @@ const ChatCard = ({ Data }) => {
       } else if (diffInDays <= 7) {
         return `${diffInDays} days ago`;
       } else {
-        // Return date in "MM-dd-yyyy" format
         const month = date.getMonth() + 1;
         const day = date.getDate();
         const year = date.getFullYear();

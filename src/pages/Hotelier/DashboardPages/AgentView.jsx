@@ -16,7 +16,7 @@ export const AgentView = () => {
   const navigateToChat = () => {
     const id = agentData.user_id;
     console.log("Navigating to chat with ID:", id); 
-    history.push(`/personal-chat/${id}`);
+    history.push(`/agent-personal-chat/${id}`);
     
   };  
 

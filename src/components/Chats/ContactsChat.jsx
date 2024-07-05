@@ -5,14 +5,15 @@ import { useHistory } from 'react-router';
 import axios from 'axios';
 import { Base_url } from '../../Config/BaseUrl';
 
-const ContactsChat = () => {
+const ContactsChat = ({ userType }) => {
   const { itemData } = useContext(AppContext);
   const history = useHistory();
   const [uniqueReceiverIds, setUniqueReceiverIds] = useState([]);
   const [messages, setMessages] = useState([]);
 
   const handleCardClick = (receiverId) => {
-    history.push(`/personal-chat/${receiverId}`);
+    const path = userType === 'Agent' ? `/agent-personal-chat/${receiverId}` : `/personal-chat/${receiverId}`;
+    history.push(path);
   };
 
   useEffect(() => {
@@ -34,22 +35,18 @@ const ContactsChat = () => {
         if (response.data && response.data.Job) {
           console.log('Messages retrieved:', response.data.Job);
 
-          const { sender,reciver } = response.data.Job;
+          const { sender, reciver } = response.data.Job;
 
           const validSender = Array.isArray(sender) ? sender : [];
-      const validReciver = Array.isArray(reciver) ? reciver : [];
+          const validReciver = Array.isArray(reciver) ? reciver : [];
 
           if (validSender && validReciver) {
             let messages = [...validSender, ...validReciver];
             setMessages(messages);
 
-            // Use a Set to store unique receiver IDs
-            console.log('Sender++++++:', validSender,validReciver);
             const uniqueIdsSet = new Set(validSender.map(message => message.receiver_id));
             const uniqueIdsSet2 = new Set(validReciver.map(message => message.sender_id));
-            console.log('Unique receiver IDs:', Array.from(uniqueIdsSet),Array.from(uniqueIdsSet2));
-
-            let uniqueIds = [...uniqueIdsSet,...uniqueIdsSet2];
+            let uniqueIds = [...uniqueIdsSet, ...uniqueIdsSet2];
             let uniqueIdSet = new Set(uniqueIds);
             setUniqueReceiverIds(Array.from(uniqueIdSet));
           } else {
@@ -66,10 +63,10 @@ const ContactsChat = () => {
     getAllMessages();
     const interval = setInterval(() => {
       getAllMessages();
-    }, 10000); // 10000 milliseconds = 10 seconds
+    }, 10000);
 
     return () => clearInterval(interval);
-   } , []);
+  }, []);
 
   return (
     <div>
@@ -77,21 +74,18 @@ const ContactsChat = () => {
         <p>No messages found</p>
       ) : (
         uniqueReceiverIds.map((receiverId) => {
-          console.log('Receiver ID++++++:', receiverId);
-          console.log('Message:>>>>>', messages);
-
           const message = messages.find(msg => msg.receiver_id === receiverId || msg.sender_id === receiverId);
-          let msg = [message]
+          let msg = [message];
           const formattedMessages = msg.map(msg => ({
             message_content: msg.message_content,
             id: msg.id,
             receiver_id: receiverId,
             sent_at: msg.sent_at
           }));
-          console.log('Message2:>>>>>///////', formattedMessages);
+
           return (
             <div key={receiverId}>
-              <ChatCard Data={formattedMessages[0]} onClick={() => handleCardClick(receiverId)} />
+              <ChatCard Data={formattedMessages[0]} userType={userType} />
             </div>
           );
         })

@@ -1505,7 +1505,7 @@ const Basicinfo = ({ handelContinue }) => {
               onClose={handelStateModleClose}
               selectedState={selectedState}
               setSelectedState={setSelectedState}
-              setSelectedCity={setSelectedCity}
+              setPreferredCity={setSelectedCity}
             />
             <SelectCityModel
               isOpen={isCityModelOpen}

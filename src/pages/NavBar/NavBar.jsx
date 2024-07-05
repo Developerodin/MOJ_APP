@@ -63,6 +63,7 @@ import { AgentProfileHealth } from '../Agent/Profile/ProfileTabs/AgentProfileHea
 import EditPostModal from '../../components/Cards/AgentCard/EditPost';
 import { AgentAvailable } from '../Hotelier/DashboardPages/AgentAvailable';
 import { AgentView } from '../Hotelier/DashboardPages/AgentView';
+import AgentPersonalChat from '../../components/Chats/AgentPeronalChat';
 
 
 const NavBar = () => {
@@ -208,6 +209,7 @@ const NavBar = () => {
       <Route  path="/employers-package" component={HotelierPackage}  />
       <Route  path="/agent-available" component={AgentAvailable} />
       <Route  path="/agent-view/:id" component={AgentView} />
+      <Route  path="/agent-personal-chat/:id" component={AgentPersonalChat} />
             <Redirect exact  to="/app/home" />
           </IonRouterOutlet>
 
@@ -266,6 +268,7 @@ const NavBar = () => {
           <Route  path="/agent-profile-health" component={AgentProfileHealth}  />
           <Route  path="/rewards" component={Reward}  />
           <Route  path="/edit-post/:id" component={EditPostModal}  />
+          <Route  path="/job-personal-chat/:id" component={JobPersonalChat}  />
          
            {/* <Route  path="/app/profile" component={Profile}  />
            <Route  path="/app/applied-jobs" component={AppliedJobs}  /> */}

@@ -96,6 +96,7 @@ import { AgentProfileHealth } from './pages/Agent/Profile/ProfileTabs/AgentProfi
 import EditPost from './components/Cards/AgentCard/EditPost';
 import { AgentAvailable } from './pages/Hotelier/DashboardPages/AgentAvailable';
 import { AgentView } from './pages/Hotelier/DashboardPages/AgentView';
+import AgentPersonalChat from './components/Chats/AgentPeronalChat';
 
 
 setupIonicReact();
@@ -247,6 +248,7 @@ const App = () => {
     <Route  path="/edit-post/:id" component={EditPost}  />
     <Route  path="/agent-available" component={AgentAvailable}  />
     <Route  path="/agent-view/:id" component={AgentView}  />
+    <Route  path="/agent-personal-chat/:id" component={AgentPersonalChat}  />
     
     <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>
     </IonRouterOutlet>

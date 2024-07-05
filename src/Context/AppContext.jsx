@@ -34,6 +34,8 @@ const AppContextProvider = ({children}) => {
     const [jobUpdate,setJobUpdate] = useState(0)
 
     const [languageUpdate,setLanguageUpdate] = useState(0)
+
+    const [postUpdate,setPostUpdate] = useState(0)
   
     const showToast = (type,heading,msg) =>{
       const info = {type,heading,msg,status:'show'};
@@ -43,7 +45,7 @@ const AppContextProvider = ({children}) => {
       },2500)
     }
 
-  return <AppContext.Provider value={{CandidateJobStatus,setCandidateJobStatus,jobUpdate,setJobUpdate,profileHealthUpdate,setProfileHealthUpdate,languageUpdate,setLanguageUpdate,editUpdate,setEditUpdate, showToast,toastStatus,userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData}}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{CandidateJobStatus,setCandidateJobStatus,jobUpdate,setJobUpdate,profileHealthUpdate,setProfileHealthUpdate,languageUpdate,setLanguageUpdate,editUpdate,setEditUpdate, showToast,toastStatus,userData,setUserData,Auth,setAuth,MarkerData,setMarkerData,TabBarVisibility,setTabBarVisibility,itemData,setItemData,postUpdate,setPostUpdate}}>{children}</AppContext.Provider>
 }
 
 export default AppContextProvider;

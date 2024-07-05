@@ -55,49 +55,31 @@ const AgentPersonalChat = () => {
     document.removeEventListener("ionBackButton", handleHardwareBackButton);
   });
 
-  const getuserID = async (id) => {
+  const fetchAgentDetails = async (id) => {
     try {
-      const response = await axios.post(
-        `${Base_url}all_user_data/${id}`,
-        {
-        
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.get(`${Base_url}auth/agent_get`);
       if (response.status === 200) {
         const data = response.data;
-        console.log("Fetched user data:", data);
+        console.log("Fetched agent data:", data);
 
-        if (data && data.Job && data.Job.length > 0) {
-          const user = data.Job[0].user;
-          console.log("User data:", data.Job[0].user_img, user.name);
-          if (user && user.name) {
+        if (data && data.Job) {
+          const agent = data.Job.find(agent => agent.user_id === id);
+          if (agent) {
             setUserData({
-              user_img: data.Job[0].user_img,
-              name: user.name,
+              user_img: agent.user_img,
+              name: agent.user.name,
             });
           } else {
-            console.warn(
-              "User data does not contain expected properties:",
-              user
-            );
+            console.warn("No agent data found for ID:", id);
           }
         } else {
-          console.warn("No user data found for ID:", id);
+          console.warn("Unexpected agent response structure:", response.data);
         }
       } else {
-        console.error(
-          "Error fetching user data: ",
-          response.status,
-          response.statusText
-        );
+        console.error("Error fetching agent data: ", response.status, response.statusText);
       }
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      console.error("Error fetching agent data:", error);
     }
   };
 
@@ -115,7 +97,7 @@ const AgentPersonalChat = () => {
         `${Base_url}msg/store`,
         {
           sender_id: senderId,
-          receiver_id: id ,
+          receiver_id: id,
           message_content: newMessage,
         },
         {
@@ -134,45 +116,37 @@ const AgentPersonalChat = () => {
 
   const getAllMessages = async () => {
     try {
-        const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-        if (!userDetails || !userDetails.user_id) {
-            console.error("User details or user_id not found in localStorage.");
-            return;
+      const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      if (!userDetails || !userDetails.user_id) {
+        console.error("User details or user_id not found in localStorage.");
+        return;
+      }
+      const senderId = userDetails.user_id;
+      const response = await axios.post(`${Base_url}msg/BysenderId/${senderId}`, {}, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         }
-        const senderId = userDetails.user_id;
-        const response = await axios.post(`${Base_url}msg/BysenderId/${senderId}`, {}, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            }
-        });
+      });
 
-        // Log the entire response to understand its structure
-        console.log("API response:", response.data);
+      console.log("API response:", response.data);
 
-        const { sender, reciver } = response.data.Job;
+      const { sender, reciver } = response.data.Job;
+      const validSender = Array.isArray(sender) ? sender : [];
+      const validReciver = Array.isArray(reciver) ? reciver : [];
+      const combinedMessages = [...validSender, ...validReciver];
+      const sortedMessages = combinedMessages.sort((a, b) => new Date(a.sent_at) - new Date(b.sent_at));
+      console.log("Sorted messages:", sortedMessages);
 
-        // Handle cases where sender or reciver arrays are null
-        const validSender = Array.isArray(sender) ? sender : [];
-        const validReciver = Array.isArray(reciver) ? reciver : [];
-
-        // Combine and sort messages by sent_at
-        const combinedMessages = [...validSender, ...validReciver];
-        const sortedMessages = combinedMessages.sort((a, b) => new Date(a.sent_at) - new Date(b.sent_at));
-        console.log("Sorted messages:", sortedMessages);
-
-        const filteredMessages = sortedMessages.filter((msg) => {
-          console.log("Message???????:", msg.sender_id === id , msg.receiver_id === senderId);
-          return msg.sender_id === id && msg.receiver_id === senderId || msg.sender_id === senderId && msg.receiver_id === id;
-        });
-        console.log("Filtered messages:", filteredMessages);
-        setMessages(filteredMessages);
+      const filteredMessages = sortedMessages.filter((msg) => {
+        return (msg.sender_id === id && msg.receiver_id === senderId) || (msg.sender_id === senderId && msg.receiver_id === id);
+      });
+      console.log("Filtered messages:", filteredMessages);
+      setMessages(filteredMessages);
 
     } catch (error) {
-        console.error(`Error getting all messages: ${error}`);
+      console.error(`Error getting all messages: ${error}`);
     }
-};
-
-  
+  };
 
   const handleInputKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -182,38 +156,32 @@ const AgentPersonalChat = () => {
 
   useEffect(() => {
     if (id) {
-      console.log("User ID from PersonalChat component:", id); // Debugging log
-      getuserID(id);
+      console.log("User ID from PersonalChat component:", id);
+      fetchAgentDetails(id);
     }
     getAllMessages().then(data => {
-      console.log(data); // Log the data to the console
+      console.log(data);
     }).catch(error => {
-      console.error(error); // Log any errors
+      console.error(error);
     });
   }, [id]);
 
   useEffect(() => {
-    
     getAllMessages();
     const interval = setInterval(() => {
       getAllMessages();
-    }, 10000); // 10000 milliseconds = 10 seconds
+    }, 10000);
 
-    return () => clearInterval(interval); // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   const chatWindowRef = useRef(null);
 
   useEffect(() => {
-    // Get the chat window element
     const chatWindow = chatWindowRef.current;
-  
     if (chatWindow) {
-      // Get the last message in the chat window
       const lastMessage = chatWindow.lastChild;
-  
       if (lastMessage) {
-        // Scroll the last message into view
         lastMessage.scrollIntoView({ behavior: 'smooth' });
       }
     }
@@ -333,4 +301,4 @@ const AgentPersonalChat = () => {
   );
 };
 
-export default PersonalChat;
+export default AgentPersonalChat;

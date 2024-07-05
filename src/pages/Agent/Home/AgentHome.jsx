@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import {
   IonContent,
   IonIcon,
@@ -18,8 +18,10 @@ import CreatePostModal from '../../../components/Cards/AgentCard/CreatePost';
 import axios from 'axios';
 import { Base_url } from '../../../Config/BaseUrl';
 import noPost from './noPost.png';
+import { AppContext } from "../../../Context/AppContext";
 
 export const AgentHome = () => {
+  const { postUpdate } = useContext(AppContext);
   const [profilePic, setProfilePic] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,7 +57,7 @@ export const AgentHome = () => {
 
   useEffect(() => {
     getJobs(); // Fetch job data when the component mounts
-  }, []);
+  }, [postUpdate]);
 
   const handelProfileClick = () => {
     history.push('/app/profile');

@@ -498,7 +498,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
 
 
  </div>
-      <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={selectedState} setSelectedState={setSelectedState} setSelectedCity={setSelectedCity} />
+      <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={selectedState} setSelectedState={setSelectedState} setPreferredCity={setSelectedCity} />
       <SelectCityModel isOpen={isCityModelOpen} onClose={handelCityModleClose} selectedCity={selectedCity} setSelectedCity={setSelectedCity} selectedState={selectedState}/>
     
     
