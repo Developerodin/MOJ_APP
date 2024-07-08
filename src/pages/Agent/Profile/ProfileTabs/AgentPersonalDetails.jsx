@@ -672,6 +672,7 @@ export const AgentPersonalDetails = () => {
             onClose={handelStateModleClose}
             selectedState={selectedState}
             setSelectedState={setSelectedState}
+            setPreferredCity={setSelectedCity}
           />
           <SelectCityModel
             isOpen={isCityModelOpen}

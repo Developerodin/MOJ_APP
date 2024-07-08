@@ -431,6 +431,7 @@ const EditPostModal = () => {
           onClose={handelStateModleClose}
           selectedState={preferredState}
           setSelectedState={setPreferredState}
+          setPreferredCity={setPreferredCity}
         
         />
         <SelectMulipalCityModel

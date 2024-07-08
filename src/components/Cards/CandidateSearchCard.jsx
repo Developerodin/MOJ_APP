@@ -25,7 +25,7 @@ export const CandidateSearchCard = ({ data }) => {
   
   // Extracting experience from work history
   const experience = data.work && data.work.length > 0 
-    ? data.work.map(job => `${job.organisation}, ${job.designation}`).join("; ")
+    ? data.work.map(job => `${job.organisation} (${job.start_date} - ${job.end_date})`).join(", ")
     : "No experience information";
 
 

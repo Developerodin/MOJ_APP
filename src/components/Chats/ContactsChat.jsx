@@ -5,16 +5,20 @@ import { useHistory } from 'react-router';
 import axios from 'axios';
 import { Base_url } from '../../Config/BaseUrl';
 
+
 const ContactsChat = ({ userType }) => {
-  const { itemData } = useContext(AppContext);
-  const history = useHistory();
+
+
   const [uniqueReceiverIds, setUniqueReceiverIds] = useState([]);
   const [messages, setMessages] = useState([]);
 
-  const handleCardClick = (receiverId) => {
-    const path = userType === 'Agent' ? `/agent-personal-chat/${receiverId}` : `/personal-chat/${receiverId}`;
-    history.push(path);
-  };
+  // const handleCardClick = (receiverId) => {
+  //   const path = userType === 'Agent' ? `/agent-personal-chat/${receiverId}` : `/personal-chat/${receiverId}`;
+  //   history.push(path);
+  // };
+
+
+
 
   useEffect(() => {
     const getAllMessages = async () => {
@@ -49,6 +53,8 @@ const ContactsChat = ({ userType }) => {
             let uniqueIds = [...uniqueIdsSet, ...uniqueIdsSet2];
             let uniqueIdSet = new Set(uniqueIds);
             setUniqueReceiverIds(Array.from(uniqueIdSet));
+
+            console.log('Unique receiver IDs:=========================', uniqueReceiverIds);
           } else {
             console.warn('Sender is not an array');
           }
@@ -59,6 +65,8 @@ const ContactsChat = ({ userType }) => {
         console.error(`Error getting all messages: ${error}`);
       }
     };
+
+    
 
     getAllMessages();
     const interval = setInterval(() => {

@@ -703,7 +703,7 @@ import {
   
               </div>
   
-              <div
+              {/* <div
                 style={{
                   display: "flex",
                   justifyContent: "center",
@@ -774,7 +774,7 @@ import {
   
                 
                 <div></div>
-              </div>
+              </div> */}
             </div>
   
             <div style={{ marginTop: "20px" }}>

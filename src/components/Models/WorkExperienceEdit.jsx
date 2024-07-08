@@ -72,48 +72,48 @@ const WorkExperienceEdit = () => {
 
 
     const UpdateWorkExperience = async () => {
-      if ( !formData.organisation || !formData.profile  || !formData.startDate || !formData.endDate || !preferredState || !preferredCity || !department || !departmentValue) {
-        showToast("error", "Please fill all the fields", "");
-        if (!formData.organisation) {
-          showToast("error", "Please enter organisation", "");
-          return;
-        }
-        if (!formData.profile) {
-          showToast("error", "Please enter profile", "");
-          return;
-        }
+      // if ( !formData.organisation || !formData.profile  || !formData.startDate || !formData.endDate || !preferredState || !preferredCity || !department || !departmentValue) {
+      //   showToast("error", "Please fill all the fields", "");
+      //   if (!formData.organisation) {
+      //     showToast("error", "Please enter organisation", "");
+      //     return;
+      //   }
+      //   if (!formData.profile) {
+      //     showToast("error", "Please enter profile", "");
+      //     return;
+      //   }
        
-        if (!formData.startDate) {
-          showToast("error", "Please enter start date", "");
-          return;
-        }
-        if (!formData.endDate) {
-          showToast("error", "Please enter end date", "");
-          return;
-        }
-        if (!preferredState) {
-          showToast("error", "Please select state", "");
-          return;
-        }
-        if (!preferredCity) {
-          showToast("error", "Please select city", "");
-          return;
-        }
-        // if (!formData.location) {
-        //   showToast("error", "Please enter location", "");
-        //   return;
-        // }
-        if (!department) {
-          showToast("error", "Please select department", "");
-          return;
-        }
-        if (!departmentValue) {
-          showToast("error", "Please select sub department", "");
-          return;
-        }
-        return;
+      //   if (!formData.startDate) {
+      //     showToast("error", "Please enter start date", "");
+      //     return;
+      //   }
+      //   if (!formData.endDate) {
+      //     showToast("error", "Please enter end date", "");
+      //     return;
+      //   }
+      //   if (!preferredState) {
+      //     showToast("error", "Please select state", "");
+      //     return;
+      //   }
+      //   if (!preferredCity) {
+      //     showToast("error", "Please select city", "");
+      //     return;
+      //   }
+      //   // if (!formData.location) {
+      //   //   showToast("error", "Please enter location", "");
+      //   //   return;
+      //   // }
+      //   if (!department) {
+      //     showToast("error", "Please select department", "");
+      //     return;
+      //   }
+      //   if (!departmentValue) {
+      //     showToast("error", "Please select sub department", "");
+      //     return;
+      //   }
+      //   return;
 
-      }
+      // }
       try {
         const url = `${Base_url}user_work_ex/Update_ById/${id}`;
         const formData1 = new FormData();
@@ -140,7 +140,7 @@ const WorkExperienceEdit = () => {
           }
         });
         const data = response.data
-            console.log("Response check work experience",data,response)
+            console.log("Response check work experience ->>>>>",data,response)
             
               // if(data === "otp in valid"){
               //   showToast("error", "wrong otp", "");

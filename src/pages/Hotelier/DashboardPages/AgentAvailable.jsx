@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { IonContent, IonIcon, IonPage, IonGrid, IonRow, IonCol } from '@ionic/react';
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders';
-import { bagOutline } from 'ionicons/icons';
+import { personOutline } from 'ionicons/icons';
 
 import { isMobile } from '../../../IsMobile/IsMobile';
 import axios from 'axios';
 import { Base_url } from '../../../Config/BaseUrl';
 import AgentAvailableCard from '../../../components/Cards/AgentCard/AgentAvailableCard';
+import { AppContext } from "../../../Context/AppContext";
 
 
 export const AgentAvailable = () => {
+  const { postUpdate } = useContext(AppContext);
   const [agents, setAgents] = useState([]);
   const [posts, setPosts] = useState([]);
   const [displayedCandidates, setDisplayedCandidates] = useState([]);
@@ -49,23 +51,24 @@ export const AgentAvailable = () => {
 
         // Filter out null responses
         const validResponses = postResponses.filter(response => response && response.data && response.data.Post);
-        const postsData = validResponses.flatMap(response => response.data.Post); // Accessing the Post array
-        console.log("Fetched posts:", postsData); // Log the fetched posts data
+        const postsData = validResponses.flatMap(response => response.data.Post); 
+        console.log("Fetched posts:", postsData); 
         setPosts(postsData);
-        setDisplayedCandidates(postsData); // Initially display all posts
+        setDisplayedCandidates(postsData); 
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
     };
 
     fetchAgents();
-  }, []);
+    
+  }, [ postUpdate]);
 
   return (
     <IonPage>
       <IonContent>
         <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
-          <ProfileHeaders icon={<IonIcon icon={bagOutline} style={{ fontSize: "24px", color: "#395CFF" }} />} title={"Agent Available"} />
+          <ProfileHeaders icon={<IonIcon icon={personOutline} style={{ fontSize: "26px", color: "#395CFF" }} />} title={"Agent Available"} />
 
           <IonGrid style={{ marginTop: "30px" }}>
             {displayedCandidates.length === 0 && (

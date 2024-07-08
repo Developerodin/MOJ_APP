@@ -348,6 +348,7 @@ const CreatePostModal = ({ onClose }) => {
           onClose={handelStateModleClose}
           selectedState={preferredState}
           setSelectedState={setPreferredState}
+          setPreferredCity={setPreferredCity}
           
         />
         <SelectMulipalCityModel
