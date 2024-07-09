@@ -74,7 +74,7 @@ export const AgentView = () => {
                 <div style={{ fontSize: '14px', color: '#232323' }}>{agentData.user.gst_name}</div>
               </div>
             </div>
-            <div onClick={navigateToChat} style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"20px",backgroundColor:'#F0F0F0',borderRadius:'10px',height:'52px'}}>
+            <div onClick={navigateToChat} style={{display:"flex",justifyContent:"center",alignItems:"center",margin:"30px 50px 0px 50px",backgroundColor:'#F0F0F0',borderRadius:'10px',height:'52px'}}>
                 <div>
                     <IonIcon style={{fontSize:"25px",color:"grey"}} icon={chatbubbleEllipsesOutline}></IonIcon>
                 </div>
@@ -83,27 +83,27 @@ export const AgentView = () => {
                 </div>
             </div>
           {staffDetails.map((staff, index) => (
-            <IonCard key={index} style={{ borderRadius: '10px', backgroundColor: '#F6F6F6' }}>
-              <IonCardContent>
-                <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '10px',color:'black' }}>{staff.department[0]}</div>
+            <IonCard key={index} style={{ borderRadius: '10px', backgroundColor: '#F6F6F6',padding:'0px 10px',marginTop:'30px' }}>
+              <IonCardContent style={{display:'inline'}}>
+                <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '4px',color:'black' }}>{staff.department[0]}</div>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
                   <IonIcon icon={locationOutline} style={{ color: 'crimson', fontSize: '18px' }} />
                   <span style={{ fontSize: '13px', marginLeft: '5px', color: 'black' }}>{postDetails.preferred_city} ({postDetails.preferred_state})</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div style={{ fontSize: '15px', color: 'black' }}>
+                    <div style={{ fontSize: '15px', color: '#232323',fontWeight:'600' }}>
                       Position
                     </div>
-                    <div style={{ fontSize: '15px', color: 'black', backgroundColor: '#F0F0F0', padding: '5px 10px', borderRadius: '5px' }}>
+                    <div style={{ fontSize: '15px', color: '#5A5A5A', backgroundColor: '#F0F0F0', padding: '5px 10px', borderRadius: '5px',fontWeight:'500' }}>
                       {staff.positionTitle}
                     </div>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div style={{ fontSize: '15px', color: 'black' }}>
+                    <div style={{ fontSize: '15px', color: '#232323',fontWeight:'600' }}>
                       Available Staff
                     </div>
-                    <div style={{ fontSize: '15px', color: 'white', backgroundColor: '#395CFF', padding: '5px 10px', borderRadius: '5px', width: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ fontSize: '15px', color: 'white', backgroundColor: '#395CFF', padding: '5px 10px', borderRadius: '5px', width: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center',fontWeight:'500' }}>
                       {staff.availableStaff}
                     </div>
                   </div>

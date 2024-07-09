@@ -23,7 +23,7 @@ export const AgentChats = () => {
 
 
       const handleBackButtonClick = () => {
-        // Replace 'Tab2' with the appropriate route name for your tab
+        
         history.push('/home');
       };
       

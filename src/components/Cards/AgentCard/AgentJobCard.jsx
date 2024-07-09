@@ -74,7 +74,7 @@ const AgentJobCard = ({ data }) => {
         <IonCardContent style={{ padding: '10px' }}>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ fontSize: '14px', color: '#395CFF', fontWeight: 'bold' }}>{getDaysAgo(data.created_at)}</div>
+              <div style={{ fontSize: '12px', color: '#395CFF', fontWeight: 'bold' }}>{getDaysAgo(data.created_at)}</div>
               {/* <img src={deleteIcon} alt="Delete" style={{ width: '20px', height: '20px', float: 'right' }} /> */}
             </div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -87,7 +87,7 @@ const AgentJobCard = ({ data }) => {
                 </span>
               )}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '5px' }}>
               <IonIcon icon={locationOutline} style={{ color: 'crimson', fontSize: '18px', fontWeight: 'bold' }} />
               <span style={{ fontSize: '13px', marginLeft: '5px', color: 'black' }}>{data.preferred_city} ({data.preferred_state})</span>
             </div>

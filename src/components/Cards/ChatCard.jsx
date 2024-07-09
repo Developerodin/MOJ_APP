@@ -8,14 +8,11 @@ const ChatCard = ({ Data, userType }) => {
   const history = useHistory();
   const [userData, setUserData] = useState({ user_img: "", name: "" });
 
-  
-
   const handleClick = () => {
     const path =
       userType === "Agent"
         ? `/agent-personal-chat/${Data.receiver_id}`
         : `/personal-chat/${Data.receiver_id}`;
-        
     history.push({
       pathname: path,
       state: { userData: Data },
@@ -40,7 +37,6 @@ const ChatCard = ({ Data, userType }) => {
 
       if (response.status === 200) {
         const data = response.data;
-
         console.log("Fetched user data ->>>:", data);
 
         if (userType === "Agent") {
@@ -87,8 +83,10 @@ const ChatCard = ({ Data, userType }) => {
   };
 
   useEffect(() => {
-    getUserData(Data.receiver_id);
-  }, [Data.receiver_id]);
+    if (Data.receiver_id) {
+      getUserData(Data.receiver_id);
+    }
+  }, [Data.receiver_id, userType]);
 
   const formatRelativeTime = (dateString) => {
     const date = new Date(dateString);

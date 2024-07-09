@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useContext } from 'react';
-import { IonContent, IonIcon, IonPage, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonContent, IonIcon, IonPage, IonGrid, IonRow, IonCol,IonSearchbar } from '@ionic/react';
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders';
 import { personOutline } from 'ionicons/icons';
 
@@ -15,6 +15,7 @@ export const AgentAvailable = () => {
   const [agents, setAgents] = useState([]);
   const [posts, setPosts] = useState([]);
   const [displayedCandidates, setDisplayedCandidates] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     const fetchAgents = async () => {
@@ -26,8 +27,8 @@ export const AgentAvailable = () => {
         });
 
         if (response.data && response.data.Job) {
-          const agentData = response.data.Job; // Accessing the Job array
-          console.log("Fetched agents:", agentData); // Log the fetched agent data
+          const agentData = response.data.Job; 
+          console.log("Fetched agents:", agentData); 
           setAgents(agentData);
           fetchPosts(agentData.map(agent => agent.user.user_id));
         } else {
@@ -49,7 +50,7 @@ export const AgentAvailable = () => {
         );
         const postResponses = await Promise.all(postRequests);
 
-        // Filter out null responses
+        
         const validResponses = postResponses.filter(response => response && response.data && response.data.Post);
         const postsData = validResponses.flatMap(response => response.data.Post); 
         console.log("Fetched posts:", postsData); 
@@ -64,13 +65,35 @@ export const AgentAvailable = () => {
     
   }, [ postUpdate]);
 
+  const handleSearch = () => {
+    console.log('Searching for:', searchText);
+    
+  };
+
+
+  if (!agents || !posts) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <IonPage>
       <IonContent>
         <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
           <ProfileHeaders icon={<IonIcon icon={personOutline} style={{ fontSize: "26px", color: "#395CFF" }} />} title={"Agent Available"} />
 
-          <IonGrid style={{ marginTop: "30px" }}>
+          <div style={{ marginTop: "30px" }}>
+    
+      <IonSearchbar
+        value={searchText}
+        onIonChange={e => setSearchText(e.detail.value)} 
+        onIonClear={() => setSearchText('')} 
+        onIonCancel={() => setSearchText('')} 
+        onIonBlur={handleSearch} 
+        
+      ></IonSearchbar>
+    </div>
+
+          <IonGrid style={{ marginTop: "10px" }}>
             {displayedCandidates.length === 0 && (
               <p>No agents available</p>
             )}

@@ -24,6 +24,7 @@ const EditPostModal = () => {
   const [preferredState, setPreferredState] = useState("");
   const [isStateModelOpen, setIsStateModelOpen] = useState(false);
   const [isCityModelOpen, setIsCityModelOpen] = useState(false);
+  const [post,setPost ] = useState(null);
   const [staffDetails, setStaffDetails] = useState([
     {
       department: "",
@@ -49,6 +50,7 @@ const EditPostModal = () => {
         console.log("Data by id ==>", data);
         if (data.status === "success") {
           const post = data.Post[0];
+          setPost(post);
           setPreferredState(post.preferred_state);
           setPreferredCity(post.preferred_city);
           setStaffDetails(JSON.parse(post.staff_details));
@@ -64,6 +66,14 @@ const EditPostModal = () => {
       showToast("error", "Error fetching post data", "");
     }
   };
+
+  useEffect(() => {
+    if (post && post.pref_city !== "") {
+      return;
+    } else {
+      setPreferredCity("");
+    }
+  }, [preferredState, post]);
 
   const handleSaveClick = async () => {
     try {
@@ -97,7 +107,7 @@ const EditPostModal = () => {
   const handleDeleteClick = async () => {
     try {
       const url = `${Base_url}auth/agent_post/destroy/${id}`;
-      const response = await axios.post(url); // Use axios.delete for DELETE requests
+      const response = await axios.post(url); 
 
       const data = response.data;
       if (response.status === 200 ) {
@@ -188,6 +198,8 @@ const EditPostModal = () => {
   const handelCityModleClose = () => {
     setIsCityModelOpen(false);
   };
+
+  
 
   return (
     <IonPage>
@@ -424,6 +436,7 @@ const EditPostModal = () => {
             isOpen={isStateModelOpen}
             onClose={handelStateModleClose}
             setSelectedState={setPreferredState}
+            setPreferredCity={setPreferredCity}
           />
         )}
         <SelectStateModel

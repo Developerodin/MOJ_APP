@@ -42,7 +42,7 @@ export const AgentHome = () => {
         }
       );
       const data = response.data;
-      console.log("Data get from job ==>", data);
+      console.log("Job Data ==>", data);
 
       if (data.status === "success" && Array.isArray(data.Post)) {
         setJobs(data.Post); // Store the job data

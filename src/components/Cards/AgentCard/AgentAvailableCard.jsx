@@ -80,10 +80,10 @@ const AgentAvailableCard = ({ data, agents }) => {
           </div>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-              <div style={{ fontSize: '14px', color: '#395CFF', fontWeight: 'bold' }}>{getDaysAgo(data.created_at)}</div>
+              <div style={{ fontSize: '12px', color: '#395CFF', fontWeight: 'bold' }}>{getDaysAgo(data.created_at)}</div>
               
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '0px' }}>
               <span style={{ fontSize: '18px', color: 'black', fontWeight: 'bold' }}>
                 {mainDepartment[0]}
               </span>
@@ -93,11 +93,11 @@ const AgentAvailableCard = ({ data, agents }) => {
                 </span>
               )}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '2px' }}>
               <IonIcon icon={locationOutline} style={{ color: 'crimson', fontSize: '18px', fontWeight: 'bold' }} />
               <span style={{ fontSize: '13px', marginLeft: '5px', color: 'black' }}>{data.preferred_city} ({data.preferred_state})</span>
             </div>
-            <div style={{ marginTop: '10px' }}>
+            <div style={{ marginTop: '14px' }}>
               <div>
                 <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '8px' }}>
                   <span style={{ fontSize: '15px', marginLeft: '3px', color: 'black' }}>Position: {allPositions}</span>
