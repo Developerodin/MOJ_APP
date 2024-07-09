@@ -69,7 +69,7 @@ const AgentAvailableCard = ({ data, agents }) => {
 
   return (
     <div onClick={handleViewClick}>
-      <IonCard style={{ width: '100%', padding: '0px', border: "1px solid #E4E4E4", borderRadius: "15px", background: "#f2f4fe", margin: '0px' }}>
+      <IonCard style={{ width: '100%', padding: '0px', border: "1px solid #E4E4E4", borderRadius: "15px", background: "#f2f4fe", margin: '0px',marginTop:'15px' }}>
         <IonCardContent style={{ padding: '10px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <img src={agent.user_img} alt="Agent" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />

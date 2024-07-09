@@ -163,7 +163,7 @@ export const JobCard = ({data,fun}) => {
   },[jobUpdate])
   return (
     <div style={{width:"100%"}}>
-<IonCard style={{padding:"0px",border:"1px solid #E4E4E4",borderRadius:"15px",background:"#f2f4fe",margin:0}} >
+<IonCard style={{padding:"0px",border:"1px solid #E4E4E4",borderRadius:"15px",background:"#f2f4fe",margin:0,marginTop:'10px'}} >
     <IonCardContent style={{padding:"10px"}}>
       
       <div>

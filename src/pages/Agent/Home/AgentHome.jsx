@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   IonContent,
   IonIcon,
@@ -25,7 +25,9 @@ export const AgentHome = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [jobs, setJobs] = useState([]); // Initialize with an empty array
+  const [jobs, setJobs] = useState([]); 
+  const [uniqueCities, setUniqueCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState('');
 
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
@@ -46,6 +48,12 @@ export const AgentHome = () => {
 
       if (data.status === "success" && Array.isArray(data.Post)) {
         setJobs(data.Post); // Store the job data
+
+        // Extract unique cities
+        const cities = data.Post.map((job) => job.preferred_city);
+        const uniqueCities = [...new Set(cities)];
+        setUniqueCities(uniqueCities);
+        setSelectedCity(uniqueCities[0]); // Set default selection to the first created city
       } else {
         setJobs([]); // Set to an empty array if the data structure is unexpected
       }
@@ -59,16 +67,22 @@ export const AgentHome = () => {
     getJobs(); // Fetch job data when the component mounts
   }, [postUpdate]);
 
-  const handelProfileClick = () => {
+  const handleProfileClick = () => {
     history.push('/app/profile');
   };
+
+  const handleCityClick = (city) => {
+    setSelectedCity(city);
+  };
+
+  const filteredJobs = jobs.filter((job) => job.preferred_city === selectedCity);
 
   return (
     <IonPage>
       <IonContent>
         <div className={isMobile ? "" : "sw"} style={{ padding: "20px" }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div onClick={handelProfileClick} style={{ position: 'relative' }}>
+            <div onClick={handleProfileClick} style={{ position: 'relative' }}>
               <img
                 src={profilePic || profileImg}
                 style={{
@@ -138,11 +152,32 @@ export const AgentHome = () => {
             </IonButton>
           </div>
 
-          <div>
+          <div style={{ display: 'flex',marginTop:'10px' }}>
+            {uniqueCities.map((city) => (
+              <button
+                key={city}
+                onClick={() => handleCityClick(city)}
+                style={{
+                  padding: '10px 18px 10px 18px',
+                  margin: '0 10px 0 0',
+                  borderRadius: '7px',
+                  border: selectedCity === city ? '1px solid #007bff' : '1px solid #e0e0e0',
+                  background: selectedCity === city ? '#007bff' : '#F4F4F4',
+                  color: selectedCity === city ? '#fff' : '#000',
+                  cursor: 'pointer',
+                }}
+              >
+                {city}
+              </button>
+            ))}
+          </div>
+            <div style={{color:'#787878',fontSize:'13px',marginTop:'8px'  }}>* Select a city to get specific posts</div>
+
+          <div style={{marginTop:'10px'}}>
             <IonGrid>
-              {jobs.length > 0 ? (
+              {filteredJobs.length > 0 ? (
                 <IonRow>
-                  {jobs.map((job) => (
+                  {filteredJobs.map((job) => (
                     <IonCol size="12" size-md="6" key={job.id}>
                       <AgentJobCard data={job} />
                     </IonCol>

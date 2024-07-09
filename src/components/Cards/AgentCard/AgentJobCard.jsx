@@ -70,7 +70,7 @@ const AgentJobCard = ({ data }) => {
 
   return (
     <div onClick={handleEditClick}>
-      <IonCard style={{ width: '100%', padding: '0px', border: "1px solid #E4E4E4", borderRadius: "15px", background: "#f2f4fe", margin: '0px' }}>
+      <IonCard style={{ width: '100%', padding: '0px', border: "1px solid #E4E4E4", borderRadius: "15px", background: "#f2f4fe", margin: '0px',marginTop:'12px' }}>
         <IonCardContent style={{ padding: '10px' }}>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

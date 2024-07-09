@@ -93,7 +93,7 @@ export const AgentAvailable = () => {
       ></IonSearchbar>
     </div>
 
-          <IonGrid style={{ marginTop: "10px" }}>
+          <IonGrid >
             {displayedCandidates.length === 0 && (
               <p>No agents available</p>
             )}
