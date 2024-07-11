@@ -372,7 +372,7 @@ export const HotelierProfile = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       handelPointsDataGet();
-    }, 20000); // 10000ms = 10 seconds
+    }, 20000); 
 
     return () => clearInterval(interval); // Clear the interval on component unmount
   }, []);

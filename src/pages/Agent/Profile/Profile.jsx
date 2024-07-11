@@ -113,7 +113,8 @@ import {
           window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'buttonPressed', ref: refCode }));
         });
       }
-      // Code to update selectedLanguage from localStorage
+      
+      
       const languageFromStorage = localStorage.getItem("selectedLanguage");
       if (languageFromStorage) {
         setSelectedLanguage(languageFromStorage);
@@ -315,7 +316,7 @@ import {
         // showToast("error", "Try After Some Time", "");
       } catch (error) {
         console.error("Error:", error);
-        // showToast("error", "Try After Some Time", "");
+       
       }
     };
   

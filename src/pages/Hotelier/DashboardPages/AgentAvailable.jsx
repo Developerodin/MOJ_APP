@@ -1,5 +1,5 @@
-import React, { useState, useEffect,useContext } from 'react';
-import { IonContent, IonIcon, IonPage, IonGrid, IonRow, IonCol,IonSearchbar } from '@ionic/react';
+import React, { useState, useEffect, useContext } from 'react';
+import { IonContent, IonIcon, IonPage, IonGrid, IonRow, IonCol, IonSearchbar } from '@ionic/react';
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders';
 import { personOutline } from 'ionicons/icons';
 
@@ -8,7 +8,6 @@ import axios from 'axios';
 import { Base_url } from '../../../Config/BaseUrl';
 import AgentAvailableCard from '../../../components/Cards/AgentCard/AgentAvailableCard';
 import { AppContext } from "../../../Context/AppContext";
-
 
 export const AgentAvailable = () => {
   const { postUpdate } = useContext(AppContext);
@@ -50,7 +49,6 @@ export const AgentAvailable = () => {
         );
         const postResponses = await Promise.all(postRequests);
 
-        
         const validResponses = postResponses.filter(response => response && response.data && response.data.Post);
         const postsData = validResponses.flatMap(response => response.data.Post); 
         console.log("Fetched posts:", postsData); 
@@ -62,14 +60,25 @@ export const AgentAvailable = () => {
     };
 
     fetchAgents();
-    
-  }, [ postUpdate]);
+  }, [postUpdate]);
 
-  const handleSearch = () => {
-    console.log('Searching for:', searchText);
-    
+  const handleSearch = (e) => {
+    const query = e.detail.value.toLowerCase();
+    setSearchText(query);
+
+    if (query === '') {
+      setDisplayedCandidates(posts);
+    } else {
+      const filteredCandidates = posts.filter(post => {
+        const staffDetails = JSON.parse(post.staff_details);
+        return staffDetails.some(detail => 
+          detail.department.some(dep => dep.toLowerCase().includes(query)) ||
+          detail.positionTitle.toLowerCase().includes(query)
+        );
+      });
+      setDisplayedCandidates(filteredCandidates);
+    }
   };
-
 
   if (!agents || !posts) {
     return <div>Loading...</div>;
@@ -82,16 +91,14 @@ export const AgentAvailable = () => {
           <ProfileHeaders icon={<IonIcon icon={personOutline} style={{ fontSize: "26px", color: "#395CFF" }} />} title={"Agent Available"} />
 
           <div style={{ marginTop: "30px" }}>
-    
-      <IonSearchbar
-        value={searchText}
-        onIonChange={e => setSearchText(e.detail.value)} 
-        onIonClear={() => setSearchText('')} 
-        onIonCancel={() => setSearchText('')} 
-        onIonBlur={handleSearch} 
-        
-      ></IonSearchbar>
-    </div>
+            <IonSearchbar
+              value={searchText}
+              onIonChange={handleSearch} 
+              onIonClear={() => setSearchText('')} 
+              onIonCancel={() => setSearchText('')} 
+              onIonBlur={handleSearch} 
+            ></IonSearchbar>
+          </div>
 
           <IonGrid >
             {displayedCandidates.length === 0 && (
