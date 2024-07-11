@@ -8,6 +8,7 @@ import {
   IonButton,
   IonModal,
   IonCol,
+  useIonRouter,
 } from '@ionic/react';
 import { searchOutline, addOutline } from 'ionicons/icons';
 import AgentJobCard from '../../../components/Cards/AgentCard/AgentJobCard';
@@ -21,7 +22,8 @@ import noPost from './noPost.png';
 import { AppContext } from "../../../Context/AppContext";
 
 export const AgentHome = () => {
-  const { postUpdate } = useContext(AppContext);
+  const history = useIonRouter();
+  const { postUpdate ,editUpdate } = useContext(AppContext);
   const [profilePic, setProfilePic] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,6 +32,35 @@ export const AgentHome = () => {
   const [selectedCity, setSelectedCity] = useState('');
 
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+
+  const getProfileImg = async () => {
+    try {
+      const url = `${Base_url}profile_img_saved/Byuserid/${userDetails.user_id}`;
+      const formData1 = new FormData();
+      
+
+      const response = await axios.post(url, formData1, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          
+        },
+      });
+      const data = response.data;
+      console.log("Response check work experience", data, response);
+
+      if (data.status === "success") {
+        const Data = data.img;
+        setProfilePic(Data.image_path);
+
+        return;
+      }
+      
+    } catch (error) {
+      console.error("Error:", error);
+      
+    }
+  };
 
   const getJobs = async () => {
     try {
@@ -49,17 +80,17 @@ export const AgentHome = () => {
       if (data.status === "success" && Array.isArray(data.Post)) {
         setJobs(data.Post); // Store the job data
 
-        // Extract unique cities
+        
         const cities = data.Post.map((job) => job.preferred_city);
         const uniqueCities = [...new Set(cities)];
         setUniqueCities(uniqueCities);
-        setSelectedCity(uniqueCities[0]); // Set default selection to the first created city
+        setSelectedCity(uniqueCities[0]); 
       } else {
-        setJobs([]); // Set to an empty array if the data structure is unexpected
+        setJobs([]); 
       }
     } catch (error) {
       console.error("Error:", error);
-      setJobs([]); // Set to an empty array in case of an error
+      setJobs([]); 
     }
   };
 
@@ -67,8 +98,12 @@ export const AgentHome = () => {
     getJobs(); // Fetch job data when the component mounts
   }, [postUpdate]);
 
+  useEffect(() => {
+    getProfileImg();
+  }, [editUpdate]);
+
   const handleProfileClick = () => {
-    history.push('/app/profile');
+    history.push(`/app/profile`);
   };
 
   const handleCityClick = (city) => {
@@ -183,6 +218,7 @@ export const AgentHome = () => {
                     </IonCol>
                   ))}
                 </IonRow>
+                
               ) : (
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                   <img src={noPost} alt="No Posts" />

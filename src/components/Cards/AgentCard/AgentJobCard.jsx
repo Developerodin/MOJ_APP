@@ -85,6 +85,7 @@ const AgentJobCard = ({ data }) => {
                 <span style={{ fontSize: '10px', color: '#395CFF', fontWeight: 'lighter', marginLeft: '5px', background: '#D5DDFF', borderRadius: '59px', height: '19px', width: '15px', display: 'flex', justifyItems: 'center', alignItems: 'center' }}>
                   +{additionalDepartmentsCount}
                 </span>
+
               )}
             </div>
             <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '5px' }}>

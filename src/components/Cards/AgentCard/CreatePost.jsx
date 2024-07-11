@@ -15,7 +15,6 @@ import AddIcon from './addicon.png';
 const CreatePostModal = ({ onClose }) => {
   const { showToast,setPostUpdate , setProfileHealthUpdate } = useContext(AppContext);
   const [present] = useIonActionSheet();
-
   const [departmentModel, setDepartmentModel] = useState(false);
   const [preferredCity, setPreferredCity] = useState("");
   const [preferredState, setPreferredState] = useState("");
@@ -256,7 +255,7 @@ const CreatePostModal = ({ onClose }) => {
                 <label
                   style={{
                     color: "#575757",
-                    fontFamily: "inter",
+                    fontFamily: "inter",                                                  
                     fontSize: "14px",
                     fontWeight: "400",
                     lineHeight: "30px",
@@ -340,6 +339,7 @@ const CreatePostModal = ({ onClose }) => {
               <IonIcon icon={trashOutline} />
               Delete
             </button>
+
           </div>
         </div>
 
