@@ -69,6 +69,7 @@ export const AgentHome = () => {
       );
       const data = response.data;
       console.log("Job Data ==>", data);
+      
 
       if (data.status === "success" && Array.isArray(data.Post)) {
         setJobs(data.Post);
@@ -207,7 +208,7 @@ export const AgentHome = () => {
           </div>
           <div style={{color:'#787878',fontSize:'13px',marginTop:'8px'  }}>* Select a city to get specific posts</div>
 
-          <div style={{marginTop:'10px'}}>
+          <div >
             <IonGrid>
               {filteredJobs.length > 0 ? (
                 <IonRow>
@@ -231,3 +232,4 @@ export const AgentHome = () => {
     </IonPage>
   );
 };
+

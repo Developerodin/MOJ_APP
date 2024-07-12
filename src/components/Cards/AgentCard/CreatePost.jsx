@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { IonModal, IonIcon, IonButton } from "@ionic/react";
+import { IonModal, IonIcon, IonButton,IonContent } from "@ionic/react";
 import { AppContext } from "../../../Context/AppContext";
 import SelectStateModel from "../../../components/Models/SelectStateModel";
 import DepartmentSelectModel from "../../../components/Models/DepartmentSelectModel";
@@ -134,6 +134,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
 
   return (
     <IonModal isOpen={isOpen} onDidDismiss={onClose}>
+      <IonContent>
       <div className={isMobile ? "" : "sw"} style={{ padding: "20px" }}>
         <div style={{ display: "flex", alignItems: "center" }}>
           <IonIcon icon={arrowBackOutline} size="large" onClick={onClose} style={{ cursor: "pointer" }} />
@@ -358,6 +359,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
           departmentValue={staffDetails[departmentModel]?.departmentValue}
         />
       )}
+      </IonContent>
     </IonModal>
   );
 };

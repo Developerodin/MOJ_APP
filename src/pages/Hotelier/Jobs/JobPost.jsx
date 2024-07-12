@@ -60,7 +60,7 @@ export const HotelierJobPost = () => {
   const renderComponent = () => {
     switch (selectedTab) {
       case 'Active':
-        return  <div style={{marginTop:"40px"}}>
+        return  <div style={{marginTop:"20px"}}>
         {
           ActiveJobData && ActiveJobData.length >0 ?  ActiveJobData.map((el,index)=>{
             return <div style={{marginTop:"10px"}}>
