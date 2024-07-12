@@ -6,7 +6,6 @@ import {
   IonGrid,
   IonRow,
   IonButton,
-  IonModal,
   IonCol,
   useIonRouter,
 } from '@ionic/react';
@@ -23,29 +22,24 @@ import { AppContext } from "../../../Context/AppContext";
 
 export const AgentHome = () => {
   const history = useIonRouter();
-  const { postUpdate ,editUpdate } = useContext(AppContext);
+  const { postUpdate, editUpdate } = useContext(AppContext);
   const [profilePic, setProfilePic] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  
-  const [jobs, setJobs] = useState([]); 
+  const [jobs, setJobs] = useState([]);
   const [uniqueCities, setUniqueCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
 
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-
 
   const getProfileImg = async () => {
     try {
       const url = `${Base_url}profile_img_saved/Byuserid/${userDetails.user_id}`;
       const formData1 = new FormData();
-      
 
       const response = await axios.post(url, formData1, {
         headers: {
           "Content-Type": "multipart/form-data",
-          
         },
       });
       const data = response.data;
@@ -54,13 +48,10 @@ export const AgentHome = () => {
       if (data.status === "success") {
         const Data = data.img;
         setProfilePic(Data.image_path);
-
         return;
       }
-      
     } catch (error) {
       console.error("Error:", error);
-      
     }
   };
 
@@ -80,24 +71,23 @@ export const AgentHome = () => {
       console.log("Job Data ==>", data);
 
       if (data.status === "success" && Array.isArray(data.Post)) {
-        setJobs(data.Post); // Store the job data
+        setJobs(data.Post);
 
-        
         const cities = data.Post.map((job) => job.preferred_city);
         const uniqueCities = [...new Set(cities)];
         setUniqueCities(uniqueCities);
-        setSelectedCity(uniqueCities[0]); 
+        setSelectedCity(uniqueCities[0]);
       } else {
-        setJobs([]); 
+        setJobs([]);
       }
     } catch (error) {
       console.error("Error:", error);
-      setJobs([]); 
+      setJobs([]);
     }
   };
 
   useEffect(() => {
-    getJobs(); // Fetch job data when the component mounts
+    getJobs();
   }, [postUpdate]);
 
   useEffect(() => {
@@ -112,7 +102,14 @@ export const AgentHome = () => {
     setSelectedCity(city);
   };
 
-  const filteredJobs = jobs.filter((job) => job.preferred_city === selectedCity);
+  const filteredJobs = jobs.filter((job) => {
+    const staffDetails = JSON.parse(job.staff_details);
+    return job.preferred_city === selectedCity &&
+      staffDetails.some(detail => 
+        detail.department.some(dep => dep.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        detail.positionTitle.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+  });
 
   return (
     <IonPage>
@@ -165,7 +162,7 @@ export const AgentHome = () => {
               <IonIcon icon={searchOutline} style={{ fontSize: '24px' }} />
               <input
                 type="text"
-                placeholder="Search.."
+                placeholder="Search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
@@ -189,7 +186,7 @@ export const AgentHome = () => {
             </IonButton>
           </div>
 
-          <div style={{ display: 'flex',marginTop:'10px' }}>
+          <div style={{ display: 'flex', marginTop: '10px' }}>
             {uniqueCities.map((city) => (
               <button
                 key={city}
@@ -208,7 +205,7 @@ export const AgentHome = () => {
               </button>
             ))}
           </div>
-            <div style={{color:'#787878',fontSize:'13px',marginTop:'8px'  }}>* Select a city to get specific posts</div>
+          <div style={{color:'#787878',fontSize:'13px',marginTop:'8px'  }}>* Select a city to get specific posts</div>
 
           <div style={{marginTop:'10px'}}>
             <IonGrid>
@@ -220,7 +217,6 @@ export const AgentHome = () => {
                     </IonCol>
                   ))}
                 </IonRow>
-                
               ) : (
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                   <img src={noPost} alt="No Posts" />
