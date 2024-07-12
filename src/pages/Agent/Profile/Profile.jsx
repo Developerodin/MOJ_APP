@@ -323,7 +323,7 @@ import {
     const getProfileHealth = async () => {
       try {
         const formData = new FormData();
-        const url = `${Base_url}basic/profile_health_userid/${userDetails.user_id}`;
+        const url = `${Base_url}basic/Agentprofile_health_userid/${userDetails.user_id}`;
   
         const response = await axios.post(url, formData, {
           headers: {

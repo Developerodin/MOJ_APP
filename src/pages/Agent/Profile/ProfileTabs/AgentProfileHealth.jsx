@@ -63,7 +63,7 @@ export const AgentProfileHealth = () => {
   const getProfileHealth = async () => {
     try {
       const formData = new FormData();
-      const url = `${Base_url}basic/profile_health_userid/${userDetails.user_id}`;
+      const url = `${Base_url}basic/Agentprofile_health_userid/${userDetails.user_id}`;
 
       const response = await axios.post(url, formData, {
         headers: {
@@ -75,7 +75,7 @@ export const AgentProfileHealth = () => {
       // console.log("Response check work experience data",data,response)
 
       if (data) {
-        console.log("Basic data", data.post);
+        console.log("Basic data 125", data.post);
         const Data = data.post;
         setUserProfileHealthData(Data);
         const updatedData = dataPh.map((item) => {

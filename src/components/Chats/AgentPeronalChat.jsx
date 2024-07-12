@@ -86,24 +86,28 @@ const AgentPersonalChat = () => {
   const sendMessage = async () => {
     try {
       const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      const role = localStorage.getItem("role") || "";
+  
       if (!userDetails || !userDetails.user_id) {
         console.error("User details or user_id not found in localStorage.");
         return;
       }
-
+  
       const senderId = userDetails.user_id;
-
+  
       const response = await axios.post(
         `${Base_url}msg/store`,
         {
           sender_id: senderId,
           receiver_id: id,
           message_content: newMessage,
+          receiver_role: "Agent",
+          sender_role: role
         },
         {
           headers: {
             "Content-Type": "multipart/form-data",
-          },
+          }
         }
       );
       console.log("Message sent:", response.data);
@@ -113,6 +117,7 @@ const AgentPersonalChat = () => {
       console.error("Error sending message:", error);
     }
   };
+  
 
   const getAllMessages = async () => {
     try {

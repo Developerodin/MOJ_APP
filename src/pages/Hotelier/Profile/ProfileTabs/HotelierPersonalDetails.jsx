@@ -50,7 +50,7 @@ const handlePincodeChange2 = (e) => {
     const newPincode = e.target.value;
     setPincode2(newPincode);
     console.log("Enter Pin code ==>",newPincode)
-    // Search for the pincode in the data array
+    
     const pinData = AddressData.find(item => item.pincode === newPincode);
   
     console.log("Pincode Data",pinData);

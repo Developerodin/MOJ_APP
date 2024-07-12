@@ -372,6 +372,7 @@ export const AgentPersonalDetails = () => {
                       {selectedLanguage === "English"
                         ? "Date of Birth"
                         : "जन्म की तारीख"}
+                        <span style={{ color: "red" }}>*</span>
                     </label>
                     {/* <IonItem> */}
                     <input
@@ -462,6 +463,7 @@ export const AgentPersonalDetails = () => {
                       }}
                     >
                       {selectedLanguage === "English" ? "Address" : "पता"}
+                      <span style={{ color: "red" }}>*</span>
                     </label>
                     {/* <IonItem> */}
                     <input
@@ -486,6 +488,7 @@ export const AgentPersonalDetails = () => {
                       }}
                     >
                       {selectedLanguage === "English" ? "Pincode" : "पिन कोड"}
+                      <span style={{ color: "red" }}>*</span>
                     </label>
                     {/* <IonItem> */}
                     <input
@@ -510,6 +513,7 @@ export const AgentPersonalDetails = () => {
                       }}
                     >
                       {selectedLanguage === "English" ? "State" : "राज्य"}
+                      <span style={{ color: "red" }}>*</span>
                     </label>
                     <div
                     // style={{
@@ -568,6 +572,7 @@ export const AgentPersonalDetails = () => {
                         }}
                       >
                         {selectedLanguage === "English" ? "City" : "शहर"}
+                        <span style={{ color: "red" }}>*</span>
                       </label>
 
                       <div onClick={handelCityModelOpen}>
@@ -611,6 +616,7 @@ export const AgentPersonalDetails = () => {
         }}
       >
         {selectedLanguage === "English" ? "GSTIN" : "जस्टिन"}
+        <span style={{ color: "red" }}>*</span>
       </label>
       <input
         className="round-input"
@@ -635,6 +641,7 @@ export const AgentPersonalDetails = () => {
         {selectedLanguage === "English"
           ? "Firm Name"
           : "फर्म का नाम"}
+          <span style={{ color: "red" }}>*</span>
       </label>
       <input
         className="round-input"

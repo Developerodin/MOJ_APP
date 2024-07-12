@@ -5,7 +5,7 @@ import { isMobile } from '../../../IsMobile/IsMobile';
 import ContactsChat from '../../../components/Chats/ContactsChat';
 
 export const HotelierMessages = () => {
-  const [selectedTab, setSelectedTab] = useState('JobSeeker');
+  const [selectedTab, setSelectedTab] = useState('Job Seeker');
 
   return (
     <IonPage>
@@ -18,7 +18,7 @@ export const HotelierMessages = () => {
 
           <IonToolbar style={{marginTop:'10px'}}>
             <IonSegment value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
-              <IonSegmentButton value="JobSeeker">
+              <IonSegmentButton value="Job Seeker">
                 <IonLabel style={{ color: "#2D3F65", fontSize: "15px", fontWeight: "500" }}>Job Seeker</IonLabel>
               </IonSegmentButton>
               <IonSegmentButton value="Agent">

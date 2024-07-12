@@ -26,10 +26,12 @@ export const AgentHome = () => {
   const { postUpdate ,editUpdate } = useContext(AppContext);
   const [profilePic, setProfilePic] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const [jobs, setJobs] = useState([]); 
   const [uniqueCities, setUniqueCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
 
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
@@ -227,9 +229,7 @@ export const AgentHome = () => {
             </IonGrid>
           </div>
 
-          <IonModal isOpen={isModalOpen} onDidDismiss={() => setIsModalOpen(false)}>
-            <CreatePostModal onClose={() => setIsModalOpen(false)} />
-          </IonModal>
+          <CreatePostModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
       </IonContent>
     </IonPage>

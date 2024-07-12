@@ -1,27 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../../Context/AppContext';
+import React, { useEffect, useState } from 'react';
 import ChatCard from '../Cards/ChatCard';
-import { useHistory } from 'react-router';
 import axios from 'axios';
 import { Base_url } from '../../Config/BaseUrl';
 
-
 const ContactsChat = ({ userType }) => {
-
-
   const [uniqueReceiverIds, setUniqueReceiverIds] = useState([]);
   const [messages, setMessages] = useState([]);
 
-  // const handleCardClick = (receiverId) => {
-  //   const path = userType === 'Agent' ? `/agent-personal-chat/${receiverId}` : `/personal-chat/${receiverId}`;
-  //   history.push(path);
-  // };
-
-
-
-
   useEffect(() => {
-    const getAllMessages = async () => {
+    const fetchMessages = async () => {
       try {
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
         if (!userDetails || !userDetails.user_id) {
@@ -37,41 +24,30 @@ const ContactsChat = ({ userType }) => {
         });
 
         if (response.data && response.data.Job) {
-          console.log('Messages retrieved:', response.data.Job);
-
           const { sender, reciver } = response.data.Job;
 
           const validSender = Array.isArray(sender) ? sender : [];
-          const validReciver = Array.isArray(reciver) ? reciver : [];
+          const validReceiver = Array.isArray(reciver) ? reciver : [];
 
-          if (validSender && validReciver) {
-            let messages = [...validSender, ...validReciver];
-            setMessages(messages);
+          if (validSender.length > 0 || validReceiver.length > 0) {
+            const allMessages = [...validSender, ...validReceiver];
+            setMessages(allMessages);
 
-            const uniqueIdsSet = new Set(validSender.map(message => message.receiver_id));
-            const uniqueIdsSet2 = new Set(validReciver.map(message => message.sender_id));
-            let uniqueIds = [...uniqueIdsSet, ...uniqueIdsSet2];
-            let uniqueIdSet = new Set(uniqueIds);
-            setUniqueReceiverIds(Array.from(uniqueIdSet));
-
-            console.log('Unique receiver IDs:=========================', uniqueReceiverIds);
+            const uniqueIdsSet = new Set(allMessages.map(message => message.receiver_id || message.sender_id));
+            setUniqueReceiverIds(Array.from(uniqueIdsSet));
           } else {
-            console.warn('Sender is not an array');
+            console.warn('No sender or receiver data found.');
           }
         } else {
-          console.warn('No messages found');
+          console.warn('No messages found.');
         }
       } catch (error) {
-        console.error(`Error getting all messages: ${error}`);
+        console.error(`Error fetching messages: ${error}`);
       }
     };
 
-    
-
-    getAllMessages();
-    const interval = setInterval(() => {
-      getAllMessages();
-    }, 10000);
+    fetchMessages();
+    const interval = setInterval(fetchMessages, 10000);
 
     return () => clearInterval(interval);
   }, []);
@@ -82,18 +58,32 @@ const ContactsChat = ({ userType }) => {
         <p>No messages found</p>
       ) : (
         uniqueReceiverIds.map((receiverId) => {
-          const message = messages.find(msg => msg.receiver_id === receiverId || msg.sender_id === receiverId);
-          let msg = [message];
-          const formattedMessages = msg.map(msg => ({
-            message_content: msg.message_content,
-            id: msg.id,
+         
+          const filteredMessages = messages.filter(msg => {
+            if (userType === "Job Seeker") {
+              return msg.receiver_role === "Job Seeker" && msg.receiver_id === receiverId;
+            } else if (userType === "Agent") {
+              return msg.receiver_role === "Agent" && msg.receiver_id === receiverId;
+            }
+            return false;
+          });
+
+          
+          if (filteredMessages.length === 0) {
+            return null;
+          }
+
+          
+          const formattedMessage = {
+            message_content: filteredMessages[0].message_content,
+            id: filteredMessages[0].id,
             receiver_id: receiverId,
-            sent_at: msg.sent_at
-          }));
+            sent_at: filteredMessages[0].sent_at
+          };
 
           return (
             <div key={receiverId}>
-              <ChatCard Data={formattedMessages[0]} userType={userType} />
+              <ChatCard Data={formattedMessage} userType={userType} />
             </div>
           );
         })

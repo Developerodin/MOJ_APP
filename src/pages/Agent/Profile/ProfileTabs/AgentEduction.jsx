@@ -145,8 +145,10 @@ export const AgentEduction = () => {
                 console.log("Education data",Data)
                 setformDataTenth({
                   schoolName:Data.ten_school,
-                  year:Data.year
+                  year:Data.ten_year
                 });
+
+                
 
                 setformDataTwelvth({
                   schoolName:Data.to_th_school,

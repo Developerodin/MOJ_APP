@@ -102,19 +102,23 @@ const JobPersonalChat = () => {
   const sendMessage = async () => {
     try {
       const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      const role = localStorage.getItem("role") || "";
+  
       if (!userDetails || !userDetails.user_id) {
         console.error("User details or user_id not found in localStorage.");
         return;
       }
-
+  
       const senderId = userDetails.user_id;
-
+  
       const response = await axios.post(
         `${Base_url}msg/store`,
         {
           sender_id: senderId,
           receiver_id: id,
           message_content: newMessage,
+          receiver_role: "Employers",
+          sender_role: role
         },
         {
           headers: {
@@ -129,6 +133,7 @@ const JobPersonalChat = () => {
       console.error("Error sending message:", error);
     }
   };
+  
 
   const getAllMessages = async () => {
     try {
@@ -144,16 +149,16 @@ const JobPersonalChat = () => {
         }
       });
   
-      // Log the entire response to understand its structure
+     
       console.log("API response:", response.data);
   
       const { sender, reciver } = response.data.Job;
   
-      // Handle cases where sender or reciver arrays are null
+     
       const validSender = Array.isArray(sender) ? sender : [];
       const validReciver = Array.isArray(reciver) ? reciver : [];
   
-      // Combine and sort messages by sent_at
+      
       const combinedMessages = [...validSender, ...validReciver];
       const sortedMessages = combinedMessages.sort((a, b) => new Date(a.sent_at) - new Date(b.sent_at));
       console.log("Sorted messages:", sortedMessages);
@@ -183,7 +188,7 @@ const JobPersonalChat = () => {
       getuserID(id);
     }
     getAllMessages().then(data => {
-      console.log(data); // Log the data to the console
+      console.log(data); 
     }).catch(error => {
       console.error(error); // Log any errors
     });
