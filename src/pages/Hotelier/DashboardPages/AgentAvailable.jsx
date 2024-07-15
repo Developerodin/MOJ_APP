@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { IonContent, IonIcon, IonPage, IonGrid, IonRow, IonCol, IonSearchbar } from '@ionic/react';
+import { IonContent, IonIcon, IonPage, IonGrid, IonRow, IonCol, IonSearchbar, IonSpinner } from '@ionic/react';
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders';
 import { personOutline } from 'ionicons/icons';
 
@@ -15,6 +15,7 @@ export const AgentAvailable = () => {
   const [posts, setPosts] = useState([]);
   const [displayedCandidates, setDisplayedCandidates] = useState([]);
   const [searchText, setSearchText] = useState('');
+  const [loading, setLoading] = useState(true);  // Loading state
 
   useEffect(() => {
     const fetchAgents = async () => {
@@ -32,9 +33,11 @@ export const AgentAvailable = () => {
           fetchPosts(agentData.map(agent => agent.user.user_id));
         } else {
           console.error("Unexpected agent response structure:", response.data);
+          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching agents:", error);
+        setLoading(false);
       }
     };
 
@@ -56,6 +59,8 @@ export const AgentAvailable = () => {
         setDisplayedCandidates(postsData); 
       } catch (error) {
         console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);  // Set loading to false after fetching
       }
     };
 
@@ -80,10 +85,6 @@ export const AgentAvailable = () => {
     }
   };
 
-  if (!agents || !posts) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <IonPage>
       <IonContent>
@@ -100,18 +101,25 @@ export const AgentAvailable = () => {
             ></IonSearchbar>
           </div>
 
-          <IonGrid >
-            {displayedCandidates.length === 0 && (
-              <p>No agents available</p>
-            )}
-            <IonRow>
-              {displayedCandidates.map((candidate) => (
-                <IonCol size="12" size-md="6" key={candidate.id}>
-                  <AgentAvailableCard data={candidate} agents={agents} />
-                </IonCol>
-              ))}
-            </IonRow>
-          </IonGrid>
+          {loading ? (
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+              <IonSpinner color="primary" style={{ fontSize: '3rem' }} />
+              <p style={{ color: '#395CFF', marginTop: '10px' }}>Loading...</p>
+            </div>
+          ) : (
+            <IonGrid >
+              {displayedCandidates.length === 0 && (
+                <p>No agents available</p>
+              )}
+              <IonRow>
+                {displayedCandidates.map((candidate) => (
+                  <IonCol size="12" size-md="6" key={candidate.id}>
+                    <AgentAvailableCard data={candidate} agents={agents} />
+                  </IonCol>
+                ))}
+              </IonRow>
+            </IonGrid>
+          )}
         </div>
       </IonContent>
     </IonPage>
