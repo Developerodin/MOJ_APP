@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext ,useEffect} from "react";
 import { IonModal, IonIcon, IonButton,IonContent } from "@ionic/react";
 import { AppContext } from "../../../Context/AppContext";
 import SelectStateModel from "../../../components/Models/SelectStateModel";
@@ -12,13 +12,17 @@ import axios from "axios";
 import AddIcon from "./addicon.png";
 
 const CreatePostModal = ({ isOpen, onClose }) => {
-  const { showToast, setPostUpdate, setProfileHealthUpdate } = useContext(AppContext);
+  const { showToast, setPostUpdate, setProfileHealthUpdate ,languageUpdate} = useContext(AppContext);
   const [departmentModel, setDepartmentModel] = useState(false);
   const [preferredCity, setPreferredCity] = useState("");
   const [preferredState, setPreferredState] = useState("");
   const [isStateModelOpen, setIsStateModelOpen] = useState(false);
   const [isCityModelOpen, setIsCityModelOpen] = useState(false);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  
   const [staffDetails, setStaffDetails] = useState([
     { department: "", departmentValue: "", positionTitle: "", availableStaff: "" }
   ]);
@@ -26,6 +30,13 @@ const CreatePostModal = ({ isOpen, onClose }) => {
   const handleSaveClick = () => {
     addPost();
   };
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
   const handleDeleteClick = () => {
     console.log("Delete Clicked");
@@ -139,7 +150,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
         <div style={{ display: "flex", alignItems: "center" }}>
           <IonIcon icon={arrowBackOutline} size="large" onClick={onClose} style={{ cursor: "pointer" }} />
         </div>
-        <h2 style={{ marginLeft: "10px", fontWeight: 'bold' }}>Post Manpower Availability</h2>
+        <h2 style={{ marginLeft: "10px", fontWeight: 'bold' }}>{selectedLanguage === "English" ? "Post Manpower Availability" : "मानव शक्ति उपलब्धता पोस्ट करें"}</h2>
         <div style={{ marginTop: "20px" }}>
           <label
             style={{
@@ -150,7 +161,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
               lineHeight: "30px",
             }}
           >
-            Preferred State<span style={{ color: "red" }}>*</span>
+            {selectedLanguage === "English" ? "Preferred State" : "पसंदीदा राज्य"}<span style={{ color: "red" }}>*</span>
           </label>
           <div
             onClick={handelStateModleOpen}
@@ -169,7 +180,9 @@ const CreatePostModal = ({ isOpen, onClose }) => {
             {preferredState !== "" ? (
               <span>{preferredState}</span>
             ) : (
-              <span style={{ color: "grey" }}>Select Preferred State</span>
+              <span style={{ color: '#575757' }}>
+                {selectedLanguage === "English" ? "Select Preferred State" : "पसंदीदा राज्य चुनें"}
+              </span>
             )}
           </div>
         </div>
@@ -177,6 +190,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
         {preferredState !== "" && (
           <div style={{ marginTop: "20px" }}>
             <label
+              
               style={{
                 color: "#575757",
                 fontFamily: "inter",
@@ -185,7 +199,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
                 lineHeight: "30px",
               }}
             >
-              Preferred City<span style={{ color: "red" }}>*</span>
+              {selectedLanguage === "English" ? "Preferred City" : "पसंदीदा शहर"}<span style={{ color: "red" }}>*</span>
             </label>
             <div
               onClick={handelCityModelOpen}
@@ -204,7 +218,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
               {preferredCity !== "" ? (
                 <span>{preferredCity}</span>
               ) : (
-                <span style={{ color: "grey" }}>Select Preferred City</span>
+                <span style={{color:'#575757'}}>{selectedLanguage === "English" ? "Preferred City" : "पसंदीदा शहर"}</span>
               )}
             </div>
           </div>
@@ -222,7 +236,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
                   lineHeight: "30px",
                 }}
               >
-                Department{staff.department !== "" && ` (${staff.department})`}<span style={{ color: "red" }}>*</span>
+                <span style={{color:'#575757'}}>{selectedLanguage === "English" ? "Department" : "विभाग"}</span>{staff.department !== "" && ` (${staff.department})`}<span style={{ color: "red" }}>*</span>
               </label>
               <div
                 onClick={() => handelDepartmentModelOpen(index)}
@@ -241,7 +255,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
                 {staff.departmentValue !== "" ? (
                   <span>{staff.departmentValue}</span>
                 ) : (
-                  <span style={{ color: "grey" }}>Select Department</span>
+                  <span style={{color:'#575757'}}>{selectedLanguage === "English" ? "Select Department" : "विभाग चुनें"}</span>
                 )}
               </div>
             </div>
@@ -256,7 +270,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
                   lineHeight: "30px",
                 }}
               >
-                Position Title<span style={{ color: "red" }}>*</span>
+                {selectedLanguage === "English" ? "Position Title" : "पद का नाम"}<span style={{ color: "red" }}>*</span>
               </label>
               <input
                 type="text"
@@ -274,7 +288,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
                   height: "52px",
                   backgroundColor: "#F4F4F4",
                 }}
-                placeholder="Enter Position Title"
+                placeholder={selectedLanguage === "English" ? "Enter Position Title" : "पद का नाम दर्ज करें"}
               />
             </div>
 
@@ -288,7 +302,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
                   lineHeight: "30px",
                 }}
               >
-                Available Staff<span style={{ color: "red" }}>*</span>
+                {selectedLanguage === "English" ? "Available Staff" : "उपलब्ध कर्मचारी"}<span style={{ color: "red" }}>*</span>
               </label>
               <input
                 type="number"
@@ -306,7 +320,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
                   height: "52px",
                   backgroundColor: "#F4F4F4",
                 }}
-                placeholder="Enter Available Staff"
+                placeholder={selectedLanguage === "English" ? "Enter Available Staff" : "उपलब्ध कर्मचारी दर्ज करें"}
               />
             </div>
           </div>
@@ -328,10 +342,10 @@ const CreatePostModal = ({ isOpen, onClose }) => {
         </div>
 
         <div style={{ marginTop: "40px", display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <CustomBtn1 fun={handleSaveClick} title="Save" />
+          <CustomBtn1 fun={handleSaveClick} title={selectedLanguage === "English" ? "Save" : "सहेजें"} />
           <button onClick={presentDeleteActionSheet} style={{ marginTop: "10px", width: "90%", borderRadius: "30px", padding: "10px", border: "none", height: "52px", display: "flex", justifyContent: "center", alignItems: "center", color: "red", background: "#fff", transition: "background-color 0.3s", fontSize: "16px" }}>
             <IonIcon icon={trashOutline} />
-            Delete
+            {selectedLanguage === "English" ? "Delete" : "हटाएं"}
           </button>
         </div>
       </div>

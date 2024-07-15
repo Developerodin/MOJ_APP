@@ -14,7 +14,7 @@ import deleteIcon from "./deleteicon.png";
 import { useHistory, useParams } from "react-router";
 
 const EditPostModal = () => {
-  const { showToast, setProfileHealthUpdate ,setPostUpdate} = useContext(AppContext);
+  const { showToast, setProfileHealthUpdate ,setPostUpdate,languageUpdate} = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [present] = useIonActionSheet();
   const history = useHistory();
@@ -25,6 +25,10 @@ const EditPostModal = () => {
   const [isStateModelOpen, setIsStateModelOpen] = useState(false);
   const [isCityModelOpen, setIsCityModelOpen] = useState(false);
   const [post,setPost ] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  
   const [staffDetails, setStaffDetails] = useState([
     {
       department: "",
@@ -39,6 +43,13 @@ const EditPostModal = () => {
       fetchPostData();
     }
   }, [id]);
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
   const fetchPostData = async () => {
     try {
@@ -220,7 +231,7 @@ const EditPostModal = () => {
               alignItems: "center",
             }}
           >
-            <h2 style={{ fontWeight: "bold" }}>Edit Post</h2>
+            <h2 style={{ fontWeight: "bold" }}>{selectedLanguage === "English" ? "Edit Post" : "पोस्ट संपादित करें"}</h2>
             <img
               src={deleteIcon}
               alt="Delete"
@@ -238,7 +249,7 @@ const EditPostModal = () => {
                 lineHeight: "30px",
               }}
             >
-              Preferred State<span style={{ color: "red" }}>*</span>
+              {selectedLanguage === "English" ? "Preferred State" : "पसंदीदा राज्य"}<span style={{ color: "red" }}>*</span>
             </label>
             <div
               onClick={handelStateModleOpen}
@@ -257,7 +268,7 @@ const EditPostModal = () => {
               {preferredState !== "" ? (
                 <span>{preferredState}</span>
               ) : (
-                <span style={{ color: "grey" }}>Select Preferred State</span>
+                <span style={{ color: "grey" }}>{selectedLanguage === "English" ? "Select Preferred State" : "पसंदीदा राज्य चुनें"}</span>
               )}
             </div>
           </div>
@@ -273,7 +284,7 @@ const EditPostModal = () => {
                   lineHeight: "30px",
                 }}
               >
-                Preferred City<span style={{ color: "red" }}>*</span>
+                {selectedLanguage === "English" ? "Preferred City" : "पसंदीदा शहर"}<span style={{ color: "red" }}>*</span>
               </label>
               <div
                 onClick={handelCityModelOpen}
@@ -292,7 +303,7 @@ const EditPostModal = () => {
                 {preferredCity !== "" ? (
                   <span>{preferredCity}</span>
                 ) : (
-                  <span style={{ color: "grey" }}>Select Preferred City</span>
+                  <span style={{color:'#575757'}}>{selectedLanguage === "English" ? "Select Preferred City" : "पसंदीदा शहर चुनें"}</span>
                 )}
               </div>
             </div>
@@ -313,7 +324,7 @@ const EditPostModal = () => {
                     lineHeight: "30px",
                   }}
                 >
-                  Department
+                  {selectedLanguage === "English" ? "Department" : "विभाग"}
                   {staff.department !== "" && ` (${staff.department})`}
                   <span style={{ color: "red" }}>*</span>
                 </label>
@@ -334,7 +345,7 @@ const EditPostModal = () => {
                   {staff.departmentValue !== "" ? (
                     <span>{staff.departmentValue}</span>
                   ) : (
-                    <span style={{ color: "grey" }}>Select Department</span>
+                    <span style={{ color: "#575757" }}>{selectedLanguage === "English" ? "Select Department" : "विभाग चुनें"}</span>
                   )}
                 </div>
               </div>
@@ -349,11 +360,12 @@ const EditPostModal = () => {
                     lineHeight: "30px",
                   }}
                 >
-                  Position Title<span style={{ color: "red" }}>*</span>
+                  {selectedLanguage === "English" ? "Position Title" : "पद का नाम"}<span style={{ color: "red" }}>*</span>
                 </label>
                 <input
                   type="text"
                   value={staff.positionTitle}
+                  placeholder={selectedLanguage === "English" ? "Enter Position Title" : "पद का नाम दर्ज करें"}
                   onChange={(e) => {
                     const newStaffDetails = [...staffDetails];
                     newStaffDetails[index].positionTitle = e.target.value;
@@ -380,11 +392,12 @@ const EditPostModal = () => {
                     lineHeight: "30px",
                   }}
                 >
-                  Available Staff<span style={{ color: "red" }}>*</span>
+                  {selectedLanguage === "English" ? "Available Staff" : "उपलब्ध कर्मचारी"}<span style={{ color: "red" }}>*</span>
                 </label>
                 <input
                   type="number"
                   value={staff.availableStaff}
+                  placeholder={selectedLanguage === "English" ? "Enter Available Staff" : "उपलब्ध कर्मचारी दर्ज करें"}
                   onChange={(e) => {
                     const newStaffDetails = [...staffDetails];
                     newStaffDetails[index].availableStaff = e.target.value;
@@ -427,7 +440,7 @@ const EditPostModal = () => {
               alignItems: "center",
             }}
           >
-            <CustomBtn1 fun={handleSaveClick} title="Save" />
+            <CustomBtn1 fun={handleSaveClick} title={selectedLanguage === "English" ? "Save" : "सहेजें"} />
           </div>
         </div>
 

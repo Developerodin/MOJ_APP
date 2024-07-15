@@ -22,13 +22,23 @@ import { AppContext } from "../../../Context/AppContext";
 
 export const AgentHome = () => {
   const history = useIonRouter();
-  const { postUpdate, editUpdate } = useContext(AppContext);
+  const { postUpdate, editUpdate ,languageUpdate } = useContext(AppContext);
   const [profilePic, setProfilePic] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [jobs, setJobs] = useState([]);
   const [uniqueCities, setUniqueCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
@@ -163,7 +173,7 @@ export const AgentHome = () => {
               <IonIcon icon={searchOutline} style={{ fontSize: '24px' }} />
               <input
                 type="text"
-                placeholder="Search"
+                placeholder={selectedLanguage === "English" ? "Search" : "खोजें"}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
@@ -180,10 +190,10 @@ export const AgentHome = () => {
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px' }}>
-            <h2 style={{ fontWeight: 'bold' }}>Availability</h2>
+            <h2 style={{ fontWeight: 'bold' }}>{ selectedLanguage === "English" ? "Availability" : "उपलब्धता"}</h2>
             <IonButton onClick={() => setIsModalOpen(true)}>
               <IonIcon icon={addOutline} style={{ marginRight: '8px' }} />
-              Add New
+              { selectedLanguage === "English" ? "Add New" : "नया जोड़ें"}
             </IonButton>
           </div>
 
@@ -206,7 +216,9 @@ export const AgentHome = () => {
               </button>
             ))}
           </div>
-          <div style={{color:'#787878',fontSize:'13px',marginTop:'8px'  }}>* Select a city to get specific posts</div>
+          <div style={{color:'#787878',fontSize:'13px',marginTop:'8px'  }}>
+            {selectedLanguage === "English" ? "* Select a city to get specific posts" : "* विशिष्ट पोस्ट प्राप्त करने के लिए एक शहर चुनें"}
+          </div>
 
           <div >
             <IonGrid>

@@ -91,7 +91,7 @@ export const AgentView = () => {
                   <span style={{ fontSize: '13px', marginLeft: '5px', color: 'black' }}>{postDetails.preferred_city} ({postDetails.preferred_state})</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div style={{ fontSize: '15px', color: '#232323',fontWeight:'600' }}>
                       Position
                     </div>
@@ -103,7 +103,7 @@ export const AgentView = () => {
                     <div style={{ fontSize: '15px', color: '#232323',fontWeight:'600' }}>
                       Available Staff
                     </div>
-                    <div style={{ fontSize: '15px', color: 'white', backgroundColor: '#395CFF', padding: '5px 10px', borderRadius: '5px', width: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center',fontWeight:'500' }}>
+                    <div style={{ fontSize: '15px', color: 'white', backgroundColor: '#395CFF', padding: '6px 10px', borderRadius: '5px', width: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center',fontWeight:'500' }}>
                       {staff.availableStaff}
                     </div>
                   </div>
