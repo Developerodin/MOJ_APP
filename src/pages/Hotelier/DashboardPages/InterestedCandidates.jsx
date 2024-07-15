@@ -1,5 +1,5 @@
 import { IonContent, IonIcon, IonPage } from '@ionic/react'
-import React, {useEffect,useState } from 'react'
+import React, {useEffect,useState,useContext } from 'react'
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders'
 import { bagOutline } from 'ionicons/icons'
 import { CandidateCard } from '../../../components/Cards/CandidateCard'
@@ -7,6 +7,7 @@ import { isMobile } from '../../../IsMobile/IsMobile'
 import { CandidateSearchCard } from '../../../components/Cards/CandidateSearchCard'
 import axios from 'axios'
 import { Base_url } from '../../../Config/BaseUrl'
+import { AppContext } from '../../../Context/AppContext'
 
 
 
@@ -14,8 +15,19 @@ import { Base_url } from '../../../Config/BaseUrl'
 
 
 export const InterestedCandidates = () => {
+  const { languageUpdate} = useContext(AppContext);
 
   const [candidates, setCandidates] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
 
   useEffect(() => {
@@ -39,7 +51,7 @@ export const InterestedCandidates = () => {
     <IonPage>
     <IonContent>
         <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
-            <ProfileHeaders icon={<IonIcon icon={bagOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Interested Candidates"}  />
+            <ProfileHeaders icon={<IonIcon icon={bagOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={selectedLanguage === "English" ? "Interested Candidates" : "इच्छुक उम्मीदवार"}  />
            
             <div style={{marginTop:"30px"}}>
                 {candidates.map((candidate) => (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { IonContent, IonIcon, IonPage, IonSearchbar } from '@ionic/react';
 import { ProfileHeaders } from '../../../components/Headers/ProfileHeaders';
 import { bagOutline } from 'ionicons/icons';
@@ -6,11 +6,24 @@ import { CandidateSearchCard } from '../../../components/Cards/CandidateSearchCa
 import { isMobile } from '../../../IsMobile/IsMobile';
 import axios from 'axios';
 import { Base_url } from '../../../Config/BaseUrl';
+import { AppContext } from '../../../Context/AppContext';
 
 export const CandidateSearch = () => {
+  const { languageUpdate } = useContext(AppContext);
   const [candidates, setCandidates] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
+
 
   useEffect(() => {
     const fetchCandidates = async () => {
@@ -57,7 +70,7 @@ export const CandidateSearch = () => {
     <IonPage>
       <IonContent>
         <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
-          <ProfileHeaders icon={<IonIcon icon={bagOutline} style={{ fontSize: "24px", color: "#395CFF" }} />} title={"Candidate Search"} />
+          <ProfileHeaders icon={<IonIcon icon={bagOutline} style={{ fontSize: "24px", color: "#395CFF" }} />} title={selectedLanguage === "English" ? "Candidate Search" : "उम्मीदवार खोज"} />
           
           <div style={{ marginTop: "30px" }}>
             <IonSearchbar value={searchText} onIonChange={handleSearch}></IonSearchbar>

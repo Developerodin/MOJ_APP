@@ -577,7 +577,7 @@ import {
                     <div style={{ marginTop: "10px" }}>
                       <span style={{ color: "#575757", fontSize: "14px" }}>
                         {phHeathPercentage > 99
-                          ? "Completed"
+                          ? selectedLanguage === "English" ? "Completed" : "पूरा हो गया"
                           : 
                            selectedLanguage === "English" ? "Complete your profile  !" : "अपनी प्रोफ़ाइल पूरी करें"
                           }
@@ -661,7 +661,7 @@ import {
           }}
         />
         <span style={{marginRight:"10px",fontSize:"14px"}}>
-        Referral Code
+        {selectedLanguage === "English" ? "Referral Code" : "रेफरल कोड"}
         </span>
         <span
           style={{
@@ -691,7 +691,7 @@ import {
           
         }}
       >
-        Copy
+       {selectedLanguage === "English" ? "Copy" : "कॉपी करें"}
       </div>
   
     </div>

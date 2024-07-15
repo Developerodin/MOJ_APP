@@ -28,7 +28,7 @@ export const HotelierPersonalDetails = () => {
         gstAddress:""
       });
       const [userDetails,setUserdetails] = useState(JSON.parse( localStorage.getItem("userDetails")));
-  const { showToast ,setProfileHealthUpdate} = useContext(AppContext);
+  const { showToast ,setProfileHealthUpdate,languageUpdate} = useContext(AppContext);
       const [selectedState, setSelectedState] = useState("");
       const [selectedCity, setSelectedCity] = useState("");
       const [pincode,setPincode] = useState("")
@@ -38,6 +38,16 @@ export const HotelierPersonalDetails = () => {
       const [isCityModelOpen,setIsCityModelOpen] = useState(false);
       const [AddressData,setAddressData] = useState([]);
       const [update,setupdate] = useState(0)
+      const [selectedLanguage, setSelectedLanguage] = useState(
+        localStorage.getItem("selectedLanguage") || "English"
+      );
+      useEffect(() => {
+        
+        const languageFromStorage = localStorage.getItem("selectedLanguage");
+        if (languageFromStorage) {
+          setSelectedLanguage(languageFromStorage);
+        }
+      }, [languageUpdate]);
  const handleInputChange2 = (e) => {
   const { name, value } = e.target;
   setFormData2({
@@ -176,7 +186,7 @@ const handlePincodeChange2 = (e) => {
    <IonPage>
     <IonContent>
     <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
-    <ProfileHeaders icon={<IonIcon icon={bookSharp} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Personal Details"}  />
+    <ProfileHeaders icon={<IonIcon icon={bookSharp} style={{fontSize:"24px",color:"#395CFF"}} />} title={selectedLanguage === "English" ? "Personal Details" : "व्यक्तिगत विवरण"}  />
 
   <div style={{ marginTop: "30px" }}>
   <div>
@@ -189,7 +199,7 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      Hotel Name
+      {selectedLanguage === "English" ? "Hotel Name" : "होटल का नाम"}
     </label>
     {/* <IonItem> */}
     <input
@@ -212,7 +222,7 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      Hotel Location
+      {selectedLanguage === "English" ? "Hotel Location" : "होटल का स्थान"}
     </label>
     {/* <IonItem> */}
     <input
@@ -236,7 +246,7 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      Email (optional)
+      {selectedLanguage === "English" ? "Email (optional)" : "ईमेल (वैकल्पिक)"}
     </label>
     {/* <IonItem> */}
     <input
@@ -259,7 +269,7 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      Address
+     {selectedLanguage === "English" ? "Address" : "पता"}
     </label>
     {/* <IonItem> */}
     <input
@@ -282,7 +292,7 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      Pincode
+      {selectedLanguage === "English" ? "Pincode" : "पिन कोड"}
     </label>
     {/* <IonItem> */}
     <input
@@ -306,7 +316,7 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      State
+      {selectedLanguage === "English" ? "State" : "राज्य"}
     </label>
     <div
       // style={{
@@ -357,7 +367,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
       lineHeight: "30px",
     }}
   >
-    City
+    {selectedLanguage === "English" ? "City" : "शहर"}
   </label>
 
   <div onClick={handelCityModelOpen}>
@@ -381,8 +391,8 @@ display:"flex",justifyContent:"left",alignItems:"center"
 
 
 <div style={{marginTop: "40px",textAlign:"center" }}>
-     <span style={{fontWeight:"bold"}}>GST Details</span>
-  </div>
+   <span style={{fontWeight:"bold"}}>{selectedLanguage === "English" ? "GST Details" : "जीएसटी विवरण"}</span>
+</div>
 
 
 
@@ -397,7 +407,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      GSTIN
+      {selectedLanguage === "English" ? "GSTIN" : "जीएसटीआईएन"}
     </label>
     {/* <IonItem> */}
     <input
@@ -420,7 +430,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      Registered email address
+      {selectedLanguage === "English" ? "Registered email address" : "पंजीकृत ईमेल पता"}
     </label>
     {/* <IonItem> */}
     <input
@@ -443,7 +453,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      Registered hotel name under GST 
+      {selectedLanguage === "English" ? "Registered hotel name under GST" : "जीएसटी के तहत पंजीकृत होटल का नाम"}
     </label>
     {/* <IonItem> */}
     <input
@@ -466,7 +476,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
         lineHeight: "30px",
       }}
     >
-      Registered hotel address  
+      {selectedLanguage === "English" ? "Registered hotel address" : "पंजीकृत होटल का पता"} 
     </label>
     {/* <IonItem> */}
     <input
@@ -491,7 +501,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
     alignItems: "center",
   }}
 >
-  <CustomBtn1  title={"Save"}  loading={loading} fun={handelSaveClick}/>
+  <CustomBtn1  title={selectedLanguage === "English" ? "Save" : "सहेजें"}  loading={loading} fun={handelSaveClick}/>
   
  
 </div>

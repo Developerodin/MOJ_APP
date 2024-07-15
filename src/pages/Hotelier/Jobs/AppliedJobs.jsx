@@ -9,11 +9,21 @@ import { AppledJobCandidateCard } from '../../../components/Cards/JobCard/Appled
 
 export const HotelierAppliedJobs = () => {
   const history = useIonRouter();
-  const { showToast,jobUpdate,setJobUpdate } = useContext(AppContext);
+  const { showToast,jobUpdate,setJobUpdate ,languageUpdate} = useContext(AppContext);
   const [ActiveJobData,setJobDataActive] = useState([]);
   const [InActiveJobData,setJobDataInactive] = useState([]);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [selectedTab, setSelectedTab] = useState('Active');
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   const getJobs = async () => {
     try {
       const url = `${Base_url}job/Byuserid/${userDetails.user_id}`;
@@ -115,17 +125,17 @@ export const HotelierAppliedJobs = () => {
         <IonContent>
            <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}> 
                <div>
-                <span style={{fontSize:"24px",fontWeight:"bold"}} >Click to View Applicants</span>
+                <span style={{fontSize:"24px",fontWeight:"bold"}} >{selectedLanguage === "English" ? "Click to View Applicants" : "आवेदकों को देखने के लिए क्लिक करें"}</span>
                </div>
 
                <div style={{marginTop:"20px"}}>
             <IonToolbar>
         <IonSegment  value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
           <IonSegmentButton value="Active" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >Active</IonLabel>
+            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >{selectedLanguage === "English" ? "Active" : "सक्रिय"}</IonLabel>
           </IonSegmentButton>
           <IonSegmentButton value="Inactive" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >Inactive</IonLabel>
+            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >{selectedLanguage === "English" ? "Inactive" : "निष्क्रिय"}</IonLabel>
           </IonSegmentButton>
          
         </IonSegment>

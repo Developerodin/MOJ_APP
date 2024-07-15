@@ -73,7 +73,7 @@ async function shareApp() {
 
 export const HotelierProfile = () => {
   const history = useHistory();
-  const { editUpdate, setEditUpdate, profileHealthUpdate } =
+  const { editUpdate, setEditUpdate, profileHealthUpdate,languageUpdate } =
     useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const updatedImg = localStorage.getItem("updatedImg") || null;
@@ -87,6 +87,16 @@ export const HotelierProfile = () => {
   const [isPressed, setIsPressed] = useState(false);
 
   const [rewardPoints, setRewardPoints] = useState(0);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   function encodeUserID(userID) {
     if (userID === null) {
         return '';
@@ -155,31 +165,31 @@ export const HotelierProfile = () => {
   const ProfileTabs = [
     {
       icon: lockClosedOutline,
-      title: "Personal Details",
+      title: selectedLanguage === "English" ? "Personal Details" : "व्यक्तिगत विवरण",
       link: "/employers-personal-details",
       color: "#395CFF",
     },
     {
       icon: callOutline,
-      title: "Contact Details",
+      title: selectedLanguage === "English" ? "Contact Details" : "सम्पर्क करने का विवरण",
       link: "/employers-contact-details",
       color: "#395CFF",
     },
     {
       icon: bookOutline,
-      title: "Your Current Selected Package",
+      title: selectedLanguage === "English" ? "Your Current Selected Package" : "आपका वर्तमान चयनित पैकेज",
       link: "/employers-package",
       color: "#395CFF",
     },
     {
       icon: gitPullRequestOutline,
-      title: "Term and services",
+      title: selectedLanguage === "English" ? "Terms and Services" : "नियम और सेवाएँ",
       link: "/term-services",
       color: "#395CFF",
     },
     {
       icon: bagHandleOutline,
-      title: "Privacy Policy",
+      title: selectedLanguage === "English" ? "Privacy Policy" : "गोपनीयता नीति",
       link: "/privacy-policy",
       color: "#395CFF",
     },
@@ -536,14 +546,14 @@ export const HotelierProfile = () => {
                           <span
                             style={{ fontSize: "16px", fontWeight: "bold" }}
                           >
-                            Profile Health
+                            {selectedLanguage === "English" ? "Profile Health" : "प्रोफ़ाइल स्वास्थ्य"}
                           </span>
                         </div>
                         <div style={{ marginTop: "10px" }}>
                           <span style={{ color: "#575757", fontSize: "14px" }}>
                             {phHeathPercentage > 99
-                              ? "Completed"
-                              : "Complete your profile  !"}
+                              ? selectedLanguage === "English" ? "Completed" : "पूरा हो गया"
+                              : selectedLanguage === "English" ? "Complete your profile!" : "अपनी प्रोफ़ाइल पूरी करें!"}
                           </span>
                         </div>
                       </div>
@@ -579,7 +589,7 @@ export const HotelierProfile = () => {
                           <span
                             style={{ fontSize: "16px", fontWeight: "bold" }}
                           >
-                            Points Earned
+                            {selectedLanguage === "English" ? "Points Earned" : "अर्जित अंक"}
                           </span>
                         </div>
                         <div style={{ marginTop: "5px" }}>
@@ -625,7 +635,7 @@ export const HotelierProfile = () => {
         }}
       />
       <span style={{marginRight:"10px",fontSize:"14px"}}>
-      Referral Code
+      {selectedLanguage === "English" ? "Referral Code" : "रेफरल कोड"}
       </span>
       <span
         style={{
@@ -655,7 +665,7 @@ export const HotelierProfile = () => {
         
       }}
     >
-      Copy
+      {selectedLanguage === "English" ? "Copy" : "कॉपी करें"}
     </div>
 
   </div>
@@ -683,7 +693,7 @@ export const HotelierProfile = () => {
                           slot="start"
                         ></IonIcon>
                         <IonLabel style={{ fontWeight: "bold" }}>
-                          Contact Us
+                        {selectedLanguage === "English" ? "Contact Us" : " संपर्क करें"}
                         </IonLabel>
                       </IonItem>
                     </div>
@@ -708,7 +718,7 @@ export const HotelierProfile = () => {
                           slot="start"
                         ></IonIcon>
                         <IonLabel style={{ fontWeight: "bold" }}>
-                          Invite your Friend
+                        {selectedLanguage === "English" ? "Invite your Friend" : "अपने मित्र को आमंत्रित करें"}
                         </IonLabel>
                         {/* <IonIcon icon={chevronForwardOutline} slot="end"></IonIcon> */}
                       </IonItem>

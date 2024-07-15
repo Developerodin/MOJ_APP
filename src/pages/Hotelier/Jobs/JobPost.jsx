@@ -9,11 +9,21 @@ import axios from 'axios';
 
 export const HotelierJobPost = () => {
   const history = useIonRouter();
-  const { showToast,jobUpdate,setJobUpdate } = useContext(AppContext);
+  const { showToast,jobUpdate,setJobUpdate ,languageUpdate} = useContext(AppContext);
   const [ActiveJobData,setJobDataActive] = useState([]);
   const [InActiveJobData,setJobDataInactive] = useState([]);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [selectedTab, setSelectedTab] = useState('Active');
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   const handelPostJob=()=>{
     history.push("/post-job")
   }
@@ -109,19 +119,21 @@ export const HotelierJobPost = () => {
            
             <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                <span style={{fontSize:"24px",fontWeight:"bold"}}>Jobs posted by you</span>
+                <span style={{fontSize:"24px",fontWeight:"bold"}}>
+                  {selectedLanguage === "English" ? "Jobs posted by you" : "आपके द्वारा पोस्ट की गई नौकरियां"}
+                </span>
 
-                <IonButton onClick={handelPostJob}>Post a job</IonButton>
+                <IonButton onClick={handelPostJob}>{selectedLanguage === "English" ? "Post a job" : "नौकरी पोस्ट करें"}</IonButton>
             </div>
 
             <div style={{marginTop:"20px"}}>
             <IonToolbar>
         <IonSegment  value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
           <IonSegmentButton value="Active" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >Active</IonLabel>
+            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >{selectedLanguage === "English" ? "Active" : "सक्रिय"}</IonLabel>
           </IonSegmentButton>
           <IonSegmentButton value="Inactive" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >Inactive</IonLabel>
+            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >{selectedLanguage === "English" ? "Inactive" : "निष्क्रिय"}</IonLabel>
           </IonSegmentButton>
          
         </IonSegment>

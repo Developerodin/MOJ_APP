@@ -10,12 +10,22 @@ import AgentAvailableCard from '../../../components/Cards/AgentCard/AgentAvailab
 import { AppContext } from "../../../Context/AppContext";
 
 export const AgentAvailable = () => {
-  const { postUpdate } = useContext(AppContext);
+  const { postUpdate ,languageUpdate} = useContext(AppContext);
   const [agents, setAgents] = useState([]);
   const [posts, setPosts] = useState([]);
   const [displayedCandidates, setDisplayedCandidates] = useState([]);
   const [searchText, setSearchText] = useState('');
-  const [loading, setLoading] = useState(true);  // Loading state
+  const [loading, setLoading] = useState(true);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
   useEffect(() => {
     const fetchAgents = async () => {
@@ -89,7 +99,7 @@ export const AgentAvailable = () => {
     <IonPage>
       <IonContent>
         <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
-          <ProfileHeaders icon={<IonIcon icon={personOutline} style={{ fontSize: "26px", color: "#395CFF" }} />} title={"Agent Available"} />
+          <ProfileHeaders icon={<IonIcon icon={personOutline} style={{ fontSize: "26px", color: "#395CFF" }} />} title={selectedLanguage === "English" ? "Agent Available" : "एजेंट उपलब्ध"} />
 
           <div style={{ marginTop: "30px" }}>
             <IonSearchbar
