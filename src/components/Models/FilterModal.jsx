@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useContext,useEffect } from 'react';
 import {
   IonButtons,
   IonButton,
@@ -10,9 +10,11 @@ import {
   IonModal,
   IonItem,
 } from '@ionic/react';
+import { AppContext } from '../../Context/AppContext';
 
 
 const FilterModal = ({ isOpen, onClose, onApply }) => {
+  const { languageUpdate } = useContext(AppContext);
   const [filters, setFilters] = useState({
     city: '',
     state: '',
@@ -23,6 +25,16 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
     education: '',
     experience: '',
   });
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,13 +62,13 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
         <IonToolbar>
           <IonButtons slot="start">
             <IonButton color="medium" onClick={onClose}>
-              Cancel
+              {selectedLanguage === "English" ? "Cancel" : "रद्द करें"}
             </IonButton>
           </IonButtons>
-          <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '18px' }}>Filter Jobs</div>
+          <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '18px' }}>{selectedLanguage === "English" ? "Filter Jobs" : "नौकरियां फ़िल्टर करें"}</div>
           <IonButtons slot="end">
             <IonButton onClick={handleApply} strong={true}>
-              Apply
+            {selectedLanguage === "English" ? "Apply" : "लागू करें"}
             </IonButton>
           </IonButtons>
         </IonToolbar>
@@ -72,7 +84,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               lineHeight: "30px",
             }}
           >
-            City
+            {selectedLanguage === "English" ? "City" : "शहर"}
           </label>
           <input
             className="round-input"
@@ -92,7 +104,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               lineHeight: "30px",
             }}
           >
-            State
+            {selectedLanguage === "English" ? "State" : "राज्य"}
           </label>
           <input
             className="round-input"
@@ -112,7 +124,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               lineHeight: "30px",
             }}
           >
-            Min Salary
+            {selectedLanguage === "English" ? "Min Salary" : "न्यूनतम वेतन"}
           </label>
           <input
             className="round-input"
@@ -132,7 +144,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               lineHeight: "30px",
             }}
           >
-            Max Salary
+            {selectedLanguage === "English" ? "Max Salary" : "अधिकतम वेतन"}
           </label>
           <input
             className="round-input"
@@ -152,7 +164,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               lineHeight: "30px",
             }}
           >
-            Job Profile
+            {selectedLanguage === "English" ? "Job Profile" : "नौकरी का प्रोफ़ाइल"}
           </label>
           <input
             className="round-input"
@@ -173,7 +185,7 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               
             }}
           >
-            Job Type
+            {selectedLanguage === "English" ? "Job Type" : "नौकरी का प्रकार"}
           </label>
           <div style={{
               border: "1px solid #31363F",
@@ -181,10 +193,10 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               paddingLeft: "10px",
             }}>
           <IonSelect name="jobType" value={filters.jobType} onIonChange={(e) => handleSelectChange({ target: { name: 'jobType', value: e.detail.value } })}>
-            <IonSelectOption value="">Any</IonSelectOption>
-            <IonSelectOption value="Full Time">Full Time</IonSelectOption>
-            <IonSelectOption value="Part Time">Part Time</IonSelectOption>
-            <IonSelectOption value="Internship">Internship</IonSelectOption>
+            <IonSelectOption value="">{selectedLanguage === "English" ? "Any" : "कोई भी"}</IonSelectOption>
+            <IonSelectOption value="Full Time">{selectedLanguage === "English" ? "Full Time" : "पूर्ण समय"}</IonSelectOption>
+            <IonSelectOption value="Part Time">{selectedLanguage === "English" ? "Part Time" : "अंशकालिक"}</IonSelectOption>
+            <IonSelectOption value="Internship">{selectedLanguage === "English" ? "Internship" : "इंटर्नशिप"}</IonSelectOption>
           </IonSelect>
           </div>
         </div>
@@ -206,11 +218,11 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               paddingLeft: "10px",
             }}>
           <IonSelect name="education" value={filters.education} onIonChange={(e) => handleSelectChange({ target: { name: 'education', value: e.detail.value } })}>
-            <IonSelectOption value="">Any</IonSelectOption>
+            <IonSelectOption value="">{selectedLanguage === "English" ? "Any" : "कोई भी"}</IonSelectOption>
             <IonSelectOption value="10th">10th</IonSelectOption>
             <IonSelectOption value="12th">12th</IonSelectOption>
-            <IonSelectOption value="Graduation">Graduation</IonSelectOption>
-            <IonSelectOption value="Post Graduation">Post Graduation</IonSelectOption>
+            <IonSelectOption value="Graduation">{selectedLanguage === "English" ? "Graduation" : "स्नातक"}</IonSelectOption>
+            <IonSelectOption value="Post Graduation">{selectedLanguage === "English" ? "Post Graduation" : "स्नातकोत्तर"}</IonSelectOption>
           </IonSelect>
           </div>
         </div>
@@ -232,9 +244,9 @@ const FilterModal = ({ isOpen, onClose, onApply }) => {
               paddingLeft: "10px",
             }}>
           <IonSelect name="experience" value={filters.experience} onIonChange={(e) => handleSelectChange({ target: { name: 'experience', value: e.detail.value } })}>
-            <IonSelectOption value="">Any</IonSelectOption>
-            <IonSelectOption value="Fresher">Fresher</IonSelectOption>
-            <IonSelectOption value="Experienced">Experienced</IonSelectOption>
+            <IonSelectOption value="">{selectedLanguage === "English" ? "Any" : "कोई भी"}</IonSelectOption>
+            <IonSelectOption value="Fresher">{selectedLanguage === "English" ? "Fresher" : "फ्रेशर"}</IonSelectOption>
+            <IonSelectOption value="Experienced">{selectedLanguage === "English" ? "Experienced" : "अनुभवी"}</IonSelectOption>
           </IonSelect>
           </div>
         </div>

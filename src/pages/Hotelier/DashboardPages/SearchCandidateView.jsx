@@ -109,7 +109,7 @@ const SearchCandidateView = () => {
                                     <img src={(ApplicantsData && ApplicantsData.user_img) ? ApplicantsData.user_img : "https://dashboard.masterofjobs.in/public/images/user_img.png"} style={{ width: "50px", height: "50px", borderRadius: "100px" }} />
                                 </div>
                                 <div style={{ textAlign: "center" }}>
-                                    <span style={{ fontSize: "18px", color: "black", fontWeight: "bold",paddingLeft:'15px' }}>{ApplicantsData && ApplicantsData.user && ApplicantsData.user.name}</span><br />
+                                    <span style={{ fontSize: "18px", color: "black", fontWeight: "bold",paddingLeft:'15px' }}>{ApplicantsData && ApplicantsData.user && `${ApplicantsData.user.name} ${ApplicantsData.user.last_name}`}</span><br />
                                 </div>
                                 <div>
                                     {
