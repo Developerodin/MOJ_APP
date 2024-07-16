@@ -12,7 +12,7 @@ import SelectMulipalCityModel from './SelectMulipalCityModel';
 import DepartmentSelectModel from './DepartmentSelectModel';
 
 const WorkExperienceEdit = () => {
-  const { showToast,editUpdate,setEditUpdate } = useContext(AppContext);
+  const { showToast,editUpdate,setEditUpdate,languageUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails") || localStorage.getItem("userRegisterDetails"));
   const token =localStorage.getItem("token");
   const history = useIonRouter()
@@ -50,6 +50,13 @@ const WorkExperienceEdit = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
   const handleSubmit = () => {
     // Handle form submission logic here
@@ -345,7 +352,7 @@ const WorkExperienceEdit = () => {
                </div>
 
                <div style={{marginLeft:"20px"}}>
-                <span style={{fontSize:"30px",fontWeight:"bold"}}>Edit Work Experience</span>
+                <span style={{fontSize:"30px",fontWeight:"bold"}}>{selectedLanguage === "English" ? "Edit Work Experience" : "कार्य अनुभव संपादित करें"}</span>
                </div>
          </div>
 
@@ -363,7 +370,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Hotel name<span style={{color:"red"}}>*</span>
+{selectedLanguage === "English" ? "Hotel Name" : "होटल का नाम"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -426,7 +433,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Work responsibility<span style={{color:"red"}}>*</span>
+{selectedLanguage === "English" ? "Work Responsibility" : "कार्य जिम्मेदारी"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -462,7 +469,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Reference  Mobile<span style={{color:"red"}}>*</span>
+{selectedLanguage === "English" ? "Reference Mobile" : "संदर्भ मोबाइल"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -494,7 +501,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Reference  Email<span style={{color:"red"}}>*</span>
+{selectedLanguage === "English" ? "Reference Email" : "संदर्भ ईमेल"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -629,7 +636,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Start Date<span style={{color:"red"}}>*</span>
+{selectedLanguage === "English" ? "Start Date" : "प्रारंभ तिथि"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -660,7 +667,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-End Date<span style={{color:"red"}}>*</span>
+{selectedLanguage === "English" ? "End Date" : "समाप्ति तिथि"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -686,7 +693,7 @@ style={{
 
 <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"60px"}}>
 
-<CustomBtn1 fun={handleSubmit} title={"Save"}/>
+<CustomBtn1 fun={handleSubmit} title={selectedLanguage === "English" ? "Save" : "सहेजें"}/>
 </div>
 
 </div>

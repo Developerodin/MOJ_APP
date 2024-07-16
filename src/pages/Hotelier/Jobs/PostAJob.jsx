@@ -34,7 +34,8 @@ export const HotelierPostJob = () => {
     history.goBack();
       console.log("Back Presss")
   }
-  const { showToast,jobUpdate,setJobUpdate } = useContext(AppContext);
+  
+  const { showToast,jobUpdate,setJobUpdate,languageUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const token =localStorage.getItem("token");
   const [departmentModel,setDepartmentModel] = useState(false)
@@ -56,6 +57,16 @@ export const HotelierPostJob = () => {
    const [jobTitle,setJobTitle] = useState("")
    const [address,setAddress] = useState("")
    const [hotelName,setHotelName] = useState("")
+   const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
   const handelStateModleOpen = () =>{
     setisStateModelOpen(true);
   }
@@ -283,7 +294,7 @@ export const HotelierPostJob = () => {
         <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
           
 
-        <ProfileHeaders icon={<IonIcon icon={filterOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={"Post new job"}  />
+        <ProfileHeaders icon={<IonIcon icon={filterOutline} style={{fontSize:"24px",color:"#395CFF"}} />} title={selectedLanguage === "English" ? "Post new job" : "नई नौकरी पोस्ट करें"}  />
 
           <div style={{ marginTop: "20px" }}>
             <label
@@ -295,13 +306,13 @@ export const HotelierPostJob = () => {
                 lineHeight: "30px",
               }}
             >
-              Job Type<span style={{color:"red"}}>*</span>
+              {selectedLanguage === "English" ? "Job Type" : "नौकरी का प्रकार"}<span style={{color:"red"}}>*</span>
             </label>
             <IonSelect
               value={jobType}
               onIonChange={(e) => setJobType(e.detail.value)}
               interface="popover"
-              placeholder="Select Job Type"
+              placeholder={selectedLanguage === "English" ? "Select Job Type" : "नौकरी का प्रकार चुनें"}
               style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
             >
               <IonSelectOption value="Full Time">Full Time</IonSelectOption>
@@ -322,7 +333,7 @@ export const HotelierPostJob = () => {
                 lineHeight: "30px",
               }}
             >
-              Select Time Slote
+              Select Time Slot
             </label>
            
            <div style={{display:"flex",justifyContent:"left",alignItems:"center",marginTop:"10px"}}>
@@ -426,7 +437,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Job description<span style={{color:"red"}}>*</span>
+{selectedLanguage === "English" ? "Job Description" : "नौकरी का विवरण"}<span style={{color:"red"}}>*</span>
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -434,7 +445,7 @@ type="text"
 value={jobDescription}
 
 onIonChange={(e) => setJobDescription(e.detail.value)}
-placeholder="Enter a job description"
+placeholder={selectedLanguage === "English" ? "Enter Job Description" : "नौकरी का विवरण दर्ज करें"}
 style={{
  borderRadius: "0px",
  padding:"10px",
@@ -459,7 +470,7 @@ style={{
                 lineHeight: "30px",
               }}
             >
-              Department {department !== "" && `(${department})`}<span style={{color:"red"}}>*</span>
+              {selectedLanguage === "English" ? "Department" : "विभाग"} {department !== "" && `(${department})`}<span style={{color:"red"}}>*</span>
             </label>
             <div
            
@@ -477,7 +488,7 @@ style={{
            }}
          > 
          {
-          departmentValue !== "" ? <span>{departmentValue}</span>:<span style={{color:"grey"}}>Select Department</span>
+          departmentValue !== "" ? <span>{departmentValue}</span>:<span style={{color:"grey"}}>{selectedLanguage === "English" ? "Select Department" : "विभाग चुनें"}</span>
          }
          
          </div>
@@ -493,13 +504,13 @@ style={{
                 lineHeight: "30px",
               }}
             >
-              Experience<span style={{color:"red"}}>*</span>
+              {selectedLanguage === "English" ? "Experience" : "अनुभव"}<span style={{color:"red"}}>*</span>
             </label>
             <IonSelect
               value={experience}
               onIonChange={(e) => setExperience(e.detail.value)}
               interface="popover"
-              placeholder="Select experience"
+              placeholder={selectedLanguage === "English" ? "Select experience" : "अनुभव चुनें"}
               style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
             >
               <IonSelectOption value="fresher">Fresher</IonSelectOption>
@@ -519,13 +530,13 @@ style={{
                 lineHeight: "30px",
               }}
             >
-              Education<span style={{color:"red"}}>*</span>
+              {selectedLanguage === "English" ? "Education" : "शिक्षा"}<span style={{color:"red"}}>*</span>
             </label>
             <IonSelect
               value={Education}
               onIonChange={(e) => setEducation(e.detail.value)}
               interface="popover"
-              placeholder="Select education"
+              placeholder={selectedLanguage === "English" ? "Select education" : "शिक्षा चुनें"}
               style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
             >
               <IonSelectOption value="10th">10th pass</IonSelectOption>
@@ -653,7 +664,7 @@ style={{
  lineHeight: "30px",
 }}
 >
-Please enter number of employee(s) required*
+{selectedLanguage === "English" ? "Please enter number of employee(s) required*" : "कृपया आवश्यक कर्मचारी(यों) की संख्या दर्ज करें*"}
 </IonLabel>
 {/* <IonItem> */}
 <IonInput
@@ -682,7 +693,7 @@ style={{
                 lineHeight: "30px",
               }}
             >
-              Offered salary<span style={{color:"red"}}>*</span> 
+              {selectedLanguage === "English" ? "Offered Salary" : "दी गई सैलरी"}<span style={{color:"red"}}>*</span> 
             </label>
             {/* <IonRange
               min={0}
@@ -700,7 +711,7 @@ style={{
               value={salaryRange}
               onIonChange={(e) => setSalaryRange(e.detail.value)}
               interface="action-sheet"
-              placeholder="Select Salary Range"
+              placeholder={selectedLanguage === "English" ? "Select Salary Range" : "वेतन सीमा चुनें"}
               style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
             >
              <IonSelectOption value="0 - 5,000">0 - 5,000 ₹</IonSelectOption>
@@ -716,7 +727,7 @@ style={{
           {/* Other job preference fields go here */}
 
           <div style={{ marginTop:"70px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <CustomBtn1 fun={handleSaveClick} title={"Save"} />
+            <CustomBtn1 fun={handleSaveClick} title={selectedLanguage === "English" ? "Save" : "सहेजें"} />
           </div>
           <SelectStateModel isOpen={isStateModelOpen} onClose={handelStateModleClose} selectedState={preferredState} setSelectedState={setPreferredState} setPreferredCity={setPreferredCity} />
           <DepartmentSelectModel isOpen={departmentModel} onClose={handelDepartmentModelClose} onSubmit={handelSelectedDepartment} department={department} departmentValue={departmentValue}  />

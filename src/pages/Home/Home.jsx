@@ -324,7 +324,7 @@ export const Home = () => {
                     borderRadius: "17px",
                   }}
                 >
-                  Available
+                  {selectedLanguage === "English" ? "Available" : "उपलब्ध"}
                 </span>
               </div>
             </div>
