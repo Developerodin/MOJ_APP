@@ -164,6 +164,7 @@ export const AgentHome = () => {
                 background: '#F4F4F4',
                 height: '36px',
                 borderRadius: '50px',
+                margin:'0px 10px',
               }}
             >
               <IonIcon icon={searchOutline} style={{ fontSize: '24px' }} />
