@@ -4,7 +4,7 @@ const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'Moj_App',
   webDir: 'dist',
-  bundledWebRuntime: false,
+ 
   plugins: {
     StatusBar: {
       style: 'light', // or 'LIGHT' for light content

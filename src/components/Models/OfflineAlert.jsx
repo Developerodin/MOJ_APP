@@ -33,7 +33,7 @@ export const OfflineAlert = ({ isOpen, onClose }) => {
         {
           text: 'OK',
           role: 'cancel',
-          handler: handleTryAgain,
+          
           cssClass: 'alert-button',
           style: buttonStyles,
         },
