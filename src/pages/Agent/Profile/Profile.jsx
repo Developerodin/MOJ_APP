@@ -401,7 +401,7 @@ import {
     return (
       <IonPage>
         <IonContent>
-          <div  className={isMobile ? "" : 'sw'} style={{ padding: "23px" }}>
+          <div  className={isMobile ? "" : 'sw'} style={{ padding: "23px 23px 0px 23px" }}>
             <div
               style={{
                 display: "flex",
@@ -777,12 +777,13 @@ import {
                 <div></div>
               </div> */}
             </div>
+          </div>
   
-            <div style={{ marginTop: "20px" }}>
+            <div style={{ marginTop: "0px" ,marginBottom:'20px'}}>
               <IonGrid>
                 <IonRow>
                   <IonCol  size="12" size-md="6">
-                  <div style={{ marginTop: "20px" }}>
+                  <div style={{ marginTop: "0px" }}>
                         <IonItem
                           onClick={handelContactUs}
                           button
@@ -848,7 +849,7 @@ import {
               setShowModal={setContatUsModel}
               data={basicData}
             />
-          </div>
+         
         </IonContent>
       </IonPage>
     );

@@ -33,7 +33,7 @@ export const AgentHome = () => {
     localStorage.getItem("selectedLanguage") || "English"
   );
   useEffect(() => {
-    // Code to update selectedLanguage from localStorage
+    
     const languageFromStorage = localStorage.getItem("selectedLanguage");
     if (languageFromStorage) {
       setSelectedLanguage(languageFromStorage);
@@ -137,6 +137,7 @@ export const AgentHome = () => {
                   borderRadius: '40px',
                 }}
               />
+              
               <div style={{ position: 'absolute', bottom: -5, left: '50%', transform: 'translateX(-50%)' }}>
                 <span
                   style={{
@@ -152,21 +153,16 @@ export const AgentHome = () => {
                 </span>
               </div>
             </div>
-            <div>
-              <img src={equilizer} alt="Filter" />
-            </div>
-          </div>
-
-          <div style={{ marginTop: '30px' }}>
+            <div style={{ marginTop: '0px' }}>
             <div
               style={{
-                padding: '10px',
+                padding: '7px',
                 display: 'flex',
                 justifyContent: 'left',
                 alignItems: 'left',
                 border: '1px solid #E5E5E5',
                 background: '#F4F4F4',
-                height: '48px',
+                height: '36px',
                 borderRadius: '50px',
               }}
             >
@@ -188,6 +184,12 @@ export const AgentHome = () => {
               />
             </div>
           </div>
+            <div>
+              <img src={equilizer} alt="Filter" />
+            </div>
+          </div>
+
+          
 
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px' }}>
             <h2 style={{ fontWeight: 'bold' }}>{ selectedLanguage === "English" ? "Availability" : "उपलब्धता"}</h2>

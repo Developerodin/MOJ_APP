@@ -1,11 +1,23 @@
 import { IonCard, IonCardContent, IonIcon, useIonRouter, useIonActionSheet } from '@ionic/react'
 import { createOutline, trash } from 'ionicons/icons'
-import React, { useState } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import WorkExperienceModelEdit from '../../Models/WorkExperienceEdit'
+import { AppContext } from '../../../Context/AppContext'
 
 export const WorkExperienceCard = ({data, UserWorkExperienceDelete}) => {
   const history = useIonRouter()
   const [present] = useIonActionSheet()
+  const { languageUpdate } = useContext(AppContext);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  useEffect(() => {
+    // Code to update selectedLanguage from localStorage
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
 
   const handelEditWorkExp = () => {
     history.push(`/profile-work-experience-edit/${data.id}`)
@@ -61,7 +73,7 @@ export const WorkExperienceCard = ({data, UserWorkExperienceDelete}) => {
             <span style={{ fontSize: "15px", fontWeight: 500 }}>Place - {data && data.city}, {data && data.state} </span>
           </div>
           <div style={{ marginTop: "3px" }}>
-            <span style={{ fontSize: "15px", fontWeight: 500 }}>Reference . {data && data.ref_mobile} </span>
+            <span style={{ fontSize: "15px", fontWeight: 500 }}>Reference . {data && data.ref_mobile}</span>
           </div>
           <div style={{ marginTop: "3px" }}>
             <span style={{ fontSize: "15px", fontWeight: 500 }}>Email - {data && data.ref_email} </span>
@@ -69,7 +81,7 @@ export const WorkExperienceCard = ({data, UserWorkExperienceDelete}) => {
          
           <div style={{ marginTop: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <div onClick={handelEditWorkExp} style={{ background: "#0054e9", borderRadius: "10px", width: "30%", padding: "10px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <span style={{ fontSize: "14px", color: "#fff", fontWeight: "bold" }}>Edit</span>
+              <span style={{ fontSize: "14px", color: "#fff", fontWeight: "bold" }}>{selectedLanguage === "English" ? "Edit" : "संपादित करें"}</span>
             </div>
           </div>
         </IonCardContent>

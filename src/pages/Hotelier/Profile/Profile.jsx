@@ -389,7 +389,7 @@ export const HotelierProfile = () => {
   return (
     <IonPage>
       <IonContent>
-        <div className={isMobile ? "" : "sw"} style={{ padding: "23px" }}>
+        <div className={isMobile ? "" : "sw"} style={{ padding: "23px 23px 0px 23px" }}>
           <div
             style={{
               display: "flex",
@@ -675,13 +675,14 @@ export const HotelierProfile = () => {
               </IonGrid>
             </div>
           </div>
+          </div>
 
           <div style={{ marginTop: "0px" }}>
             <IonGrid>
               <IonRow>
                 <IonCol size="12">
                   <IonList>
-                    <div style={{ marginTop: "20px" }}>
+                    <div style={{ marginTop: "0px" }}>
                       <IonItem
                         onClick={handelContactUs}
                         button
@@ -735,7 +736,7 @@ export const HotelierProfile = () => {
             setShowModal={setContatUsModel}
             data={basicData}
           />
-        </div>
+        {/* </div> */}
       </IonContent>
     </IonPage>
   );

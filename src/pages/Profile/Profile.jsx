@@ -58,6 +58,7 @@ import { isMobile } from "../../IsMobile/IsMobile";
 
 
 
+
 export const Profile = () => {
   const history = useHistory();
   const { editUpdate, setEditUpdate, profileHealthUpdate,languageUpdate } =
@@ -401,7 +402,7 @@ const copyToClipboard = () => {
   return (
     <IonPage>
       <IonContent>
-        <div  className={isMobile ? "" : 'sw'} style={{ padding: "23px" }}>
+        <div  className={isMobile ? "" : 'sw'} style={{ padding: "23px 23px 0px 23px" }}>
           <div
             style={{
               display: "flex",
@@ -709,7 +710,8 @@ const copyToClipboard = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: "20px",
+                marginTop: "0px",
+                
               }}
             >
               <IonGrid>
@@ -777,12 +779,13 @@ const copyToClipboard = () => {
               <div></div>
             </div>
           </div>
+          </div>
 
-          <div style={{ marginTop: "20px" }}>
+          <div style={{ marginTop: "0px",marginBottom:'20px' }}>
             <IonGrid>
               <IonRow>
                 <IonCol  size="12" size-md="6">
-                <div style={{ marginTop: "20px" }}>
+                <div style={{ marginTop: "0px" }}>
                       <IonItem
                         onClick={handelContactUs}
                         button
@@ -808,7 +811,7 @@ const copyToClipboard = () => {
                     {ProfileTabs.map((el, index) => {
                       return (
                         <IonCol  size="12" size-md="6" >
-<div key={index} style={{ marginTop: "20px" }}>
+<div key={index} style={{ marginTop: "0px" }}>
                           <ProfileListItem key={index} Data={el} />
                         </div>
                         </IonCol>
@@ -817,7 +820,7 @@ const copyToClipboard = () => {
                     })}
 
 <IonCol size="12" size-md="6">
-  <div style={{ marginTop: "20px" }}>
+  <div style={{ marginTop: "10px" }}>
     <IonItem
      data-share // Add this href attribute
       button
@@ -848,7 +851,7 @@ const copyToClipboard = () => {
             setShowModal={setContatUsModel}
             data={basicData}
           />
-        </div>
+       
       </IonContent>
     </IonPage>
   );

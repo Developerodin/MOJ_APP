@@ -1,6 +1,9 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { Network } from '@capacitor/network';
+
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -18,17 +21,6 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
-
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* import '@ionic/react/css/palettes/dark.always.css'; */
-/* import '@ionic/react/css/palettes/dark.class.css'; */
-// import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
@@ -97,7 +89,7 @@ import EditPost from './components/Cards/AgentCard/EditPost';
 import { AgentAvailable } from './pages/Hotelier/DashboardPages/AgentAvailable';
 import { AgentView } from './pages/Hotelier/DashboardPages/AgentView';
 import AgentPersonalChat from './components/Chats/AgentPeronalChat';
-
+import { OfflineAlert } from './components/Models/OfflineAlert';
 
 setupIonicReact();
 
@@ -109,30 +101,41 @@ const App = () => {
   const Mobile = JSON.parse(localStorage.getItem("Mobile")) || false;
   const selectedLanguage = localStorage.getItem("selectedLanguage") || "English";
   const [backPressCount, setBackPressCount] = useState(0);
+  const [isOffline, setIsOffline] = useState(false);
 
   const handleGoBack = () => {
-    // Your custom back function logic here
     console.log('Back button pressed once');
-    // Example: Navigate back in the app
     window.history.back();
   };
 
   useEffect(() => {
+    const handleNetworkChange = async () => {
+      const status = await Network.getStatus();
+      setIsOffline(!status.connected);
+    };
+
+    // Initial check
+    handleNetworkChange();
+
+    // Listen for network changes
+    const networkStatusListener = Network.addListener('networkStatusChange', handleNetworkChange);
+
+    // Listen for back button press
     const backButtonListener = MainApp.addListener('backButton', () => {
       if (backPressCount === 0) {
         setBackPressCount(1);
         handleGoBack();
 
-        // Reset back press count after a delay
         setTimeout(() => {
           setBackPressCount(0);
-        }, 2000); // 2 seconds
+        }, 2000);
       } else if (backPressCount >= 2) {
-        MainApp.exitApp(); // Close the app
+        MainApp.exitApp();
       }
     });
 
     return () => {
+      networkStatusListener.remove();
       backButtonListener.remove();
     };
   }, [backPressCount]);
@@ -170,90 +173,98 @@ const App = () => {
 
     }
   };
+
   useEffect(()=>{
      if(Mobile){
       console.log("Mobile",Mobile)
       checkUser();
    
      }
+  },[]);
+
+  useEffect(() => {
+    
+    StatusBar.setBackgroundColor({ color: 'ffffff' });
    
+    StatusBar.setStyle({ style: Style.Light });
    
-  },[])
- return <IonApp>
-  <Toast props={toastStatus}/>
-  <IonReactRouter>
-    <IonRouterOutlet>
+    StatusBar.show();
+  }, []);
+
+ return (
+   <IonApp>
+    <Toast props={toastStatus}/>
+    <OfflineAlert isOpen={isOffline} onClose={() => setIsOffline(false)} />
+    <IonReactRouter>
+      <IonRouterOutlet>
+         
+      <Route  path="/app" component={NavBar}  />
+      <Route  path="/job-details/:id" component={JobDetails}  />
+      <Route  path="/Coninue" component={Continue}  />
+      <Route  path="/select-lang" component={SelectLang}  />
+      <Route  path="/verify-otp" component={VerifyPhoneTwo} exact />
+      <Route  path="/phone" component={Newphone}  />
+      <Route  path="/basic-info" component={Basicinfo} exact />
+      <Route  path="/personal-details" component={PersonalDetails} exact />
+      <Route  path="/complete" component={OnBordingCompletePage} exact />
+      <Route  path="/edu" component={Personalinfoedu}  />
+      <Route  path="/job-pref" component={JobPref} exact />
+      <Route  path="/work" component={Workexperience} exact />
+      <Route  path="/personal-chat/:id" component={PersonalChat}  />
+      <Route  path="/job-personal-chat/:id" component={JobPersonalChat}  />
+      <Route  path="/group-chat" component={GroupChatting}  />
+      <Route  path="/job-details/:id" component={JobDetails}  />
+      <Route  path="/profile-work-experience" component={ProfileWorkExperience}  />
+      <Route  path="/profile-work-experience-edit/:id" component={WorkExperienceEdit}  />
+      <Route  path="/profile-education-edit/:id" component={EducationEdit}  />
+      <Route  path="/profile-eduction" component={ProfileEduction}  />
+      <Route  path="/profile-resume" component={ResumeView}  />
+      <Route  path="/profile-personal-details" component={ProfilePersonalDetails}  />
+      <Route  path="/profile-contact-details" component={ProfileContactDetails}  />
+      <Route  path="/profile-job-preference" component={ProfileJobPreference}  />
+
+      <Route  path="/employers-contact-details" component={HotelerContactDetails}  />
+      <Route  path="/employers-personal-details" component={HotelierPersonalDetails}  />
+      <Route  path="/employers-package" component={HotelierPackage}  />
+      <Route  path="/hotelier-package" component={HotelierPackageSelect}  />
+
        
-    <Route  path="/app" component={NavBar}  />
-    <Route  path="/job-details/:id" component={JobDetails}  />
-    <Route  path="/Coninue" component={Continue}  />
-    <Route  path="/select-lang" component={SelectLang}  />
-    <Route  path="/verify-otp" component={VerifyPhoneTwo} exact />
-    <Route  path="/phone" component={Newphone}  />
-    <Route  path="/basic-info" component={Basicinfo} exact />
-    <Route  path="/personal-details" component={PersonalDetails} exact />
-    <Route  path="/complete" component={OnBordingCompletePage} exact />
-    <Route  path="/edu" component={Personalinfoedu}  />
-    <Route  path="/job-pref" component={JobPref} exact />
-    <Route  path="/work" component={Workexperience} exact />
-    <Route  path="/personal-chat/:id" component={PersonalChat}  />
-    <Route  path="/job-personal-chat/:id" component={JobPersonalChat}  />
-         <Route  path="/group-chat" component={GroupChatting}  />
-         {/* <Route exact path="/job-details/:id" component={JobDetails}  /> */}
-         {/* =================================================== */}
-         <Route  path="/job-details/:id" component={JobDetails}  />
-         <Route  path="/profile-work-experience" component={ProfileWorkExperience}  />
-         <Route  path="/profile-work-experience-edit/:id" component={WorkExperienceEdit}  />
-         <Route  path="/profile-education-edit/:id" component={EducationEdit}  />
-    <Route  path="/profile-eduction" component={ProfileEduction}  />
-    <Route  path="/profile-resume" component={ResumeView}  />
-    <Route  path="/profile-personal-details" component={ProfilePersonalDetails}  />
-    <Route  path="/profile-contact-details" component={ProfileContactDetails}  />
-    <Route  path="/profile-job-preference" component={ProfileJobPreference}  />
+      <Route  path="/help-and-support" component={HelpAndSupport}  />
+      <Route  path="/update-profile-photo" component={UpdateProfilePhoto}  />
+      <Route  path="/rewards" component={Reward}  />
+      <Route  path="/saved-jobs" component={SavedJobs}  />
+      <Route  path="/viewed-jobs" component={ViewedJobs}  />
+      <Route  path="/settings" component={Settings}  />
+      <Route  path="/accounts-notification" component={AccountsAndNotifications}  />
+      <Route  path="/term-services" component={TermAndServices}  />
+      <Route  path="/privacy-policy" component={PrivacyAndPolicy}  />
+      <Route  path="/profile-health" component={ProfileHealth}  />
+      <Route  path="/hotelier-profile-health" component={HotelierProfileHealth}  />
+      <Route  path="/post-job" component={HotelierPostJob}  />
+      <Route  path="/active-jobs" component={ActiveJobs}  />
+      <Route  path="/inactive-jobs" component={InActiveJobs}  /> 
+      <Route  path="/candidate-applied-jobs" component={CandidateAppliedJobs}  />
+      <Route  path="/interested-candidates" component={InterestedCandidates}  />
+      <Route  path="/candidate-search" component={CandidateSearch}  />
+      <Route  path="/search-candidate-view/:id" component={SearchCandidateView}  />
 
-
-    <Route  path="/employers-contact-details" component={HotelerContactDetails}  />
-    <Route  path="/employers-personal-details" component={HotelierPersonalDetails}  />
-    <Route  path="/employers-package" component={HotelierPackage}  />
-    <Route  path="/hotelier-package" component={HotelierPackageSelect}  />
-     
-
-
-    <Route  path="/help-and-support" component={HelpAndSupport}  />
-    <Route  path="/update-profile-photo" component={UpdateProfilePhoto}  />
-    <Route  path="/rewards" component={Reward}  />
-    <Route  path="/saved-jobs" component={SavedJobs}  />
-    <Route  path="/viewed-jobs" component={ViewedJobs}  />
-    <Route  path="/settings" component={Settings}  />
-    <Route  path="/accounts-notification" component={AccountsAndNotifications}  />
-    <Route  path="/term-services" component={TermAndServices}  />
-    <Route  path="/privacy-policy" component={PrivacyAndPolicy}  />
-    <Route  path="/profile-health" component={ProfileHealth}  />
-    <Route  path="/hotelier-profile-health" component={HotelierProfileHealth}  />
-    <Route  path="/post-job" component={HotelierPostJob}  />
-    <Route  path="/active-jobs" component={ActiveJobs}  />
-    <Route  path="/inactive-jobs" component={InActiveJobs}  /> 
-    <Route  path="/candidate-applied-jobs" component={CandidateAppliedJobs}  />
-    <Route  path="/interested-candidates" component={InterestedCandidates}  />
-    <Route  path="/candidate-search" component={CandidateSearch}  />
-    <Route  path="/search-candidate-view/:id" component={SearchCandidateView}  />
-
-    <Route  path="/candidate-view/:id/:id2" component={CandidateView}  />
-    <Route  path="/job-candidate-view/:id" component={JobCandidateView}  />
-    <Route  path="/agent-personal-details" component={AgentPersonalDetails}  />
-    <Route  path="/agent-contact-details" component={AgentContactDetails}  />
-    <Route  path="/agent-eduction" component={AgentEduction}  />
-    
-    <Route  path="/agent-profile-health" component={AgentProfileHealth}  />
-    <Route  path="/edit-post/:id" component={EditPost}  />
-    <Route  path="/agent-available" component={AgentAvailable}  />
-    <Route  path="/agent-view/:id" component={AgentView}  />
-    <Route  path="/agent-personal-chat/:id" component={AgentPersonalChat}  />
-    
-    <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>
-    </IonRouterOutlet>
-  </IonReactRouter>
-</IonApp>
+      <Route  path="/candidate-view/:id/:id2" component={CandidateView}  />
+      <Route  path="/job-candidate-view/:id" component={JobCandidateView}  />
+      <Route  path="/agent-personal-details" component={AgentPersonalDetails}  />
+      <Route  path="/agent-contact-details" component={AgentContactDetails}  />
+      <Route  path="/agent-eduction" component={AgentEduction}  />
+      
+      <Route  path="/agent-profile-health" component={AgentProfileHealth}  />
+      <Route  path="/edit-post/:id" component={EditPost}  />
+      <Route  path="/agent-available" component={AgentAvailable}  />
+      <Route  path="/agent-view/:id" component={AgentView}  />
+      <Route  path="/agent-personal-chat/:id" component={AgentPersonalChat}  />
+      
+      <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>
+      </IonRouterOutlet>
+    </IonReactRouter>
+  </IonApp>
+ );
 };
 
 export default App;

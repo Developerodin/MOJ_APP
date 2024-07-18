@@ -136,8 +136,9 @@ const NavBar = () => {
            <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
              
              {
-              isMobile ? <IonIcon icon={homeOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Home</span>
-             }
+              isMobile && <IonIcon icon={homeOutline} /> } 
+              <span style={{fontSize:"11px"}}>Home</span>
+             
            </IonTabButton>
  
            
@@ -145,22 +146,23 @@ const NavBar = () => {
            <IonTabButton tab="addpost" href="/app/applied-jobs" style={{backgroundColor:"#FFF",color:"grey"}}>
              
              {
-              isMobile ? <IonIcon icon={documentTextOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Applied Jobs</span>
-             }
+              isMobile && <IonIcon icon={documentTextOutline} /> } 
+              <span style={{fontSize:"11px"}}>Jobs</span>
+             
            </IonTabButton>
  
            <IonTabButton tab="activity" href="/app/job-chat" style={{backgroundColor:"#FFF",color:"grey"}}>
              
              {
-              isMobile ? <IonIcon icon={chatboxEllipsesOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Messages</span>
-             }
+              isMobile && <IonIcon icon={chatboxEllipsesOutline} />} 
+              <span style={{fontSize:"11px"}}>Messages</span>
+             
            </IonTabButton>
  
            <IonTabButton tab="user" href="/app/profile" style={{backgroundColor:"#FFF",color:"grey"}}>
             
-             {
-              isMobile ?  <IonIcon icon={personOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Profile</span>
-             }
+           {isMobile && <IonIcon icon={personOutline} />}
+           <span style={{fontSize:'11px'}}>Profile</span>
            </IonTabButton>
          </IonTabBar>
 
@@ -216,7 +218,7 @@ const NavBar = () => {
         }
         
         {
-           role === "Employers" && <IonTabBar slot="bottom" style={{border:"none",marginBottam:"20px",display: "flex"}}>
+           role === "Employers" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",marginBottam:"20px",display: "flex"}}>
            <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
              <IonIcon icon={laptopOutline} />
              <span>Dashboard</span>
@@ -290,8 +292,9 @@ const NavBar = () => {
            <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
              
              {
-              isMobile ? <IonIcon icon={homeOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Home</span>
-             }
+              isMobile && <IonIcon icon={homeOutline} /> }
+               <span style={{fontSize:"12px"}}>Home</span>
+             
            </IonTabButton>
  
            
@@ -306,15 +309,17 @@ const NavBar = () => {
            <IonTabButton tab="activity" href="/app/agent-chat" style={{backgroundColor:"#FFF",color:"grey"}}>
              
              {
-              isMobile ? <IonIcon icon={chatboxEllipsesOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Messages</span>
-             }
+              isMobile && <IonIcon icon={chatboxEllipsesOutline} /> }
+               <span style={{fontSize:"12px"}}>Messages</span>
+             
            </IonTabButton>
  
            <IonTabButton tab="user" href="/app/profile" style={{backgroundColor:"#FFF",color:"grey"}}>
             
              {
-              isMobile ?  <IonIcon icon={personOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Profile</span>
-             }
+              isMobile && <IonIcon icon={personOutline} /> } 
+               <span style={{fontSize:"12px"}}>Profile</span>
+             
            </IonTabButton>
          </IonTabBar>
 

@@ -287,6 +287,7 @@ export const Home = () => {
           {/* <IonButton onClick={outerRout}  expand='full'>
   Go job details
 </IonButton> */}
+          <div >
           <div
             style={{
               display: "flex",
@@ -299,7 +300,7 @@ export const Home = () => {
                 <img
                   src={profilePic || profileImg}
                   style={{
-                    width: "62px",
+                    width: "66px",
                     height: "62px",
                     border: "2px solid #F0F3FF",
                     borderRadius: "40px",
@@ -319,7 +320,7 @@ export const Home = () => {
                     fontSize: "12px",
                     color: "#fff",
                     fontWeight: "bold",
-                    padding: "5px 10px",
+                    padding: "3px 8px",
                     background: "#51B248",
                     borderRadius: "17px",
                   }}
@@ -328,6 +329,41 @@ export const Home = () => {
                 </span>
               </div>
             </div>
+            <div style={{  }}>
+            <div
+              style={{
+                padding: "8px",
+                display: "flex",
+                justifyContent: "left",
+                alignItems: "left",
+                border: "1px solid #E5E5E5",
+                background: "#F4F4F4",
+                height: "36px",
+                borderRadius: "50px",
+                margin:'0px 10px'
+              }}
+            >
+              <div>
+                <IonIcon icon={searchOutline} style={{ fontSize: "24px" }} />
+              </div>
+              <div style={{ marginLeft: "10px" }}>
+                <input
+                  type="text"
+                  placeholder="eg.cook, f&b..."
+                  value={searchQuery}
+                  onChange={handleSearch}
+                  style={{
+                    border: "none",
+                    outline: "none",
+                    background: "transparent",
+                    width: "100%",
+                    height: "100%",
+                    fontSize: "16px",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
 
             <div>
               <img
@@ -350,7 +386,7 @@ export const Home = () => {
             />
           </div>
 
-          <div style={{ marginTop: "30px" }}>
+          {/* <div style={{ marginTop: "30px" }}>
             <div
               style={{
                 padding: "10px",
@@ -383,12 +419,12 @@ export const Home = () => {
                 />
               </div>
             </div>
-          </div>
-          <div style={{ marginTop: "20px" }}>
+          </div> */}
+          <div style={{ marginTop: "0px" }}>
             <div>
-              <span style={{ fontSize: "26px", fontWeight: "bold" }}>
+              {/* <span style={{ fontSize: "26px", fontWeight: "bold" }}>
                 {selectedLanguage === "English" ? "Offers" : "ऑफर"}
-              </span>
+              </span> */}
 
               <IonGrid>
                 <IonRow>
@@ -398,7 +434,7 @@ export const Home = () => {
                         style={{
                           position: "relative",
                           textAlign: "center",
-                          marginTop: "20px",
+                          marginTop: "10px",
                         }}
                       >
                         <img
@@ -431,7 +467,9 @@ export const Home = () => {
                         </div>
                       </div>
                     </div>
+                  
                   </IonCol>
+                  
 
                   {!isMobile && (
                     <IonCol size="12" size-md="6">
@@ -478,6 +516,7 @@ export const Home = () => {
                 </IonRow>
               </IonGrid>
             </div>
+          </div>
           </div>
 
           {/* <div style={{display:`${isMobile ? "block" : "flex"}`,justifyContent:"left",alignItems:"flex-start",flexDirection:"column",marginTop:"20px"}}>
