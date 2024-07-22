@@ -710,6 +710,7 @@ const Basicinfo = ({ handelContinue }) => {
                     }}
                   >
                     {selectedLanguage === "English" ? "Email" : "ईमेल"}
+                    
                   </label>
                   {/* <IonItem> */}
                   <input
@@ -720,7 +721,7 @@ const Basicinfo = ({ handelContinue }) => {
                     onChange={handleInputChange}
                   />
                 </div>
-
+                  
                 <div style={{ marginTop: "20px" }}>
                   <label
                     style={{
@@ -1293,6 +1294,7 @@ const Basicinfo = ({ handelContinue }) => {
         }}
       >
         {selectedLanguage === "English" ? "Email" : "ईमेल"}
+        <span style={{ color: "red" }}>*</span>
       </label>
       <input
         className="round-input"

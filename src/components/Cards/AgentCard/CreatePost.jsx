@@ -2,7 +2,7 @@ import React, { useState, useContext ,useEffect} from "react";
 import { IonModal, IonIcon, IonButton,IonContent } from "@ionic/react";
 import { AppContext } from "../../../Context/AppContext";
 import SelectStateModel from "../../../components/Models/SelectStateModel";
-import DepartmentSelectModel from "../../../components/Models/DepartmentSelectModel";
+import DepartmentSelectSingle from "../../../components/Models/DepartmentSelectSingle";
 import SelectMulipalCityModel from "../../../components/Models/SelectMulipalCityModel";
 import { isMobile } from "../../../IsMobile/IsMobile";
 import { CustomBtn1 } from "../../../components/Buttons/CustomBtn1";
@@ -10,6 +10,8 @@ import { arrowBackOutline, trashOutline } from "ionicons/icons";
 import { Base_url } from "../../../Config/BaseUrl";
 import axios from "axios";
 import AddIcon from "./addicon.png";
+import { set } from "mongoose";
+
 
 const CreatePostModal = ({ isOpen, onClose }) => {
   const { showToast, setPostUpdate, setProfileHealthUpdate ,languageUpdate} = useContext(AppContext);
@@ -27,8 +29,19 @@ const CreatePostModal = ({ isOpen, onClose }) => {
     { department: "", departmentValue: "", positionTitle: "", availableStaff: "" }
   ]);
 
+  
+
+  const handleClose = () => {
+    // setStaffDetails('');
+    setPreferredCity('');
+    setPreferredState('');
+    setStaffDetails([{ department: "", departmentValue: "", positionTitle: "", availableStaff: "" }]);
+    onClose();
+  };
+
   const handleSaveClick = () => {
     addPost();
+    handleClose();
   };
   useEffect(() => {
     // Code to update selectedLanguage from localStorage
@@ -148,7 +161,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
       <IonContent>
       <div className={isMobile ? "" : "sw"} style={{ padding: "20px" }}>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <IonIcon icon={arrowBackOutline} size="large" onClick={onClose} style={{ cursor: "pointer" }} />
+          <IonIcon icon={arrowBackOutline} size="large" onClick={handleClose} style={{ cursor: "pointer" }} />
         </div>
         <h2 style={{ marginLeft: "10px", fontWeight: 'bold' }}>{selectedLanguage === "English" ? "Post Manpower Availability" : "मानव शक्ति उपलब्धता पोस्ट करें"}</h2>
         <div style={{ marginTop: "20px" }}>
@@ -365,7 +378,7 @@ const CreatePostModal = ({ isOpen, onClose }) => {
         selectedState={preferredState}
       />
       {departmentModel !== false && (
-        <DepartmentSelectModel
+        <DepartmentSelectSingle
           isOpen={true}
           onClose={handelDepartmentModelClose}
           onSubmit={(selectedDepartment, subDepartments) => handelSelectedDepartment(selectedDepartment, subDepartments, departmentModel)}
