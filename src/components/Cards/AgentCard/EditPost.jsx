@@ -3,7 +3,7 @@ import { IonContent, IonPage, IonIcon, useIonActionSheet } from "@ionic/react";
 import { AppContext } from "../../../Context/AppContext";
 import SelectStateModel from "../../../components/Models/SelectStateModel";
 import SelectMulipalCityModel from "../../../components/Models/SelectMulipalCityModel";
-import DepartmentSelectModel from "../../../components/Models/DepartmentSelectModel";
+import DepartmentSelectSingle from "../../../components/Models/DepartmentSelectSingle";
 import { isMobile } from "../../../IsMobile/IsMobile";
 import { CustomBtn1 } from "../../../components/Buttons/CustomBtn1";
 import { arrowBackOutline } from "ionicons/icons";
@@ -325,7 +325,7 @@ const EditPostModal = () => {
                   }}
                 >
                   {selectedLanguage === "English" ? "Department" : "विभाग"}
-                  {staff.department !== "" && ` (${staff.department})`}
+                  
                   <span style={{ color: "red" }}>*</span>
                 </label>
                 <div
@@ -342,8 +342,8 @@ const EditPostModal = () => {
                     cursor: "pointer",
                   }}
                 >
-                  {staff.departmentValue !== "" ? (
-                    <span>{staff.departmentValue}</span>
+                  {staff.department !== "" ? (
+                    <span>{staff.department}</span>
                   ) : (
                     <span style={{ color: "#575757" }}>{selectedLanguage === "English" ? "Select Department" : "विभाग चुनें"}</span>
                   )}
@@ -468,7 +468,7 @@ const EditPostModal = () => {
           selectedState={preferredState}
         />
         {departmentModel !== false && (
-          <DepartmentSelectModel
+          <DepartmentSelectSingle
             isOpen={true}
             onClose={handelDepartmentModelClose}
             onSubmit={(selectedDepartment, subDepartments) => handelSelectedDepartment(selectedDepartment, subDepartments, departmentModel)}

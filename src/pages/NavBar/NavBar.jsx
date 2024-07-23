@@ -64,6 +64,7 @@ import EditPostModal from '../../components/Cards/AgentCard/EditPost';
 import { AgentAvailable } from '../Hotelier/DashboardPages/AgentAvailable';
 import { AgentView } from '../Hotelier/DashboardPages/AgentView';
 import AgentPersonalChat from '../../components/Chats/AgentPeronalChat';
+import CreatePost from '../../components/Cards/AgentCard/CreatePost';
 
 
 const NavBar = () => {
@@ -271,6 +272,7 @@ const NavBar = () => {
           <Route  path="/rewards" component={Reward}  />
           <Route  path="/edit-post/:id" component={EditPostModal}  />
           <Route  path="/job-personal-chat/:id" component={JobPersonalChat}  />
+          <Route  path="/Post" component={CreatePost}  />
          
            {/* <Route  path="/app/profile" component={Profile}  />
            <Route  path="/app/applied-jobs" component={AppliedJobs}  /> */}

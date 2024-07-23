@@ -90,6 +90,7 @@ import { AgentAvailable } from './pages/Hotelier/DashboardPages/AgentAvailable';
 import { AgentView } from './pages/Hotelier/DashboardPages/AgentView';
 import AgentPersonalChat from './components/Chats/AgentPeronalChat';
 import { OfflineAlert } from './components/Models/OfflineAlert';
+import CreatePost from './components/Cards/AgentCard/CreatePost';
 
 setupIonicReact();
 
@@ -259,6 +260,7 @@ const App = () => {
       <Route  path="/agent-available" component={AgentAvailable}  />
       <Route  path="/agent-view/:id" component={AgentView}  />
       <Route  path="/agent-personal-chat/:id" component={AgentPersonalChat}  />
+      <Route  path="/Post" component={CreatePost}  />
       
       <Redirect  path="/" to={Auth ? "/app" : "/Coninue" }  exact/>
       </IonRouterOutlet>

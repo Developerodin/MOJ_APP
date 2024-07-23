@@ -14,7 +14,7 @@ import AgentJobCard from '../../../components/Cards/AgentCard/AgentJobCard';
 import profileImg from './profileImg2.png';
 import equilizer from './equalizer.png';
 import { isMobile } from '../../../IsMobile/IsMobile';
-import CreatePostModal from '../../../components/Cards/AgentCard/CreatePost';
+
 import axios from 'axios';
 import { Base_url } from '../../../Config/BaseUrl';
 import noPost from './noPost.png';
@@ -28,7 +28,7 @@ export const AgentHome = () => {
   const [jobs, setJobs] = useState([]);
   const [uniqueCities, setUniqueCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
@@ -108,7 +108,10 @@ export const AgentHome = () => {
   const handleProfileClick = () => {
     history.push(`/app/profile`);
   };
-
+ 
+  const handlePostClick = () => {
+    history.push(`/Post`);
+  };
   const handleCityClick = (city) => {
     setSelectedCity(city);
   };
@@ -194,7 +197,7 @@ export const AgentHome = () => {
 
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px' }}>
             <h2 style={{ fontWeight: 'bold' }}>{ selectedLanguage === "English" ? "Availability" : "उपलब्धता"}</h2>
-            <IonButton onClick={() => setIsModalOpen(true)}>
+            <IonButton onClick={handlePostClick}>
               <IonIcon icon={addOutline} style={{ marginRight: '8px' }} />
               { selectedLanguage === "English" ? "Add New" : "नया जोड़ें"}
             </IonButton>
@@ -241,7 +244,7 @@ export const AgentHome = () => {
             </IonGrid>
           </div>
 
-          <CreatePostModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+         
         </div>
       </IonContent>
     </IonPage>
