@@ -15,7 +15,7 @@ import DepartmentSelectSingle from "../../../components/Models/DepartmentSelectS
 import SelectMulipalCityModel from "../../../components/Models/SelectMulipalCityModel";
 import { isMobile } from "../../../IsMobile/IsMobile";
 import { CustomBtn1 } from "../../../components/Buttons/CustomBtn1";
-import { arrowBackOutline, trashOutline } from "ionicons/icons";
+import { arrowBackOutline, trashOutline,addOutline } from "ionicons/icons";
 import { Base_url } from "../../../Config/BaseUrl";
 import axios from "axios";
 import AddIcon from "./addicon.png";
@@ -81,7 +81,7 @@ const CreatePost = () => {
     setStaffDetails([
       { department: "", departmentValue: "", positionTitle: "", availableStaff: "" },
     ]);
-    history.push(`/app/home`);
+    history.goBack();
   };
 
   const handleDeleteClick = () => {
@@ -217,52 +217,57 @@ const CreatePost = () => {
           </h2>
 
           <div style={{ display: "flex", justifyContent: "space-around", marginTop: "20px" }}>
-          <div style={{ display: "flex", alignItems: "center",justifyItems:'center' }}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <div
-                style={{
-                  padding: "10px",
-                  borderRadius: "50%",
-                  backgroundColor: currentStep === 1 ? "#007bff" : "#ccc",
-                  color: "#fff",
-                  marginRight: "10px",
-                  width: "30px",
-                  height: "30px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                1
-              </div>
-              <span>Location</span>
-            </div>
-            <div style={{ width: "50px", height: "3px", backgroundColor: "#ccc",color: currentStep === 1 ? "#007bff" : "initial" , margin: "12px 10px" }}></div>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <div
-                style={{
-                  padding: "10px",
-                  borderRadius: "50%",
-                  backgroundColor: currentStep === 2 ? "#007bff" : "#ccc",
-                  color: "#fff",
-                  marginRight: "10px",
-                  width: "30px",
-                  height: "30px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                2
-              </div>
-              <span>Vacancy</span>
-            </div>
-          </div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+  <div style={{ display: "flex", alignItems: "center" }}>
+    <div
+      style={{
+        padding: "4px 10px",
+        borderRadius: "41px",
+        backgroundColor: currentStep === 1 ? "#007bff" : "#ccc",
+        color: "#fff",
+        marginRight: "10px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <span style={{ marginRight: "5px",fontSize:'14px' }}>1</span>
+      <span style={{fontSize:'14px',paddingLeft:'10px'}}>Location</span>
+    </div>
+  </div>
+  <div
+    style={{
+      width: "70px",
+      height: "3px",
+      backgroundColor: currentStep === 2 ? "#007bff" : "#ccc",
+      margin: "0 16px 0 10px",
+    }}
+  ></div>
+  <div style={{ display: "flex", alignItems: "center" }}>
+    <div
+      style={{
+        padding: "4px 10px",
+        borderRadius: "20px",
+        backgroundColor: currentStep === 2 ? "#007bff" : "#ccc",
+        color: "#fff",
+        marginRight: "10px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <span style={{ marginRight: "5px",fontSize:'14px' }}>2</span>
+      <span style={{fontSize:'14px',paddingLeft:'10px'}}>Vacancy</span>
+    </div>
+  </div>
+</div>
+
+
           </div>
 
           {currentStep === 1 && (
             <>
-              <div style={{ marginTop: "20px" }}>
+              <div style={{ marginTop: "30px" }}>
                 <label
                   style={{
                     color: "#575757",
@@ -283,7 +288,7 @@ const CreatePost = () => {
                     alignItems: "center",
                     borderRadius: "7px",
                     padding: "10px",
-                    border: "1px solid #E2E8F0",
+                    border: "1px solid #797979",
                     height: "52px",
                     backgroundColor: "#F4F4F4",
                     cursor: "pointer",
@@ -321,7 +326,7 @@ const CreatePost = () => {
                       alignItems: "center",
                       borderRadius: "7px",
                       padding: "10px",
-                      border: "1px solid #E2E8F0",
+                      border: "1px solid #797979",
                       height: "52px",
                       backgroundColor: "#F4F4F4",
                       cursor: "pointer",
@@ -347,10 +352,10 @@ const CreatePost = () => {
 
           {currentStep === 2 && (
             <>
-              <div style={{ marginTop: "20px" }}>
+              <div style={{ marginTop: "30px" }}>
                 {staffDetails.map((staffDetail, index) => (
                   <div key={index} style={{ marginBottom: "20px" }}>
-                    <IonCard style={{ width: '100%', padding: '10px', border: "1px solid #E4E4E4", borderRadius: "15px", background: "white",margin:'12px 0px' }}>
+                    <IonCard style={{ width: '100%', padding: '0px', border: "1px solid #E4E4E4", borderRadius: "15px", background: "white",margin:'0px' }}>
                     <IonCardContent style={{ padding: '10px' }}>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                      <div style={{ display: "flex", flexDirection: "column",width:'65%' }}> 
@@ -360,7 +365,7 @@ const CreatePost = () => {
                         fontFamily: "inter",
                         fontSize: "14px",
                         fontWeight: "400",
-                        lineHeight: "30px",
+                        marginBottom: "5px",
                       }}
                     >
                       {selectedLanguage === "English" ? "Department" : "विभाग"}
@@ -373,8 +378,8 @@ const CreatePost = () => {
                         justifyContent: "left",
                         alignItems: "center",
                         borderRadius: "7px",
-                        padding: "10px",
-                        border: "1px solid #E2E8F0",
+                        padding: "10px 10px",
+                        border: "1px solid #797979",
                         height: "52px",
                         backgroundColor: "#F4F4F4",
                         cursor: "pointer",
@@ -398,7 +403,8 @@ const CreatePost = () => {
                               fontFamily: "inter",
                               fontSize: "14px",
                               fontWeight: "400",
-                              lineHeight: "30px",
+                              marginBottom: "5px",
+                              whiteSpace: "nowrap",
                             }}
                           >
                             {selectedLanguage === "English" ? "Available Staff" : "उपलब्ध कर्मचारी"}
@@ -411,14 +417,16 @@ const CreatePost = () => {
                               const newStaffDetails = [...staffDetails];
                               newStaffDetails[index].availableStaff = e.target.value;
                               setStaffDetails(newStaffDetails);
+
                             }}
+                            placeholder={selectedLanguage === "English" ? "Enter Staff" : "कर्मचारी दर्ज करें"}
                             style={{
                               display: "flex",
                               justifyContent: "left",
                               alignItems: "center",
                               borderRadius: "7px",
                               padding: "10px",
-                              border: "1px solid #E2E8F0",
+                              border: "1px solid #797979",
                               height: "52px",
                               backgroundColor: "#F4F4F4",
                               cursor: "pointer",
@@ -433,29 +441,40 @@ const CreatePost = () => {
                   
                   </div>
                 ))}
-                <div
-          onClick={addMoreFields}
-          style={{
-            marginTop: "20px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            cursor: "pointer",
-            color: "#0000EE",
-            textDecoration: "underline",
-          }}
-        >
-          <img src={AddIcon} alt="Add More" style={{ width: "50px", height: "50px", marginRight: "5px" }} />
-        </div>
+              <div style={{ display: "flex", justifyContent: "center" ,marginTop:'30px'}}>
+  <button
+    onClick={addMoreFields}
+    style={{
+      marginTop: "10px",
+      width: "90%",
+      borderRadius: "30px",
+      padding: "10px",
+      border: "1px solid #232323",
+      height: "52px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      color: "#232323",
+      background: "#fff",
+      transition: "background-color 0.3s",
+      fontSize: "16px",
+      fontWeight: "bold" 
+    }}
+  >
+    <IonIcon icon={addOutline} style={{fontSize:'20px ',fontWeight:'bold'}} />
+    <span style={{ marginLeft: "8px" }}>
+      {selectedLanguage === "English" ? "Add More" : "अधिक जोड़ें"}
+    </span>
+  </button>
+</div>
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-                <IonButton onClick={handlePreviousStep} style={{width:'100px'}}>
+              <div style={{ display: "flex", justifyContent: "space-around", marginTop: "20px" }}>
+                {/* <button onClick={handlePreviousStep} style={{marginTop: "10px", borderRadius: "30px", padding: "5px 10px", border: "none", height: "52px", display: "flex", justifyContent: "center", alignItems: "center", color: "white", background: "#3351CC", transition: "background-color 0.3s", fontSize: "16px",width:'140px'}}>
                   {selectedLanguage === "English" ? "Previous" : "पिछला"}
-                </IonButton>
-                <IonButton onClick={handleSaveClick} style={{width:'100px'}}>
-                  {selectedLanguage === "English" ? "Save" : "सहेजें"}
-                </IonButton>
+                </button> */}
+                 <CustomBtn1 fun={handleSaveClick} title={selectedLanguage === "English" ? "Save" : "सहेजें"} />
+
               </div>
             </>
           )}

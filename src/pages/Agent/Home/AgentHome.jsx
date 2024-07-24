@@ -197,7 +197,7 @@ export const AgentHome = () => {
 
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px' }}>
             <h2 style={{ fontWeight: 'bold' }}>{ selectedLanguage === "English" ? "Availability" : "उपलब्धता"}</h2>
-            <IonButton onClick={handlePostClick}>
+            <IonButton onClick={handlePostClick} style={{borderRadius:'30px'}}>
               <IonIcon icon={addOutline} style={{ marginRight: '8px' }} />
               { selectedLanguage === "English" ? "Add New" : "नया जोड़ें"}
             </IonButton>
