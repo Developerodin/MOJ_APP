@@ -19,6 +19,7 @@ import axios from 'axios';
 import { Base_url } from '../../../Config/BaseUrl';
 import noPost from './noPost.png';
 import { AppContext } from "../../../Context/AppContext";
+import Agent from './agent.png';
 
 export const AgentHome = () => {
   const history = useIonRouter();
@@ -195,12 +196,12 @@ export const AgentHome = () => {
 
           
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between',  alignItems: 'center',padding: '8px 12px' }}>
             <h2 style={{ fontWeight: 'bold' }}>{ selectedLanguage === "English" ? "Availability" : "उपलब्धता"}</h2>
-            <IonButton onClick={handlePostClick} style={{borderRadius:'30px'}}>
-              <IonIcon icon={addOutline} style={{ marginRight: '8px' }} />
-              { selectedLanguage === "English" ? "Add New" : "नया जोड़ें"}
-            </IonButton>
+            <button onClick={handlePostClick} style={{borderRadius:'7px',background:'#395CFF',color:'white',padding:'12px 16px',height:'41px',width:'120px',fontWeight:'600', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+  <IonIcon icon={addOutline} style={{ marginRight: '8px', fontSize: '16px' }} />
+  { selectedLanguage === "English" ? "Add New" : "नया जोड़ें"}
+</button>
           </div>
 
           <div style={{ display: 'flex', marginTop: '10px' }}>
@@ -237,8 +238,46 @@ export const AgentHome = () => {
                   ))}
                 </IonRow>
               ) : (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                  <img src={noPost} alt="No Posts" />
+                <div onClick={handlePostClick} style={{
+                  marginTop:"50px", 
+                  border:"1px solid #BDBDBD",
+                 
+                  borderRadius:"15px"
+                  ,position:"relative",
+                   height:"200px",
+                }}>
+                  <div style={{padding:"15px" }}>
+                      <div>
+                       <span style={{fontWeight:"bold",fontSize:"18px"}}>
+                         
+                         {selectedLanguage === "English" ? "Welcome Agent " : "एजेंट का स्वागत है"}
+                        
+                         
+                         </span>
+                      </div>
+                      <div style={{paddingTop:'10px'}}>
+                       <span style={{fontWeight:"700",fontSize:"16px"}}>
+                         
+                       {selectedLanguage === "English" ? "Start by creating a post to share manpower availability" : "मैनपावर उपलब्धता साझा करने के लिए एक पोस्ट बनाकर शुरू करें"}
+                        
+                         
+                         </span>
+                      </div>
+       
+                      <div onClick={handlePostClick} style={{position:"absolute",left:20,bottom:"20px"}}>
+                         <span style={{textDecoration:"underline"}}>
+                           
+                           {selectedLanguage === "English" ? "Click here to create a post" : "पोस्ट बनाने के लिए यहां क्लिक करें"}
+                           </span>
+                      </div>
+       
+                      <div style={{position:"absolute",bottom:40,right:10, height:'80px',width:'80px'}}>
+                         <div>
+                         <img src={Agent}   />
+                         </div>
+                      </div>
+           
+                    </div>
                 </div>
               )}
             </IonGrid>

@@ -30,6 +30,7 @@ const CreatePost = () => {
   const [isStateModelOpen, setIsStateModelOpen] = useState(false);
   const [isCityModelOpen, setIsCityModelOpen] = useState(false);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
@@ -75,13 +76,15 @@ const CreatePost = () => {
   };
 
   const handleClose = () => {
-    setCurrentStep(1);
-    setPreferredCity("");
-    setPreferredState("");
-    setStaffDetails([
-      { department: "", departmentValue: "", positionTitle: "", availableStaff: "" },
-    ]);
-    history.goBack();
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1); 
+    } else {
+      setCurrentStep(1);
+      setStaffDetails([
+        { department: "", departmentValue: "", positionTitle: "", availableStaff: "" },
+      ]);
+      history.goBack();
+    }
   };
 
   const handleDeleteClick = () => {
@@ -240,7 +243,7 @@ const CreatePost = () => {
       width: "70px",
       height: "3px",
       backgroundColor: currentStep === 2 ? "#007bff" : "#ccc",
-      margin: "0 16px 0 10px",
+      margin: "0 22px 0 10px",
     }}
   ></div>
   <div style={{ display: "flex", alignItems: "center" }}>
