@@ -135,7 +135,7 @@ export const AgentHome = () => {
               <img
                 src={profilePic || profileImg}
                 style={{
-                  width: '62px',
+                  width: '66px',
                   height: '62px',
                   border: '2px solid #F0F3FF',
                   borderRadius: '40px',
