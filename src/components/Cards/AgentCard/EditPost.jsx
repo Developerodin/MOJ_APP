@@ -160,15 +160,17 @@ const EditPostModal = () => {
   };
 
   const addMoreFields = () => {
-    setStaffDetails([
-      ...staffDetails,
-      {
-        department: "",
-        departmentValue: "",
-        positionTitle: "",
-        availableStaff: "",
-      },
-    ]);
+    const lastEntry = staffDetails[staffDetails.length - 1];
+    
+    if (lastEntry.department && lastEntry.departmentValue && lastEntry.positionTitle && lastEntry.availableStaff) {
+      setStaffDetails([
+        ...staffDetails,
+        { department: "", departmentValue: "", positionTitle: "", availableStaff: "" },
+      ]);
+    } else {
+      
+      showToast("error", "Fill the previous fields first", "");
+    }
   };
 
   const handelSelectedDepartment = (
