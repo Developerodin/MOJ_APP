@@ -62,9 +62,9 @@ export const MyPoints = () => {
       <div style={{ marginTop: "30px" }}>
         <RewardCard  points={rewardPoints}/>
       </div>
-      <div style={{ marginTop: "30px" }}>
+      {/* <div style={{ marginTop: "30px" }}>
         <RewardCard2 points={rewardPoints} />
-      </div>
+      </div> */}
     </div>
   );
 }

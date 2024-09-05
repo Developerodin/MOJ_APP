@@ -1,15 +1,33 @@
 import { IonCard, IonCardContent, IonIcon, IonText } from "@ionic/react";
 import React from "react";
-import { heartOutline, sendOutline, chatbubbleOutline } from "ionicons/icons";
 
 const HistoryCard = (props) => {
-  const { Data} = props;
+  const { Data } = props;
 
-  if (Data.LastSendImage !== undefined)
-    console.log("Imges", Data.LastSendImage.length);
+  
+  const profile = Data.profile || {};
+  const name = profile.name || "Unknown";
+  // const role = profile.role || "Unknown Role";
+  const createdAt = profile.created_at || "Unknown Date";
+
+ 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("en-US", { dateStyle: "long", timeStyle: "short" });
+  };
+
+  
+  let points = 0;
+  const role = Data?.profile?.role;
+
+  if (role === "Job Seeker") {
+    points = 10;
+  } else if (role === "Agent" || role === "Employers") {
+    points = 50;
+  }
 
   return (
-    <div style={{ marginBottom: "10px" }}>
+    <div style={{ marginBottom: "50px",marginTop:'10px' }}>
       <div
         style={{
           display: "flex",
@@ -24,12 +42,8 @@ const HistoryCard = (props) => {
             alignItems: "center",
           }}
         >
-          <div style={{ width: "50px", height: "50px",borderRadius: "100px",backgroundColor:`${Data.Color}` }}>
-            {/* <img
-              src={Data.Img}
-              alt="user Image"
-              style={{ width: "100%", height: "100%", borderRadius: "100px" }}
-            /> */}
+          <div style={{ width: "50px", height: "50px", borderRadius: "100px", backgroundColor: "orange" }}>
+            
           </div>
 
           <div style={{ marginLeft: "20px" }}>
@@ -41,12 +55,17 @@ const HistoryCard = (props) => {
                   color: "#000000",
                 }}
               >
-                {Data.title}
+                {name}
               </IonText>
             </div>
-            <div style={{marginTop:"3px"}}>
+            <div style={{ marginTop: "3px" }}>
               <IonText style={{ fontSize: "14px", color: "grey" }}>
-                {Data.subHeading}
+                {role}
+              </IonText>
+            </div>
+            <div style={{ marginTop: "3px" }}>
+              <IonText style={{ fontSize: "12px", color: "grey" }}>
+                {formatDate(createdAt)}
               </IonText>
             </div>
           </div>
@@ -59,15 +78,22 @@ const HistoryCard = (props) => {
             alignItems: "center",
           }}
         >
-          <div style={{height:"45px",width:"45px",border:"1px solid #E4E4E4",borderRadius:"30px",background:"#F7A708",display: "flex",
-            justifyContent: "center",
-            alignItems: "center"}}>
-            <span style={{color:"#fff",fontSize:"14px"}}>100</span>
+          <div
+            style={{
+              height: "45px",
+              width: "45px",
+              border: "1px solid #E4E4E4",
+              borderRadius: "30px",
+              background: "#F7A708",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <span style={{ color: "#fff", fontSize: "14px" }}>{points}</span>
           </div>
         </div>
       </div>
-
-     
     </div>
   );
 };
