@@ -66,9 +66,10 @@ const VerifyPhoneTwo = () => {
     try {
       setLoading(true)
       const url = `${Base_url}auth/verify_otp/${otp}`;
+      const otpuser = localStorage.getItem("userotps")
       const formData1 = new FormData();
       formData1.append('mobile_number', formData.phoneNumber);
-
+      formData1.append('otp',otpuser );
       const response = await axios.post(url, formData1,{
         headers: {
           "Content-Type": "multipart/form-data",

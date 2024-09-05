@@ -270,6 +270,7 @@ const Basicinfo = ({ handelContinue }) => {
         showToast("error", "Email is not valid", "");
         return;
       }
+      const refId = localStorage.getItem("refCode");
       setLoading(true);
       const url = `${Base_url}auth/register`;
       const formData1 = new FormData();
@@ -284,6 +285,7 @@ const Basicinfo = ({ handelContinue }) => {
       formData1.append("address", formData.address || "");
       formData1.append("dob", formData.dob || "");
       formData1.append("pin_code", pincode || "");
+      formData1.append("ref_id", refId || "");
       formData1.append("country", "India");
 
       const response = await axios.post(url, formData1, {
@@ -327,7 +329,7 @@ const Basicinfo = ({ handelContinue }) => {
       showToast("error", "Email is not valid", "");
       return;
     }
-
+    const refId = localStorage.getItem("refCode");
     try {
       setLoading(true);
       const url = `${Base_url}auth/register`;
@@ -345,6 +347,7 @@ const Basicinfo = ({ handelContinue }) => {
       formData1.append("city", selectedCity || "");
       formData1.append("address", formData2.address || "");
       formData1.append("pin_code", pincode2 || "");
+      formData1.append("ref_id", refId || "");
       formData1.append("country", "India");
 
       const response = await axios.post(url, formData1, {
@@ -364,7 +367,7 @@ const Basicinfo = ({ handelContinue }) => {
       if (data.status === "success") {
         setLoading(false);
         localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-        //  handelPointsAdd(50)
+         handelPointsAdd(50)
         //  history.push("/phone", 'root','replace')
         history.push("/hotelier-package");
         return;
@@ -444,7 +447,7 @@ const Basicinfo = ({ handelContinue }) => {
       const formData1 = new FormData();
   
       const fullName = `${formData3.firstName} ${formData3.lastName}`;
-  
+      const refId = localStorage.getItem("refCode");
       formData1.append('role', Role);
       formData1.append('mobile_number', details.phoneNumber);
       formData1.append('name', fullName); 
@@ -457,6 +460,7 @@ const Basicinfo = ({ handelContinue }) => {
       formData1.append('pin_code', pincode || "");
       formData1.append('gst_number', formData3.gstin || "");
       formData1.append('gst_name', formData3.gstFirmName || "");
+      formData1.append("ref_id", refId || "");
       formData1.append('country', "India");
   
       const response = await axios.post(url, formData1, {
@@ -471,7 +475,7 @@ const Basicinfo = ({ handelContinue }) => {
       if (data.status === "success") {
         setLoading(false);
         localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-        handelPointsAdd(10);
+        handelPointsAdd(50);
         history.push("/complete");
         return;
       }
@@ -507,7 +511,7 @@ const Basicinfo = ({ handelContinue }) => {
       pincode2 !== "" &&
       selectedState !== "" &&
       selectedCity !== "";
-    console.log("FormData 2===>", formData2,pincode2,selectedState,selectedCity);
+    console.log("FormData 2===>", formData2,pincode2,selectedState,selectedCity,isValid);
     setFormValid2(isValid);
   }, [formData2]);
 

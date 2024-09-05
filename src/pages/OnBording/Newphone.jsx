@@ -112,6 +112,8 @@ const Newphone = () => {
             console.log("Response check mobile",response.data)
 
             if(response.data.status === "success"){
+              console.log("respos dat==>",response.data.otp)
+              localStorage.setItem("userotps",response.data.otp)
               setLoading(false)
               history.push("/verify-otp");
               setFormData({
