@@ -21,9 +21,9 @@ const HistoryCard = (props) => {
   const role = Data?.profile?.role;
 
   if (role === "Job Seeker") {
-    points = 10;
-  } else if (role === "Agent" || role === "Employers") {
     points = 50;
+  } else if (role === "Agent" || role === "Employers") {
+    points = 1000;
   }
 
   return (

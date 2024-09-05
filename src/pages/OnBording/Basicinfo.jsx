@@ -305,7 +305,7 @@ const Basicinfo = ({ handelContinue }) => {
       if (data.status === "success") {
         setLoading(false);
         localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-        handelPointsAdd(10);
+        handelPointsAdd(50);
         history.push("/personal-details");
         return;
       }
@@ -367,7 +367,7 @@ const Basicinfo = ({ handelContinue }) => {
       if (data.status === "success") {
         setLoading(false);
         localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-         handelPointsAdd(50)
+         handelPointsAdd(1000)
         //  history.push("/phone", 'root','replace')
         history.push("/hotelier-package");
         return;
@@ -475,7 +475,7 @@ const Basicinfo = ({ handelContinue }) => {
       if (data.status === "success") {
         setLoading(false);
         localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-        handelPointsAdd(50);
+        handelPointsAdd(1000);
         history.push("/complete");
         return;
       }
