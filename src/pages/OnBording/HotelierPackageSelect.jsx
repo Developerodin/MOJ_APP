@@ -57,12 +57,7 @@ export const HotelierPackageSelect = () => {
   };
 
   const handleSavePlan = () => {
-    if(selectedPlan === 1){
-      handelPointsAdd(10)
-    }
-    if(selectedPlan !== 1){
-      handelPointsAdd(1000)
-    }
+  
  
     localStorage.setItem('selectedPlan',selectedPlan);
     // You can add code to submit the data as needed, e.g., to an API

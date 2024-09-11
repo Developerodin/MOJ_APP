@@ -27,12 +27,14 @@ const HistoryCard = (props) => {
   }
 
   return (
-    <div style={{ marginBottom: "50px",marginTop:'10px' }}>
+    <div style={{ marginBottom: "10px",marginTop:'15px', }}>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           padding: "10px",
+          border: "1px solid grey", 
+          borderRadius: "15px",
         }}
       >
         <div

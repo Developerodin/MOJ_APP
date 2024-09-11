@@ -45,6 +45,7 @@ const OnBordingCompletePage = () => {
 
           if(response.data.status === "success"){
             setLoading(false)
+            localStorage.setItem("userotps",response.data.otp)
             history.push("/verify-otp", 'root','replace')
             setFormData({
               phoneNumber: '',

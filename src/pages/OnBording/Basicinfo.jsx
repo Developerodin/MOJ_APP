@@ -228,7 +228,8 @@ const Basicinfo = ({ handelContinue }) => {
     }
   };
 
-  const handelPointsAdd = async (value) => {
+  const handelPointsAdd = async (value,route) => {
+    console.log("In Points status ==>",route);
     try {
       const UserId = localStorage.getItem("refCode");
       console.log("In Cahnge status ==>");
@@ -305,7 +306,7 @@ const Basicinfo = ({ handelContinue }) => {
       if (data.status === "success") {
         setLoading(false);
         localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-        handelPointsAdd(50);
+        handelPointsAdd(50,"jobseekers");
         history.push("/personal-details");
         return;
       }
@@ -365,9 +366,10 @@ const Basicinfo = ({ handelContinue }) => {
       // }
 
       if (data.status === "success") {
+        handelPointsAdd(1000,"Employess")
         setLoading(false);
         localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-         handelPointsAdd(1000)
+        
         //  history.push("/phone", 'root','replace')
         history.push("/hotelier-package");
         return;
@@ -473,9 +475,10 @@ const Basicinfo = ({ handelContinue }) => {
       console.log("Response check mobile", data, response);
   
       if (data.status === "success") {
+        handelPointsAdd(1000,"Agent");
         setLoading(false);
         localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
-        handelPointsAdd(1000);
+       
         history.push("/complete");
         return;
       }

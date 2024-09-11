@@ -3,7 +3,7 @@ import React from 'react';
 import icon from "/assets/Coin.png";
 import { Base_url } from '../../../Config/BaseUrl';
 export const RewardCard = ({ points }) => {
-  const maxPoints = 1000;
+  const maxPoints = 10000;
   const progressPercentage = (points / maxPoints) * 100;
 
 
