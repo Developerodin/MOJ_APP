@@ -53,6 +53,12 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
+    if (file && file.type !== 'application/pdf') {
+      showToast("error", "Only PDF files are allowed", "");
+      setSelectedFile(null);
+      return;
+    }
+
     console.log("File  ==>", file);
     setSelectedFile(file);
     if(file){
@@ -126,7 +132,7 @@ export const ResumeUplodeProfile = ({setUpdate}) => {
     <>
       <input
         type="file"
-        accept=".pdf,.doc,.docx"
+        accept=".pdf"
         onChange={handleFileChange}
         style={{ display: "none" }}
         id="resumeInput"

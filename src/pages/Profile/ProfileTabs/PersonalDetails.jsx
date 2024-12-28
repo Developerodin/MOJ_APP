@@ -130,8 +130,29 @@ useEffect(() => {
 
   const UpdateUser = async () => {
     
-    if (!formData.firstName || !formData.lastName || !formData.gender || !formData.email || !selectedState || !selectedCity || !formData.address || !formData.dob || !pincode) {
-      showToast("error", "All fields are mandatory", "");
+    const currentYear = new Date().getFullYear();
+    const selectedYear = new Date(formData.dob).getFullYear();
+
+    if (!formData.firstName) {
+      showToast("error", "First name is required", "");
+      return;
+    } else if (!/^[a-zA-Z]+$/.test(formData.firstName)) {
+      showToast("error", "First name should contain only alphabetic characters", "");
+      return;
+    } else if (!formData.lastName) {
+      showToast("error", "Last name is required", "");
+      return;
+    } else if (!/^[a-zA-Z]+$/.test(formData.lastName)) {
+      showToast("error", "Last name should contain only alphabetic characters", "");
+      return;
+    } else if (!formData.gender) {
+      showToast("error", "Gender is required", "");
+      return;
+    } else if (!formData.dob) {
+      showToast("error", "Date of Birth is required", "");
+      return;
+    } else if (selectedYear === currentYear) {
+      showToast("error", "Date of Birth cannot be the current year", "");
       return;
     }
   

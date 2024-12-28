@@ -18,6 +18,7 @@ import {
   useIonRouter,
   useIonViewDidEnter,
   useIonViewDidLeave,
+  IonLoading,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
 import {
@@ -65,6 +66,7 @@ export const Home = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [ showLoading, setShowLoading ] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
@@ -124,6 +126,8 @@ export const Home = () => {
   };
 
   const getJobs = async () => {
+    setShowLoading(true);
+
     try {
       const url = `${Base_url}job`;
       const formData1 = new FormData();
@@ -144,6 +148,8 @@ export const Home = () => {
       }
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setShowLoading(false);
     }
   };
 
@@ -548,6 +554,11 @@ export const Home = () => {
               {selectedTab === "featured" && (
                 <IonGrid style={{ padding: 0, margin: 0 }}>
                   <IonRow>
+                    <IonLoading
+                      isOpen={showLoading}
+                      message={"Please wait..."}
+                      duration={5000}
+                    />
                     {filteredJobData.map((el, index) => (
                       <IonCol size="12" size-md="6" key={index}>
                         <JobCard data={el} fun={() => handelJobCardClick(el.id)} />
@@ -560,6 +571,11 @@ export const Home = () => {
               {selectedTab === "recommendations" && (
                 <IonGrid style={{ padding: 0, margin: 0 }}>
                   <IonRow>
+                  <IonLoading
+                      isOpen={showLoading}
+                      message={"Please wait..."}
+                      duration={5000}
+                    />
                     {allJobData.map((el, index) => (
                       <IonCol size="12" size-md="6" key={index}>
                         <JobCard data={el} fun={() => handelJobCardClick(el.id)} />
@@ -571,17 +587,60 @@ export const Home = () => {
             </>
           ) : (
             <>
-            <IonText style={{ padding: "10px", fontSize: "24px", fontWeight: "400",marginTop:'10px' }}>All Jobs</IonText>
-            <IonGrid style={{ padding: 0, margin: 0 }}>
-              <IonRow>
-                {allJobData.map((el, index) => (
-                  <IonCol size="12" size-md="6" key={index}>
-                    <JobCard data={el} fun={() => handelJobCardClick(el.id)} />
-                  </IonCol>
-                ))}
-              </IonRow>
-            </IonGrid>
-          </>
+            <IonText
+                  style={{
+                    padding: "10px",
+                    fontSize: "24px",
+                    fontWeight: "400",
+                    marginTop: "10px",
+                  }}
+                >
+                  {selectedLanguage === "English" ? "All Jobs" : "सभी नौकरियां"}
+                </IonText>
+                <IonGrid style={{ padding: 0, margin: 0 }}>
+                  <IonRow>
+                    <IonLoading
+                      isOpen={showLoading}
+                      message={"Please wait..."}
+                      duration={5000}
+                    />
+                    {allJobData.length > 0 ? (
+                      allJobData.map((el, index) => (
+                        <IonCol size="12" size-md="6" key={index}>
+                          <JobCard
+                            data={el}
+                            fun={() => handelJobCardClick(el.id)}
+                          />
+                        </IonCol>
+                      ))
+                    ) : (
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          width: "100%",
+                          marginTop: "20px",
+                        }}
+                      >
+            
+                        <IonText
+                          style={{
+                            fontSize: "20px",
+                            fontWeight: "bold",
+                            color: "grey",
+                            marginTop: "20px",
+                          }}
+                        >
+                          {selectedLanguage === "English"
+                            ? "No Jobs Found"
+                            : "कोई नौकरियां नहीं मिलीं"}
+                        </IonText>
+                      </div>
+                    )}
+                  </IonRow>
+                </IonGrid>
+              </>
           )}
         </div>
         </div>

@@ -380,9 +380,9 @@ const copyToClipboard = () => {
     return () => clearInterval(interval);
   }, [phHeathPercentage, completionPercentage, profileHealthUpdate]);
 
-  const width = 100;
-  const height = 100;
-  const radius = 35;
+  const width = 70;
+  const height = 70;
+  const radius = 25;
   const circumference = 2 * Math.PI * radius;
   const strokeWidth = 6;
   const offset = ((100 - completionPercentage) / 100) * circumference;
@@ -529,7 +529,7 @@ const copyToClipboard = () => {
                   display: "flex",
                   justifyContent: "left",
                   alignItems: "center",
-                  height:"120px"
+                  height:"80px"
                 }}
               >
                 <div>
@@ -559,7 +559,7 @@ const copyToClipboard = () => {
                         y="50%"
                         dominantBaseline="middle"
                         textAnchor="middle"
-                        fontSize="13"
+                        fontSize="10"
                         fill="#000"
                       >
                         {phHeathPercentage}%
@@ -570,13 +570,13 @@ const copyToClipboard = () => {
 
                 <div style={{ marginLeft: "20px" }}>
                   <div>
-                    <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                    <span style={{ fontSize: "13px", fontWeight: "bold" }}>
                       
                       { selectedLanguage === "English" ? "Profile Health" : "प्रोफ़ाइल स्वास्थ्य"}
                     </span>
                   </div>
                   <div style={{ marginTop: "10px" }}>
-                    <span style={{ color: "#575757", fontSize: "14px" }}>
+                    <span style={{ color: "#575757", fontSize: "12px" }}>
                       {phHeathPercentage > 99
                         ? selectedLanguage === "English" ? "Completed" : "पूरा हो गया"
                         : 
@@ -604,16 +604,16 @@ const copyToClipboard = () => {
                   display: "flex",
                   justifyContent: "left",
                   alignItems: "center",
-                  height:"120px",
+                  height:"80px",
                   position:"relative"
                 }}
               >
-                <div style={{width:"110px",textAlign:"center"}} >
-                  <img src="/assets/reward1.png" style={{height:"80px",width:"80px"}} />
+                <div style={{width:"50px",textAlign:"left",marginLeft:"12px"}} >
+                  <img src="/assets/reward1.png" style={{height:"50px",width:"50px"}} />
                 </div>
-                <div style={{ marginLeft: "20px" }}>
+                <div style={{ marginLeft: "30px" }}>
                   <div>
-                    <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                    <span style={{ fontSize: "13px", fontWeight: "bold" }}>
                       
                       { selectedLanguage === "English" ? "Points Earned" : "अर्जित अंक"}
                     </span>

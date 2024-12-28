@@ -4,6 +4,7 @@ import ChatCard from '../../Cards/JobChatCard';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import { Base_url } from '../../../Config/BaseUrl';
+import { AppContext } from '../../../Context/AppContext';
 
 
 const JobContactsChat = () => {
@@ -11,6 +12,17 @@ const JobContactsChat = () => {
   const history = useHistory();
   const [uniqueReceiverIds, setUniqueReceiverIds] = useState([]);
   const [messages, setMessages] = useState([]);
+  const { languageUpdate } = useContext(AppContext);
+   const [selectedLanguage, setSelectedLanguage] = useState(
+      localStorage.getItem("selectedLanguage") || "English"
+    );
+    useEffect(() => {
+      // Code to update selectedLanguage from localStorage
+      const languageFromStorage = localStorage.getItem("selectedLanguage");
+      if (languageFromStorage) {
+        setSelectedLanguage(languageFromStorage);
+      }
+    }, [languageUpdate]);
 
   const handleCardClick = (receiverId) => {
     history.push(`/job-personal-chat/${receiverId}`);
@@ -75,7 +87,7 @@ const JobContactsChat = () => {
   return (
     <div>
       {uniqueReceiverIds.length === 0 ? (
-        <p>No messages found</p>
+         <p>{selectedLanguage === "English" ? "No messages found" : "कोई संदेश नहीं मिला"}</p>
       ) : (
         uniqueReceiverIds.map((receiverId) => {
           console.log('Receiver ID++++++:', receiverId);

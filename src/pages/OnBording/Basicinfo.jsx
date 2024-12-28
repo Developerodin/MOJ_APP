@@ -166,22 +166,30 @@ const Basicinfo = ({ handelContinue }) => {
 
   const handelBtnClick = () => {
     console.log("Form Data ==>", formData);
+    const currentYear = new Date().getFullYear();
+    const selectedYear = new Date(formData.dob).getFullYear();
 
-    // handelContinue("ProfilePic")
-
-    // if(formValid === false){
-    //   showToast("error", "Fill the required fields", "");
-    //   return
-    // }
-
+   
     if (!formData.firstName) {
       showToast("error", "First name is required", "");
+      return;
+    } else if (!/^[a-zA-Z]+$/.test(formData.firstName)) {
+      showToast("error", "First name should contain only alphabetic characters", "");
       return;
     } else if (!formData.lastName) {
       showToast("error", "Last name is required", "");
       return;
+    } else if (!/^[a-zA-Z]+$/.test(formData.lastName)) {
+      showToast("error", "Last name should contain only alphabetic characters", "");
+      return;
     } else if (!formData.gender) {
       showToast("error", "Gender is required", "");
+      return;
+    } else if (!formData.dob) {
+      showToast("error", "Date of Birth is required", "");
+      return;
+    } else if (selectedYear === currentYear) {
+      showToast("error", "Date of Birth cannot be the current year", "");
       return;
     }
     console.log("Data", formData);
@@ -668,7 +676,7 @@ const Basicinfo = ({ handelContinue }) => {
                   />
                 </div>
 
-                <div style={{ marginTop: "20px" }}>
+                                <div style={{ marginTop: "20px" }}>
                   <label
                     style={{
                       color: "#575757",
@@ -693,16 +701,20 @@ const Basicinfo = ({ handelContinue }) => {
                       interface="popover"
                       value={formData.gender}
                       onIonChange={handleInputChange}
-                      placeholder="Gender"
+                      placeholder={selectedLanguage === "English" ? "Gender" : "लिंग"}
                     >
                       <IonSelectOption defaultChecked value={""}>
-                        {selectedLanguage === "English"
-                          ? "Select Gender"
-                          : "लिंग चुनें"}
+                        {selectedLanguage === "English" ? "Select Gender" : "लिंग चुनें"}
                       </IonSelectOption>
-                      <IonSelectOption value="male">Male</IonSelectOption>
-                      <IonSelectOption value="female">Female</IonSelectOption>
-                      <IonSelectOption value="other">Other</IonSelectOption>
+                      <IonSelectOption value="male">
+                        {selectedLanguage === "English" ? "Male" : "पुरुष"}
+                      </IonSelectOption>
+                      <IonSelectOption value="female">
+                        {selectedLanguage === "English" ? "Female" : "महिला"}
+                      </IonSelectOption>
+                      <IonSelectOption value="other">
+                        {selectedLanguage === "English" ? "Other" : "अन्य"}
+                      </IonSelectOption>
                     </IonSelect>
                   </div>
                 </div>
