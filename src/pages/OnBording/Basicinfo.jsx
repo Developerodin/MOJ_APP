@@ -171,25 +171,25 @@ const Basicinfo = ({ handelContinue }) => {
 
    
     if (!formData.firstName) {
-      showToast("error", "First name is required", "");
+      showToast("error", selectedLanguage === "English" ? "First name is required" : "पहला नाम आवश्यक है", "");
       return;
     } else if (!/^[a-zA-Z]+$/.test(formData.firstName)) {
-      showToast("error", "First name should contain only alphabetic characters", "");
+      showToast("error", selectedLanguage === "English" ? "First name should contain only alphabetic characters" : "पहले नाम में केवल वर्णमाला के अक्षर होने चाहिए", "");
       return;
     } else if (!formData.lastName) {
-      showToast("error", "Last name is required", "");
+      showToast("error", selectedLanguage === "English" ? "Last name is required" : "अंतिम नाम आवश्यक है", "");
       return;
     } else if (!/^[a-zA-Z]+$/.test(formData.lastName)) {
-      showToast("error", "Last name should contain only alphabetic characters", "");
+      showToast("error", selectedLanguage === "English" ? "Last name should contain only alphabetic characters" : "अंतिम नाम में केवल वर्णमाला के अक्षर होने चाहिए", "");
       return;
     } else if (!formData.gender) {
-      showToast("error", "Gender is required", "");
+      showToast("error", selectedLanguage === "English" ? "Gender is required" : "लिंग आवश्यक है", "");
       return;
     } else if (!formData.dob) {
-      showToast("error", "Date of Birth is required", "");
+      showToast("error", selectedLanguage === "English" ? "Date of Birth is required" : "जन्म तिथि आवश्यक है", "");
       return;
     } else if (selectedYear === currentYear) {
-      showToast("error", "Date of Birth cannot be the current year", "");
+      showToast("error", selectedLanguage === "English" ? "Date of Birth cannot be the current year" : "जन्म तिथि वर्तमान वर्ष नहीं हो सकती", "");
       return;
     }
     console.log("Data", formData);
