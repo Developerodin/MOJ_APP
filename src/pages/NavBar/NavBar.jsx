@@ -1,5 +1,5 @@
 import { IonFooter } from '@ionic/react'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
@@ -65,11 +65,11 @@ import { AgentAvailable } from '../Hotelier/DashboardPages/AgentAvailable';
 import { AgentView } from '../Hotelier/DashboardPages/AgentView';
 import AgentPersonalChat from '../../components/Chats/AgentPeronalChat';
 import CreatePost from '../../components/Cards/AgentCard/CreatePost';
-
+import { Keyboard } from "@capacitor/keyboard";
 
 const NavBar = () => {
   // const{setTabBarVisibility,TabBarVisibility}=useContext(AppContext);
-
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const role = localStorage.getItem("role");
   // let HideTabBarValue;
   // if(TabBarVisibility === "/group-chat" || TabBarVisibility === "/personal-chat/2" ){
@@ -80,6 +80,20 @@ const NavBar = () => {
   //   HideTabBarValue="false"
     
   //  }
+
+  useEffect(() => {
+    const showListener = Keyboard.addListener("keyboardWillShow", () => {
+      setIsKeyboardVisible(true);
+    });
+    const hideListener = Keyboard.addListener("keyboardWillHide", () => {
+      setIsKeyboardVisible(false);
+    });
+
+    return () => {
+      showListener.remove();
+      hideListener.remove();
+    };
+  }, []);
 
   return (
    
@@ -126,7 +140,7 @@ const NavBar = () => {
         
      
         {
-           role === "Job Seeker" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",marginBottam:"20px",display:"flex"}}>
+           !isKeyboardVisible && role === "Job Seeker" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",marginBottam:"20px",display:"flex"}}>
            
            {/* <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
              
@@ -134,7 +148,7 @@ const NavBar = () => {
               isMobile ? <IonIcon icon={homeOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Home</span>
              }
            </IonTabButton> */}
-           <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton color="dark" tab="home" href="/app/home" >
              
              {
               isMobile && <IonIcon icon={homeOutline} /> } 
@@ -144,7 +158,7 @@ const NavBar = () => {
  
            
  
-           <IonTabButton tab="addpost" href="/app/applied-jobs" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton tab="addpost" href="/app/applied-jobs" >
              
              {
               isMobile && <IonIcon icon={documentTextOutline} /> } 
@@ -152,7 +166,7 @@ const NavBar = () => {
              
            </IonTabButton>
  
-           <IonTabButton tab="activity" href="/app/job-chat" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton tab="activity" href="/app/job-chat" >
              
              {
               isMobile && <IonIcon icon={chatboxEllipsesOutline} />} 
@@ -160,7 +174,7 @@ const NavBar = () => {
              
            </IonTabButton>
  
-           <IonTabButton tab="user" href="/app/profile" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton tab="user" href="/app/profile" >
             
            {isMobile && <IonIcon icon={personOutline} />}
            <span style={{fontSize:'11px'}}>Profile</span>
@@ -219,30 +233,30 @@ const NavBar = () => {
         }
         
         {
-           role === "Employers" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",marginBottam:"20px",display: "flex"}}>
-           <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
+          !isKeyboardVisible && role === "Employers" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",marginBottam:"20px",display: "flex"}}>
+           <IonTabButton color="dark" tab="home" href="/app/home">
              <IonIcon icon={laptopOutline} />
              <span>Dashboard</span>
            </IonTabButton>
  
            
  
-           <IonTabButton tab="addjob" href="/app/post-job" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton tab="addjob" href="/app/post-job" >
              <IonIcon icon={bagOutline} />
              <span>Post Job</span>
            </IonTabButton>
 
-           <IonTabButton tab="addpost" href="/app/applied-jobs" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton tab="addpost" href="/app/applied-jobs" >
              <IonIcon icon={documentTextOutline} />
             <span>Applied</span>
            </IonTabButton>
  
-           <IonTabButton tab="activity" href="/app/chat" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton tab="activity" href="/app/chat" >
              <IonIcon icon={chatboxEllipsesOutline} />
             <span>Messages</span>
            </IonTabButton>
  
-           <IonTabButton tab="user" href="/app/profile" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton tab="user" href="/app/profile">
              <IonIcon icon={personOutline} />
              <span>Profile</span>
            </IonTabButton>
@@ -283,7 +297,7 @@ const NavBar = () => {
 
 
 {
-           role === "Agent" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",marginBottam:"20px",display:"flex"}}>
+          !isKeyboardVisible && role === "Agent" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",marginBottam:"20px",display:"flex"}}>
            
            {/* <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
              
@@ -291,7 +305,7 @@ const NavBar = () => {
               isMobile ? <IonIcon icon={homeOutline} /> : <span style={{fontSize:"18px",color:"black"}}>Home</span>
              }
            </IonTabButton> */}
-           <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton color="dark" tab="home" href="/app/home" >
              
              {
               isMobile && <IonIcon icon={homeOutline} /> }
@@ -308,7 +322,7 @@ const NavBar = () => {
              }
            </IonTabButton> */}
  
-           <IonTabButton tab="activity" href="/app/agent-chat" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton tab="activity" href="/app/agent-chat">
              
              {
               isMobile && <IonIcon icon={chatboxEllipsesOutline} /> }
@@ -316,7 +330,7 @@ const NavBar = () => {
              
            </IonTabButton>
  
-           <IonTabButton tab="user" href="/app/profile" style={{backgroundColor:"#FFF",color:"grey"}}>
+           <IonTabButton tab="user" href="/app/profile">
             
              {
               isMobile && <IonIcon icon={personOutline} /> } 

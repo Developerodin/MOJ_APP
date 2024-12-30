@@ -48,7 +48,7 @@ import { Base_url } from "../../Config/BaseUrl";
 import axios from "axios";
 import { AppContext } from "../../Context/AppContext";
 import { isMobile } from "../../IsMobile/IsMobile";
-
+import { Camera, CameraResultType,CameraSource } from "@capacitor/camera";
 // import { StatusBar } from '@capacitor/status-bar';
 export const Home = () => {
   const history = useIonRouter();
@@ -70,6 +70,33 @@ export const Home = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
+  const checkAndRequestCameraPermission = async () => {
+    try {
+      // Check the current permission status
+      const permissions = await Camera.checkPermissions();
+
+      if (permissions.camera !== "granted") {
+        // If permission is not granted, request permission
+        const request = await Camera.requestPermissions({
+          permissions: ["camera"],
+        });
+
+        if (request.camera === "granted") {
+          console.log("Camera permission granted!");
+        } else {
+          console.log("Camera permission denied!");
+        }
+      } else {
+        console.log("Camera permission already granted.");
+      }
+    } catch (error) {
+      console.error("Error checking or requesting camera permissions:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkAndRequestCameraPermission();
+  }, []);
   useEffect(() => {
     // Code to update selectedLanguage from localStorage
     const languageFromStorage = localStorage.getItem("selectedLanguage");
@@ -103,7 +130,7 @@ export const Home = () => {
         },
       });
       const data = response.data;
-      console.log("Response check work experience", data, response);
+      // console.log("Response check work experience", data, response);
 
       // if(data === "otp in valid"){
       //   showToast("error", "wrong otp", "");
@@ -120,7 +147,7 @@ export const Home = () => {
       }
       // showToast("error", "Try After Some Time", "");
     } catch (error) {
-      console.error("Error:", error);
+      // console.error("Error:", error);
       // showToast("error", "Try After Some Time", "");
     }
   };
@@ -138,7 +165,7 @@ export const Home = () => {
         },
       });
       const data = response.data;
-      console.log("Data get from job ==>", data);
+      // console.log("Data get from job ==>", data);
 
       if (data.status === "success") {
         const formatedData = data.post.filter((el) => el.status === "1");
@@ -167,10 +194,10 @@ export const Home = () => {
       });
 
       const data = response.data;
-      console.log("user pref-->", data, response);
+      // console.log("user pref-->", data, response);
 
       if (data.status === "success") {
-        console.log("Data get from job pref ==++++++++++++++++++++++++>", data);
+        // console.log("Data get from job pref ==++++++++++++++++++++++++>", data);
         setFilteredJobData(data.post);
         return;
       }
@@ -247,7 +274,7 @@ export const Home = () => {
         matchesExperience
       );
     });
-    console.log("Filtered Jobs+++++++++++++++++++++++++++12:", filteredJobs);
+    // console.log("Filtered Jobs+++++++++++++++++++++++++++12:", filteredJobs);
     setAllJobData(filteredJobs);
     setFilteredJobData(filteredJobs);
     setIsFilterApplied(true); // Set filter
