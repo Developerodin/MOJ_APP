@@ -19,9 +19,10 @@ import { arrowBackOutline, trashOutline,addOutline } from "ionicons/icons";
 import { Base_url } from "../../../Config/BaseUrl";
 import axios from "axios";
 import AddIcon from "./addicon.png";
+import { useHistory } from "react-router";
 
 const CreatePost = () => {
-  const history = useIonRouter();
+  const history = useHistory();
   const { showToast, setPostUpdate, setProfileHealthUpdate, languageUpdate } =
     useContext(AppContext);
   const [departmentModel, setDepartmentModel] = useState(false);
@@ -37,11 +38,13 @@ const CreatePost = () => {
   const [staffDetails, setStaffDetails] = useState([
     { department: "", departmentValue: "", positionTitle: "", availableStaff: "" },
   ]);
+  const [selectedDepartment,setSelectedDepartment] = useState("")
+  const [availability, setAvailability] = useState("");
   const [currentStep, setCurrentStep] = useState(1);
 
-  useEffect(() => {
-    updatePositionTitleWithDepartmentValue();
-  }, [staffDetails]);
+  // useEffect(() => {
+  //   updatePositionTitleWithDepartmentValue();
+  // }, [staffDetails]);
   
 
   const updatePositionTitleWithDepartmentValue = () => {
@@ -71,6 +74,16 @@ const CreatePost = () => {
   };
 
   const handleSaveClick = () => {
+    console.log("save clicked",selectedDepartment)
+    if(selectedDepartment === ""){
+    // console.log("Please select a department ");
+    showToast("error", "Department selection is mandatory", "");
+    return;
+    }
+    else if(availability === ""){
+      showToast("error", "Available Staff selection is mandatory", "");
+      return;
+    }
     addPost();
     handleClose();
   };
@@ -83,8 +96,9 @@ const CreatePost = () => {
       setStaffDetails([
         { department: "", departmentValue: "", positionTitle: "", availableStaff: "" },
       ]);
-      history.goBack();
+     
     }
+    history.goBack();
   };
 
   const handleDeleteClick = () => {
@@ -114,9 +128,11 @@ const CreatePost = () => {
 
   const handelDepartmentModelClose = () => {
     setDepartmentModel(false);
+    updatePositionTitleWithDepartmentValue();
   };
 
   const handelSelectedDepartment = (selectedDepartment, subDepartments, index) => {
+    setSelectedDepartment(selectedDepartment)
     const namesString = subDepartments
       .map((subDepartment) => subDepartment.sub_department)
       .join(", ");
@@ -420,7 +436,7 @@ const CreatePost = () => {
                               const newStaffDetails = [...staffDetails];
                               newStaffDetails[index].availableStaff = e.target.value;
                               setStaffDetails(newStaffDetails);
-
+                              setAvailability(e.target.value)
                             }}
                             placeholder={selectedLanguage === "English" ? "Enter Staff" : "कर्मचारी दर्ज करें"}
                             style={{

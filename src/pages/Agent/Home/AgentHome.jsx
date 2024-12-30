@@ -121,8 +121,8 @@ export const AgentHome = () => {
     const staffDetails = JSON.parse(job.staff_details);
     return job.preferred_city === selectedCity &&
       staffDetails.some(detail => 
-        detail.department.some(dep => dep.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        detail.positionTitle.toLowerCase().includes(searchQuery.toLowerCase())
+        detail && detail.department && detail.department.some(dep => dep.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        detail && detail.positionTitle && detail.positionTitle.toLowerCase().includes(searchQuery.toLowerCase())
       );
   });
 
@@ -190,7 +190,7 @@ export const AgentHome = () => {
             </div>
           </div>
             <div>
-              <img src={equilizer} alt="Filter" />
+              {/* <img src={equilizer} alt="Filter" /> */}
             </div>
           </div>
 
@@ -204,25 +204,34 @@ export const AgentHome = () => {
 </button>
           </div>
 
-          <div style={{ display: 'flex', marginTop: '10px' }}>
-            {uniqueCities.map((city) => (
-              <button
-                key={city}
-                onClick={() => handleCityClick(city)}
-                style={{
-                  padding: '10px 18px 10px 18px',
-                  margin: '0 10px 0 0',
-                  borderRadius: '7px',
-                  border: selectedCity === city ? '1px solid #007bff' : '1px solid #e0e0e0',
-                  background: selectedCity === city ? '#007bff' : '#F4F4F4',
-                  color: selectedCity === city ? '#fff' : '#000',
-                  cursor: 'pointer',
-                }}
-              >
-                {city}
-              </button>
-            ))}
-          </div>
+          <div
+  style={{
+    display: 'flex',
+    marginTop: '10px',
+    overflowX: 'auto', // Enable horizontal scrolling
+    whiteSpace: 'nowrap', // Prevent wrapping of the buttons
+  }}
+>
+  {uniqueCities.map((city) => (
+    <button
+      key={city}
+      onClick={() => handleCityClick(city)}
+      style={{
+        padding: '10px 18px',
+        margin: '0 10px 0 0',
+        borderRadius: '7px',
+        border: selectedCity === city ? '1px solid #007bff' : '1px solid #e0e0e0',
+        background: selectedCity === city ? '#007bff' : '#F4F4F4',
+        color: selectedCity === city ? '#fff' : '#000',
+        cursor: 'pointer',
+        flexShrink: 0, // Prevent the button from shrinking
+      }}
+    >
+      {city}
+    </button>
+  ))}
+</div>
+
           <div style={{color:'#787878',fontSize:'13px',marginTop:'8px'  }}>
             {selectedLanguage === "English" ? "* Select a city to get specific posts" : "* विशिष्ट पोस्ट प्राप्त करने के लिए एक शहर चुनें"}
           </div>

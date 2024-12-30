@@ -86,6 +86,9 @@ const EditPostModal = () => {
     }
   }, [preferredState, post]);
 
+
+
+
   const handleSaveClick = async () => {
     try {
       const url = `${Base_url}auth/agent_post/update/${id}`;
@@ -109,6 +112,7 @@ const EditPostModal = () => {
       } else {
         showToast("error", "Error updating post", "");
       }
+      history.goBack();
     } catch (error) {
       console.error("Error updating post:", error);
       showToast("error", "Error updating post", "");
