@@ -183,7 +183,7 @@ const Newphone = () => {
                 <br />
                 <input
                   className="round-input"
-                  type="tel"
+                  type="number"
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleChange}

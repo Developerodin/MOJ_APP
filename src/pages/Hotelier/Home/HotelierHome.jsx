@@ -55,7 +55,7 @@ export const HotelierHome = () => {
       if (data.status === "success") {
         //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
         // setUpdate((prev)=>prev+1);
-        console.log("Job DAta ==>",data.Job)
+        console.log("Job DAta on homee hotelier  ==>",data.Job)
         const filterData1 = data.Job.filter((el,index)=>el.status === "1")
         const filterData2 = data.Job.filter((el,index)=>el.status === "0")
         // const Data = data.img;
@@ -147,7 +147,7 @@ export const HotelierHome = () => {
      </div>
 
      <div>
-          <img src={equalizer} />
+          {/* <img src={equalizer} /> */}
      </div>
   </div>
 

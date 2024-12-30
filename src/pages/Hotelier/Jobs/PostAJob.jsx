@@ -107,9 +107,31 @@ export const HotelierPostJob = () => {
   const handleEndTimeChange = (event) => {
     setEndTime(event.target.value);
   };
+ 
   const handleSaveClick = () => {
     // Save logic here
     console.log("DAta ==>",hotelName,jobTitle,address,numberOfEmployeRequired,jobDescription,experience,Education,department,preferredCity,preferredState,jobType,salaryRange,startTime,endTime);
+    if (!jobDescription) {
+      showToast("error",`${selectedLanguage === "English" ? "Job Description is required" : "नौकरी का विवरण आवश्यक है"}`, "");
+      return;
+    }  else if (!jobType) {
+      showToast("error",`${selectedLanguage === "English" ? "Job Type is required" : "नौकरी का प्रकार आवश्यक है"}`, "");;
+      return;
+    }  else if (!department) {
+      showToast("error",`${selectedLanguage === "English" ? "Department is required" : "विभाग आवश्यक है"}`, "");;
+      return;
+    } else if (!experience) {
+      showToast("error",`${selectedLanguage === "English" ? "Experience is required" : "अनुभव आवश्यक है"}`, "");;
+      return;
+    }else if (!Education) {
+      showToast("error",`${selectedLanguage === "English" ? "Education is required" : "शिक्षा आवश्यक है"}`, "");;
+      return;
+    }
+    else if (!salaryRange) {
+      showToast("error",`${selectedLanguage === "English" ? "Salary Range is required" : "वेतन सीमा आवश्यक है"}`, "");;
+      return;
+    }
+    
     AddJob();
  
   };
@@ -119,52 +141,6 @@ export const HotelierPostJob = () => {
   };
 
   const AddJob = async () => {
-//     if (!department || !jobType || !jobDescription || !Education || !salaryRange || !experience || numberOfEmployeRequired ||(jobType === "Part Time" && (!startTime || !endTime))) {
-//     if(jobType === "") {
-//       showToast("error", "Please select job type", "");
-//       return;
-//     }
-//     if(jobTitle === "") {
-//       showToast("error", "Please enter job title", "");
-//       return;
-//     }
-//     if(jobDescription === "") {
-//       showToast("error", "Please enter job description", "");
-//       return;
-//     }
-//     if(department === "") {
-//       showToast("error", "Please select department", "");
-//       return;
-//     }
-//     if(departmentValue === "") {
-//       showToast("error", "Please select sub department", "");
-//       return;
-//     }
-//     if(Education === "") {
-//       showToast("error", "Please select education", "");
-//       return;
-//     }
-//     if(experience === "") {
-//       showToast("error", "Please select experience", "");
-//       return;
-//     }
-//     if(numberOfEmployeRequired === "") {
-//       showToast("error", "Please enter number of employees required", "");
-//       return;
-//     }
-//     if(salaryRange === "") {
-//       showToast("error", "Please select salary range", "");
-//       return;
-//     }
-//     if(jobType === "Part Time" && (startTime === "" || endTime === "")) {
-//       showToast("error", "Please select start and end time", "");
-//       return;
-//     }
-
-  
-//   return;
-// }
-
 
 
 
@@ -315,8 +291,14 @@ export const HotelierPostJob = () => {
               placeholder={selectedLanguage === "English" ? "Select Job Type" : "नौकरी का प्रकार चुनें"}
               style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
             >
-              <IonSelectOption value="Full Time">Full Time</IonSelectOption>
-              <IonSelectOption value="Part Time">Part Time</IonSelectOption>
+              <IonSelectOption value="Full Time">
+                
+                {selectedLanguage === "English" ? "Full Time" : "पूर्ण समय"}
+                </IonSelectOption>
+              <IonSelectOption value="Part Time">
+                
+                {selectedLanguage === "English" ? "Part Time" : " पार्टटाइम"}
+                </IonSelectOption>
               {/* Add more job types as needed */}
             </IonSelect>
           </div>
@@ -513,8 +495,14 @@ style={{
               placeholder={selectedLanguage === "English" ? "Select experience" : "अनुभव चुनें"}
               style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
             >
-              <IonSelectOption value="fresher">Fresher</IonSelectOption>
-              <IonSelectOption value="experienced">Experience</IonSelectOption>
+              <IonSelectOption value="fresher">
+                
+                {selectedLanguage === "English" ? "Fresher" : " फ्रेशर"}
+                </IonSelectOption>
+              <IonSelectOption value="experienced">
+                
+                {selectedLanguage === "English" ? "Experience" : "अनुभवी"}
+                </IonSelectOption>
               {/* Add more job types as needed */}
             </IonSelect>
           </div>
@@ -539,12 +527,29 @@ style={{
               placeholder={selectedLanguage === "English" ? "Select education" : "शिक्षा चुनें"}
               style={{ background: "#F4F4F4", padding: "10px", borderRadius: "7px" }}
             >
-              <IonSelectOption value="10th">10th pass</IonSelectOption>
-              <IonSelectOption value="12th">12th pass</IonSelectOption>
-              <IonSelectOption value="UG">Gradution/Diploma</IonSelectOption>
-              <IonSelectOption value="PG">Post gradution</IonSelectOption>
-              <IonSelectOption value="PhD">Doctorate</IonSelectOption>
-              <IonSelectOption value="bhm">BHM</IonSelectOption>
+              <IonSelectOption value="10th">
+                
+                {selectedLanguage === "English" ? "10th pass" : "10वीं पास"}
+                </IonSelectOption>
+              <IonSelectOption value="12th">
+                
+                {selectedLanguage === "English" ? "12th pass" : "12वीं पास"}
+              </IonSelectOption>
+              <IonSelectOption value="UG">
+                
+                {selectedLanguage === "English" ? "Gradution/Diploma" : "ग्रैजूएशन/डिप्लोमा"}
+                </IonSelectOption>
+              <IonSelectOption value="PG">
+              {selectedLanguage === "English" ? "Post gradution" : "पोस्ट ग्रैजुएशन"}
+              </IonSelectOption>
+              <IonSelectOption value="PhD">
+                
+                {selectedLanguage === "English" ? "Doctorate" : "डाक्टरिट"}
+                </IonSelectOption>
+              <IonSelectOption value="bhm">
+                
+                {selectedLanguage === "English" ? "BHM" : "बीएचएम"}
+                </IonSelectOption>
               
               {/* Add more job types as needed */}
             </IonSelect>

@@ -4,9 +4,10 @@ import React, { useState } from 'react'
 
 export const ContactUsModel = ({showModal, setShowModal,data}) => {
   const Role = localStorage.getItem("role") || "";
+  console.log("Contact us DAta ===>",data)
   return (
     <IonModal
-    initialBreakpoint={0.25} breakpoints={[0, 0.25]}
+    initialBreakpoint={0.20} breakpoints={[0, 0.25]}
     isOpen={showModal}
  // Change 'root' to the ID of your root element
     swipeToClose={true}
@@ -27,12 +28,14 @@ export const ContactUsModel = ({showModal, setShowModal,data}) => {
 
              <span>{data && data.h_mobile}</span>
       </div>
+{
+       data && data.h_email  && <div onClick={() => window.location.href = `mailto:${data && data.email}`} style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+       <IonIcon icon={mailOutline} color='danger' style={{fontSize:"24px"}}/>
 
-      <div onClick={() => window.location.href = `mailto:${data && data.email}`} style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-             <IonIcon icon={mailOutline} color='danger' style={{fontSize:"24px"}}/>
-
-             <span>{data && data.h_email}</span>
-      </div>
+       <span>{data && data.h_email ? data.h_email : "email not found" }</span>
+</div>
+}
+      
      </div>
      :
      <div style={{ padding: "30px" }}>
@@ -51,7 +54,8 @@ export const ContactUsModel = ({showModal, setShowModal,data}) => {
        <div onClick={() => window.location.href = `mailto:${data && data.email}`} style={{marginTop:"30px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <IonIcon icon={mailOutline} color='danger' style={{fontSize:"24px"}}/>
 
-              <span>{data && data.email}</span>
+              {/* <span>{data && data.email}</span> */}
+              <span>{data && data.email ? data.email : "email not found" }</span>
        </div>
       </div>
       }

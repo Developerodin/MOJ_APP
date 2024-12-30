@@ -256,9 +256,9 @@ const PersonalChat = () => {
                   </IonText>
                 </div>
                 <div>
-                  <IonText style={{ fontSize: "11px", color: "grey" }}>
+                  {/* <IonText style={{ fontSize: "11px", color: "grey" }}>
                     12 min ago
-                  </IonText>
+                  </IonText> */}
                 </div>
               </div>
             </div>

@@ -1,4 +1,5 @@
-import { IonContent, IonIcon, IonPage, IonSegment, IonSegmentButton, IonLabel, IonToolbar } from '@ionic/react';
+import { IonContent, IonIcon, IonPage, IonSegment, IonSegmentButton, IonLabel, IonToolbar,IonRefresher,
+  IonRefresherContent, } from '@ionic/react';
 import { chatboxEllipsesOutline } from 'ionicons/icons';
 import React, { useState,useContext,useEffect } from 'react';
 import { isMobile } from '../../../IsMobile/IsMobile';
@@ -8,6 +9,7 @@ import { AppContext } from '../../../Context/AppContext';
 export const HotelierMessages = () => {
   const { languageUpdate} = useContext(AppContext);
   const [selectedTab, setSelectedTab] = useState('Job Seeker');
+  const [refresh,setrefresh]= useState(0);
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
@@ -19,9 +21,19 @@ export const HotelierMessages = () => {
     }
   }, [languageUpdate]);
 
+  const handleRefresh = async (event) => {
+  setrefresh((prev)=>prev+1);
+   setTimeout(()=>{
+    event.detail.complete(); 
+  },2000)
+    // Signal Ionic that refresh is complete
+  };
   return (
     <IonPage>
       <IonContent>
+        <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+                  <IonRefresherContent pullingText="Pull to refresh" refreshingSpinner="bubbles" />
+                </IonRefresher>
         <div className={isMobile ? "" : 'sw'} style={{ padding: "20px" }}>
           <div style={{ display: "flex", justifyContent: "left", alignItems: "center", marginTop: "10px" }}>
             <IonIcon icon={chatboxEllipsesOutline} style={{ fontSize: "30px" }} />

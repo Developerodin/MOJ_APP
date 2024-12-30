@@ -85,7 +85,7 @@ const AgentAvailableCard = ({ data, agents }) => {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', marginTop: '0px' }}>
               <span style={{ fontSize: '18px', color: 'black', fontWeight: 'bold' }}>
-                {mainDepartment[0]}
+                {mainDepartment && mainDepartment[0]}
               </span>
               {additionalDepartmentsCount > 0 && (
                 <span style={{ fontSize: '10px', color: '#395CFF', fontWeight: 'lighter', marginLeft: '5px', background: '#D5DDFF', borderRadius: '59px', height: '19px', width: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

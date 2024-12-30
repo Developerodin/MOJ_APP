@@ -60,7 +60,7 @@ import {
   
   export const AgentProfile = () => {
     const history = useHistory();
-    const { editUpdate, setEditUpdate, profileHealthUpdate,languageUpdate } =
+    const { editUpdate, setEditUpdate, profileHealthUpdate,languageUpdate,showToast } =
       useContext(AppContext);
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
     const [profilePic, setProfilePic] = useState(null);
@@ -103,6 +103,7 @@ import {
         setIsPressed(false);
       }, 200);
     });
+    showToast("success",`${selectedLanguage === "English" ? "Referral code copied to clipboard" : "रेफरल कोड क्लिपबोर्ड पर कॉपी हो गया है"}`, "");
   };
   
     useEffect(() => {
@@ -398,6 +399,12 @@ import {
   
       return () => clearInterval(interval); // Clear the interval on component unmount
     }, []);
+
+    const calculateRating = () => {
+      // Ensure the rating is not more than 5
+      const rating = Math.min(5, Math.max(0, (phHeathPercentage / 100) * 5));
+    return parseFloat(rating.toFixed(1)); // Convert to one decimal place
+    };
     return (
       <IonPage>
         <IonContent>
@@ -428,7 +435,7 @@ import {
                     marginTop: "2px",
                   }}
                 >
-                  4.5
+                  {calculateRating()}
                 </span>
               </div>
   

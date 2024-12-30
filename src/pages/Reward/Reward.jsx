@@ -1,5 +1,5 @@
 import { IonContent, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonSegment, IonSegmentButton, IonText, IonToolbar, useIonRouter, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { heartOutline,sendOutline,chatbubbleOutline,notificationsOutline,chatbubbleEllipsesOutline,searchOutline, closeOutline, chevronBackOutline} from 'ionicons/icons';
 import ContactsChat from '../../components/Chats/ContactsChat';
 import GroupsChat from '../../components/Chats/GroupsChat';
@@ -11,7 +11,7 @@ import { History } from './History';
 import { HowItworks } from './HowItworks';
 import { MyPoints } from './MyPoints';
 export const Reward = () => {
-  const{MarkerData,setTabBarVisibility,TabBarVisibility,itemData}=useContext(AppContext);
+  const{MarkerData,setTabBarVisibility,TabBarVisibility,itemData,languageUpdate}=useContext(AppContext);
 
     const [selectedTab, setSelectedTab] = useState('MyPoints');
     const location = useLocation();
@@ -20,6 +20,17 @@ export const Reward = () => {
     // console.log("path from chats",TabBarVisibility);
     
     setTabBarVisibility(path);
+
+     const [selectedLanguage, setSelectedLanguage] = useState(
+        localStorage.getItem("selectedLanguage") || "English"
+      );
+      useEffect(() => {
+        
+        const languageFromStorage = localStorage.getItem("selectedLanguage");
+        if (languageFromStorage) {
+          setSelectedLanguage(languageFromStorage);
+        }
+      }, [languageUpdate]);
 
     const renderComponent = () => {
         switch (selectedTab) {
@@ -78,7 +89,12 @@ export const Reward = () => {
                   </div>
               
               <div style={{marginLeft:"10px",marginTop:"-5px"}} >
-                <span style={{fontSize:"24px",fontWeight:"bold"}}>Reward points</span>
+                <span style={{fontSize:"24px",fontWeight:"bold"}}>
+                  
+                  {
+                    selectedLanguage === "English" ? "Reward points" : "अर्जित अंक"
+                  }
+                  </span>
                </div>
              
            
@@ -103,13 +119,28 @@ export const Reward = () => {
             <IonToolbar>
         <IonSegment  value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
           <IonSegmentButton value="MyPoints" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >My points</IonLabel>
+            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >
+              
+              {
+                    selectedLanguage === "English" ? "My points" : "अर्जित अंक"
+                  }
+              </IonLabel>
           </IonSegmentButton>
           <IonSegmentButton value="History" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >History</IonLabel>
+            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >
+             
+              {
+                    selectedLanguage === "English" ? "History" : "इतिहास"
+                  }
+              </IonLabel>
           </IonSegmentButton> 
           <IonSegmentButton value="Howitworks" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >How it works</IonLabel>
+            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >
+              
+              {
+                    selectedLanguage === "English" ? "How it works" : "यह कैसे काम करता है?"
+                  }
+              </IonLabel>
           </IonSegmentButton>
         </IonSegment>
       </IonToolbar>

@@ -1,13 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import icon from "/assets/Coin.png";
 import { RewardCard } from '../../components/Cards/RewardCard/RewardCard';
 import { RewardCard2 } from '../../components/Cards/RewardCard/RewardCard2';
 import { Base_url } from '../../Config/BaseUrl';
+import { AppContext } from '../../Context/AppContext';
 
 export const MyPoints = () => {
   const [rewardPoints, setRewardPoints] = useState(0);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+const{languageUpdate}=useContext(AppContext);
+   const [selectedLanguage, setSelectedLanguage] = useState(
+        localStorage.getItem("selectedLanguage") || "English"
+      );
+
+      useEffect(() => {
+        
+        const languageFromStorage = localStorage.getItem("selectedLanguage");
+        if (languageFromStorage) {
+          setSelectedLanguage(languageFromStorage);
+        }
+      }, [languageUpdate]);
 
   useEffect(() => {
     const handelPointsDataGet = async () => {
@@ -49,13 +62,21 @@ export const MyPoints = () => {
 
       <div style={{ textAlign: "center", marginTop: "10px" }}>
         <span style={{ fontSize: "15px" }}>
-          To earn more, invite a friend/colleague by clicking here
+          
+          {
+            selectedLanguage === "English" ? "To earn more, invite a friend/colleague by clicking here" :"अधिक कमाने के लिए, यहां क्लिक करके किसी मित्र/सहकर्मी को आमंत्रित करें" 
+          }
         </span>
       </div>
 
       <div>
         <div style={{ marginTop: "20px", padding: "20px", border: "1px solid #E4E4E4", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "30px", background: "#F7A708" }}>
-          <span style={{ color: "#fff", fontWeight: "bold" }}>Refer and Earn</span>
+          <span style={{ color: "#fff", fontWeight: "bold" }}>
+            
+            {
+            selectedLanguage === "English" ? "Refer and Earn" :"रेफर करें और कमाएं" 
+          }
+            </span>
         </div>
       </div>
 

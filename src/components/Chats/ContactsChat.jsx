@@ -3,7 +3,7 @@ import ChatCard from '../Cards/ChatCard';
 import axios from 'axios';
 import { Base_url } from '../../Config/BaseUrl';
 
-const ContactsChat = ({ userType }) => {
+const ContactsChat = ({ userType,refresh }) => {
   const [uniqueReceiverIds, setUniqueReceiverIds] = useState([]);
   const [messages, setMessages] = useState([]);
 
@@ -50,7 +50,7 @@ const ContactsChat = ({ userType }) => {
     const interval = setInterval(fetchMessages, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [refresh]);
 
   return (
     <div>

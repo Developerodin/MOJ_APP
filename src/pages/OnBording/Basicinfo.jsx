@@ -195,6 +195,63 @@ const Basicinfo = ({ handelContinue }) => {
     console.log("Data", formData);
     RegisterUser();
   };
+
+
+  const handelBtnClick2 = () => {
+    console.log("Form Data ==>", formData2);
+    
+
+   
+    if (!formData2.hotelName) {
+      showToast("error", "Hotel name is required", "");
+      return;
+    } else if (!formData2.email) {
+      showToast("error", "Email is required", "");
+      return;
+    }
+    else if (!pincode2) {
+      showToast("error", "Pincode is required", "");
+      return;
+    } else if (!selectedState) {
+      showToast("error", "State is required", "");
+      return;
+    }
+    else if (!selectedCity) {
+      showToast("error", "City is required", "");
+      return;
+    }
+    
+    handelEmployersBtnClick();
+  };
+
+  const handelBtnClick3 = () => {
+    console.log("Form Data ==>", formData3);
+    
+
+   
+    if (!formData3.firstName) {
+      showToast("error", "First name is required", "");
+      return;
+    } else if (!/^[a-zA-Z]+$/.test(formData3.firstName)) {
+      showToast("error", "First name should contain only alphabetic characters", "");
+      return;
+    } else if (!formData3.lastName) {
+      showToast("error", "Last name is required", "");
+      return;
+    } else if (!/^[a-zA-Z]+$/.test(formData3.lastName)) { 
+      showToast("error", "Last name should contain only alphabetic characters", "");
+      return;
+    } else if (!formData3.gender) {
+      showToast("error", "Gender is required", "");
+      return;
+    } else if (!formData3.email) {
+      showToast("error", "Email is required", "");
+      return;
+    }
+  
+    AgentbtnClick();
+  };
+
   const AddAddressData = async () => {
     try {
       const url = `${Base_url}basic/all_city`;
@@ -1503,7 +1560,7 @@ const Basicinfo = ({ handelContinue }) => {
 
                 {Role === "Employers" && (
                   <CustomBtn1
-                    fun={handelEmployersBtnClick}
+                    fun={handelBtnClick2}
                     title={
                       selectedLanguage === "English" ? "Continue" : "जारी रखें"
                     }
@@ -1512,7 +1569,7 @@ const Basicinfo = ({ handelContinue }) => {
                 )}
                 {Role === "Agent" && (
                   <CustomBtn1
-                    fun={AgentbtnClick}
+                    fun={handelBtnClick3}
                     title={
                       selectedLanguage === "English" ? "Continue" : "जारी रखें"
                     }
