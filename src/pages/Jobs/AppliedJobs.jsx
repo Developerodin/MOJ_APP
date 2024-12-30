@@ -37,6 +37,7 @@ export const AppliedJobs = () => {
   );
 
   const [selectedCategory, setSelectedCategory] = useState("InTouch");
+  const [accordionValue, setAccordionValue] = useState(null);
 
   useEffect(() => {
     const languageFromStorage = localStorage.getItem("selectedLanguage");
@@ -140,6 +141,15 @@ export const AppliedJobs = () => {
     }
   };
 
+  const handleAccordionChange = (value) => {
+    setAccordionValue(value);
+  };
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setAccordionValue(null); // Close the accordion
+  };
+
   return (
     <IonPage>
       <IonContent>
@@ -164,15 +174,15 @@ export const AppliedJobs = () => {
             </span>
           </div>
 
-          <IonAccordionGroup style={{ marginTop: "20px" }}>
-            <IonAccordion value="jobStatus" >
+          <IonAccordionGroup value={accordionValue} onIonChange={(e) => handleAccordionChange(e.detail.value)} style={{ marginTop: "20px" }}>
+            <IonAccordion value="jobStatus">
               <IonItem slot="header" color="light">
                 <IonLabel>{getJobStatusLabel()}</IonLabel>
               </IonItem>
               <IonList slot="content">
                 <IonItem
                   button
-                  onClick={() => setSelectedCategory("InTouch")}
+                  onClick={() => handleCategoryChange("InTouch")}
                   color={selectedCategory === "InTouch" ? "primary" : "light"}
                 >
                   <IonLabel>
@@ -181,7 +191,7 @@ export const AppliedJobs = () => {
                 </IonItem>
                 <IonItem
                   button
-                  onClick={() => setSelectedCategory("Selected")}
+                  onClick={() => handleCategoryChange("Selected")}
                   color={selectedCategory === "Selected" ? "primary" : "light"}
                 >
                   <IonLabel>
@@ -190,7 +200,7 @@ export const AppliedJobs = () => {
                 </IonItem>
                 <IonItem
                   button
-                  onClick={() => setSelectedCategory("InReview")}
+                  onClick={() => handleCategoryChange("InReview")}
                   color={selectedCategory === "InReview" ? "primary" : "light"}
                 >
                   <IonLabel>
@@ -199,7 +209,7 @@ export const AppliedJobs = () => {
                 </IonItem>
                 <IonItem
                   button
-                  onClick={() => setSelectedCategory("NotSelected")}
+                  onClick={() => handleCategoryChange("NotSelected")}
                   color={selectedCategory === "NotSelected" ? "primary" : "light"}
                 >
                   <IonLabel>
