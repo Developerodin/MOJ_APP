@@ -24,6 +24,43 @@ export const AccountsAndNotifications = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
+  const [isPushNotificationEnabled, setIsPushNotificationEnabled] = useState(false);
+  const [isNotificationEnabled, setIsNotificationEnabled] = useState(false);
+
+  useEffect(() => {
+    // Get the value from localStorage on component mount
+    const storedValue = localStorage.getItem("pushNotificationEnabled");
+    if (storedValue === null) {
+      setIsPushNotificationEnabled(false); // Default to false if not found
+    } else {
+      setIsPushNotificationEnabled(storedValue === "true"); // Convert string to boolean
+    }
+  }, []);
+
+  useEffect(() => {
+    // Get the value from localStorage on component mount
+    const storedValue = localStorage.getItem("NotificationEnabled");
+    if (storedValue === null) {
+      setIsNotificationEnabled(false); // Default to false if not found
+    } else {
+      setIsNotificationEnabled(storedValue === "true"); // Convert string to boolean
+    }
+  }, []);
+
+  const handleToggleChange = (e) => {
+    const value = e.detail.checked;
+    setIsPushNotificationEnabled(value);
+
+    // Store the value in localStorage
+    localStorage.setItem("pushNotificationEnabled", value.toString());
+  };
+  const handleToggleChange2 = (e) => {
+    const value = e.detail.checked;
+    setIsNotificationEnabled(value);
+
+    // Store the value in localStorage
+    localStorage.setItem("NotificationEnabled", value.toString());
+  };
   useEffect(() => {
     // Code to update selectedLanguage from localStorage
     const languageFromStorage = localStorage.getItem("selectedLanguage");
@@ -111,7 +148,10 @@ export const AccountsAndNotifications = () => {
                   alignItems: "center",
                 }}
               >
-                <IonToggle></IonToggle>
+               <IonToggle
+          checked={isNotificationEnabled}
+          onIonChange={handleToggleChange2}
+        />
               </div>
             </div>
 
@@ -149,7 +189,10 @@ export const AccountsAndNotifications = () => {
                   alignItems: "center",
                 }}
               >
-                <IonToggle></IonToggle>
+                 <IonToggle
+          checked={isPushNotificationEnabled}
+          onIonChange={handleToggleChange}
+        />
               </div>
             </div>
 

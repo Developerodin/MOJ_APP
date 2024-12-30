@@ -96,6 +96,7 @@ const VerifyPhoneTwo = () => {
             showToast("success", data.message, "");
             setLoading(false)
               history.push("/app", 'root','replace');
+              window.location.reload();
               return
           }
 
@@ -136,6 +137,8 @@ const VerifyPhoneTwo = () => {
       });
     }
   }, []);
+
+  
   return (
     <IonPage>
       <IonContent>
