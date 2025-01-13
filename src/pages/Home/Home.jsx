@@ -19,6 +19,8 @@ import {
   useIonViewDidEnter,
   useIonViewDidLeave,
   IonLoading,
+  IonRefresher,
+  IonRefresherContent,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
 import {
@@ -153,8 +155,9 @@ export const Home = () => {
   };
 
   const getJobs = async () => {
+    setAllJobData([])
     setShowLoading(true);
-
+    
     try {
       const url = `${Base_url}job`;
       const formData1 = new FormData();
@@ -286,35 +289,30 @@ export const Home = () => {
     setIsFilterApplied(false); // Reset filter
   };
 
-  // useEffect(() => {
-  //   const backButtonHandler = async () => {
-  //     console.log("Back Press ==>")
-  //     if (backPressCount < 1) {
-  //       console.log("Back Press ==> 1")
-  //       setBackPressCount(1);
-  //       setTimeout(() => {
-  //         setBackPressCount(0);
-  //         console.log("Back Press ==> 0")
-  //       }, 2000); // Reset the counter after 2 seconds
-  //     } else {
-  //       console.log("Back Press ==> exit app")
-  //       await MainApp.exitApp(); // Exit the app using the App plugin
-  //     }
-  //   };
+  useEffect(() => {
+    const backButtonHandler = async () => {
+      console.log("Back Press ==>")
+      await MainApp.exitApp();
+    };
 
-  //   MainApp.addListener("backButton", backButtonHandler);
+    MainApp.addListener("backButton", backButtonHandler);
 
-  //   return () => {
-  //     MainApp.removeAllListeners("backButton");
-  //   };
-  // }, [backPressCount]);
+    return () => {
+      MainApp.removeAllListeners("backButton");
+    };
+  }, [backPressCount]);
 
-  // useEffect(()=>{
-  //   StatusBar.setBackgroundColor({ color: '#FFFFFF' });
-  //   StatusBar.setStyle({ style: 'dark' });
-  // },[])
+
+  const handleRefresh = async (event) => {
+    await getJobs();
+    await getuserref();
+    event.detail.complete(); // Signal Ionic that refresh is complete
+  };
+
+ 
   return (
     <IonPage>
+    
       <IonContent>
         <div className={isMobile ? "" : "sw"} style={{ padding: "20px" }}>
           {/* <IonButton onClick={outerRout}  expand='full'>
@@ -528,6 +526,9 @@ export const Home = () => {
           
           </div> */}
          <div style={{  }}>
+         <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+                <IonRefresherContent pullingText="Pull to refresh" refreshingSpinner="bubbles" />
+              </IonRefresher>
           {filteredJobData.length > 0 ? (
             <>
               <IonToolbar style={{ backgroundColor: "none" }}>

@@ -5,6 +5,7 @@ import { RewardCard } from '../../components/Cards/RewardCard/RewardCard';
 import { RewardCard2 } from '../../components/Cards/RewardCard/RewardCard2';
 import { Base_url } from '../../Config/BaseUrl';
 import { AppContext } from '../../Context/AppContext';
+import { IonCol, IonItem } from '@ionic/react';
 
 export const MyPoints = () => {
   const [rewardPoints, setRewardPoints] = useState(0);
@@ -53,6 +54,24 @@ const{languageUpdate}=useContext(AppContext);
     handelPointsDataGet();
   }, [userDetails &&  userDetails.user_id]);
 
+  function encodeUserID(userID) {
+    if (userID === null) {
+        return '';
+    }
+    const userIDStr = userID.toString();
+    const encodedUserID = btoa(userIDStr);
+    return userDetails.name.substring(0,2).toUpperCase() + encodedUserID;
+}
+
+
+
+    const handleInviteClick = () => {
+      const refCode = encodeUserID(userDetails.user_id);
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({ type: 'buttonPressed', ref: refCode })
+      );
+    };
+
   return (
     <div style={{ padding: "20px" }}>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -69,16 +88,23 @@ const{languageUpdate}=useContext(AppContext);
         </span>
       </div>
 
-      <div>
-        <div style={{ marginTop: "20px", padding: "20px", border: "1px solid #E4E4E4", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "30px", background: "#F7A708" }}>
+      {/* <div data-share // Add this href attribute
+        button onClick={handelRefandEarnClick}>
+        <div >
           <span style={{ color: "#fff", fontWeight: "bold" }}>
             
-            {
-            selectedLanguage === "English" ? "Refer and Earn" :"रेफर करें और कमाएं" 
-          }
+          
             </span>
         </div>
-      </div>
+      </div> */}
+
+      <button onClick={handleInviteClick}  style={{ marginTop: "20px", padding: "20px", border: "1px solid #E4E4E4", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "30px", background: "#F7A708",color:"#fff",width:'100%' }}>
+      {
+            selectedLanguage === "English" ? "Refer and Earn" :"रेफर करें और कमाएं" 
+          }
+      </button>
+
+      
 
       <div style={{ marginTop: "30px" }}>
         <RewardCard  points={rewardPoints}/>

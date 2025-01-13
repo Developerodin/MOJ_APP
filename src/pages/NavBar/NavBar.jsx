@@ -140,7 +140,7 @@ const NavBar = () => {
         
      
         {
-           !isKeyboardVisible && role === "Job Seeker" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",borderTop: "1px solid grey",marginBottam:"20px",display:"flex"}}>
+           !isKeyboardVisible && role === "Job Seeker" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{marginBottam:"20px",display:"flex"}}>
            
            {/* <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
              
@@ -233,7 +233,7 @@ const NavBar = () => {
         }
         
         {
-          !isKeyboardVisible && role === "Employers" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",borderTop: "1px solid grey",marginBottam:"20px",display: "flex"}}>
+          !isKeyboardVisible && role === "Employers" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{marginBottam:"20px",display: "flex"}}>
            <IonTabButton color="dark" tab="home" href="/app/home">
              <IonIcon icon={laptopOutline} />
              <span>Dashboard</span>
@@ -297,7 +297,7 @@ const NavBar = () => {
 
 
 {
-          !isKeyboardVisible && role === "Agent" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{border:"none",borderTop: "1px solid grey",marginBottam:"20px",display:"flex"}}>
+          !isKeyboardVisible && role === "Agent" && <IonTabBar slot={isMobile ? "bottom" : "top"} style={{marginBottam:"20px",display:"flex"}}>
            
            {/* <IonTabButton color="dark" tab="home" href="/app/home" style={{backgroundColor:"#FFF",color:"grey"}}>
              

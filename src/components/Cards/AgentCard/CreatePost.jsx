@@ -430,13 +430,17 @@ const CreatePost = () => {
                             <span style={{ color: "red" }}>*</span>
                           </label>
                           <input
-                            type="number"
+                            type="text"
                             value={staffDetail.availableStaff}
                             onChange={(e) => {
-                              const newStaffDetails = [...staffDetails];
-                              newStaffDetails[index].availableStaff = e.target.value;
-                              setStaffDetails(newStaffDetails);
-                              setAvailability(e.target.value)
+                              const value = e.target.value;
+    if (/^\d*$/.test(value)) { // Regex to allow only numbers
+      const newStaffDetails = [...staffDetails];
+      newStaffDetails[index].availableStaff = value;
+      setStaffDetails(newStaffDetails);
+      setAvailability(value);
+    }
+   
                             }}
                             placeholder={selectedLanguage === "English" ? "Enter Staff" : "कर्मचारी दर्ज करें"}
                             style={{

@@ -11,6 +11,7 @@ import {
   IonPage,
   IonRow,
   useIonRouter,
+  IonRefresherContent,IonRefresher
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
 
@@ -150,9 +151,20 @@ export const AppliedJobs = () => {
     setAccordionValue(null); // Close the accordion
   };
 
+
+  const handleRefresh = async (event) => {
+    await getAppliedJobs();
+    
+    event.detail.complete(); // Signal Ionic that refresh is complete
+  };
+
   return (
     <IonPage>
+        
       <IonContent>
+      <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+                <IonRefresherContent pullingText="Pull to refresh" refreshingSpinner="bubbles" />
+              </IonRefresher>
         <div className={isMobile ? "" : "sw"} style={{ padding: "20px" }}>
           <div
             style={{

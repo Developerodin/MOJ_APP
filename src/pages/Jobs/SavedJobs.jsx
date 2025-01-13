@@ -19,6 +19,7 @@ export const SavedJobs = () => {
   const [SavedJobsData,setSavedJobsData] = useState([]);
   const {jobUpdate} = useContext(AppContext)
   const getJobs = async () => {
+    setSavedJobsData([])
     try {
       const url = `${Base_url}job`;
       const formData1 = new FormData();
@@ -57,6 +58,7 @@ export const SavedJobs = () => {
   };
 
   const getSavedJobs = async (jobData) => {
+    console.log("Get SAved Jobs called =========>")
     try {
       const url = `${Base_url}job_saved/Byuserid/${userDetails.user_id}`;
       const formData1 = new FormData();

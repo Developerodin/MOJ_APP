@@ -1,10 +1,14 @@
 
 import { IonCard, IonCardContent, IonIcon } from '@ionic/react'
 import { bookmark, locationOutline } from 'ionicons/icons'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import book from "/assets/book.png";
+import { AppContext } from '../../../Context/AppContext';
 export const AppliedJobCard = ({data,fun}) => {
-
+const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+  const { languageUpdate } = useContext(AppContext);
   function timeAgo(dateString) {
     const createdDate = new Date(dateString);
     const now = new Date();
@@ -20,6 +24,28 @@ export const AppliedJobCard = ({data,fun}) => {
       return `${daysAgo} days ago`;
     }
   }
+
+  const getJobStatusLabel = (selectedCategory) => {
+    switch (selectedCategory) {
+      case "In Touch":
+        return selectedLanguage === "English" ? "In Touch" : "संपर्क में";
+      case "Selected":
+        return selectedLanguage === "English" ? "Selected" : "चयनित";
+      case "In Review":
+        return selectedLanguage === "English" ? "In Review" : "समीक्षा में";
+      case "Not Selected":
+        return selectedLanguage === "English" ? "Not Selected" : "चयनित नहीं";
+      default:
+        return selectedLanguage === "English" ? "Job Status" : "नौकरी की स्थिति";
+    }
+  };
+
+  useEffect(() => {
+      const languageFromStorage = localStorage.getItem("selectedLanguage");
+      if (languageFromStorage) {
+        setSelectedLanguage(languageFromStorage);
+      }
+    }, [languageUpdate]);
   return (
     <div style={{width:"100%"}}>
 <IonCard onClick={fun} style={{padding:"0px",border:"1px solid #E4E4E4",borderRadius:"15px",background:"#f2f4fe",margin:0}} >
@@ -86,13 +112,16 @@ export const AppliedJobCard = ({data,fun}) => {
  data && data.status === "Not Selected" ?  <div style={{textAlign:"center",position:"absolute",bottom:20,right:20,color:"crimson",padding:"3px",border:"1px solid crimson",borderRadius:"12px",width:"86px"}}>
             
             
-  <span style={{fontSize:"14px"}}>{data && data.status}</span>
+  <span style={{fontSize:"14px"}}>{data && getJobStatusLabel(data.status)}</span>
 </div>
 :
 <div style={{textAlign:"center",position:"absolute",bottom:20,right:20,color:"green",padding:"3px",border:"1px solid green",borderRadius:"12px",width:"86px"}}>
             
             
-            <span style={{fontSize:"14px"}}>{data && data.status}</span>
+            <span style={{fontSize:"14px"}}>
+             
+              {data && getJobStatusLabel(data.status)}
+              </span>
         </div>
 }
      

@@ -205,11 +205,13 @@ export const AgentHome = () => {
           </div>
 
           <div
-  style={{
+   style={{
     display: 'flex',
     marginTop: '10px',
     overflowX: 'auto', // Enable horizontal scrolling
     whiteSpace: 'nowrap', // Prevent wrapping of the buttons
+    scrollbarWidth: 'none', // Hide scrollbar for Firefox
+    msOverflowStyle: 'none', // Hide scrollbar for Internet Explorer
   }}
 >
   {uniqueCities.map((city) => (
