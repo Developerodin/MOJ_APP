@@ -19,7 +19,7 @@ export const HotelierHome = () => {
   const [activeJobs,setActiveJobs] = useState(0);
   const [InactiveJobs,setInActiveJobs] = useState(0);
   const [profilePic,setProfilePic] = useState(null);
-
+  const [ActiveApplicants,setActiveApplicants] = useState("0");
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
@@ -122,14 +122,57 @@ export const HotelierHome = () => {
     history.push("/app/profile")
   }
 
+  const getApplicantsCount = async () => {
+
+    console.log("get applicant count ================================================================================>")
+    try {
+      const url = `${Base_url}job_apply_count/Byid_hotelid/${userDetails.user_id}`;
+      const formData1 = new FormData();
+      // formData1.append('user_id', userDetails.user_id);
+      // formData1.append('resume', selectedFile);
+
+      const response = await axios.post(url, formData1, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+        },
+      });
+      const data1 = response.data;
+      // console.log("getApplicantsCount CAlled in Card=====================================================>", data1, response);
+
+      // if(data === "otp in valid"){
+      //   showToast("error", "wrong otp", "");
+      //   return;
+      // }
+
+      if (data1.status === "success") {
+       
+        setActiveApplicants(data1.Job_total)
+        return;
+      }
+      setActiveApplicants(0)
+      // showToast("error", "Try After Some Time", "");
+    } catch (error) {
+      console.error("Error:", error);
+      setActiveApplicants(0)
+      // showToast("error", "Try After Some Time", "");
+    }
+  };
+
+
 
   useEffect(()=>{
     getJobs()
+    getApplicantsCount()
   },[jobUpdate])
 
   useEffect(()=>{
     getProfileImg()
 },[editUpdate])
+
+
+
+ 
 
 
 const handelRefresh = async (event) => {
@@ -249,7 +292,7 @@ const handelRefresh = async (event) => {
                       </span>
                      </div>
                      <div style={{marginTop:"10px"}}>
-                     <span style={{fontSize:"24px",fontWeight:"bold",color:"#fff"}}>193</span>
+                     <span style={{fontSize:"24px",fontWeight:"bold",color:"#fff"}}>{ActiveApplicants}</span>
                      </div>
 
                      <div style={{marginTop:"10px"}}>

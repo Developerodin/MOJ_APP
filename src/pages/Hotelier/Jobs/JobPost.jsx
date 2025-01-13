@@ -38,6 +38,8 @@ export const HotelierJobPost = () => {
   };
 
   const getJobs = async () => {
+    setJobDataActive([]);
+    setJobDataInactive([]);
     try {
       const url = `${Base_url}job/Byuserid/${userDetails.user_id}`;
       const formData1 = new FormData();
@@ -131,6 +133,7 @@ export const HotelierJobPost = () => {
   };
 
   useEffect(() => {
+    console.log("GEt job in job post tab ===================================================================================>")
     getJobs();
   }, [jobUpdate]);
   return (
