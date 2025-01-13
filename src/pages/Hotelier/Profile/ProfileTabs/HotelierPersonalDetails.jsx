@@ -93,6 +93,23 @@ const handlePincodeChange2 = (e) => {
   }
 
    const UpdateUser = async () => {
+    if (!formData2.hotelName) {
+      showToast("error", selectedLanguage === "English" ? "Hotel name is required" : "होटल का नाम आवश्यक है", "");
+      return;
+    } else if (!formData2.email) {
+      showToast("error", selectedLanguage === "English" ? "Email is required" : "ईमेल आवश्यक है", "");
+      return;
+    } else if (!pincode2) {
+      showToast("error", selectedLanguage === "English" ? "Pincode is required" : "पिनकोड आवश्यक है", "");
+      return;
+    } else if (!selectedState) {
+      showToast("error", selectedLanguage === "English" ? "State is required" : "राज्य आवश्यक है", "");
+      return;
+    } else if (!selectedCity) {
+      showToast("error", selectedLanguage === "English" ? "City is required" : "शहर आवश्यक है", "");
+      return;
+    }
+
     try {
       const url = `${Base_url}auth/hotelior_update`;
       const formData1 = new FormData();
@@ -130,7 +147,7 @@ const handlePincodeChange2 = (e) => {
                localStorage.setItem("userDetails", JSON.stringify(data.user));
               //  handelContinue("ProfilePic")
               setupdate((prev)=>prev+1)
-                showToast("success", "Personal details updated", "");
+                                showToast("success", selectedLanguage === "English" ? "Personal details updated" : "व्यक्तिगत जानकारी अपडेट की गई", "");
                 setProfileHealthUpdate((prev)=>prev+1)
                 history.goBack()
               return
@@ -200,6 +217,7 @@ const handlePincodeChange2 = (e) => {
       }}
     >
       {selectedLanguage === "English" ? "Hotel Name" : "होटल का नाम"}
+      <span style={{ color: "red" }}>*</span>
     </label>
     {/* <IonItem> */}
     <input
@@ -246,7 +264,8 @@ const handlePincodeChange2 = (e) => {
         lineHeight: "30px",
       }}
     >
-      {selectedLanguage === "English" ? "Email (optional)" : "ईमेल (वैकल्पिक)"}
+      {selectedLanguage === "English" ? "Email " : "ईमेल "}
+      <span style={{ color: "red" }}>*</span>
     </label>
     {/* <IonItem> */}
     <input
@@ -293,6 +312,7 @@ const handlePincodeChange2 = (e) => {
       }}
     >
       {selectedLanguage === "English" ? "Pincode" : "पिन कोड"}
+      <span style={{ color: "red" }}>*</span>
     </label>
     {/* <IonItem> */}
     <input
@@ -317,6 +337,7 @@ const handlePincodeChange2 = (e) => {
       }}
     >
       {selectedLanguage === "English" ? "State" : "राज्य"}
+      <span style={{ color: "red" }}>*</span>
     </label>
     <div
       // style={{
@@ -368,6 +389,7 @@ display:"flex",justifyContent:"left",alignItems:"center"
     }}
   >
     {selectedLanguage === "English" ? "City" : "शहर"}
+    <span style={{ color: "red" }}>*</span>
   </label>
 
   <div onClick={handelCityModelOpen}>

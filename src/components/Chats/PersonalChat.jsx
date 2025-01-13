@@ -103,6 +103,11 @@ const PersonalChat = () => {
   };
 
   const sendMessage = async () => {
+
+    if (newMessage.trim() === "") {
+      return;
+    }
+      
     try {
       const userDetails = JSON.parse(localStorage.getItem("userDetails"));
       const role = localStorage.getItem("role") || "";

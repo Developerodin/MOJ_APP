@@ -1,4 +1,5 @@
-import { IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonPage, IonRow, IonText, useIonRouter } from '@ionic/react'
+import { IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonPage, IonRow, IonText, useIonRouter ,IonRefresher,
+  IonRefresherContent, } from '@ionic/react'
 import React, { useContext, useEffect, useState } from 'react'
 import ban1 from "/assets/HAJ.png";
 import ban2 from "/assets/HAPJ.png";
@@ -130,6 +131,13 @@ export const HotelierHome = () => {
     getProfileImg()
 },[editUpdate])
 
+
+const handelRefresh = async (event) => {
+  getJobs();
+  getProfileImg();
+  event.detail.complete();
+};
+
   return (
    <IonPage>
     <IonContent>
@@ -156,6 +164,9 @@ export const HotelierHome = () => {
 <IonGrid  style={{margin:0,padding:0}}>
     <IonRow  style={{margin:0,padding:0}}>
     <IonCol size="12"  style={{margin:0,padding:0}}>
+    <IonRefresher slot="fixed" onIonRefresh={handelRefresh}>
+                <IonRefresherContent pullingText="Pull to refresh" refreshingSpinner="bubbles" />
+              </IonRefresher>
        <div>
         <IonText style={{fontWeight:"bold",fontSize:"25px"}}>
          
