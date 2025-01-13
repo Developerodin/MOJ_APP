@@ -52,15 +52,54 @@ const VerifyPhoneTwo = () => {
       setSelectedLanguage(languageFromStorage);
     }
   }, [languageUpdate]);
-  const handelBtnClick= ()=>{
-       console.log("Otp",otp)
-       LoginUsingOtp();
-
-   
-  }
+  const handelBtnClick = () => {
+    if (!otp) {
+      showToast("error", selectedLanguage === "English" ? "OTP is required" : "ओटीपी आवश्यक है", "");
+      return;
+    } else if (otp.length < 6) {
+      showToast("error", selectedLanguage === "English" ? "Please enter a valid 6-digit OTP" : "कृपया एक मान्य 6-अंकीय ओटीपी दर्ज करें", "");
+      return;
+    }
+    console.log("Otp", otp);
+    LoginUsingOtp();
+  };
   const handelBackClick = ()=>{
     history.goBack()
   }
+
+  const handelEditClick = () => {
+    history.push("/phone");
+  };
+
+  const checkMobile = async () => {
+    try {
+      setLoading(true);
+      const url = `${Base_url}auth/number_check`;
+      const formData1 = new FormData();
+      formData1.append('mobile_number', formData.phoneNumber);
+
+      const response = await axios.post(url, formData1, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        }
+      });
+
+      if (response.data.status === "success") {
+        localStorage.setItem("userotps", response.data.otp);
+                showToast("success", selectedLanguage === "English" ? "OTP Resent successfully" : "ओटीपी फिर से भेजा गया", "");
+        setLoading(false);
+        // No need to navigate to another page, just resend the OTP
+        return;
+      } else {
+        showToast("error", selectedLanguage === "English" ? "Try After Some Time" : "कुछ समय बाद पुनः प्रयास करें", "");
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showToast("error", selectedLanguage === "English" ? "Try After Some Time" : "कुछ समय बाद पुनः प्रयास करें", "");
+      setLoading(false);
+    }
+  };
   
   const LoginUsingOtp = async () => {
     try {
@@ -81,7 +120,7 @@ const VerifyPhoneTwo = () => {
           console.log("Response check mobile",data,response)
           
             if(data === "otp in valid"){
-              showToast("error", "wrong otp", "");
+              showToast("error", selectedLanguage === "English" ? "Wrong OTP" : "गलत ओटीपी", "");
               setLoading(false)
               return;
             }
@@ -112,7 +151,7 @@ const VerifyPhoneTwo = () => {
           
     } catch (error) {
       console.error('Error:', error);
-      showToast("error", "Try After Some Time", "");
+          showToast("error", selectedLanguage === "English" ? "Try After Some Time" : "कुछ समय बाद पुनः प्रयास करें", "");
       setLoading(false)
     }
   };
@@ -162,25 +201,31 @@ const VerifyPhoneTwo = () => {
             
             {selectedLanguage === "English" ? "We just sent you an SMS" : "हमने अभी आपको एक एसएमएस भेजा है"}
           </h1>
-          <p
-            style={{
-              color: "#575757",
-              fontFamily: "inter",
-              fontSize: "18px",
-              fontWeight: "400",
-            }}
-          >
-            {selectedLanguage === "English" ? "Enter the security code we sent to" : "हमारे द्वारा भेजा गया सुरक्षा कोड दर्ज करें"}
-             <br /> +91 {formData && formData.phoneNumber}
-          </p>
+                                    <p
+                    style={{
+                      color: "#575757",
+                      fontFamily: "inter",
+                      fontSize: "18px",
+                      fontWeight: "400",
+                      margin: 0,
+                    }}
+                  >
+                    {selectedLanguage === "English" ? "Enter the security code we sent to" : "हमारे द्वारा भेजा गया सुरक्षा कोड दर्ज करें"}
+                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span>+91 {formData && formData.phoneNumber}</span>
+                    <button style={{ background: "transparent", border: "none", color: "#000", fontSize: "16px", fontWeight: "bold", cursor: "pointer" }} onClick={handelEditClick}>
+                      {selectedLanguage === "English" ? "Edit" : "संपादित करें"}
+                    </button>
+                  </div>
             </div>
           
 
           {/* <IonItem> */}
-          <div style={{display:"flex",justifyContent:"center", alignItems:"center"}}>
+          <div style={{display:"flex",justifyContent:"center", alignItems:"center",marginTop:"20px"}}>
              <OtpInput
              
-                inputType="password"
+                inputType="number"
                 value={otp}
                 onChange={setOtp}
                 numInputs={6}
@@ -207,17 +252,19 @@ const VerifyPhoneTwo = () => {
           >
            
             {selectedLanguage === "English" ? "Didn't not get the code " : "कोड नहीं मिला"}  ?{" "}
-            <span
+            <button
               style={{
                 color: "black",
                 fontFamily: "inter",
                 fontWeight: "700",
                 fontSize: "16px",
               }}
+            onClick={checkMobile}
+              
             >
               
               {selectedLanguage === "English" ? "Resend it" : "फिर से भेजें"}
-            </span>
+            </button>
           </div>
 
 {

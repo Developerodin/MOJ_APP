@@ -362,7 +362,30 @@ export const Home = () => {
                 </span>
               </div>
             </div>
-            <div style={{  }}>
+          
+
+            <div>
+              <img
+                src={equilizer}
+                onClick={() => setIsModalOpen(true)}
+                alt="Filter"
+              />
+              {isFilterApplied && (
+                <img
+                  src={refreshicon}
+                  onClick={handleResetFilters}
+                  style={{ cursor: "pointer", marginLeft: "10px" }}
+                />
+              )}
+            </div>
+            <FilterModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              onApply={handleFilterApply}
+            />
+          </div>
+
+          <div style={{ marginTop: "25px" }}>
             <div
               style={{
                 padding: "8px",
@@ -397,67 +420,11 @@ export const Home = () => {
               </div>
             </div>
           </div>
-
+          <div style={{ marginTop: "20px" }}>
             <div>
-              <img
-                src={equilizer}
-                onClick={() => setIsModalOpen(true)}
-                alt="Filter"
-              />
-              {isFilterApplied && (
-                <img
-                  src={refreshicon}
-                  onClick={handleResetFilters}
-                  style={{ cursor: "pointer", marginLeft: "10px" }}
-                />
-              )}
-            </div>
-            <FilterModal
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              onApply={handleFilterApply}
-            />
-          </div>
-
-          {/* <div style={{ marginTop: "30px" }}>
-            <div
-              style={{
-                padding: "10px",
-                display: "flex",
-                justifyContent: "left",
-                alignItems: "left",
-                border: "1px solid #E5E5E5",
-                background: "#F4F4F4",
-                height: "48px",
-                borderRadius: "50px",
-              }}
-            >
-              <div>
-                <IonIcon icon={searchOutline} style={{ fontSize: "24px" }} />
-              </div>
-              <div style={{ marginLeft: "10px" }}>
-                <input
-                  type="text"
-                  placeholder="eg.cook, f&b..."
-                  value={searchQuery}
-                  onChange={handleSearch}
-                  style={{
-                    border: "none",
-                    outline: "none",
-                    background: "transparent",
-                    width: "100%",
-                    height: "100%",
-                    fontSize: "16px",
-                  }}
-                />
-              </div>
-            </div>
-          </div> */}
-          <div style={{ marginTop: "0px" }}>
-            <div>
-              {/* <span style={{ fontSize: "26px", fontWeight: "bold" }}>
+              <span style={{ fontSize: "26px", fontWeight: "bold" }}>
                 {selectedLanguage === "English" ? "Offers" : "ऑफर"}
-              </span> */}
+              </span>
 
               <IonGrid>
                 <IonRow>

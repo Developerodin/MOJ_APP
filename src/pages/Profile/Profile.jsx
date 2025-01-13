@@ -426,6 +426,7 @@ const copyToClipboard = () => {
               <IonIcon
                 icon={star}
                 style={{ fontSize: "22px", color: "#ffdc64" }}
+                onClick={() => {}}
               />
               <span
                 style={{

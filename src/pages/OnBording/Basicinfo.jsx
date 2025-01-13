@@ -202,22 +202,23 @@ const Basicinfo = ({ handelContinue }) => {
     
 
    
-    if (!formData2.hotelName) {
-      showToast("error", "Hotel name is required", "");
+      if (!formData2.hotelName) {
+      showToast("error", selectedLanguage === "English" ? "Hotel name is required" : "होटल का नाम आवश्यक है", "");
       return;
     } else if (!formData2.email) {
-      showToast("error", "Email is required", "");
+      showToast("error", selectedLanguage === "English" ? "Email is required" : "ईमेल आवश्यक है", "");
       return;
-    }
-    else if (!pincode2) {
-      showToast("error", "Pincode is required", "");
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData2.email)) {
+      showToast("error", selectedLanguage === "English" ? "Email is not valid" : "ईमेल मान्य नहीं है", "");
+      return;
+    }else if (!pincode2) {
+      showToast("error", selectedLanguage === "English" ? "Pincode is required" : "पिनकोड आवश्यक है", "");
       return;
     } else if (!selectedState) {
-      showToast("error", "State is required", "");
+      showToast("error", selectedLanguage === "English" ? "State is required" : "राज्य आवश्यक है", "");
       return;
-    }
-    else if (!selectedCity) {
-      showToast("error", "City is required", "");
+    } else if (!selectedCity) {
+      showToast("error", selectedLanguage === "English" ? "City is required" : "शहर आवश्यक है", "");
       return;
     }
     
@@ -229,23 +230,23 @@ const Basicinfo = ({ handelContinue }) => {
     
 
    
-    if (!formData3.firstName) {
-      showToast("error", "First name is required", "");
+        if (!formData3.firstName) {
+      showToast("error", selectedLanguage === "English" ? "First name is required" : "पहला नाम आवश्यक है", "");
       return;
     } else if (!/^[a-zA-Z]+$/.test(formData3.firstName)) {
-      showToast("error", "First name should contain only alphabetic characters", "");
+      showToast("error", selectedLanguage === "English" ? "First name should contain only alphabetic characters" : "पहले नाम में केवल वर्णमाला के अक्षर होने चाहिए", "");
       return;
     } else if (!formData3.lastName) {
-      showToast("error", "Last name is required", "");
+      showToast("error", selectedLanguage === "English" ? "Last name is required" : "अंतिम नाम आवश्यक है", "");
       return;
-    } else if (!/^[a-zA-Z]+$/.test(formData3.lastName)) { 
-      showToast("error", "Last name should contain only alphabetic characters", "");
+    } else if (!/^[a-zA-Z]+$/.test(formData3.lastName)) {
+      showToast("error", selectedLanguage === "English" ? "Last name should contain only alphabetic characters" : "अंतिम नाम में केवल वर्णमाला के अक्षर होने चाहिए", "");
       return;
     } else if (!formData3.gender) {
-      showToast("error", "Gender is required", "");
+      showToast("error", selectedLanguage === "English" ? "Gender is required" : "लिंग आवश्यक है", "");
       return;
     } else if (!formData3.email) {
-      showToast("error", "Email is required", "");
+      showToast("error", selectedLanguage === "English" ? "Email is required" : "ईमेल आवश्यक है", "");
       return;
     }
   
@@ -331,11 +332,11 @@ const Basicinfo = ({ handelContinue }) => {
 
   const RegisterUser = async () => {
     try {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (formData.email !== "" && !emailPattern.test(formData.email)) {
-        showToast("error", "Email is not valid", "");
-        return;
-      }
+      // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      // if (formData.email !== "" && !emailPattern.test(formData.email)) {
+      //   showToast("error", "Email is not valid", "");
+      //   return;
+      // }
       const refId = localStorage.getItem("refCode");
       setLoading(true);
       const url = `${Base_url}auth/register`;
@@ -379,22 +380,22 @@ const Basicinfo = ({ handelContinue }) => {
       setLoading(false);
     } catch (error) {
       console.error("Error:", error);
-      showToast("error", "Try After Some Time", "");
+            showToast("error", selectedLanguage === "English" ? "Try After Some Time" : "कुछ समय बाद पुनः प्रयास करें", "");
       setLoading(false);
     }
   };
 
   const handelEmployersBtnClick = async () => {
-    if (formValid2 === false) {
-      console.log("In if=============================>", formData2);
-      showToast("error", "Fill the required fields", "");
-      return;
-    }
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(formData2.email)) {
-      showToast("error", "Email is not valid", "");
-      return;
-    }
+    // if (formValid2 === false) {
+    //   console.log("In if=============================>", formData2);
+    //   showToast("error", "Fill the required fields", "");
+    //   return;
+    // }
+    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // if (!emailPattern.test(formData2.email)) {
+    //   showToast("error", "Email is not valid", "");
+    //   return;
+    // }
     const refId = localStorage.getItem("refCode");
     try {
       setLoading(true);
@@ -443,7 +444,7 @@ const Basicinfo = ({ handelContinue }) => {
       setLoading(false);
     } catch (error) {
       console.error("Error:", error);
-      showToast("error", "Try After Some Time", "");
+            showToast("error", selectedLanguage === "English" ? "Try After Some Time" : "कुछ समय बाद पुनः प्रयास करें", "");
       setLoading(false);
     }
   };
@@ -490,7 +491,7 @@ const Basicinfo = ({ handelContinue }) => {
       setLoading(false);
     } catch (error) {
       console.error("Error:", error);
-      showToast("error", "Try After Some Time", "");
+            showToast("error", selectedLanguage === "English" ? "Try After Some Time" : "कुछ समय बाद पुनः प्रयास करें", "");
       setLoading(false);
     }
   };
@@ -498,13 +499,13 @@ const Basicinfo = ({ handelContinue }) => {
   const AgentbtnClick = async () => {
     if (!formValid3) {
       console.log("Validation failed", formData3);
-      showToast("error", "Fill the required fields", "");
+            showToast("error", selectedLanguage === "English" ? "Fill the required fields" : "आवश्यक फ़ील्ड भरें", "");
       return;
     }
   
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(formData3.email)) {
-      showToast("error", "Email is not valid", "");
+            showToast("error", selectedLanguage === "English" ? "Email is not valid" : "ईमेल मान्य नहीं है", "");
       return;
     }
   
@@ -550,7 +551,7 @@ const Basicinfo = ({ handelContinue }) => {
       setLoading(false);
     } catch (error) {
       console.error('Error:', error);
-      showToast("error", "Try After Some Time", "");
+            showToast("error", selectedLanguage === "English" ? "Try After Some Time" : "कुछ समय बाद पुनः प्रयास करें", "");
       setLoading(false);
     }
   };
@@ -720,6 +721,7 @@ const Basicinfo = ({ handelContinue }) => {
                     {selectedLanguage === "English"
                       ? "Date of Birth"
                       : "जन्म की तारीख"}
+                      <span style={{ color: "red" }}>*</span>
                   </label>
                   {/* <IonItem> */}
                   <input
@@ -786,6 +788,7 @@ const Basicinfo = ({ handelContinue }) => {
                     }}
                   >
                     {selectedLanguage === "English" ? "Email" : "ईमेल"}
+                    
                     
                   </label>
                   {/* <IonItem> */}

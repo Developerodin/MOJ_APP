@@ -76,12 +76,12 @@ const Newphone = () => {
 
   const handleBtnClick = () => {
     if (formData.phoneNumber.trim() === '') {
-      showToast("error", "Please enter your mobile number", "");
+      showToast("error", selectedLanguage === "English" ? "Please enter your mobile number" : "कृपया अपना मोबाइल नंबर दर्ज करें", "");
       return;
     }
 
     if (formData.phoneNumber.length < 10) {
-      showToast("error", "Mobile number must be 10 digits", "");
+      showToast("error", selectedLanguage === "English" ? "Mobile number must be 10 digits" : "मोबाइल नंबर 10 अंकों का होना चाहिए", "");
       return;
     }
 
@@ -110,7 +110,7 @@ const Newphone = () => {
 
       if (response.data.status === "success") {
         localStorage.setItem("userotps", response.data.otp);
-        showToast("success", "OTP sent successfully", "");
+                showToast("success", selectedLanguage === "English" ? "OTP sent successfully" : "ओटीपी सफलतापूर्वक भेजा गया", "");
         setLoading(false);
         history.push("/verify-otp");
         setFormData({
@@ -119,12 +119,12 @@ const Newphone = () => {
         });
         return;
       } else {
-        showToast("error", "Try After Some Time", "");
+               showToast("error", selectedLanguage === "English" ? "Try After Some Time" : "कुछ समय बाद पुनः प्रयास करें", "");
         setLoading(false);
       }
     } catch (error) {
       console.error('Error:', error);
-      showToast("error", "Try After Some Time", "");
+            showToast("error", selectedLanguage === "English" ? "Try After Some Time" : "कुछ समय बाद पुनः प्रयास करें", "");;
       setLoading(false);
     }
   };
