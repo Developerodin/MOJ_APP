@@ -78,7 +78,7 @@ export const CandidateSearch = () => {
 
           <div style={{ marginTop: "30px" }}>
             {searchPerformed && displayedCandidates.length === 0 && (
-              <p>No candidates found</p>
+               <p style={{textAlign:"center"}}>{selectedLanguage === "English" ? "No candidates found" : "कोई उम्मीदवार नहीं मिला"}</p>
             )}
             {displayedCandidates.map((candidate) => (
               <CandidateSearchCard key={candidate.user_id} data={candidate} />

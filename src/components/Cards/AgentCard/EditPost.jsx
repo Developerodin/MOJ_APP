@@ -14,7 +14,7 @@ import deleteIcon from "./deleteicon.png";
 import { useHistory, useParams } from "react-router";
 
 const EditPostModal = () => {
-  const { showToast, setProfileHealthUpdate ,setPostUpdate,languageUpdate} = useContext(AppContext);
+  const { showToast, setProfileHealthUpdate, setPostUpdate, languageUpdate } = useContext(AppContext);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const [present] = useIonActionSheet();
   const history = useHistory();
@@ -24,11 +24,11 @@ const EditPostModal = () => {
   const [preferredState, setPreferredState] = useState("");
   const [isStateModelOpen, setIsStateModelOpen] = useState(false);
   const [isCityModelOpen, setIsCityModelOpen] = useState(false);
-  const [post,setPost ] = useState(null);
+  const [post, setPost] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
-  
+
   const [staffDetails, setStaffDetails] = useState([
     {
       department: "",
@@ -43,8 +43,8 @@ const EditPostModal = () => {
       fetchPostData();
     }
   }, [id]);
+
   useEffect(() => {
-    // Code to update selectedLanguage from localStorage
     const languageFromStorage = localStorage.getItem("selectedLanguage");
     if (languageFromStorage) {
       setSelectedLanguage(languageFromStorage);
@@ -70,11 +70,11 @@ const EditPostModal = () => {
         }
       } else {
         console.error("Error fetching post data. Status:", response.status);
-        showToast("error", "Error fetching post data", "");
+               showToast("error", selectedLanguage === "English" ? "Error fetching post data" : "पोस्ट डेटा प्राप्त करने में त्रुटि", "");
       }
     } catch (error) {
       console.error("Error fetching post data:", error);
-      showToast("error", "Error fetching post data", "");
+            showToast("error", selectedLanguage === "English" ? "Error fetching post data" : "पोस्ट डेटा प्राप्त करने में त्रुटि", "");
     }
   };
 
@@ -86,10 +86,16 @@ const EditPostModal = () => {
     }
   }, [preferredState, post]);
 
-
-
-
   const handleSaveClick = async () => {
+    // Validate fields before saving
+    for (let i = 0; i < staffDetails.length; i++) {
+      const staff = staffDetails[i];
+      if (!staff.department || !staff.departmentValue || !staff.positionTitle || !staff.availableStaff) {
+        showToast("error", selectedLanguage === "English" ? "Please fill all the fields in the department section" : "कृपया विभाग अनुभाग में सभी फ़ील्ड भरें", "");
+        return;
+      }
+    }
+
     try {
       const url = `${Base_url}auth/agent_post/update/${id}`;
       const formData = new FormData();
@@ -106,46 +112,47 @@ const EditPostModal = () => {
 
       const data = response.data;
       if (data.status === "success") {
-        showToast("success", "Post updated successfully", "");
+        showToast("success", selectedLanguage === "English" ? "Post updated successfully" : "पोस्ट सफलतापूर्वक अपडेट किया गया", "");
         setProfileHealthUpdate((prev) => prev + 1);
         setPostUpdate((prev) => prev + 1);
       } else {
-        showToast("error", "Error updating post", "");
+        showToast("error", selectedLanguage === "English" ? "Error updating post" : "पोस्ट अपडेट करने में त्रुटि", "");
       }
       history.goBack();
     } catch (error) {
       console.error("Error updating post:", error);
-      showToast("error", "Error updating post", "");
+      showToast("error", selectedLanguage === "English" ? "Error updating post" : "पोस्ट अपडेट करने में त्रुटि", "");
     }
   };
 
   const handleDeleteClick = async () => {
     try {
       const url = `${Base_url}auth/agent_post/destroy/${id}`;
-      const response = await axios.post(url); 
+      const response = await axios.post(url);
 
       const data = response.data;
-      if (response.status === 200 ) {
-        showToast("success", "Post deleted successfully", "");
+      if (response.status === 200) {
+        showToast("success", selectedLanguage === "English" ? "Post deleted successfully" : "पोस्ट सफलतापूर्वक हटाया गया", "");
         setPostUpdate((prev) => prev + 1);
-        history.push("/app/home"); 
-        
+        history.push("/app/home");
       } else {
-        showToast("error", "Error deleting post", "");
+        showToast("error", selectedLanguage === "English" ? "Error deleting post" : "पोस्ट हटाने में त्रुटि", "");
       }
     } catch (error) {
       console.error("Error deleting post:", error);
-      showToast("error", "Error deleting post", "");
+      showToast("error", selectedLanguage === "English" ? "Error deleting post" : "पोस्ट हटाने में त्रुटि", "");
     }
   };
 
   const presentDeleteActionSheet = () => {
     present({
       header:
-        "Are you sure you want to delete your post? This action cannot be undone.",
+        selectedLanguage === "English"
+          ? "Are you sure you want to delete your post? This action cannot be undone."
+          : "क्या आप वाकई अपनी पोस्ट हटाना चाहते हैं? इस क्रिया को पूर्ववत नहीं किया जा सकता।",
       buttons: [
         {
-          text: "Delete",
+          text: selectedLanguage === "English" ? "Delete" : "हटाएं",
           role: "destructive",
           handler: handleDeleteClick,
           data: {
@@ -153,7 +160,7 @@ const EditPostModal = () => {
           },
         },
         {
-          text: "Cancel",
+          text: selectedLanguage === "English" ? "Cancel" : "रद्द करें",
           role: "cancel",
           data: {
             action: "cancel",
@@ -165,15 +172,14 @@ const EditPostModal = () => {
 
   const addMoreFields = () => {
     const lastEntry = staffDetails[staffDetails.length - 1];
-    
+
     if (lastEntry.department && lastEntry.departmentValue && lastEntry.positionTitle && lastEntry.availableStaff) {
       setStaffDetails([
         ...staffDetails,
         { department: "", departmentValue: "", positionTitle: "", availableStaff: "" },
       ]);
     } else {
-      
-      showToast("error", "Fill the previous fields first", "");
+      showToast("error", selectedLanguage === "English" ? "Fill the previous fields first" : "पहले पिछले फ़ील्ड भरें", "");
     }
   };
 
@@ -215,8 +221,6 @@ const EditPostModal = () => {
   const handelCityModleClose = () => {
     setIsCityModelOpen(false);
   };
-
-  
 
   return (
     <IonPage>

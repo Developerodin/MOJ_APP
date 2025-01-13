@@ -186,7 +186,7 @@ export const ProfilePersonalDetails = () => {
         localStorage.setItem("userDetails", JSON.stringify(data.user));
         //  handelContinue("ProfilePic")
         setupdate((prev) => prev + 1);
-        showToast("success", "Personal Details updated", "");
+                showToast("success", selectedLanguage === "English" ? "Personal Details updated" : "व्यक्तिगत जानकारी अपडेट की गई", "");
         setProfileHealthUpdate((prev) => prev + 1);
         history.goBack();
         return;
@@ -355,6 +355,7 @@ export const ProfilePersonalDetails = () => {
                       {selectedLanguage === "English"
                         ? "Date of Birth"
                         : "जन्म की तारीख"}
+                        <span style={{ color: "red" }}>*</span>
                     </label>
                     {/* <IonItem> */}
                     <input
@@ -420,7 +421,7 @@ export const ProfilePersonalDetails = () => {
                       }}
                     >
                       {selectedLanguage === "English" ? "Email" : "ईमेल"}
-                      <span style={{ color: "red" }}>*</span>
+                      {/* <span style={{ color: "red" }}>*</span> */}
                     </label>
                     {/* <IonItem> */}
                     <input

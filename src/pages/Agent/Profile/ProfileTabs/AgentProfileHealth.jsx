@@ -22,43 +22,49 @@ import { isMobile } from "../../../../IsMobile/IsMobile";
 
 export const AgentProfileHealth = () => {
   const history = useIonRouter();
-  const { profileHealthUpdate } = useContext(AppContext);
+  const { profileHealthUpdate, languageUpdate } = useContext(AppContext);
   const [completionPercentage, setCompletionPercentage] = useState(0);
   const [phHeathPercentage, setPhHeathPercentage] = useState(0);
   const [userProfileHealthData, setUserProfileHealthData] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem("selectedLanguage") || "English"
+  );
+
+  useEffect(() => {
+    const languageFromStorage = localStorage.getItem("selectedLanguage");
+    if (languageFromStorage) {
+      setSelectedLanguage(languageFromStorage);
+    }
+  }, [languageUpdate]);
+
   const Data = [
-    // {name:"user_Job_pref",value:0,route:"/profile-job-preference",name2:"Job Preference"},
-    { name: "user_edu", value: 0, route: "/agent-eduction", name2: "Eduction" },
+    { name: "user_edu", value: 0, route: "/agent-eduction", name2: selectedLanguage === "English" ? "Education" : "शिक्षा" },
     {
       name: "user_img",
       value: 0,
       route: "/update-profile-photo",
-      name2: "Profile Photo",
+      name2: selectedLanguage === "English" ? "Profile Photo" : "प्रोफ़ाइल फोटो",
     },
     {
       name: "user_pro",
       value: 0,
       route: "/agent-personal-details",
-      name2: "Personal Details",
+      name2: selectedLanguage === "English" ? "Personal Details" : "व्यक्तिगत जानकारी",
     },
-    // {name:"user_resume",value:0,route:"/profile-resume",name2:"Resume"},
-    // {name:"user_work",value:0,route:"/profile-work-experience",name2:"Work Experience"},
     {
       name: "users",
       value: 0,
       route: "/agent-contact-details",
-      name2: "Contact Details",
+      name2: selectedLanguage === "English" ? "Contact Details" : "संपर्क विवरण",
     },
   ];
+
   const [dataPh, setDataPh] = useState(Data);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
   const handelRouteClick = (route) => {
     history.push(route);
   };
-
-  
-
 
   const getProfileHealth = async () => {
     try {
@@ -68,11 +74,9 @@ export const AgentProfileHealth = () => {
       const response = await axios.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          // "Authorization" :`Berear ${token}`,
         },
       });
       const data = response.data;
-      // console.log("Response check work experience data",data,response)
 
       if (data) {
         console.log("Basic data 125", data.post);
@@ -98,7 +102,6 @@ export const AgentProfileHealth = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      // showToast("error", "Try After Some Time", "");
     }
   };
 
@@ -124,6 +127,7 @@ export const AgentProfileHealth = () => {
   const circumference = 2 * Math.PI * radius;
   const strokeWidth = 25;
   const offset = ((100 - completionPercentage) / 100) * circumference;
+
   return (
     <IonPage>
       <IonContent>
@@ -135,7 +139,7 @@ export const AgentProfileHealth = () => {
                 style={{ fontSize: "24px", color: "#395CFF" }}
               />
             }
-            title={"Profile Health"}
+            title={selectedLanguage === "English" ? "Profile Health" : "प्रोफ़ाइल स्वास्थ्य"}
           />
 
           <div style={{ marginTop: "60px" }}>
@@ -143,7 +147,7 @@ export const AgentProfileHealth = () => {
               <span
                 style={{ fontSize: "18px", color: "grey", fontWeight: "bold" }}
               >
-                Complete your profile
+                {selectedLanguage === "English" ? "Complete your profile" : "अपनी प्रोफ़ाइल पूरी करें"}
               </span>
             </div>
 
@@ -189,7 +193,7 @@ export const AgentProfileHealth = () => {
                   fontWeight: "bold",
                 }}
               >
-                {phHeathPercentage < 30 ? "Poor !" : "Good !"}
+                {phHeathPercentage < 30 ? (selectedLanguage === "English" ? "Poor !" : "खराब !") : (selectedLanguage === "English" ? "Good !" : "अच्छा !")}
               </span>
             </div>
           </div>
@@ -199,7 +203,7 @@ export const AgentProfileHealth = () => {
               <IonRow>
                 {dataPh.map((el, index) => {
                   return (
-                    <IonCol size="6">
+                    <IonCol size="6" key={index}>
                       <div
                         onClick={() => handelRouteClick(el.route)}
                         style={{
@@ -239,13 +243,13 @@ export const AgentProfileHealth = () => {
                           <span
                             style={{ fontSize: "13px", fontWeight: "bold" }}
                           >
-                            Completed
+                            {selectedLanguage === "English" ? "Completed" : "पूरा हुआ"}
                           </span>
                         ) : (
                           <span
                             style={{ fontSize: "13px", fontWeight: "bold" }}
                           >
-                            Pending
+                            {selectedLanguage === "English" ? "Pending" : "लंबित"}
                           </span>
                         )}
                       </div>

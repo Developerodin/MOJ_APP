@@ -89,7 +89,9 @@ export const AgentAvailable = () => {
         });
 
         if (response.data && response.data.Job) {
-          const agentData = response.data.Job; 
+          const agentData = response.data.Job;
+          
+          
           console.log("Fetched agents:", agentData); 
           setAgents(agentData);
           fetchPosts(agentData.map(agent => agent.user.user_id));
@@ -103,7 +105,7 @@ export const AgentAvailable = () => {
       }
     };
 
-    const fetchPosts = async (userIds) => {
+       const fetchPosts = async (userIds) => {
       try {
         const postRequests = userIds.map(userId =>
           axios.post(`${Base_url}auth/agent_post/show_byuser_id/${userId}`, {}, {
@@ -113,19 +115,26 @@ export const AgentAvailable = () => {
           })
         );
         const postResponses = await Promise.all(postRequests);
-
+    
         const validResponses = postResponses.filter(response => response && response.data && response.data.Post);
-        const postsData = validResponses.flatMap(response => response.data.Post); 
-        console.log("Fetched posts:", postsData); 
+        let postsData = validResponses.flatMap(response => response.data.Post);
+    
+        // Sort posts by latest created_at
+        postsData = postsData.sort((a, b) => {
+          const dateA = new Date(a.created_at);
+          const dateB = new Date(b.created_at);
+          return dateB - dateA;
+        });
+    
+        console.log("Fetched posts:", postsData);
         setPosts(postsData);
-        setDisplayedCandidates(postsData); 
+        setDisplayedCandidates(postsData);
       } catch (error) {
         console.error("Error fetching posts:", error);
       } finally {
         setLoading(false);  // Set loading to false after fetching
       }
     };
-
     fetchAgents();
   }, [postUpdate]);
 
@@ -152,7 +161,7 @@ export const AgentAvailable = () => {
   };
   const handleRefresh = async (event) => {
     await fetchAgents();
-    event.detail.complete(); // Signal Ionic that refresh is complete
+    event.detail.complete(); 
   };
 
   return (
