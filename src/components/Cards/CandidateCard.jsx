@@ -176,7 +176,7 @@ function timeAgo(dateString) {
                }
                
                {
-                data.application_status !== "Not Selected" &&   <IonButton onClick={()=>ChangeStatus("Not Selected")} size="default" shape="round" color={"danger"} style={{width:"144px",height:'36px'}} fill="outline">Decline</IonButton>
+                data.application_status !== "Not Selected" &&  data.application_status !== "In Review" &&  <IonButton onClick={()=>ChangeStatus("Not Selected")} size="default" shape="round" color={"danger"} style={{width:"144px",height:'36px'}} fill="outline">Decline</IonButton>
                }
              
 

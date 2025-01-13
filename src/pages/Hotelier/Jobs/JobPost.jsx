@@ -1,32 +1,41 @@
-import { IonButton, IonContent, IonLabel, IonPage, IonSegment, IonSegmentButton, IonToolbar, useIonRouter } from '@ionic/react'
-import React, { useContext, useEffect, useState } from 'react'
-import { JobCard } from '../../../components/Cards/JobCard/JobCard'
-import { PostJobCard } from '../../../components/Cards/JobCard/PostJobCard';
-import { isMobile } from '../../../IsMobile/IsMobile';
-import { Base_url } from '../../../Config/BaseUrl';
-import { AppContext } from '../../../Context/AppContext';
-import axios from 'axios';
+import {
+  IonButton,
+  IonContent,
+  IonLabel,
+  IonPage,
+  IonSegment,
+  IonSegmentButton,
+  IonToolbar,
+  useIonRouter,
+} from "@ionic/react";
+import React, { useContext, useEffect, useState } from "react";
+import { JobCard } from "../../../components/Cards/JobCard/JobCard";
+import { PostJobCard } from "../../../components/Cards/JobCard/PostJobCard";
+import { isMobile } from "../../../IsMobile/IsMobile";
+import { Base_url } from "../../../Config/BaseUrl";
+import { AppContext } from "../../../Context/AppContext";
+import axios from "axios";
 
 export const HotelierJobPost = () => {
   const history = useIonRouter();
-  const { showToast,jobUpdate,setJobUpdate ,languageUpdate} = useContext(AppContext);
-  const [ActiveJobData,setJobDataActive] = useState([]);
-  const [InActiveJobData,setJobDataInactive] = useState([]);
+  const { showToast, jobUpdate, setJobUpdate, languageUpdate } =
+    useContext(AppContext);
+  const [ActiveJobData, setJobDataActive] = useState([]);
+  const [InActiveJobData, setJobDataInactive] = useState([]);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-  const [selectedTab, setSelectedTab] = useState('Active');
+  const [selectedTab, setSelectedTab] = useState("Active");
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("selectedLanguage") || "English"
   );
   useEffect(() => {
-    
     const languageFromStorage = localStorage.getItem("selectedLanguage");
     if (languageFromStorage) {
       setSelectedLanguage(languageFromStorage);
     }
   }, [languageUpdate]);
-  const handelPostJob=()=>{
-    history.push("/post-job")
-  }
+  const handelPostJob = () => {
+    history.push("/post-job");
+  };
 
   const getJobs = async () => {
     try {
@@ -52,12 +61,12 @@ export const HotelierJobPost = () => {
       if (data.status === "success") {
         //  localStorage.setItem("userRegisterDetails", JSON.stringify(data.user));
         // setUpdate((prev)=>prev+1);
-        console.log("Job DAta ==>",data.Job)
+        console.log("Job DAta ==>", data.Job);
         // const Data = data.img;
-        const filterData = data.Job.filter((el,index)=>el.status === "1")
-        const filterData2 = data.Job.filter((el,index)=>el.status === "0")
+        const filterData = data.Job.filter((el, index) => el.status === "1");
+        const filterData2 = data.Job.filter((el, index) => el.status === "0");
         setJobDataActive(filterData);
-        setJobDataInactive(filterData2)
+        setJobDataInactive(filterData2);
         return;
       }
       // showToast("error", "Try After Some Time", "");
@@ -69,92 +78,122 @@ export const HotelierJobPost = () => {
 
   const renderComponent = () => {
     switch (selectedTab) {
-      case 'Active':
-        return  <div style={{marginTop:"20px"}}>
-        {
-          ActiveJobData && ActiveJobData.length >0 ?  ActiveJobData.map((el,index)=>{
-            return <div style={{marginTop:"10px"}}>
-              <PostJobCard fun={()=>console.log("click on post job")} data={el}/>
-              </div> 
-          })
-          :
-          <div style={{textAlign:"center"}}>
-            <span style={{fontSize:"16px",color:"grey"}}>No Job Posted Yet</span>
-            </div>
-          
-        }
-      
-        
-      </div>;
-      case 'Inactive':
-        return  <div style={{marginTop:"40px"}}>
-        {
-          InActiveJobData && InActiveJobData.length >0 ?  InActiveJobData.map((el,index)=>{
-            return <div style={{marginTop:"10px"}}>
-              <PostJobCard fun={()=>console.log("click on post job")} data={el}/>
-              </div> 
-          })
-          :
-          <div style={{textAlign:"center"}}>
-            <span style={{fontSize:"16px",color:"grey"}}>No Job Posted Yet</span>
-            </div>
-          
-        }
-      
-        
-      </div> ;
-     
+      case "Active":
+        return (
+          <div style={{ marginTop: "20px" }}>
+            {ActiveJobData && ActiveJobData.length > 0 ? (
+              ActiveJobData.map((el, index) => {
+                return (
+                  <div style={{ marginTop: "10px" }}>
+                    <PostJobCard
+                      fun={() => console.log("click on post job")}
+                      data={el}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                <span style={{ fontSize: "16px", color: "grey" }}>
+                  No Job Posted Yet
+                </span>
+              </div>
+            )}
+          </div>
+        );
+      case "Inactive":
+        return (
+          <div style={{ marginTop: "40px" }}>
+            {InActiveJobData && InActiveJobData.length > 0 ? (
+              InActiveJobData.map((el, index) => {
+                return (
+                  <div style={{ marginTop: "10px" }}>
+                    <PostJobCard
+                      fun={() => console.log("click on post job")}
+                      data={el}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                <span style={{ fontSize: "16px", color: "grey" }}>
+                  No Job Posted Yet
+                </span>
+              </div>
+            )}
+          </div>
+        );
+
       default:
         return null;
     }
   };
 
-
-  useEffect(()=>{
+  useEffect(() => {
     getJobs();
-  },[jobUpdate])
+  }, [jobUpdate]);
   return (
-     <IonPage>
-        <IonContent>
-           
-            <div className={isMobile ? "" : 'sw'} style={{padding:"20px"}}>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                <span style={{fontSize:"24px",fontWeight:"bold"}}>
-                  {selectedLanguage === "English" ? "Jobs posted by you" : "आपके द्वारा पोस्ट की गई नौकरियां"}
-                </span>
+    <IonPage>
+      <IonContent>
+        <div className={isMobile ? "" : "sw"} style={{ padding: "20px" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <span style={{ fontSize: "24px", fontWeight: "bold" }}>
+              {selectedLanguage === "English"
+                ? "Jobs posted by you"
+                : "आपके द्वारा पोस्ट की गई नौकरियां"}
+            </span>
 
-                <IonButton onClick={handelPostJob}>{selectedLanguage === "English" ? "Post a job" : "नौकरी पोस्ट करें"}</IonButton>
-            </div>
+            <IonButton onClick={handelPostJob}>
+              {selectedLanguage === "English"
+                ? "Post a job"
+                : "नौकरी पोस्ट करें"}
+            </IonButton>
+          </div>
 
-            <div style={{marginTop:"20px"}}>
+          <div style={{ marginTop: "20px" }}>
             <IonToolbar>
-        <IonSegment  value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
-          <IonSegmentButton value="Active" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >{selectedLanguage === "English" ? "Active" : "सक्रिय"}</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="Inactive" >
-            <IonLabel style={{color:"#2D3F65",fontSize:"15px",fontWeight:"500"}} >{selectedLanguage === "English" ? "Inactive" : "निष्क्रिय"}</IonLabel>
-          </IonSegmentButton>
-         
-        </IonSegment>
-      </IonToolbar>
-            </div>
+              <IonSegment
+                value={selectedTab}
+                onIonChange={(e) => setSelectedTab(e.detail.value)}
+              >
+                <IonSegmentButton value="Active">
+                  <IonLabel
+                    style={{
+                      color: "#2D3F65",
+                      fontSize: "15px",
+                      fontWeight: "500",
+                    }}
+                  >
+                    {selectedLanguage === "English" ? "Active" : "सक्रिय"}
+                  </IonLabel>
+                </IonSegmentButton>
+                <IonSegmentButton value="Inactive">
+                  <IonLabel
+                    style={{
+                      color: "#2D3F65",
+                      fontSize: "15px",
+                      fontWeight: "500",
+                    }}
+                  >
+                    {selectedLanguage === "English" ? "Inactive" : "निष्क्रिय"}
+                  </IonLabel>
+                </IonSegmentButton>
+              </IonSegment>
+            </IonToolbar>
+          </div>
 
-            <div style={{marginTop:"30px",width:"95%",margin:"auto"}}>
-
-{
-    renderComponent()
-}
-
-</div>
-
-
-
-           
-
-           
-            </div>
-        </IonContent>
-     </IonPage>
-  )
-}
+          <div style={{ marginTop: "30px", width: "95%", margin: "auto" }}>
+            {renderComponent()}
+          </div>
+        </div>
+      </IonContent>
+    </IonPage>
+  );
+};

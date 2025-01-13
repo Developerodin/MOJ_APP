@@ -227,6 +227,8 @@ const Basicinfo = ({ handelContinue }) => {
 
   const handelBtnClick3 = () => {
     console.log("Form Data ==>", formData3);
+    const currentYear = new Date().getFullYear();
+    const selectedYear = new Date(formData.dob).getFullYear();
     
 
    
@@ -247,6 +249,15 @@ const Basicinfo = ({ handelContinue }) => {
       return;
     } else if (!formData3.email) {
       showToast("error", selectedLanguage === "English" ? "Email is required" : "ईमेल आवश्यक है", "");
+      return;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData3.email)) {
+      showToast("error", selectedLanguage === "English" ? "Email is not valid" : "ईमेल मान्य नहीं है", "");
+      return;
+    } else if (!formData3.dob) {
+      showToast("error", selectedLanguage === "English" ? "Date of Birth is required" : "जन्म तिथि आवश्यक है", "");
+      return;
+    } else if (selectedYear === currentYear) {
+      showToast("error", selectedLanguage === "English" ? "Date of Birth cannot be the current year" : "जन्म तिथि वर्तमान वर्ष नहीं हो सकती", "");
       return;
     }
   
@@ -497,17 +508,17 @@ const Basicinfo = ({ handelContinue }) => {
   };
 
   const AgentbtnClick = async () => {
-    if (!formValid3) {
-      console.log("Validation failed", formData3);
-            showToast("error", selectedLanguage === "English" ? "Fill the required fields" : "आवश्यक फ़ील्ड भरें", "");
-      return;
-    }
+    // if (!formValid3) {
+    //   console.log("Validation failed", formData3);
+    //         showToast("error", selectedLanguage === "English" ? "Fill the required fields" : "आवश्यक फ़ील्ड भरें", "");
+    //   return;
+    // }
   
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(formData3.email)) {
-            showToast("error", selectedLanguage === "English" ? "Email is not valid" : "ईमेल मान्य नहीं है", "");
-      return;
-    }
+    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // if (!emailPattern.test(formData3.email)) {
+    //         showToast("error", selectedLanguage === "English" ? "Email is not valid" : "ईमेल मान्य नहीं है", "");
+    //   return;
+    // }
   
     try {
       setLoading(true);
@@ -1311,6 +1322,7 @@ const Basicinfo = ({ handelContinue }) => {
         {selectedLanguage === "English"
           ? "Date of Birth"
           : "जन्म की तारीख"}
+        <span style={{ color: "red" }}>*</span>
       </label>
       <input
         className="round-input"

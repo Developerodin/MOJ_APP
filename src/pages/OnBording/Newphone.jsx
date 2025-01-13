@@ -181,14 +181,19 @@ const Newphone = () => {
                   {selectedLanguage === "English" ? "Phone Number" : "फ़ोन नंबर"}
                 </IonLabel>
                 <br />
-                <input
-                  className="round-input"
-                  type="number"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  maxLength="10"
-                />
+                                <div style={{ display: "flex", alignItems: "center", border: "1px solid #31363F", borderRadius: "50px", padding: "10px", height: "48px" }}>
+                  <span style={{ color: "#000", fontSize: "16px", marginRight: "2px"  }}>
+                    +91
+                  </span>
+                  <input
+                    style={{ width: "100%", border: "none", outline: "none", height: "100%" }}
+                    type="number"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    maxLength="10"
+                  />
+                </div>
               </div>
 
               <div style={{ marginTop: "20px" }}>

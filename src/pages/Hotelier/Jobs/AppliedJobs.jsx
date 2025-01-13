@@ -1,4 +1,5 @@
-import { IonContent, IonLabel, IonPage, IonSegment, IonSegmentButton, IonToolbar, useIonRouter } from '@ionic/react'
+import { IonContent, IonLabel, IonPage, IonSegment, IonSegmentButton, IonToolbar, useIonRouter ,IonSpinner,IonRefresher,
+  IonRefresherContent, } from '@ionic/react'
 import React, { useContext, useEffect, useState } from 'react'
 import { CandidateCard } from '../../../components/Cards/CandidateCard'
 import { isMobile } from '../../../IsMobile/IsMobile'
@@ -120,6 +121,11 @@ export const HotelierAppliedJobs = () => {
     return () => clearInterval(interval); // Clear the interval on component unmount
   }, [])
 
+  const handleRefresh = async (event) => {
+    await getJobs();
+    event.detail.complete(); 
+  };
+
   return (
     <IonPage>
         <IonContent>
@@ -129,6 +135,9 @@ export const HotelierAppliedJobs = () => {
                </div>
 
                <div style={{marginTop:"20px"}}>
+               <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+                <IonRefresherContent pullingText="Pull to refresh" refreshingSpinner="bubbles" />
+                        </IonRefresher>
             <IonToolbar>
         <IonSegment  value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
           <IonSegmentButton value="Active" >

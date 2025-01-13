@@ -33,7 +33,17 @@ export const InterestedCandidates = () => {
         });
 
         if (response.data && Array.isArray(response.data.Job)) {
-          setCandidates(response.data.Job); // Assuming response.data.Job is an array of candidates
+          let candidateData = response.data.Job;
+
+          // Sort candidates by latest created_at
+          candidateData = candidateData.sort((a, b) => {
+            const dateA = a.user ? new Date(a.user.created_at) : new Date(0);
+            const dateB = b.user ? new Date(b.user.created_at) : new Date(0);
+            return dateB - dateA;
+          });
+          console.log("Fetched candidates:", candidateData);
+
+          setCandidates(candidateData); // Assuming response.data.Job is an array of candidates
         } else {
           console.error("Unexpected response structure:", response.data);
         }

@@ -26,6 +26,7 @@ const PersonalChat = () => {
   const [userData, setUserData] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [lastMessageTime, setLastMessageTime] = useState("");
   const history = useIonRouter();
   const { id } = useParams();
   const location = useLocation();
@@ -172,10 +173,18 @@ const PersonalChat = () => {
         console.log("Filtered messages:", filteredMessages);
         setMessages(filteredMessages);
 
+        if (filteredMessages.length > 0) {
+          const lastMessage = filteredMessages[filteredMessages.length - 1];
+          setLastMessageTime(lastMessage.sent_at);
+        } 
+
     } catch (error) {
         console.error(`Error getting all messages: ${error}`);
     }
 };
+
+
+
 
   
 
@@ -224,6 +233,15 @@ const PersonalChat = () => {
     }
   }, [messages]);
 
+  const formatTime = (timeString) => {
+    const date = new Date(timeString);
+    return new Intl.DateTimeFormat('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    }).format(date);
+  };
+
   return (
     <IonPage>
       <IonContent>
@@ -256,9 +274,9 @@ const PersonalChat = () => {
                   </IonText>
                 </div>
                 <div>
-                  {/* <IonText style={{ fontSize: "11px", color: "grey" }}>
-                    12 min ago
-                  </IonText> */}
+                <IonText style={{ fontSize: "11px", color: "grey" }}>
+        {lastMessageTime ? formatTime(lastMessageTime) : "12 min ago"}
+      </IonText>
                 </div>
               </div>
             </div>

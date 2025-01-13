@@ -126,18 +126,20 @@ export const AgentPersonalDetails = () => {
   };
 
   const UpdateUser = async () => {
-    if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.gender ||
-      !formData.email ||
-      !selectedState ||
-      !selectedCity ||
-      !formData.address ||
-      !formData.dob ||
-      !pincode
-    ) {
-      showToast("error", "All fields are mandatory", "");
+       if (!formData.firstName) {
+      showToast("error", selectedLanguage === "English" ? "First name is required" : "पहला नाम आवश्यक है", "");
+      return;
+    } else if (!formData.lastName) {
+      showToast("error", selectedLanguage === "English" ? "Last name is required" : "अंतिम नाम आवश्यक है", "");
+      return;
+    } else if (!formData.gender) {
+      showToast("error", selectedLanguage === "English" ? "Gender is required" : "लिंग आवश्यक है", "");
+      return;
+    } else if (!formData.email) {
+      showToast("error", selectedLanguage === "English" ? "Email is required" : "ईमेल आवश्यक है", "");
+      return;
+    } else if (!formData.dob) {
+      showToast("error", selectedLanguage === "English" ? "Date of birth is required" : "जन्म तिथि आवश्यक है", "");
       return;
     }
   
@@ -174,7 +176,7 @@ export const AgentPersonalDetails = () => {
       if (data.status === "success") {
         localStorage.setItem("userDetails", JSON.stringify(data.user));
         setupdate((prev) => prev + 1);
-        showToast("success", "Personal Details updated", "");
+                showToast("success", selectedLanguage === "English" ? "Personal Details updated" : "व्यक्तिगत जानकारी अपडेट की गई", "");
         setProfileHealthUpdate((prev) => prev + 1);
         history.goBack();
         return;
@@ -463,7 +465,7 @@ export const AgentPersonalDetails = () => {
                       }}
                     >
                       {selectedLanguage === "English" ? "Address" : "पता"}
-                      <span style={{ color: "red" }}>*</span>
+                      {/* <span style={{ color: "red" }}>*</span> */}
                     </label>
                     {/* <IonItem> */}
                     <input
@@ -488,7 +490,7 @@ export const AgentPersonalDetails = () => {
                       }}
                     >
                       {selectedLanguage === "English" ? "Pincode" : "पिन कोड"}
-                      <span style={{ color: "red" }}>*</span>
+                      {/* <span style={{ color: "red" }}>*</span> */}
                     </label>
                     {/* <IonItem> */}
                     <input
@@ -513,7 +515,7 @@ export const AgentPersonalDetails = () => {
                       }}
                     >
                       {selectedLanguage === "English" ? "State" : "राज्य"}
-                      <span style={{ color: "red" }}>*</span>
+                      {/* <span style={{ color: "red" }}>*</span> */}
                     </label>
                     <div
                     // style={{
@@ -572,7 +574,7 @@ export const AgentPersonalDetails = () => {
                         }}
                       >
                         {selectedLanguage === "English" ? "City" : "शहर"}
-                        <span style={{ color: "red" }}>*</span>
+                        {/* <span style={{ color: "red" }}>*</span> */}
                       </label>
 
                       <div onClick={handelCityModelOpen}>
@@ -616,7 +618,7 @@ export const AgentPersonalDetails = () => {
         }}
       >
         {selectedLanguage === "English" ? "GSTIN" : "जस्टिन"}
-        <span style={{ color: "red" }}>*</span>
+        {/* <span style={{ color: "red" }}>*</span> */}
       </label>
       <input
         className="round-input"
@@ -641,7 +643,7 @@ export const AgentPersonalDetails = () => {
         {selectedLanguage === "English"
           ? "Firm Name"
           : "फर्म का नाम"}
-          <span style={{ color: "red" }}>*</span>
+          {/* <span style={{ color: "red" }}>*</span> */}
       </label>
       <input
         className="round-input"
