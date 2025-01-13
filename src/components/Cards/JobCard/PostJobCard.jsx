@@ -1,5 +1,5 @@
 import { IonCard, IonCardContent, IonIcon, IonToggle } from '@ionic/react'
-import { bookmark, locationOutline } from 'ionicons/icons'
+import { bookmark, locationOutline, trashOutline } from 'ionicons/icons'
 import React, { useContext } from 'react'
 import book from "/assets/book.png";
 import { AppContext } from '../../../Context/AppContext';
@@ -73,6 +73,51 @@ export const PostJobCard = ({fun,data}) => {
     }
   };
 
+  const handelJobDelete = ()=>{
+    DeleteJob();
+  }
+  const DeleteJob = async () => {
+    try {
+      
+      
+      const url = `${Base_url}job/delete/${data.id}`;
+      console.log("In Cahnge status 2==>")
+      const formData1 = new FormData();
+      formData1.append('status', "0");
+      
+    
+
+      const response = await axios.post(url,formData1,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // "Authorization" :`Berear ${token}`,
+     
+        }
+      });
+      const data1 = response.data
+          console.log("Response check work experience",data1,response)
+          
+            // if(data === "otp in valid"){
+            //   showToast("error", "wrong otp", "");
+            //   return;
+            // }
+
+       
+              showToast("success", "updated", "");
+              setJobUpdate((prev)=>prev+1)
+              return
+          
+          
+
+            
+         
+          
+    } catch (error) {
+      console.error('Error:', error);
+      showToast("error", "Try After Some Time", "");
+    }
+  };
+
 
 
   return (
@@ -134,8 +179,14 @@ export const PostJobCard = ({fun,data}) => {
         </div>
       </div>
         
-        <div style={{position:"absolute",top:20,right:20}}>
+        <div style={{position:"absolute",top:20,right:10}}>
         <IonToggle onIonChange={handleToggleChange} checked={data && data.status==="1" ? true : false} />
+        </div>
+
+
+        <div onClick={handelJobDelete} style={{position:"absolute",bottom:20,right:10}}>
+        <IonIcon icon={trashOutline}  style={{color:"crimson",fontSize:"28px",fontWeight:"bold"}} />
+        
         </div>
 
 
